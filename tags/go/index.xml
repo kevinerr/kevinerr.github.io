@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>go on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/go/</link>
+    <description>Recent content in go on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 17 Mar 2022 12:04:29 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zinx Learn</title>
+      <link>https://kevinerr.github.io/posts/tech/zinx-learn/</link>
+      <pubDate>Thu, 17 Mar 2022 12:04:29 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/zinx-learn/</guid>
+      <description>代码 MMO游戏 大型多人在线游戏</description>
+    </item>
+    
+    <item>
+      <title>go教程</title>
+      <link>https://kevinerr.github.io/posts/tech/go%E6%95%99%E7%A8%8B/</link>
+      <pubDate>Mon, 14 Feb 2022 20:51:37 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/go%E6%95%99%E7%A8%8B/</guid>
+      <description>四种变量声明 const和iota 多返回值 init函数 import导包 指针 defer 数组/动态数组</description>
+    </item>
+    
+  </channel>
+</rss>

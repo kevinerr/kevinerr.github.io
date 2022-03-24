@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>排序 on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/%E6%8E%92%E5%BA%8F/</link>
+    <description>Recent content in 排序 on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 23 Mar 2022 20:32:32 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/%E6%8E%92%E5%BA%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>排序</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E6%8E%92%E5%BA%8F/</link>
+      <pubDate>Wed, 23 Mar 2022 20:32:32 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E6%8E%92%E5%BA%8F/</guid>
+      <description>排序的问题基本都是让我们利用各种排序的思想去解决其他问题的 快排 思想 快速排序所采用的思想是分治的思想。所谓分治，就是指以一个数为基准，将序列中</description>
+    </item>
+    
+  </channel>
+</rss>

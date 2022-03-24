@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>搜索引擎 on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/</link>
+    <description>Recent content in 搜索引擎 on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 12 Jun 2021 13:05:23 +0000</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ElasticSearch</title>
+      <link>https://kevinerr.github.io/posts/tech/elasticsearch/</link>
+      <pubDate>Sat, 12 Jun 2021 13:05:23 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/elasticsearch/</guid>
+      <description>ElasticSearch Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎 安装环境 1 2 3 4 ElasticSearch: https://mirrors.huaweicloud.com/elasticsearch/?C=N&amp;amp;O=D logstash: https://mirrors.huaweicloud.com/logstash/?C=N&amp;amp;O=D kibana: https://mirrors.huaweicloud.com/kibana/?C=N&amp;amp;O=D ik分词器：https://github.com/med</description>
+    </item>
+    
+  </channel>
+</rss>

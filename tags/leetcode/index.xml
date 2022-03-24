@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>leetcode on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/leetcode/</link>
+    <description>Recent content in leetcode on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 15 Mar 2022 16:51:32 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Leetcode_hot100</title>
+      <link>https://kevinerr.github.io/posts/algorithm/leetcode_hot100/</link>
+      <pubDate>Tue, 15 Mar 2022 16:51:32 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/leetcode_hot100/</guid>
+      <description>简单模块 1、两数之和 简单题，用unordered_map&amp;lt;int,int&amp;gt; um;key为值，value为数组下标 遍历一遍，看um</description>
+    </item>
+    
+  </channel>
+</rss>

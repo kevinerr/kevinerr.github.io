@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>🏖生活 on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/posts/life/</link>
+    <description>Recent content in 🏖生活 on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 28 May 2021 22:38:52 +0000</lastBuildDate><atom:link href="https://kevinerr.github.io/posts/life/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>非常有用的小tips</title>
+      <link>https://kevinerr.github.io/posts/life/%E9%9D%9E%E5%B8%B8%E6%9C%89%E7%94%A8%E7%9A%84%E5%B0%8Ftips/</link>
+      <pubDate>Fri, 28 May 2021 22:38:52 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/life/%E9%9D%9E%E5%B8%B8%E6%9C%89%E7%94%A8%E7%9A%84%E5%B0%8Ftips/</guid>
+      <description>正版office 官网 使用方法 激活windows 以管理员身份运行cmd slmgr /ipk W269N-WFGWX-YVC9B-4J6C9-T83GX slmgr /skms kms.03k.org slmgr /ato 重装系统 下载window10镜像 安装pe系统 进入BIOS</description>
+    </item>
+    
+    <item>
+      <title>ps</title>
+      <link>https://kevinerr.github.io/posts/life/ps/</link>
+      <pubDate>Mon, 24 May 2021 23:03:43 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/life/ps/</guid>
+      <description>工具面板 文字T键入——放大镜（Alt切换）——抓手（移动画布）；Ctrl+0以最大呈现 新建工作区：导航器，画笔，字符 图层面板 混合模式：滤色（</description>
+    </item>
+    
+    <item>
+      <title>湘宝的专属经验帖</title>
+      <link>https://kevinerr.github.io/posts/life/%E7%BB%8F%E9%AA%8C%E5%B8%96/</link>
+      <pubDate>Fri, 07 May 2021 11:17:49 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/life/%E7%BB%8F%E9%AA%8C%E5%B8%96/</guid>
+      <description>说在前面的话 考研群 关于考研群可以多加几个，获取最新资料的途径。例如肖四的精简背诵版，肖四的盗版等等。也可以看看群员讨论的题目，有时也可以参与</description>
+    </item>
+    
+    <item>
+      <title>摄影</title>
+      <link>https://kevinerr.github.io/posts/life/%E6%91%84%E5%BD%B1/</link>
+      <pubDate>Wed, 07 Apr 2021 23:13:43 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/life/%E6%91%84%E5%BD%B1/</guid>
+      <description>快门速度、iso以及光圈数值 快门速度：相机左下角的参数就是快门速度，指快门打开到闭合所需要的时间。快门速度越快，你定格的时间越短，比如：快门</description>
+    </item>
+    
+  </channel>
+</rss>

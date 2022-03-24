@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>👨🏻‍💻技术 on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/posts/tech/</link>
+    <description>Recent content in 👨🏻‍💻技术 on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 17 Mar 2022 12:04:29 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/posts/tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zinx Learn</title>
+      <link>https://kevinerr.github.io/posts/tech/zinx-learn/</link>
+      <pubDate>Thu, 17 Mar 2022 12:04:29 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/zinx-learn/</guid>
+      <description>代码 MMO游戏 大型多人在线游戏</description>
+    </item>
+    
+    <item>
+      <title>nginx</title>
+      <link>https://kevinerr.github.io/posts/tech/nginx/</link>
+      <pubDate>Mon, 07 Mar 2022 09:15:30 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/nginx/</guid>
+      <description>简介 Nginx 是高性能的 HTTP 和反向代理的服务器，处理高并发能力是十分强大的，能经受高负载的考验,有报告表明能支持高达 50,000 个并发连接数。 三大功能 反向代理 负</description>
+    </item>
+    
+    <item>
+      <title>go教程</title>
+      <link>https://kevinerr.github.io/posts/tech/go%E6%95%99%E7%A8%8B/</link>
+      <pubDate>Mon, 14 Feb 2022 20:51:37 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/go%E6%95%99%E7%A8%8B/</guid>
+      <description>四种变量声明 const和iota 多返回值 init函数 import导包 指针 defer 数组/动态数组</description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://kevinerr.github.io/posts/tech/docker/</link>
+      <pubDate>Wed, 09 Feb 2022 18:55:50 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/docker/</guid>
+      <description>docker官方文档 https://zhuanlan.zhihu.com/p/187505981 docker安装 卸载旧版本 1 2 3 4 5 6 7 8 sudo yum remove docker \ docker-client \ docker-client-latest \ docker-common \ docker-latest \ docker-latest-logrotate \ docker-logrotate \ docker-engine 2.安装yum-utils 1 sudo yum install -y yum-utils 3</description>
+    </item>
+    
+    <item>
+      <title>springmvc</title>
+      <link>https://kevinerr.github.io/posts/tech/springmvc/</link>
+      <pubDate>Sun, 30 Jan 2022 21:12:40 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/springmvc/</guid>
+      <description>SpringMVC SpringMVC核心组件 SpringMVC工作流程 开发流程 视图解析器前缀后缀写反了 RequestMapping Cookie</description>
+    </item>
+    
+    <item>
+      <title>javaweb</title>
+      <link>https://kevinerr.github.io/posts/tech/javaweb/</link>
+      <pubDate>Thu, 20 Jan 2022 21:01:10 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/javaweb/</guid>
+      <description>Servlet Tomcat 定义 servlet的生命周期 ServletConfig/ServletContext servlet的层次结构 JSP 定义 JSP嵌入java的三种方式 JSP9个内置对象 request常用方法 重定向和</description>
+    </item>
+    
+    <item>
+      <title>java笔试</title>
+      <link>https://kevinerr.github.io/posts/tech/java%E7%AC%94%E8%AF%95/</link>
+      <pubDate>Fri, 19 Nov 2021 13:33:28 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/java%E7%AC%94%E8%AF%95/</guid>
+      <description>自增变量 单例模式 类初始化和实例初始化（子类的重写 方法参数的传递机制 递归与循环迭代 成员变量/局部变量 Spring Bean的作用域 Spring支持的常用数</description>
+    </item>
+    
+    <item>
+      <title>mybatis</title>
+      <link>https://kevinerr.github.io/posts/tech/mybatis/</link>
+      <pubDate>Thu, 24 Jun 2021 22:40:31 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/mybatis/</guid>
+      <description>MyBatis的工作原理 Mybatis 缓存</description>
+    </item>
+    
+    <item>
+      <title>中间件</title>
+      <link>https://kevinerr.github.io/posts/tech/%E4%B8%AD%E9%97%B4%E4%BB%B6/</link>
+      <pubDate>Thu, 17 Jun 2021 16:21:55 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E4%B8%AD%E9%97%B4%E4%BB%B6/</guid>
+      <description>什么是中间件 中间件（Middleware）是处于操作系统和应用程序之间的软件，人们在使用中间件时，往往是一组中间件集成在一起，构成一个平台。</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch</title>
+      <link>https://kevinerr.github.io/posts/tech/elasticsearch/</link>
+      <pubDate>Sat, 12 Jun 2021 13:05:23 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/elasticsearch/</guid>
+      <description>ElasticSearch Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎 安装环境 1 2 3 4 ElasticSearch: https://mirrors.huaweicloud.com/elasticsearch/?C=N&amp;amp;O=D logstash: https://mirrors.huaweicloud.com/logstash/?C=N&amp;amp;O=D kibana: https://mirrors.huaweicloud.com/kibana/?C=N&amp;amp;O=D ik分词器：https://github.com/med</description>
+    </item>
+    
+    <item>
+      <title>springcloud</title>
+      <link>https://kevinerr.github.io/posts/tech/springcloud/</link>
+      <pubDate>Fri, 09 Apr 2021 23:41:21 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/springcloud/</guid>
+      <description>Eureka Spring Cloud Eureka是Spring Cloud Netflix 子项目的核心组件之一，主要用于微服务架构中的服务治理。本文将对搭建Eureka注册中心，搭建Eureka</description>
+    </item>
+    
+    <item>
+      <title>数据库</title>
+      <link>https://kevinerr.github.io/posts/tech/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <pubDate>Mon, 22 Mar 2021 12:55:01 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description>数据库引擎 MyISAM：表锁，并发量较小，不支持事务，不支持外键（性能更优，占用的存储空间少，MYISAM拥有全文索引的功能，这可以极大地优</description>
+    </item>
+    
+    <item>
+      <title>操作系统</title>
+      <link>https://kevinerr.github.io/posts/tech/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Sun, 21 Mar 2021 23:55:27 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
+      <description>概述 并发、共享、虚拟、异步 计算机系统资源的管理者；用户与计算机硬件之间的接口；扩充机器（工人） 进程/线程 1、进程是什么？ 是具有一定独立功能的</description>
+    </item>
+    
+    <item>
+      <title>计算机网络</title>
+      <link>https://kevinerr.github.io/posts/tech/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link>
+      <pubDate>Sun, 21 Mar 2021 20:05:10 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid>
+      <description>网络的功能 计算机网络的功能主要体现在资源共享、数据通信和分布式处理三个方面。资源共享是计算机网络用户提供的最主要的功能，资源是指在有限时间内</description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://kevinerr.github.io/posts/tech/linux/</link>
+      <pubDate>Thu, 18 Mar 2021 22:01:23 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/linux/</guid>
+      <description>Linux常用命令 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 打包并压缩文件:“tar -czvf 压缩包名.tar.gz 文件名” 解压并展开压缩包:“tar -xzvf</description>
+    </item>
+    
+    <item>
+      <title>设计模式</title>
+      <link>https://kevinerr.github.io/posts/tech/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Thu, 18 Mar 2021 21:52:15 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>好东西 设计模式的原则 1、开闭原则（Open Close Principle） 开闭原则的意思是：对扩展开放，对修改关闭。在程序需要进行拓展的时候，不能去修</description>
+    </item>
+    
+    <item>
+      <title>并发/多线程</title>
+      <link>https://kevinerr.github.io/posts/tech/%E5%B9%B6%E5%8F%91-%E5%A4%9A%E7%BA%BF%E7%A8%8B/</link>
+      <pubDate>Thu, 18 Mar 2021 21:46:48 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E5%B9%B6%E5%8F%91-%E5%A4%9A%E7%BA%BF%E7%A8%8B/</guid>
+      <description>并发编程基础 线程会带来额外的开销，如cpu调度 继承thread类，重写run()方法，调用start()开启线程 run() 只有主线程一条执行路径；s</description>
+    </item>
+    
+    <item>
+      <title>Java基础</title>
+      <link>https://kevinerr.github.io/posts/tech/java%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Thu, 18 Mar 2021 17:00:07 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/java%E5%9F%BA%E7%A1%80/</guid>
+      <description>基础语法 对象：对象是类的一个实例，有状态和行为。例如，一条狗是一个对象，它的状态有：颜色、名字、品种；行为有：摇尾巴、叫、吃等。 类：类是一个</description>
+    </item>
+    
+    <item>
+      <title>spring</title>
+      <link>https://kevinerr.github.io/posts/tech/spring/</link>
+      <pubDate>Wed, 17 Mar 2021 19:22:02 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/spring/</guid>
+      <description>SSH Struts+Spring+Hibernate SSM SpringMVC+Spring+Mybatis ORM ORM就是对象关系匹配，是为了解决面向对象与关系数据库存在的互不匹配的问题。简单来说，就是把关系数据库中的数据转换成面向对象程序中</description>
+    </item>
+    
+    <item>
+      <title>redis学习笔记</title>
+      <link>https://kevinerr.github.io/posts/tech/redis/</link>
+      <pubDate>Tue, 16 Mar 2021 14:47:25 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/redis/</guid>
+      <description>Redis(remote dictionary server) 远程字典服务 干什么 内存存储、持久化，内存中是断电即失，所以持久化很重要（rdb、aof） 效率高，用于高速缓存 发布订阅系统 地图信息分析 消</description>
+    </item>
+    
+    <item>
+      <title>jvm</title>
+      <link>https://kevinerr.github.io/posts/tech/jvm/</link>
+      <pubDate>Mon, 15 Mar 2021 19:13:13 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/jvm/</guid>
+      <description>面试问题 谈谈对JVM的理解？java8虚拟机和以前有什么区别 什么是OOM？什么是栈溢出StackOverFlowError？ JVM的常用调优</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://kevinerr.github.io/posts/tech/latex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/latex/</guid>
+      <description>1 2 3 4 5 6 7 pdflatex test.tex #不允许有中文 xelatex test.tex #通用 texdoc #打开文档 texdoc ctex texdoc lshort-zh-ch texdoc symbols-a4 texdoc beame</description>
+    </item>
+    
+  </channel>
+</rss>

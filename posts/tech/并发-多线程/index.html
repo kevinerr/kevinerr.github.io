@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>并发/多线程 | hkh&#39;s Blog</title>
+<meta name="keywords" content="juc, java" />
+<meta name="description" content="并发编程基础 线程会带来额外的开销，如cpu调度 继承thread类，重写run()方法，调用start()开启线程 run() 只有主线程一条执行路径；s">
+<meta name="author" content="
+作者:&nbsp;kevin">
+<link rel="canonical" href="https://kevinerr.github.io/posts/tech/%E5%B9%B6%E5%8F%91-%E5%A4%9A%E7%BA%BF%E7%A8%8B/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.7724ad4800b622e9e86a37940cdc71441089d486cd46f35de38fdd833dd93d2f.css" integrity="sha256-dyStSAC2IunoajeUDNxxRBCJ1IbNRvNd44/dgz3ZPS8=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="16x16" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="apple-touch-icon" href="https://kevinerr.github.io/Q.jpg">
+<link rel="mask-icon" href="https://kevinerr.github.io/Q.jpg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.94.2" />
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="并发/多线程" />
+<meta property="og:description" content="并发编程基础 线程会带来额外的开销，如cpu调度 继承thread类，重写run()方法，调用start()开启线程 run() 只有主线程一条执行路径；s" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kevinerr.github.io/posts/tech/%E5%B9%B6%E5%8F%91-%E5%A4%9A%E7%BA%BF%E7%A8%8B/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-18T21:46:48&#43;00:00" />
+<meta property="article:modified_time" content="2021-03-18T21:46:48&#43;00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="并发/多线程"/>
+<meta name="twitter:description" content="并发编程基础 线程会带来额外的开销，如cpu调度 继承thread类，重写run()方法，调用start()开启线程 run() 只有主线程一条执行路径；s"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "📚文章",
+      "item": "https://kevinerr.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "👨🏻‍💻技术",
+      "item": "https://kevinerr.github.io/posts/tech/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "并发/多线程",
+      "item": "https://kevinerr.github.io/posts/tech/%E5%B9%B6%E5%8F%91-%E5%A4%9A%E7%BA%BF%E7%A8%8B/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "并发/多线程",
+  "name": "并发\/多线程",
+  "description": "并发编程基础 线程会带来额外的开销，如cpu调度 继承thread类，重写run()方法，调用start()开启线程 run() 只有主线程一条执行路径；s",
+  "keywords": [
+    "juc", "java"
+  ],
+  "articleBody": "并发编程基础 线程会带来额外的开销，如cpu调度\n继承thread类，重写run()方法，调用start()开启线程\nrun() 只有主线程一条执行路径；start()多条执行路径，主线程和子线程并行交替执行。\n实现runnable接口\n实现callable接口（FutureTask，可以通过get阻塞获取线程结果）\njava默认2个线程：main和gc\njava无法开启线程，只能调用底层c++，无法操作硬件\n并发：cpu一核（充分利用cpu资源） 并行：cpu多核\n线程有几个状态 1 2 3 4 5 6  NEW, //新生 RUNNABLE, BLOCKED, //阻塞 WAITING, TIMED_WAITING, //超时等待 TERMINATED; //终止   wait/sleep区别 1、wait()方法属于Object类,sleep()属于Thread类；\n2、wait()方法释放cpu给其他线程，自己让出资源进入等待池等待；sleep占用cpu，不让出资源；\n3、sleep()必须指定时间，wait()可以指定时间也可以不指定；sleep()时间到，线程处于临时阻塞或运行状态；\n4、wait()方法会释放持有的锁，不然其他线程不能进入同步方法或同步块，从而不能调用notify(),notifyAll()方法来唤醒线程，产生死锁，所以释放锁，可以执行其他线程，也可以唤醒自己，只是设置停止自己的时间时不确定的；sleep方法不会释放持有的锁，设置sleep的时间是确定的会按时执行的；\n5、wait()方法只能在同步方法或同步代码块中调用，否则会报illegalMonitorStateException异常，如果没有设定时间，使用notify()来唤醒；而sleep()能在任何地方调用，必须捕获异常；\n线程礼让 yield()  礼让线程,让当前正在执行的线程暂停,但不阻塞 将线程从运行状态转为就绪状态 让CPU重新调度,礼让不一定成功,看CPU心情  线程强制执行 join()  Join合并线程,待此线程执行完成后,在执行其他线程,其他线程阻塞 可以想象成插队  集合类 Vector：jdk1.0就有，加锁\nArrayList ：jdk1.2才有，不加锁\n1 2 3 4 5 6  Collections.synchronizedList(new ArrayList());   CopyOnWriteArrayList //修改副本，替换引用  HashSet 底层HashMap add时只添加key value是一个PRESENT的定值   线程池 三大方法，七大参数，四种拒绝策略\n程序的运行，本质：占用系统的资源 优化资源的使用 =》 池化技术\n线程池、连接池、内存池、对象池。。。 池化技术：事先准备好一些资源，有人要用，就来我这里拿，用完之后还我。\n三大方法 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  //固定线程数池 core = max，都不可回收 ExecutorService executorService = Executors.newFixedThreadPool(5); //单例线程池 单线程线程池，后台从队列里获取任务，挨个执行 ExecutorService executorService1 = Executors.newSingleThreadExecutor(); //缓存线程数池 core是0，所有都可回收 ExecutorService executorService2 = Executors.newCachedThreadPool();  try {  for (int i = 0; i  executorService.execute(()-{  System.out.println(Thread.currentThread().getName()+\" ok\");  });  } } catch (Exception e) {  e.printStackTrace(); }finally{  //线程池用完，程序结束，关闭线程池  executorService1.shutdown(); }   七大参数 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26  corePoolSize 核心线程数  //获取cpu核心 System.out.println(Runtime.getRuntime().availableProcessors()); ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(  2,// 核心线程数  Runtime.getRuntime().availableProcessors(),// 最大核心线程数  3,// 超时时间  TimeUnit.SECONDS,// 超时单位  new LinkedBlockingDeque(3),// 阻塞队列  Executors.defaultThreadFactory(),// 默认线程工厂，不用动它  new ThreadPoolExecutor.AbortPolicy() //线程池处理不过来就抛出异常(拒绝策略) ); try {  //最大承载：deque+max  for (int i = 0; i  threadPoolExecutor.execute(()-{  System.out.println(Thread.currentThread().getName()+\" ok\");  });  } } catch (Exception e) {  e.printStackTrace(); }finally{  //线程池用完，程序结束，关闭线程池  threadPoolExecutor.shutdown(); }   四种拒绝策略 1 2 3 4 5 6 7  new ThreadPoolExecutor.AbortPolicy() 线程池处理不过来就抛出异常  new ThreadPoolExecutor.CallerRunsPolicy() 哪来的去哪里；它直接在 execute 方法的调用线程中运行被拒绝的任务；如果执行程序已关闭，则会丢弃该任务  new ThreadPoolExecutor.DiscardPolicy() 队列满了，丢掉任务，不会抛异常  new ThreadPoolExecutor.DiscardOldestPolicy() 抛弃最老的    降低资源的消耗 提高响应的速度 方便管理  线程复用、可以控制最大并发数、管理线程\n1  System.out.println(Runtime.getRuntime().availableProcessors()); //h   最大线程数怎么定义：\n cpu 密集型 ：几核，就是几，可以保持cpu的效率最高 io 密集型 ：判断你程序中十分耗费io的线程  CompletableFuture异步编排 https://www.jianshu.com/p/934057982c25\nLock锁 公平锁和非公平锁 可重入锁（递归锁） 自旋锁 读写锁 synchronized和Lock锁区别 　1、首先synchronized是java内置关键字，Lock是个java类；\n　2、synchronized无法判断是否获取锁的状态，Lock可以判断是否获取到锁；\n　3、synchronized会自动释放锁(a 线程执行完同步代码会释放锁 ；b 线程执行过程中发生异常会释放锁)，Lock需在finally中手工释放锁（unlock()方法释放锁），否则容易造成线程死锁；\n　4、用synchronized关键字的两个线程1和线程2，如果当前线程1获得锁，线程2线程等待。如果线程1阻塞，线程2则会一直等待下去，而Lock锁就不一定会等待下去，如果尝试获取不到锁，线程可以不用一直等待就结束了；\n　5、synchronized的锁可重入、不可中断、非公平，而Lock锁可重入、可判断、可公平（两者皆可）；\n　6、synchronized锁适合代码少量的同步问题，Lock锁适合大量同步的代码的同步问题。\n生产者消费者问题 所谓的生产者消费者问题，是通过一个容器来解决生产者和消费者的强耦合问题。通俗的讲，就是生产者在不断的生产，消费者也在不断的消费，可是消费者消费的产品是生产者生产的，这就必然存在一个中间容器，我们可以把这个容器想象成是一个货架，当货架空的时候，生产者要生产产品，此时消费者在等待生产者往货架上生产产品，而当货架满的时候，消费者可以从货架上拿走商品，生产者此时等待货架的空位，这样不断的循环。那么在这个过程中，生产者和消费者是不直接接触的，所谓的‘货架’其实就是一个阻塞队列，生产者生产的产品不直接给消费者消费，而是仍给阻塞队列，这个阻塞队列就是来解决生产者消费者的强耦合的。就是生产者消费者问题。\n回忆 synchronized 关键字，它配合 Object 的 wait()、notify() 系列方法可以实现等待/通知模式。对于 Lock，通过 Condition 也可以实现等待/通知模式。Condition是在java 1.5中才出现的，它用来替代传统的Object的wait()、notify()实现线程间的协作，相比使用Object的wait()、notify()，使用Condition的await()、signal()这种方式实现线程间协作更加安全和高效。\nif只判断一次，虚假唤醒，一般使用while\n经典8锁问题 1、new this 调用的是这个对象，是一个具体的对象！ 2、static class 唯一的一个模板！ 在我们编写多线程程序得时候，只需要搞明白这个到底锁的是什么就不会出错了！\n安全类 并发下ArrayList是不安全的，Vector是安全的\n1 2 3 4 5 6  //解决办法 List list2 = new Vector(); 使用synchronized List list1 = Collections.synchronizedList(new ArrayList()); List list3 = new CopyOnWriteArrayList(); //CopyOnWrite 写入时复制 COW计算机程序设计的一种优化策略，再写入时避免覆盖 //我们都知道Vector是增删改查方法都加了synchronized，保证同步，但是每个方法执行的时候都要去获得锁，性能就会大大下降，而CopyOnWriteArrayList 只是在增删改上加锁，但是读不加锁，在读方面的性能就好于Vector，CopyOnWriteArrayList支持读多写少的并发情况。   Set不安全\n1 2 3  Set set = new HashSet(); Set set1 = Collections.synchronizedSet(new HashSet()); Set set2 = new CopyOnWriteArraySet();   HashSet的底层就是HashMap\nHashMap不安全\n1 2 3  Map map= new HashMap(16,0.75); Map map= new HashMap(); Map map1= new ConcurrentHashMap();   callable Callable 和 Runnable 的使用方法大同小异， 区别在于： 1.Callable 使用 call（） 方法， Runnable 使用 run() 方法 2.call() 可以返回值， 而 run()方法不能返回。 3.call() 可以抛出受检查的异常，比如ClassNotFoundException， 而run()不能抛出受检查的异常。\n通过FutureTask和Runnable 挂上关系\n三大常用辅助类 CountDownLatch（减法计数器） 说明： 一个线程等待其他线程执行完之后再执行，相当于加强版的join，在初始化CountDownLatch是需要设定计数器的数值（计数器数据不一定跟线程数相同，但是一定计数器的值一定是要大于等于线程数，一个线程中可以进行多次扣减。当计数器扣减至0时才可继续向下执行）\n举例说明： 比如LOL在游戏开始时需要玩家全部准备完毕之后才开始，开始游戏可以理解为“主线程”，玩家准备理解为“其他线程”，在“其他线程”没有准备完毕之前，“主线程时等待状态”，当“其他线程”准备完毕之后“主线程”就会执行下一步开始游戏的动作\n1 2 3  private static CountDownLatch countDownLatsh = new CountDownLatch(5); countDownLatsh.countDown(); countDownLatsh.await();   CyclicBarrier（加法计数器） 说明： 让一组线程到达某个屏障，然后被阻塞，一直到最后一个线程到达屏障，然后屏障开放，所有被阻塞的线程继续执行，计数器与线程数相等。 CyclicBarrier(int parties, Runnable barrierAction) 当时使用这个构造函数时，barrierAction定义的任务会执行\n集齐7科龙珠召唤神龙\n1 2  private static CyclicBarrier cyclicBarrier = new CyclicBarrier(5); cyclicBarrier.await();   Semaphore（限流的时候用） 1 2 3  private static final Semaphore semaphore=new Semaphore(3); semaphore.acquire(); semaphore.release();   相当于os中的资源量，得到/释放\nReadWriteLock 假设有个数据对象拥有写方法与读方法，多线程环境中要想保证数据的安全，需对该对象的读写方法都要加入 synchronized同步块。这样任何线程在写入时，其它线程无法读取与改变数据；如果有线程在读取时，其他线程也无法读取或写入。这种方式在写入操作远大于读操作时，问题不大，而当读取远远大于写入时，会造成性能瓶颈，因为此种情况下读取操作是可以同时进行的，而加锁操作限制了数据的并发读取。\n​ ReadWriteLock解决了这个问题，当写操作时，其他线程无法读取或写入数据，而当读操作时，其它线程无法写入数据，但却可以读取数据 。\n1 2 3 4 5 6 7  ReadWriteLock lock = new ReentrantReadWriteLock(); Lock read = lock.readLock(); Lock write = lock.writeLock(); write.lock(); write.unlock(); read.lock(); read.unlock();   独占锁（写锁）：一次只能被一个线程占有\n共享锁（读锁）：多个线程可以同时占有\nBlockingQueue（阻塞队列） 多线程并发处理，线程池\n   方式 抛出异常 有返回值，不会抛出异常 阻塞等待 超时等待     添加 add() offer() put() offer(object , long , TimeUnit)   移除 remove() poll() take() poll(long , TimeUnit)   检测队首元素 element() peek() - -    1  BlockingQueue queue = new ArrayBlockingQueue(3);   SynchronousQueue（同步队列） 没有容量\n进去一个元素必须等它出来才能再加一个元素\n1  SynchronousQueue synchronousQueue = new SynchronousQueue();   四大函数式接口 新时代的程序员：lambda表达式、函数式接口、Stream流式计算、链式编程、异步调用\nlambda表达式 基本语法: (parameters) - expression 或 (parameters) -{ statements; }\nLambda表达式由三部分组成：\nparamaters：类似方法中的形参列表，这里的参数是函数式接口里的参数。这里的参数类型可以明确的声明也可不声明而由JVM隐含的推断。另外当只有一个推断类型时可以省略掉圆括号。 -：可理解为“被用于”的意思 statements：可以是表达式也可以代码块，是函数式接口里方法的实现。代码块可返回一个值或者什么都不反回，这里的代码块块等同于方法的方法体。如果是表达式，也可以返回一个值或者什么都不反回。\n1 2 3 4 5 6 7 8 9 10  public static void main(String[] args) { // Functionfunction = new Function() { // @Override // public String apply(String str) { // return str; // } // };  Functionfunction = (str)-{return str;};  System.out.println(function.apply(\"啦啦啦啦啦\")); }   函数式接口 如果一个接口只有一个抽象方法，那么该接口就是一个函数式接口 如果我们在某个接口上声明了 @FunctionalInterface 注解，那么编译器就会按照函数式接口的定义来要求该接口，这样如果有两个抽象方法，程序编译就会报错的。所以，从某种意义上来说，只要你保证你的接口中只有一个抽象方法，你可以不加这个注解。加上就会自动进行检测的，保证安全。Function函数式接口\nFunction 函数型接口 Function 函数型接口, 有一个输入参数，有一个输出\n1 2 3 4 5 6   public static void main(String[] args) {  //输出大写后的原字符串  Functionfunction = str - str.toUpperCase();   System.out.println(function.apply(\"abc\"));  }   Predicate 断定型接口 有一个输入参数，返回值只能是 布尔值！\n1 2 3 4 5 6   public static void main(String[] args) {  //判断一个字符串是否为a开头  Predicate predicate = s - !s.isEmpty() \u0026\u0026 s.charAt(0) == 'a';   System.out.println(predicate.test(\"abc\"));  }   Consumer 消费型接口 只有输入没有输出\n1 2 3 4 5 6   public static void main(String[] args) {  //输出一个大写字符串  Consumer consumer = s - System.out.println(s.toUpperCase());   consumer.accept(\"abc\");  }   Supplier 供给型接口 没有参数，只有输出值\n1 2 3 4 5 6   public static void main(String[] args) {  //返回一个Demo对象  Supplier supplier = () - {return new Demo();};   System.out.println(supplier.get().hashCode());  }   Stream流式计算 存储交给集合，计算交给流\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30  /** * 题目要求：只用一行代码实现 * 现在有五个用户！筛选： * 1、ID必须是偶数 * 2、年龄必须大于23岁 * 3、用户名转化为大写字母 * 4、用户名字母倒着排序 * 5、只输出一个用户 */ public class Test {  public static void main(String[] args) {  User u1 = new User(1,\"a\",21);  User u2 = new User(2,\"b\",22);  User u3 = new User(3,\"c\",23);  User u4 = new User(4,\"d\",24);  User u5 = new User(5,\"e\",25);  User u6 = new User(6,\"f\",26);  //集合用来存储  List list = Arrays.asList(u1, u2, u3, u4, u5,u6);  //使用stream计算  //lambda表达式、链式编程、函数式接口、Stream流式计算  list.stream()  .filter(u-{return u.getId()%2 == 0;})  .filter(u-{return u.getAge()  23;})  .map(u-{return u.getName().toUpperCase();})  .sorted((uu1,uu2)-{return uu2.compareTo(uu1);})  .limit(1)  .forEach(System.out::println);  } }   Forkjoin Forkjoin类似于一个递归算法，可以将一系列大问题拆分成小问题，然后逐个解决。 其中有个工作窃取的概念，即一个线程处理完成任务以后会从另一个线程中获取其他线程的任务进行处理。 由于线程是一种双端队列，可以从底部进行窃取。\nJMM JMM：Java内存模型，不存在的东西，概念，约定！\nJMM同步约定\n线程加锁前，必须把共享变量刷回主存\n线程解锁前，必须读取主存的最新值到工作内存中\n加锁和解锁是同一把锁\nstore和write换一下位置\n对一个变量执行unlock操作之前，必须先把此变量同步到主内存中（执行store和write操作）。\n read 读取，作用于主内存把变量从主内存中读取到本本地内存。 load 加载，主要作用本地内存，把从主内存中读取的变量加载到本地内存的变量副本中 use 使用，主要作用本地内存，把工作内存中的一个变量值传递给执行引擎，每当虚拟机遇到一个需要使用变量的值的字节码指令时将会执行这个操作。、 assign 赋值 作用于工作内存的变量，它把一个从执行引擎接收到的值赋值给工作内存的变量，每当虚拟机遇到一个给变量赋值的字节码指令时执行这个操作。 store 存储 作用于工作内存的变量，把工作内存中的一个变量的值传送到主内存中，以便随后的write的操作。 write 写入 作用于主内存的变量，它把store操作从工作内存中一个变量的值传送到主内存的变量中。 lock 锁定 ：作用于主内存的变量，把一个变量标识为一条线程独占状态。 unlock 解锁：作用于主内存变量，把一个处于锁定状态的变量释放出来，释放后的变量才可以被其他线程锁定。  所以看似简单的通信其实是这八种状态来实现的。\n同时在Java内存模型中明确规定了要执行这些操作需要满足以下规则：\n 不允许read和load、store和write的操作单独出现。 不允许一个线程丢弃它的最近assign的操作，即变量在工作内存中改变了之后必须同步到主内存中。 不允许一个线程无原因地（没有发生过任何assign操作）把数据从工作内存同步回主内存中。 一个新的变量只能在主内存中诞生，不允许在工作内存中直接使用一个未被初始化（load或assign）的变量。即就是对一个变量实施use和store操作之前，必须先执行过了assign和load操作。 一个变量在同一时刻只允许一条线程对其进行lock操作，lock和unlock必须成对出现 如果对一个变量执行lock操作，将会清空工作内存中此变量的值，在执行引擎使用这个变量前需要重新执行load或assign操作初始化变量的值 如果一个变量事先没有被lock操作锁定，则不允许对它执行unlock操作；也不允许去unlock一个被其他线程锁定的变量。 对一个变量执行unlock操作之前，必须先把此变量同步到主内存中（执行store和write操作）。  volatile https://www.cnblogs.com/dolphin0520/p/3920373.html\n单例模式 CAS ABA问题 ",
+  "wordCount" : "6153",
+  "inLanguage": "en",
+  "datePublished": "2021-03-18T21:46:48Z",
+  "dateModified": "2021-03-18T21:46:48Z",
+  "author":{
+    "@type": "Person",
+    "name": "kevin"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kevinerr.github.io/posts/tech/%E5%B9%B6%E5%8F%91-%E5%A4%9A%E7%BA%BF%E7%A8%8B/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hkh's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kevinerr.github.io/img/Q.jpg"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://kevinerr.github.io/" accesskey="h" title="hkh&#39;s Blog (Alt + H)">hkh&#39;s Blog</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://kevinerr.github.io/search" title="🔍搜索 (Alt &#43; /)" accesskey=/>
+                    <span>🔍搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/posts" title="📚文章">
+                    <span>📚文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/archives" title="⏱时间轴">
+                    <span>⏱时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/tags" title="🔖标签">
+                    <span>🔖标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/about" title="🙋🏻‍♂️关于">
+                    <span>🙋🏻‍♂️关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/links" title="🤝友链">
+                    <span>🤝友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://kevinerr.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://kevinerr.github.io/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://kevinerr.github.io/posts/tech/">👨🏻‍💻技术</a></div>
+    <h1 class="post-title">
+      并发/多线程
+    </h1>
+    <div class="post-meta">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2021-03-18 21:46:48 +0000 UTC'>2021-03-18</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-18&nbsp;|&nbsp;字数:&nbsp;6153字&nbsp;|&nbsp;时长: 13分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">Table of Contents</span>
+            </summary>
+
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#%e5%b9%b6%e5%8f%91%e7%bc%96%e7%a8%8b%e5%9f%ba%e7%a1%80" aria-label="并发编程基础">并发编程基础</a><ul>
+                            
+                    <li>
+                        <a href="#%e7%ba%bf%e7%a8%8b%e6%9c%89%e5%87%a0%e4%b8%aa%e7%8a%b6%e6%80%81" aria-label="线程有几个状态">线程有几个状态</a></li>
+                    <li>
+                        <a href="#waitsleep%e5%8c%ba%e5%88%ab" aria-label="wait/sleep区别">wait/sleep区别</a></li>
+                    <li>
+                        <a href="#%e7%ba%bf%e7%a8%8b%e7%a4%bc%e8%ae%a9-yield" aria-label="线程礼让 yield()">线程礼让 yield()</a></li>
+                    <li>
+                        <a href="#%e7%ba%bf%e7%a8%8b%e5%bc%ba%e5%88%b6%e6%89%a7%e8%a1%8c-join" aria-label="线程强制执行 join()">线程强制执行 join()</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e9%9b%86%e5%90%88%e7%b1%bb" aria-label="集合类">集合类</a></li>
+                    <li>
+                        <a href="#%e7%ba%bf%e7%a8%8b%e6%b1%a0" aria-label="线程池">线程池</a><ul>
+                            
+                    <li>
+                        <a href="#%e4%b8%89%e5%a4%a7%e6%96%b9%e6%b3%95" aria-label="三大方法">三大方法</a></li>
+                    <li>
+                        <a href="#%e4%b8%83%e5%a4%a7%e5%8f%82%e6%95%b0" aria-label="七大参数">七大参数</a></li>
+                    <li>
+                        <a href="#%e5%9b%9b%e7%a7%8d%e6%8b%92%e7%bb%9d%e7%ad%96%e7%95%a5" aria-label="四种拒绝策略">四种拒绝策略</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#completablefuture%e5%bc%82%e6%ad%a5%e7%bc%96%e6%8e%92" aria-label="CompletableFuture异步编排">CompletableFuture异步编排</a></li>
+                    <li>
+                        <a href="#lock%e9%94%81" aria-label="Lock锁">Lock锁</a><ul>
+                            
+                    <li>
+                        <a href="#%e5%85%ac%e5%b9%b3%e9%94%81%e5%92%8c%e9%9d%9e%e5%85%ac%e5%b9%b3%e9%94%81" aria-label="公平锁和非公平锁">公平锁和非公平锁</a></li>
+                    <li>
+                        <a href="#%e5%8f%af%e9%87%8d%e5%85%a5%e9%94%81%e9%80%92%e5%bd%92%e9%94%81" aria-label="可重入锁（递归锁）">可重入锁（递归锁）</a></li>
+                    <li>
+                        <a href="#%e8%87%aa%e6%97%8b%e9%94%81" aria-label="自旋锁">自旋锁</a></li>
+                    <li>
+                        <a href="#%e8%af%bb%e5%86%99%e9%94%81" aria-label="读写锁">读写锁</a></li>
+                    <li>
+                        <a href="#synchronized%e5%92%8clock%e9%94%81%e5%8c%ba%e5%88%ab" aria-label="synchronized和Lock锁区别">synchronized和Lock锁区别</a></li>
+                    <li>
+                        <a href="#%e7%94%9f%e4%ba%a7%e8%80%85%e6%b6%88%e8%b4%b9%e8%80%85%e9%97%ae%e9%a2%98" aria-label="生产者消费者问题">生产者消费者问题</a></li>
+                    <li>
+                        <a href="#%e7%bb%8f%e5%85%b88%e9%94%81%e9%97%ae%e9%a2%98" aria-label="经典8锁问题">经典8锁问题</a></li>
+                    <li>
+                        <a href="#%e5%ae%89%e5%85%a8%e7%b1%bb" aria-label="安全类">安全类</a></li>
+                    <li>
+                        <a href="#callable" aria-label="callable">callable</a></li>
+                    <li>
+                        <a href="#%e4%b8%89%e5%a4%a7%e5%b8%b8%e7%94%a8%e8%be%85%e5%8a%a9%e7%b1%bb" aria-label="三大常用辅助类">三大常用辅助类</a><ul>
+                            
+                    <li>
+                        <a href="#countdownlatch%e5%87%8f%e6%b3%95%e8%ae%a1%e6%95%b0%e5%99%a8" aria-label="CountDownLatch（减法计数器）">CountDownLatch（减法计数器）</a></li>
+                    <li>
+                        <a href="#cyclicbarrier%e5%8a%a0%e6%b3%95%e8%ae%a1%e6%95%b0%e5%99%a8" aria-label="CyclicBarrier（加法计数器）">CyclicBarrier（加法计数器）</a></li>
+                    <li>
+                        <a href="#semaphore%e9%99%90%e6%b5%81%e7%9a%84%e6%97%b6%e5%80%99%e7%94%a8" aria-label="Semaphore（限流的时候用）">Semaphore（限流的时候用）</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#readwritelock" aria-label="ReadWriteLock">ReadWriteLock</a></li>
+                    <li>
+                        <a href="#blockingqueue%e9%98%bb%e5%a1%9e%e9%98%9f%e5%88%97" aria-label="BlockingQueue（阻塞队列）"><strong>BlockingQueue</strong>（阻塞队列）</a></li>
+                    <li>
+                        <a href="#synchronousqueue%e5%90%8c%e6%ad%a5%e9%98%9f%e5%88%97" aria-label="SynchronousQueue（同步队列）">SynchronousQueue（同步队列）</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e5%9b%9b%e5%a4%a7%e5%87%bd%e6%95%b0%e5%bc%8f%e6%8e%a5%e5%8f%a3" aria-label="四大函数式接口">四大函数式接口</a><ul>
+                            
+                    <li>
+                        <a href="#lambda%e8%a1%a8%e8%be%be%e5%bc%8f" aria-label="lambda表达式">lambda表达式</a></li>
+                    <li>
+                        <a href="#%e5%87%bd%e6%95%b0%e5%bc%8f%e6%8e%a5%e5%8f%a3" aria-label="函数式接口">函数式接口</a><ul>
+                            
+                    <li>
+                        <a href="#function-%e5%87%bd%e6%95%b0%e5%9e%8b%e6%8e%a5%e5%8f%a3" aria-label="Function 函数型接口">Function 函数型接口</a></li>
+                    <li>
+                        <a href="#predicate-%e6%96%ad%e5%ae%9a%e5%9e%8b%e6%8e%a5%e5%8f%a3" aria-label="Predicate 断定型接口">Predicate 断定型接口</a></li>
+                    <li>
+                        <a href="#consumer-%e6%b6%88%e8%b4%b9%e5%9e%8b%e6%8e%a5%e5%8f%a3" aria-label="Consumer 消费型接口">Consumer 消费型接口</a></li>
+                    <li>
+                        <a href="#supplier-%e4%be%9b%e7%bb%99%e5%9e%8b%e6%8e%a5%e5%8f%a3" aria-label="Supplier 供给型接口">Supplier 供给型接口</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#stream%e6%b5%81%e5%bc%8f%e8%ae%a1%e7%ae%97" aria-label="Stream流式计算">Stream流式计算</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#forkjoin" aria-label="Forkjoin">Forkjoin</a></li>
+                    <li>
+                        <a href="#jmm" aria-label="JMM">JMM</a></li>
+                    <li>
+                        <a href="#volatile" aria-label="volatile">volatile</a></li>
+                    <li>
+                        <a href="#%e5%8d%95%e4%be%8b%e6%a8%a1%e5%bc%8f" aria-label="单例模式">单例模式</a></li>
+                    <li>
+                        <a href="#cas" aria-label="CAS">CAS</a></li>
+                    <li>
+                        <a href="#aba%e9%97%ae%e9%a2%98" aria-label="ABA问题">ABA问题</a>
+                    </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+         
+         activeElement = elements[0];
+         const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+         document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+     }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+             const id = encodeURI(element.getAttribute('id')).toLowerCase();
+             if (element === activeElement){
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+             } else {
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+             }
+         })
+     }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;   
+    }
+</script>
+
+  <div class="post-content"><h2 id="并发编程基础">并发编程基础<a hidden class="anchor" aria-hidden="true" href="#并发编程基础">#</a></h2>
+<p>线程会带来额外的开销，如cpu调度</p>
+<p>继承thread类，重写run()方法，调用start()开启线程</p>
+<p>run() 只有主线程一条执行路径；start()多条执行路径，主线程和子线程并行交替执行。</p>
+<p>实现runnable接口</p>
+<p>实现callable接口（FutureTask，可以通过get阻塞获取线程结果）</p>
+<p>java默认2个线程：main和gc</p>
+<p>java无法开启线程，只能调用底层c++，无法操作硬件</p>
+<p>并发：cpu一核（充分利用cpu资源）  并行：cpu多核</p>
+<h3 id="线程有几个状态">线程有几个状态<a hidden class="anchor" aria-hidden="true" href="#线程有几个状态">#</a></h3>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>NEW,  <span style="color:#007f7f">//新生
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>RUNNABLE,
+</span></span><span style="display:flex;"><span>BLOCKED, <span style="color:#007f7f">//阻塞
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>WAITING,
+</span></span><span style="display:flex;"><span>TIMED_WAITING, <span style="color:#007f7f">//超时等待
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>TERMINATED; <span style="color:#007f7f">//终止
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="waitsleep区别">wait/sleep区别<a hidden class="anchor" aria-hidden="true" href="#waitsleep区别">#</a></h3>
+<p>1、wait()方法属于Object类,sleep()属于Thread类；</p>
+<p>2、wait()方法释放cpu给其他线程，自己让出资源进入等待池等待；sleep占用cpu，不让出资源；</p>
+<p>3、sleep()必须指定时间，wait()可以指定时间也可以不指定；sleep()时间到，线程处于临时阻塞或运行状态；</p>
+<p>4、wait()方法会释放持有的锁，不然其他线程不能进入同步方法或同步块，从而不能调用notify(),notifyAll()方法来唤醒线程，产生死锁，所以释放锁，可以执行其他线程，也可以唤醒自己，只是设置停止自己的时间时不确定的；sleep方法不会释放持有的锁，设置sleep的时间是确定的会按时执行的；</p>
+<p>5、wait()方法只能在同步方法或同步代码块中调用，否则会报illegalMonitorStateException异常，如果没有设定时间，使用notify()来唤醒；而sleep()能在任何地方调用，必须捕获异常；</p>
+<h3 id="线程礼让-yield">线程礼让 yield()<a hidden class="anchor" aria-hidden="true" href="#线程礼让-yield">#</a></h3>
+<ul>
+<li>礼让线程,让当前正在执行的线程暂停,但不阻塞</li>
+<li>将线程从运行状态转为就绪状态</li>
+<li>让CPU重新调度,礼让不一定成功,看CPU心情</li>
+</ul>
+<h3 id="线程强制执行-join">线程强制执行 join()<a hidden class="anchor" aria-hidden="true" href="#线程强制执行-join">#</a></h3>
+<ul>
+<li>Join合并线程,待此线程执行完成后,在执行其他线程,其他线程阻塞</li>
+<li>可以想象成插队</li>
+</ul>
+<h2 id="集合类">集合类<a hidden class="anchor" aria-hidden="true" href="#集合类">#</a></h2>
+<p>Vector：jdk1.0就有，加锁</p>
+<p>ArrayList ：jdk1.2才有，不加锁</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Collections.<span style="color:#007f7f">synchronizedList</span>(<span style="color:#fff;font-weight:bold">new</span> ArrayList&lt;&gt;());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>CopyOnWriteArrayList <span style="color:#007f7f">//修改副本，替换引用
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>
+</span></span><span style="display:flex;"><span>HashSet 底层HashMap add时只添加key value是一个PRESENT的定值
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211123093419762.png" alt="image-20211123093419762"  />
+</p>
+<h2 id="线程池">线程池<a hidden class="anchor" aria-hidden="true" href="#线程池">#</a></h2>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211125132127773.png" alt="image-20211125132127773"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211125132035181.png" alt="image-20211125132035181"  />
+</p>
+<p><strong>三大方法，七大参数，四种拒绝策略</strong></p>
+<p>程序的运行，本质：占用系统的资源  优化资源的使用  =》 池化技术</p>
+<p>线程池、连接池、内存池、对象池。。。
+池化技术：事先准备好一些资源，有人要用，就来我这里拿，用完之后还我。</p>
+<h3 id="三大方法">三大方法<a hidden class="anchor" aria-hidden="true" href="#三大方法">#</a></h3>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#007f7f">//固定线程数池 core = max，都不可回收
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>ExecutorService executorService = Executors.<span style="color:#007f7f">newFixedThreadPool</span>(5);
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">//单例线程池  单线程线程池，后台从队列里获取任务，挨个执行
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>ExecutorService executorService1 = Executors.<span style="color:#007f7f">newSingleThreadExecutor</span>();
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">//缓存线程数池 core是0，所有都可回收
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>ExecutorService executorService2 = Executors.<span style="color:#007f7f">newCachedThreadPool</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = 0; i &lt; 10; i++) {
+</span></span><span style="display:flex;"><span>        executorService.<span style="color:#007f7f">execute</span>(()-&gt;{
+</span></span><span style="display:flex;"><span>            System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">println</span>(Thread.<span style="color:#007f7f">currentThread</span>().<span style="color:#007f7f">getName</span>()+<span style="color:#0ff;font-weight:bold">&#34; ok&#34;</span>);
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>} <span style="color:#fff;font-weight:bold">catch</span> (Exception e) {
+</span></span><span style="display:flex;"><span>    e.<span style="color:#007f7f">printStackTrace</span>();
+</span></span><span style="display:flex;"><span>}<span style="color:#fff;font-weight:bold">finally</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">//线程池用完，程序结束，关闭线程池
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    executorService1.<span style="color:#007f7f">shutdown</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="七大参数">七大参数<a hidden class="anchor" aria-hidden="true" href="#七大参数">#</a></h3>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">26
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>corePoolSize 核心线程数
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">//获取cpu核心
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">println</span>(Runtime.<span style="color:#007f7f">getRuntime</span>().<span style="color:#007f7f">availableProcessors</span>());
+</span></span><span style="display:flex;"><span>ThreadPoolExecutor threadPoolExecutor = <span style="color:#fff;font-weight:bold">new</span> ThreadPoolExecutor(
+</span></span><span style="display:flex;"><span>        2,<span style="color:#007f7f">// 核心线程数
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        Runtime.<span style="color:#007f7f">getRuntime</span>().<span style="color:#007f7f">availableProcessors</span>(),<span style="color:#007f7f">// 最大核心线程数
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        3,<span style="color:#007f7f">// 超时时间
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        TimeUnit.<span style="color:#007f7f">SECONDS</span>,<span style="color:#007f7f">// 超时单位
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#fff;font-weight:bold">new</span> LinkedBlockingDeque&lt;&gt;(3),<span style="color:#007f7f">// 阻塞队列
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        Executors.<span style="color:#007f7f">defaultThreadFactory</span>(),<span style="color:#007f7f">// 默认线程工厂，不用动它
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#fff;font-weight:bold">new</span> ThreadPoolExecutor.<span style="color:#007f7f">AbortPolicy</span>() <span style="color:#007f7f">//线程池处理不过来就抛出异常(拒绝策略)
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>);
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">//最大承载：deque+max
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = 0; i &lt; 20; i++) {
+</span></span><span style="display:flex;"><span>        threadPoolExecutor.<span style="color:#007f7f">execute</span>(()-&gt;{
+</span></span><span style="display:flex;"><span>            System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">println</span>(Thread.<span style="color:#007f7f">currentThread</span>().<span style="color:#007f7f">getName</span>()+<span style="color:#0ff;font-weight:bold">&#34; ok&#34;</span>);
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>} <span style="color:#fff;font-weight:bold">catch</span> (Exception e) {
+</span></span><span style="display:flex;"><span>    e.<span style="color:#007f7f">printStackTrace</span>();
+</span></span><span style="display:flex;"><span>}<span style="color:#fff;font-weight:bold">finally</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">//线程池用完，程序结束，关闭线程池
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    threadPoolExecutor.<span style="color:#007f7f">shutdown</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211126164009345.png" alt="image-20211126164009345"  />
+</p>
+<h3 id="四种拒绝策略">四种拒绝策略<a hidden class="anchor" aria-hidden="true" href="#四种拒绝策略">#</a></h3>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">new</span> ThreadPoolExecutor.<span style="color:#007f7f">AbortPolicy</span>() 线程池处理不过来就抛出异常
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">new</span> ThreadPoolExecutor.<span style="color:#007f7f">CallerRunsPolicy</span>() 哪来的去哪里<span style="color:#f00">；</span>它直接在 execute 方法的调用线程中运行被拒绝的任务<span style="color:#f00">；</span>如果执行程序已关闭<span style="color:#f00">，</span>则会丢弃该任务
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">new</span> ThreadPoolExecutor.<span style="color:#007f7f">DiscardPolicy</span>() 队列满了<span style="color:#f00">，</span>丢掉任务<span style="color:#f00">，</span>不会抛异常
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">new</span> ThreadPoolExecutor.<span style="color:#007f7f">DiscardOldestPolicy</span>() 抛弃最老的
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>降低资源的消耗</li>
+<li>提高响应的速度</li>
+<li>方便管理</li>
+</ol>
+<p>线程复用、可以控制最大并发数、管理线程</p>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210917193323477.png" alt="image-20210917193323477"  />
+</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">println</span>(Runtime.<span style="color:#007f7f">getRuntime</span>().<span style="color:#007f7f">availableProcessors</span>()); <span style="color:#007f7f">//h
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>最大线程数怎么定义：</strong></p>
+<ol>
+<li>cpu 密集型 ：几核，就是几，可以保持cpu的效率最高</li>
+<li>io 密集型 ：判断你程序中十分耗费io的线程</li>
+</ol>
+<h2 id="completablefuture异步编排">CompletableFuture异步编排<a hidden class="anchor" aria-hidden="true" href="#completablefuture异步编排">#</a></h2>
+<p><a href="https://www.jianshu.com/p/934057982c25">https://www.jianshu.com/p/934057982c25</a></p>
+<h2 id="lock锁">Lock锁<a hidden class="anchor" aria-hidden="true" href="#lock锁">#</a></h2>
+<h3 id="公平锁和非公平锁">公平锁和非公平锁<a hidden class="anchor" aria-hidden="true" href="#公平锁和非公平锁">#</a></h3>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211123104622052.png" alt="image-20211123104622052"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211123111657212.png" alt="image-20211123111657212"  />
+</p>
+<h3 id="可重入锁递归锁">可重入锁（递归锁）<a hidden class="anchor" aria-hidden="true" href="#可重入锁递归锁">#</a></h3>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211123112215735.png" alt="image-20211123112215735"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211123112244297.png" alt="image-20211123112244297"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211123112127097.png" alt="image-20211123112127097"  />
+</p>
+<h3 id="自旋锁">自旋锁<a hidden class="anchor" aria-hidden="true" href="#自旋锁">#</a></h3>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211123123652678.png" alt="image-20211123123652678"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211123125208633.png" alt="image-20211123125208633"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211123125245656.png" alt="image-20211123125245656"  />
+</p>
+<h3 id="读写锁">读写锁<a hidden class="anchor" aria-hidden="true" href="#读写锁">#</a></h3>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211123155234261.png" alt="image-20211123155234261"  />
+</p>
+<h3 id="synchronized和lock锁区别">synchronized和Lock锁区别<a hidden class="anchor" aria-hidden="true" href="#synchronized和lock锁区别">#</a></h3>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211124154515017.png" alt="image-20211124154515017"  />
+</p>
+<p>　　1、首先synchronized是java内置关键字，Lock是个java类；</p>
+<p>　　2、synchronized无法判断是否获取锁的状态，Lock可以判断是否获取到锁；</p>
+<p>　　3、synchronized会自动释放锁(a 线程执行完同步代码会释放锁 ；b 线程执行过程中发生异常会释放锁)，Lock需在finally中手工释放锁（unlock()方法释放锁），否则容易造成线程死锁；</p>
+<p>　　4、用synchronized关键字的两个线程1和线程2，如果当前线程1获得锁，线程2线程等待。如果线程1阻塞，线程2则会一直等待下去，而Lock锁就不一定会等待下去，如果尝试获取不到锁，线程可以不用一直等待就结束了；</p>
+<p>　　5、synchronized的锁可重入、不可中断、非公平，而Lock锁可重入、可判断、可公平（两者皆可）；</p>
+<p>　　6、synchronized锁适合代码少量的同步问题，Lock锁适合大量同步的代码的同步问题。</p>
+<h3 id="生产者消费者问题">生产者消费者问题<a hidden class="anchor" aria-hidden="true" href="#生产者消费者问题">#</a></h3>
+<p>所谓的生产者消费者问题，是通过一个容器来解决生产者和消费者的强耦合问题。通俗的讲，就是生产者在不断的生产，消费者也在不断的消费，可是消费者消费的产品是生产者生产的，这就必然存在一个中间容器，我们可以把这个容器想象成是一个货架，当货架空的时候，生产者要生产产品，此时消费者在等待生产者往货架上生产产品，而当货架满的时候，消费者可以从货架上拿走商品，生产者此时等待货架的空位，这样不断的循环。那么在这个过程中，生产者和消费者是不直接接触的，所谓的‘货架’其实就是一个阻塞队列，生产者生产的产品不直接给消费者消费，而是仍给阻塞队列，这个阻塞队列就是来解决生产者消费者的强耦合的。就是生产者消费者问题。</p>
+<p>回忆 synchronized 关键字，它配合 Object 的 wait()、notify() 系列方法可以实现等待/通知模式。对于 Lock，通过 Condition 也可以实现等待/通知模式。Condition是在java 1.5中才出现的，它用来替代传统的Object的wait()、notify()实现线程间的协作，相比使用Object的wait()、notify()，使用Condition的await()、signal()这种方式实现线程间协作更加安全和高效。</p>
+<p>if只判断一次，虚假唤醒，一般使用while</p>
+<h3 id="经典8锁问题">经典8锁问题<a hidden class="anchor" aria-hidden="true" href="#经典8锁问题">#</a></h3>
+<p>1、new this 调用的是这个对象，是一个具体的对象！
+2、static class 唯一的一个模板！
+在我们编写多线程程序得时候，只需要搞明白这个到底锁的是什么就不会出错了！</p>
+<h3 id="安全类">安全类<a hidden class="anchor" aria-hidden="true" href="#安全类">#</a></h3>
+<p>并发下ArrayList是不安全的，Vector是安全的</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#007f7f">//解决办法
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>List&lt;String&gt; list2 = <span style="color:#fff;font-weight:bold">new</span> Vector&lt;&gt;(); 使用synchronized
+</span></span><span style="display:flex;"><span>List&lt;String&gt; list1 = Collections.<span style="color:#007f7f">synchronizedList</span>(<span style="color:#fff;font-weight:bold">new</span> ArrayList&lt;&gt;());  
+</span></span><span style="display:flex;"><span>List&lt;String&gt; list3 = <span style="color:#fff;font-weight:bold">new</span> CopyOnWriteArrayList&lt;&gt;();
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">//CopyOnWrite 写入时复制 COW计算机程序设计的一种优化策略，再写入时避免覆盖
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">//我们都知道Vector是增删改查方法都加了synchronized，保证同步，但是每个方法执行的时候都要去获得锁，性能就会大大下降，而CopyOnWriteArrayList 只是在增删改上加锁，但是读不加锁，在读方面的性能就好于Vector，CopyOnWriteArrayList支持读多写少的并发情况。
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Set不安全</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Set&lt;String&gt; set = <span style="color:#fff;font-weight:bold">new</span> HashSet&lt;&gt;();
+</span></span><span style="display:flex;"><span>Set&lt;String&gt; set1 = Collections.<span style="color:#007f7f">synchronizedSet</span>(<span style="color:#fff;font-weight:bold">new</span> HashSet&lt;&gt;());
+</span></span><span style="display:flex;"><span>Set&lt;String&gt; set2 = <span style="color:#fff;font-weight:bold">new</span> CopyOnWriteArraySet&lt;&gt;();
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>HashSet的底层就是HashMap</p>
+<p>HashMap不安全</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Map&lt;String,String&gt; map= <span style="color:#fff;font-weight:bold">new</span> HashMap&lt;&gt;(16,0.<span style="color:#007f7f">75</span>);
+</span></span><span style="display:flex;"><span>Map&lt;String,String&gt; map= <span style="color:#fff;font-weight:bold">new</span> HashMap&lt;&gt;();
+</span></span><span style="display:flex;"><span>Map&lt;String,String&gt; map1= <span style="color:#fff;font-weight:bold">new</span> ConcurrentHashMap&lt;&gt;();
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="callable">callable<a hidden class="anchor" aria-hidden="true" href="#callable">#</a></h3>
+<p>Callable 和 Runnable 的使用方法大同小异， 区别在于：
+1.Callable 使用 call（） 方法， Runnable 使用 run() 方法
+2.call() 可以返回值， 而 run()方法不能返回。
+3.call() 可以抛出受检查的异常，比如ClassNotFoundException， 而run()不能抛出受检查的异常。</p>
+<p>通过FutureTask和Runnable 挂上关系</p>
+<h3 id="三大常用辅助类">三大常用辅助类<a hidden class="anchor" aria-hidden="true" href="#三大常用辅助类">#</a></h3>
+<h4 id="countdownlatch减法计数器">CountDownLatch（减法计数器）<a hidden class="anchor" aria-hidden="true" href="#countdownlatch减法计数器">#</a></h4>
+<p>说明： 一个线程等待其他线程执行完之后再执行，相当于加强版的join，在初始化CountDownLatch是需要设定计数器的数值（计数器数据不一定跟线程数相同，但是一定计数器的值一定是要大于等于线程数，一个线程中可以进行多次扣减。当计数器扣减至0时才可继续向下执行）</p>
+<p>举例说明：
+比如LOL在游戏开始时需要玩家全部准备完毕之后才开始，开始游戏可以理解为“主线程”，玩家准备理解为“其他线程”，在“其他线程”没有准备完毕之前，“主线程时等待状态”，当“其他线程”准备完毕之后“主线程”就会执行下一步开始游戏的动作</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">static</span> CountDownLatch countDownLatsh = <span style="color:#fff;font-weight:bold">new</span> CountDownLatch(5);
+</span></span><span style="display:flex;"><span>countDownLatsh.<span style="color:#007f7f">countDown</span>();
+</span></span><span style="display:flex;"><span>countDownLatsh.<span style="color:#007f7f">await</span>();
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="cyclicbarrier加法计数器">CyclicBarrier（加法计数器）<a hidden class="anchor" aria-hidden="true" href="#cyclicbarrier加法计数器">#</a></h4>
+<p>说明： 让一组线程到达某个屏障，然后被阻塞，一直到最后一个线程到达屏障，然后屏障开放，所有被阻塞的线程继续执行，计数器与线程数相等。
+CyclicBarrier(int parties, Runnable barrierAction) 当时使用这个构造函数时，barrierAction定义的任务会执行</p>
+<p>集齐7科龙珠召唤神龙</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">static</span> CyclicBarrier cyclicBarrier = <span style="color:#fff;font-weight:bold">new</span> CyclicBarrier(5);
+</span></span><span style="display:flex;"><span>cyclicBarrier.<span style="color:#007f7f">await</span>();
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="semaphore限流的时候用">Semaphore（限流的时候用）<a hidden class="anchor" aria-hidden="true" href="#semaphore限流的时候用">#</a></h4>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">final</span> Semaphore semaphore=<span style="color:#fff;font-weight:bold">new</span> Semaphore(3);
+</span></span><span style="display:flex;"><span>semaphore.<span style="color:#007f7f">acquire</span>();
+</span></span><span style="display:flex;"><span>semaphore.<span style="color:#007f7f">release</span>();
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>相当于os中的资源量，得到/释放</p>
+<h3 id="readwritelock">ReadWriteLock<a hidden class="anchor" aria-hidden="true" href="#readwritelock">#</a></h3>
+<p>假设有个数据对象拥有写方法与读方法，多线程环境中要想保证数据的安全，需对该对象的读写方法都要加入 synchronized同步块。这样任何线程在写入时，其它线程无法读取与改变数据；如果有线程在读取时，其他线程也无法读取或写入。这种方式在写入操作远大于读操作时，问题不大，而当读取远远大于写入时，会造成性能瓶颈，因为此种情况下读取操作是可以同时进行的，而加锁操作限制了数据的并发读取。</p>
+<p>​     ReadWriteLock解决了这个问题，当写操作时，其他线程无法读取或写入数据，而当读操作时，其它线程无法写入数据，但却可以读取数据 。</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>ReadWriteLock lock = <span style="color:#fff;font-weight:bold">new</span> ReentrantReadWriteLock();
+</span></span><span style="display:flex;"><span>Lock read = lock.<span style="color:#007f7f">readLock</span>();  
+</span></span><span style="display:flex;"><span>Lock write = lock.<span style="color:#007f7f">writeLock</span>();
+</span></span><span style="display:flex;"><span>write.<span style="color:#007f7f">lock</span>(); 
+</span></span><span style="display:flex;"><span>write.<span style="color:#007f7f">unlock</span>(); 
+</span></span><span style="display:flex;"><span>read.<span style="color:#007f7f">lock</span>(); 
+</span></span><span style="display:flex;"><span>read.<span style="color:#007f7f">unlock</span>(); 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>独占锁（写锁）：一次只能被一个线程占有</p>
+<p>共享锁（读锁）：多个线程可以同时占有</p>
+<h3 id="blockingqueue阻塞队列"><strong>BlockingQueue</strong>（阻塞队列）<a hidden class="anchor" aria-hidden="true" href="#blockingqueue阻塞队列">#</a></h3>
+<p>多线程并发处理，线程池</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>方式</strong></th>
+<th>抛出异常</th>
+<th>有返回值，不会抛出异常</th>
+<th>阻塞等待</th>
+<th><strong>超时等待</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">添加</td>
+<td>add()</td>
+<td>offer()</td>
+<td>put()</td>
+<td>offer(object , long , TimeUnit)</td>
+</tr>
+<tr>
+<td style="text-align:center">移除</td>
+<td>remove()</td>
+<td>poll()</td>
+<td>take()</td>
+<td>poll(long , TimeUnit)</td>
+</tr>
+<tr>
+<td style="text-align:center">检测队首元素</td>
+<td>element()</td>
+<td>peek()</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>BlockingQueue&lt;Object&gt; queue = <span style="color:#fff;font-weight:bold">new</span> ArrayBlockingQueue&lt;&gt;(3);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="synchronousqueue同步队列">SynchronousQueue（同步队列）<a hidden class="anchor" aria-hidden="true" href="#synchronousqueue同步队列">#</a></h3>
+<p>没有容量</p>
+<p>进去一个元素必须等它出来才能再加一个元素</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>SynchronousQueue&lt;String&gt; synchronousQueue = <span style="color:#fff;font-weight:bold">new</span> SynchronousQueue&lt;&gt;();
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="四大函数式接口">四大函数式接口<a hidden class="anchor" aria-hidden="true" href="#四大函数式接口">#</a></h2>
+<p>新时代的程序员：lambda表达式、函数式接口、Stream流式计算、链式编程、异步调用</p>
+<h3 id="lambda表达式">lambda表达式<a hidden class="anchor" aria-hidden="true" href="#lambda表达式">#</a></h3>
+<p>基本语法: (parameters) -&gt; expression 或 (parameters) -&gt;{ statements; }</p>
+<p>Lambda表达式由三部分组成：</p>
+<p>paramaters：类似方法中的形参列表，这里的参数是函数式接口里的参数。这里的参数类型可以明确的声明也可不声明而由JVM隐含的推断。另外当只有一个推断类型时可以省略掉圆括号。
+-&gt;：可理解为“被用于”的意思
+statements：可以是表达式也可以代码块，是函数式接口里方法的实现。代码块可返回一个值或者什么都不反回，这里的代码块块等同于方法的方法体。如果是表达式，也可以返回一个值或者什么都不反回。</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">void</span> main(String[] args) {
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">//        Function&lt;String, String&gt; function = new Function&lt;String, String&gt;() {
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">//            @Override
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">//            public String apply(String str) {
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">//                return str;
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">//            }
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">//        };
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    Function&lt;String, String&gt; function = (str)-&gt;{<span style="color:#fff;font-weight:bold">return</span> str;};
+</span></span><span style="display:flex;"><span>    System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">println</span>(function.<span style="color:#007f7f">apply</span>(<span style="color:#0ff;font-weight:bold">&#34;啦啦啦啦啦&#34;</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="函数式接口">函数式接口<a hidden class="anchor" aria-hidden="true" href="#函数式接口">#</a></h3>
+<p>如果一个接口只有一个抽象方法，那么该接口就是一个函数式接口
+如果我们在某个接口上声明了 @FunctionalInterface 注解，那么编译器就会按照函数式接口的定义来要求该接口，这样如果有两个抽象方法，程序编译就会报错的。所以，从某种意义上来说，只要你保证你的接口中只有一个抽象方法，你可以不加这个注解。加上就会自动进行检测的，保证安全。Function函数式接口</p>
+<h4 id="function-函数型接口">Function 函数型接口<a hidden class="anchor" aria-hidden="true" href="#function-函数型接口">#</a></h4>
+<p>Function 函数型接口, 有一个输入参数，有一个输出</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span> 	<span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">void</span> main(String[] args) {
+</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">//输出大写后的原字符串
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        Function&lt;String, String&gt; function = str -&gt; str.<span style="color:#007f7f">toUpperCase</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">println</span>(function.<span style="color:#007f7f">apply</span>(<span style="color:#0ff;font-weight:bold">&#34;abc&#34;</span>));
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="predicate-断定型接口">Predicate 断定型接口<a hidden class="anchor" aria-hidden="true" href="#predicate-断定型接口">#</a></h4>
+<p>有一个输入参数，返回值只能是 布尔值！</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span> 	<span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">void</span> main(String[] args) {
+</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">//判断一个字符串是否为a开头
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        Predicate&lt;String&gt; predicate = s -&gt; !s.<span style="color:#007f7f">isEmpty</span>() &amp;&amp; s.<span style="color:#007f7f">charAt</span>(0) == <span style="color:#0ff;font-weight:bold">&#39;a&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">println</span>(predicate.<span style="color:#007f7f">test</span>(<span style="color:#0ff;font-weight:bold">&#34;abc&#34;</span>));
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="consumer-消费型接口">Consumer 消费型接口<a hidden class="anchor" aria-hidden="true" href="#consumer-消费型接口">#</a></h4>
+<p>只有输入没有输出</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">void</span> main(String[] args) {
+</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">//输出一个大写字符串
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        Consumer&lt;String&gt; consumer = s -&gt; System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">println</span>(s.<span style="color:#007f7f">toUpperCase</span>());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        consumer.<span style="color:#007f7f">accept</span>(<span style="color:#0ff;font-weight:bold">&#34;abc&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="supplier-供给型接口">Supplier 供给型接口<a hidden class="anchor" aria-hidden="true" href="#supplier-供给型接口">#</a></h4>
+<p>没有参数，只有输出值</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>   <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">void</span> main(String[] args) {
+</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">//返回一个Demo对象
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        Supplier&lt;Demo&gt; supplier = () -&gt; {<span style="color:#fff;font-weight:bold">return</span> <span style="color:#fff;font-weight:bold">new</span> Demo();};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">println</span>(supplier.<span style="color:#007f7f">get</span>().<span style="color:#007f7f">hashCode</span>());
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="stream流式计算">Stream流式计算<a hidden class="anchor" aria-hidden="true" href="#stream流式计算">#</a></h3>
+<p>存储交给集合，计算交给流</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">30
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#007f7f">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> * 题目要求：只用一行代码实现
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> * 现在有五个用户！筛选：
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> * 1、ID必须是偶数
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> * 2、年龄必须大于23岁
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> * 3、用户名转化为大写字母
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> * 4、用户名字母倒着排序
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> * 5、只输出一个用户
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">class</span> Test {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">void</span> main(String[] args) {
+</span></span><span style="display:flex;"><span>        User u1 = <span style="color:#fff;font-weight:bold">new</span> User(1,<span style="color:#0ff;font-weight:bold">&#34;a&#34;</span>,21);
+</span></span><span style="display:flex;"><span>        User u2 = <span style="color:#fff;font-weight:bold">new</span> User(2,<span style="color:#0ff;font-weight:bold">&#34;b&#34;</span>,22);
+</span></span><span style="display:flex;"><span>        User u3 = <span style="color:#fff;font-weight:bold">new</span> User(3,<span style="color:#0ff;font-weight:bold">&#34;c&#34;</span>,23);
+</span></span><span style="display:flex;"><span>        User u4 = <span style="color:#fff;font-weight:bold">new</span> User(4,<span style="color:#0ff;font-weight:bold">&#34;d&#34;</span>,24);
+</span></span><span style="display:flex;"><span>        User u5 = <span style="color:#fff;font-weight:bold">new</span> User(5,<span style="color:#0ff;font-weight:bold">&#34;e&#34;</span>,25);
+</span></span><span style="display:flex;"><span>        User u6 = <span style="color:#fff;font-weight:bold">new</span> User(6,<span style="color:#0ff;font-weight:bold">&#34;f&#34;</span>,26);
+</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">//集合用来存储
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        List&lt;User&gt; list = Arrays.<span style="color:#007f7f">asList</span>(u1, u2, u3, u4, u5,u6);
+</span></span><span style="display:flex;"><span>        <span style="color:#007f7f">//使用stream计算
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        <span style="color:#007f7f">//lambda表达式、链式编程、函数式接口、Stream流式计算
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>        list.<span style="color:#007f7f">stream</span>()
+</span></span><span style="display:flex;"><span>                .<span style="color:#007f7f">filter</span>(u-&gt;{<span style="color:#fff;font-weight:bold">return</span> u.<span style="color:#007f7f">getId</span>()%2 == 0;})
+</span></span><span style="display:flex;"><span>                .<span style="color:#007f7f">filter</span>(u-&gt;{<span style="color:#fff;font-weight:bold">return</span> u.<span style="color:#007f7f">getAge</span>() &gt; 23;})
+</span></span><span style="display:flex;"><span>                .<span style="color:#007f7f">map</span>(u-&gt;{<span style="color:#fff;font-weight:bold">return</span> u.<span style="color:#007f7f">getName</span>().<span style="color:#007f7f">toUpperCase</span>();})
+</span></span><span style="display:flex;"><span>                .<span style="color:#007f7f">sorted</span>((uu1,uu2)-&gt;{<span style="color:#fff;font-weight:bold">return</span> uu2.<span style="color:#007f7f">compareTo</span>(uu1);})
+</span></span><span style="display:flex;"><span>                .<span style="color:#007f7f">limit</span>(1)
+</span></span><span style="display:flex;"><span>                .<span style="color:#007f7f">forEach</span>(System.<span style="color:#007f7f">out</span>::println);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="forkjoin">Forkjoin<a hidden class="anchor" aria-hidden="true" href="#forkjoin">#</a></h2>
+<p>Forkjoin类似于一个递归算法，可以将一系列大问题拆分成小问题，然后逐个解决。
+其中有个工作窃取的概念，即一个线程处理完成任务以后会从另一个线程中获取其他线程的任务进行处理。
+由于线程是一种双端队列，可以从底部进行窃取。</p>
+<h2 id="jmm">JMM<a hidden class="anchor" aria-hidden="true" href="#jmm">#</a></h2>
+<p>JMM：Java内存模型，不存在的东西，概念，约定！</p>
+<p>JMM同步约定</p>
+<p>线程加锁前，必须把共享变量刷回主存</p>
+<p>线程解锁前，必须读取主存的最新值到工作内存中</p>
+<p>加锁和解锁是同一把锁</p>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210615135024324.png" alt="image-20210615135024324"  />
+</p>
+<p>store和write换一下位置</p>
+<p>对一个变量执行unlock操作之前，必须先把此变量同步到主内存中（执行store和write操作）。</p>
+<ul>
+<li><strong>read</strong> 读取，作用于主内存把变量从主内存中读取到本本地内存。</li>
+<li><strong>load</strong> 加载，主要作用本地内存，把从主内存中读取的变量加载到本地内存的变量副本中</li>
+<li><strong>use</strong> 使用，主要作用本地内存，把工作内存中的一个变量值传递给执行引擎，每当虚拟机遇到一个需要使用变量的值的字节码指令时将会执行这个操作。、</li>
+<li><strong>assign</strong> 赋值 作用于工作内存的变量，它把一个从执行引擎接收到的值赋值给工作内存的变量，每当虚拟机遇到一个给变量赋值的字节码指令时执行这个操作。</li>
+<li><strong>store</strong> 存储 作用于工作内存的变量，把工作内存中的一个变量的值传送到主内存中，以便随后的write的操作。</li>
+<li><strong>write</strong> 写入 作用于主内存的变量，它把store操作从工作内存中一个变量的值传送到主内存的变量中。</li>
+<li><strong>lock</strong> 锁定 ：作用于主内存的变量，把一个变量标识为一条线程独占状态。</li>
+<li><strong>unlock</strong> 解锁：作用于主内存变量，把一个处于锁定状态的变量释放出来，释放后的变量才可以被其他线程锁定。</li>
+</ul>
+<p>所以看似简单的通信其实是这八种状态来实现的。</p>
+<p>同时在Java内存模型中明确规定了要执行这些操作需要满足以下规则：</p>
+<ul>
+<li>不允许read和load、store和write的操作单独出现。</li>
+<li>不允许一个线程丢弃它的最近assign的操作，即变量在工作内存中改变了之后必须同步到主内存中。</li>
+<li>不允许一个线程无原因地（没有发生过任何assign操作）把数据从工作内存同步回主内存中。</li>
+<li>一个新的变量只能在主内存中诞生，不允许在工作内存中直接使用一个未被初始化（load或assign）的变量。即就是对一个变量实施use和store操作之前，必须先执行过了assign和load操作。</li>
+<li>一个变量在同一时刻只允许一条线程对其进行lock操作，lock和unlock必须成对出现</li>
+<li>如果对一个变量执行lock操作，将会清空工作内存中此变量的值，在执行引擎使用这个变量前需要重新执行load或assign操作初始化变量的值</li>
+<li>如果一个变量事先没有被lock操作锁定，则不允许对它执行unlock操作；也不允许去unlock一个被其他线程锁定的变量。</li>
+<li>对一个变量执行unlock操作之前，必须先把此变量同步到主内存中（执行store和write操作）。</li>
+</ul>
+<h2 id="volatile">volatile<a hidden class="anchor" aria-hidden="true" href="#volatile">#</a></h2>
+<p><a href="https://www.cnblogs.com/dolphin0520/p/3920373.html">https://www.cnblogs.com/dolphin0520/p/3920373.html</a></p>
+<h2 id="单例模式">单例模式<a hidden class="anchor" aria-hidden="true" href="#单例模式">#</a></h2>
+<h2 id="cas">CAS<a hidden class="anchor" aria-hidden="true" href="#cas">#</a></h2>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211122092348319.png" alt="image-20211122092348319"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211122091229750.png" alt="image-20211122091229750"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211122092046556.png" alt="image-20211122092046556"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211122094254849.png" alt="image-20211122094254849"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211122094400752.png" alt="image-20211122094400752"  />
+</p>
+<h2 id="aba问题">ABA问题<a hidden class="anchor" aria-hidden="true" href="#aba问题">#</a></h2>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211122094747144.png" alt="image-20211122094747144"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211122100014265.png" alt="image-20211122100014265"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211122100918366.png" alt="image-20211122100918366"  />
+</p>
+<p><img loading="lazy" src="C:%5cUsers%5cWIN10%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211122104954690.png" alt="image-20211122104954690"  />
+</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://kevinerr.github.io/tags/juc/">juc</a></li>
+      <li><a href="https://kevinerr.github.io/tags/java/">java</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://kevinerr.github.io/posts/tech/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>设计模式</span>
+  </a>
+  <a class="next" href="https://kevinerr.github.io/posts/tech/java%E5%9F%BA%E7%A1%80/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>Java基础</span>
+  </a>
+</nav>
+
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 并发/多线程 on twitter"
+        href="https://twitter.com/intent/tweet/?text=%e5%b9%b6%e5%8f%91%2f%e5%a4%9a%e7%ba%bf%e7%a8%8b&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E5%25B9%25B6%25E5%258F%2591-%25E5%25A4%259A%25E7%25BA%25BF%25E7%25A8%258B%2f&amp;hashtags=juc%2cjava">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 并发/多线程 on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E5%25B9%25B6%25E5%258F%2591-%25E5%25A4%259A%25E7%25BA%25BF%25E7%25A8%258B%2f&amp;title=%e5%b9%b6%e5%8f%91%2f%e5%a4%9a%e7%ba%bf%e7%a8%8b&amp;summary=%e5%b9%b6%e5%8f%91%2f%e5%a4%9a%e7%ba%bf%e7%a8%8b&amp;source=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E5%25B9%25B6%25E5%258F%2591-%25E5%25A4%259A%25E7%25BA%25BF%25E7%25A8%258B%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 并发/多线程 on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E5%25B9%25B6%25E5%258F%2591-%25E5%25A4%259A%25E7%25BA%25BF%25E7%25A8%258B%2f&title=%e5%b9%b6%e5%8f%91%2f%e5%a4%9a%e7%ba%bf%e7%a8%8b">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 并发/多线程 on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E5%25B9%25B6%25E5%258F%2591-%25E5%25A4%259A%25E7%25BA%25BF%25E7%25A8%258B%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 并发/多线程 on whatsapp"
+        href="https://api.whatsapp.com/send?text=%e5%b9%b6%e5%8f%91%2f%e5%a4%9a%e7%ba%bf%e7%a8%8b%20-%20https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E5%25B9%25B6%25E5%258F%2591-%25E5%25A4%259A%25E7%25BA%25BF%25E7%25A8%258B%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 并发/多线程 on telegram"
+        href="https://telegram.me/share/url?text=%e5%b9%b6%e5%8f%91%2f%e5%a4%9a%e7%ba%bf%e7%a8%8b&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E5%25B9%25B6%25E5%258F%2591-%25E5%25A4%259A%25E7%25BA%25BF%25E7%25A8%258B%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+
+  </footer>
+<div>
+    <div class="pagination__title">
+        <span class="pagination__title-h" style="font-size: 20px;">💬评论</span>
+        <hr />
+    </div>
+    <div id="tcomment"></div>
+    <script src="https://cdn.jsdelivr.net/npm/twikoo@1.5.0/dist/twikoo.all.min.js"></script>
+    <script>
+        twikoo.init({
+            envId: "https://twikoo-two-psi.vercel.app/",  
+            el: "#tcomment",
+            lang: 'zh-CN',
+            region: 'ap-guangzhou',  
+            path: 'window.TWIKOO_MAGIC_PATH||window.location.pathname',
+        });
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://kevinerr.github.io/">hkh&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

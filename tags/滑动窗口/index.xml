@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>滑动窗口 on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</link>
+    <description>Recent content in 滑动窗口 on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 19 Mar 2022 22:20:31 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>滑动窗口</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</link>
+      <pubDate>Sat, 19 Mar 2022 22:20:31 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</guid>
+      <description>滑动窗口法 什么情况下会想到滑动窗口法： 任何题目如果没有思路其实都可以想一下暴力解法。这道题暴力解法思路简单： 遍历任意i，j，使得i和j之间的</description>
+    </item>
+    
+  </channel>
+</rss>

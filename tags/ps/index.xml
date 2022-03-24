@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ps on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/ps/</link>
+    <description>Recent content in ps on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 24 May 2021 23:03:43 +0000</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/ps/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ps</title>
+      <link>https://kevinerr.github.io/posts/life/ps/</link>
+      <pubDate>Mon, 24 May 2021 23:03:43 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/life/ps/</guid>
+      <description>工具面板 文字T键入——放大镜（Alt切换）——抓手（移动画布）；Ctrl+0以最大呈现 新建工作区：导航器，画笔，字符 图层面板 混合模式：滤色（</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>web on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/web/</link>
+    <description>Recent content in web on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 20 Jan 2022 21:01:10 +0000</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/web/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>javaweb</title>
+      <link>https://kevinerr.github.io/posts/tech/javaweb/</link>
+      <pubDate>Thu, 20 Jan 2022 21:01:10 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/javaweb/</guid>
+      <description>Servlet Tomcat 定义 servlet的生命周期 ServletConfig/ServletContext servlet的层次结构 JSP 定义 JSP嵌入java的三种方式 JSP9个内置对象 request常用方法 重定向和</description>
+    </item>
+    
+  </channel>
+</rss>

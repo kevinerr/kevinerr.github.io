@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>linux | hkh&#39;s Blog</title>
+<meta name="keywords" content="linux" />
+<meta name="description" content="Linux常用命令 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 打包并压缩文件:“tar -czvf 压缩包名.tar.gz 文件名” 解压并展开压缩包:“tar -xzvf">
+<meta name="author" content="
+作者:&nbsp;kevin">
+<link rel="canonical" href="https://kevinerr.github.io/posts/tech/linux/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.7724ad4800b622e9e86a37940cdc71441089d486cd46f35de38fdd833dd93d2f.css" integrity="sha256-dyStSAC2IunoajeUDNxxRBCJ1IbNRvNd44/dgz3ZPS8=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="16x16" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="apple-touch-icon" href="https://kevinerr.github.io/Q.jpg">
+<link rel="mask-icon" href="https://kevinerr.github.io/Q.jpg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.94.2" />
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="linux" />
+<meta property="og:description" content="Linux常用命令 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 打包并压缩文件:“tar -czvf 压缩包名.tar.gz 文件名” 解压并展开压缩包:“tar -xzvf" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kevinerr.github.io/posts/tech/linux/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-18T22:01:23&#43;00:00" />
+<meta property="article:modified_time" content="2021-03-18T22:01:23&#43;00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="linux"/>
+<meta name="twitter:description" content="Linux常用命令 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 打包并压缩文件:“tar -czvf 压缩包名.tar.gz 文件名” 解压并展开压缩包:“tar -xzvf"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "📚文章",
+      "item": "https://kevinerr.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "👨🏻‍💻技术",
+      "item": "https://kevinerr.github.io/posts/tech/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "linux",
+      "item": "https://kevinerr.github.io/posts/tech/linux/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "linux",
+  "name": "linux",
+  "description": "Linux常用命令 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 打包并压缩文件:“tar -czvf 压缩包名.tar.gz 文件名” 解压并展开压缩包:“tar -xzvf",
+  "keywords": [
+    "linux"
+  ],
+  "articleBody": "Linux常用命令 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  打包并压缩文件:“tar -czvf 压缩包名.tar.gz 文件名” 解压并展开压缩包:“tar -xzvf 压缩包名.tar.gz” unzip 解压后缀名.zip的文件   sync #将数据从内存同步到硬盘 shutdown -h 10 #十分钟后关机 reboot #重启=shutdown -r now halt #关闭系统=shutdown -h now  cd ~ #回到当前用户目录 mkdir -p test2/test3/test4 #递归创建文件夹 rmdir -p test2/test3/test4 #递归删除多个目录  cp #只能复制文件  rm -rf #GG -f强制删除 -r递归删除  mv #移动文件和文件夹或重命名文件夹   */：* 根目录，一般根目录下只存放目录，不要存放文件，/etc、/bin、/dev、/lib、/sbin应该和根目录放置在一个分区中 */bin:/usr/bin:* 可执行二进制文件的目录，如常用的命令ls、tar、mv、cat等。 */boot：* 放置linux系统启动时用到的一些文件。/boot/vmlinuz为linux的内核文件，以及/boot/gurb。建议单独分区，分区大小100M即可 */dev：* 存放linux系统下的设备文件，访问该目录下某个文件，相当于访问某个设备，常用的是挂载光驱mount /dev/cdrom /mnt。 */etc：* 系统配置文件存放的目录，不建议在此目录下存放可执行文件，重要的配置文件有/etc/inittab、/etc/fstab、/etc/init.d、/etc/X11、/etc/sysconfig、/etc/xinetd.d修改配置文件之前记得备份。注：/etc/X11存放与x windows有关的设置。 */home：* 系统默认的用户家目录，新增用户账号时，用户的家目录都存放在此目录下，~表示当前用户的家目录，~test表示用户test的家目录。建议单独分区，并设置较大的磁盘空间，方便用户存放数据 */lib:/usr/lib:/usr/local/lib：* 系统使用的函数库的目录，程序在执行过程中，需要调用一些额外的参数时需要函数库的协助，比较重要的目录为/lib/modules。 */lost+fount：* 系统异常产生错误时，会将一些遗失的片段放置于此目录下，通常这个目录会自动出现在装置目录下。如加载硬盘于/disk 中，此目录下就会自动产生目录/disk/lost+found */mnt:/media：* 光盘默认挂载点，通常光盘挂载于/mnt/cdrom下，也不一定，可以选择任意位置进行挂载。 */opt：* 给主机额外安装软件所摆放的目录。如：FC4使用的Fedora 社群开发软件，如果想要自行安装新的KDE 桌面软件，可以将该软件安装在该目录下。以前的 Linux 系统中，习惯放置在 /usr/local 目录下 */proc：* 此目录的数据都在内存中，如系统核心，外部设备，网络状态，由于数据都存放于内存中，所以不占用磁盘空间，比较重要的目录有/proc/cpuinfo、/proc/interrupts、/proc/dma、/proc/ioports、/proc/net/等 */root：* 系统管理员root的家目录，系统第一个启动的分区为/，所以最好将/root和/放置在一个分区下。 */sbin:/usr/sbin:/usr/local/sbin：* 放置系统管理员使用的可执行命令，如fdisk、shutdown、mount等。与/bin不同的是，这几个目录是给系统管理员root使用的命令，一般用户只能\"查看\"而不能设置和使用。 */tmp：* 一般用户或正在执行的程序临时存放文件的目录,任何人都可以访问,重要数据不可放置在此目录下 /srv： 服务启动之后需要访问的数据目录，如www服务需要访问的网页数据存放在/srv/www内 **/usr： 应用程序存放目录，*/usr/bin** 存放应用程序**， /usr/share 存放共享数据，*/usr/lib* 存放不能直接运行的，却是许多程序运行所必需的一些函数库文件。/usr/local:存放软件升级包。*/usr/share/doc:* 系统说明文件存放目录。*/usr/share/man:* 程序说明文件存放目录，使用 man ls时会查询/usr/share/man/man1/ls.1.gz的内容建议单独分区，设置较大的磁盘空间 */var：* 放置系统执行过程中经常变化的文件，如随时更改的日志文件 /var/log，/var/log/message： 所有的登录文件存放目录，*/var/spool/mail：* 邮件存放的目录，/var/run: 程序或服务启动\n文件基本属性   当为 d 则是目录\n  当为 - 则是文件；\n  若是 l 则表示为链接文档(link file)；\n  若是 b 则表示为装置文件里面的可供储存的接口设备(可随机存取装置)；\n  若是 c 则表示为装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)。\n1 2 3  chmod #change mode chown #change ownership chgrp #change group     查看文件 1 2 3 4 5 6 7 8 9 10 11 12 13   cd /etc/sysconfig/network-scripts/  cat -n #-n显示行号，用于显示小文件的内容，或者在shell脚本里显示文件内容，不支持翻页。  tac #从最后一行开始  head  tail  more  less #最好用，上下翻页，q键退出 /要查询的字符向下查询 ?向上查询     touch f1#创建文件  ln f1 f2  ln -s f1 f3  echo \"i love djx\" f1 #输入字符串   硬链接：拷贝，只有数目为0时才删除\n软链接：快捷方式\n账号管理 1 2 3 4 5 6 7 8  useradd djx #-G给用户分配组 cat /etc/password #用户名:口令:用户标识号:组标识号:注释性描述:主目录:登录Shell userdel -r djx usermod -d /home/z passwd 选项 用户名 #-l 锁定口令，即禁用账号。 -u 口令解锁。 passwd djx su djx hostname   用户组管理 1 2 3 4 5 6 7 8   groupadd -g 520 djx #指定520端口号，不指定默认自增1  cat /etc/group  groupdel  groupmod -g 666 -n newdjx djx  su djx  newgrp root #切换组   cat /etc/shadow #登录口令 加密的   磁盘管理  列出文件系统的整体磁盘使用量 检查磁盘空间使用量 磁盘分区 磁盘格式化 磁盘检验 磁盘的挂载与删除  1 2 3 4 5 6  df df -h du mkdir /mnt/hdc6 mount /dev/hdc6 /mnt/hdc6 #Mac插入u盘或磁盘需要挂载到mnt目录中才能使用 umount /dev/hdc6   进程管理 基本概念\n linux中，每个程序都有自己的进程，每个进程都有一个id号 每个进程都有一个父进程 进程有前台和后台运行2种方式 一般服务后台运行，程序前台运行  命令\n1 2 3 4  ps -aux kill -9 进程id  nohup 代表后台z   文件：读写执行（查看、创建、删除、移动、复制、编辑），权限（用户、用户组），系统（磁盘、进程）\n下载环境 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24  # rpm下载 mkdir java#下载jdk rpm java -version #查看版本 rpm -qa|grep jdk #检测jdk版本信息 rpm -e --nodeps xx #卸载jdk，xx表示检测出来的jdk rpm -ivh rpm包 #安装，-i是安装（install），-v是列出更多详细信息（verbose），-h是在安装时列出hash标记  #tar下载 mkdir java #在/usr下新建文件夹 tar -zxvf jdk-8u171-linux-x64.tar.gz #得到文件夹：jdk1.8.0_171 vim /etc/profile #修改配置环境，添加以下环境,rpm安装不用配，解压缩才用配 \tJAVA_HOME=/usr/java/jdk1.8.0_171  CLASSPATH=$JAVA_HOME/lib/  PATH=$PATH:$JAVA_HOME/bin  export PATH JAVA_HOME CLASSPATH source /etc/profile #重新加载文件 java -version #查看版本  #yum下载 yum list installed |grep java #查看是否自带jdk yum -y remove java-1.8.0-openjdk.x86_64 yum -y remove tzdata-java.noarch #卸载掉自带的 yum -y list java* #查看yum库中的Java安装包 yum -y install java-1.8.0-openjdk*   防火墙 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  常用命令： systemctl start firewalld #启动 systemctl stop firewalld #停止 systemctl status firewalld #查看状态  开放或关闭端口： firewall-cmd --zone=public --add-port=80/tcp --permanent #开放80/tcp端口 （--permanent永久生效，没有此参数重启后失效） firewall-cmd --zone=public --query-port=80/tcp #查看80/tcp端口 firewall-cmd --zone=public --remove-port=80/tcp --permanent #关闭80/tcp端口  批量开放或关闭端口： firewall-cmd --zone=public --add-port=40000-45000/tcp --permanent #批量开放端口，打开从40000到45000之间的所有端口 firewall-cmd --zone=public --list-ports #查看系统所有开放的端口 firewall-cmd --zone=public --remove-port=40000-45000/tcp --permanent #批量关闭端口，关闭从40000到45000之间的所有端口  更新防火墙的设置： firewall-cmd --reload #更新防火墙的设置，使上面的修改生效  阿里云还需配置安全组规则   shell脚本 ACwing 常用文件管理命令 https://www.acwing.com/file_system/file/content/whole/index/content/2855620/\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16  (1) ctrl c: 取消命令，并且换行 (2) ctrl u: 清空本行命令 (3) tab键：可以补全命令和文件名，如果补全不了快速按两下tab键，可以显示备选选项 (4) ls: 列出当前目录下所有文件，蓝色的是文件夹，白色的是普通文件，绿色的是可执行文件 (5) pwd: 显示当前路径 (6) cd XXX: 进入XXX目录下, cd .. 返回上层目录 (7) cp XXX YYY: 将XXX文件复制成YYY，XXX和YYY可以是一个路径，比如../dir_c/a.txt，表示上层目录下的dir_c文件夹下的文件a.txt (8) mkdir XXX: 创建目录XXX (9) rm XXX: 删除普通文件; rm XXX -r: 删除文件夹 (10) mv XXX YYY: 将XXX文件移动到YYY，和cp命令一样，XXX和YYY可以是一个路径；重命名也是用这个命令 (11) touch XXX: 创建一个文件 (12) cat XXX: 展示文件XXX中的内容 (13) 复制文本  windows/Linux下：Ctrl + insert，Mac下：command + c (14) 粘贴文本  windows/Linux下：Shift + insert，Mac下：command + v   tmux教程 https://www.acwing.com/file_system/file/content/whole/index/content/2855620/\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45  功能：  (1) 分屏。  (2) 允许断开Terminal连接后，继续运行进程。 结构：  一个tmux可以包含多个session，一个session可以包含多个window，一个window可以包含多个pane。  实例：  tmux:  session 0:  window 0:  pane 0  pane 1  pane 2  ...  window 1  window 2  ...  session 1  session 2  ... 操作：  (1) tmux：新建一个session，其中包含一个window，window中包含一个pane，pane里打开了一个shell对话框。  (2) 按下Ctrl + a后手指松开，然后按%：将当前pane左右平分成两个pane。  (3) 按下Ctrl + a后手指松开，然后按\"（注意是双引号\"）：将当前pane上下平分成两个pane。  (4) Ctrl + d：关闭当前pane；如果当前window的所有pane均已关闭，则自动关闭window；如果当前session的所有window均已关闭，则自动关闭session。  (5) 鼠标点击可以选pane。  (6) 按下ctrl + a后手指松开，然后按方向键：选择相邻的pane。  (7) 鼠标拖动pane之间的分割线，可以调整分割线的位置。  (8) 按住ctrl + a的同时按方向键，可以调整pane之间分割线的位置。  (9) 按下ctrl + a后手指松开，然后按z：将当前pane全屏/取消全屏。  (10) 按下ctrl + a后手指松开，然后按d：挂起当前session。  (11) tmux a：打开之前挂起的session。  (12) 按下ctrl + a后手指松开，然后按s：选择其它session。  方向键 —— 上：选择上一项 session/window/pane  方向键 —— 下：选择下一项 session/window/pane  方向键 —— 右：展开当前项 session/window  方向键 —— 左：闭合当前项 session/window  (13) 按下Ctrl + a后手指松开，然后按c：在当前session中创建一个新的window。  (14) 按下Ctrl + a后手指松开，然后按w：选择其他window，操作方法与(12)完全相同。  (15) 按下Ctrl + a后手指松开，然后按PageUp：翻阅当前pane内的内容。  (16) 鼠标滚轮：翻阅当前pane内的内容。  (17) 在tmux中选中文本时，需要按住shift键。（仅支持Windows和Linux，不支持Mac，不过该操作并不是必须的，因此影响不大）  (18) tmux中复制/粘贴文本的通用方式：  (1) 按下Ctrl + a后松开手指，然后按[  (2) 用鼠标选中文本，被选中的文本会被自动复制到tmux的剪贴板  (3) 按下Ctrl + a后松开手指，然后按]，会将剪贴板中的内容粘贴到光标处   vim教程 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63  功能：  (1) 命令行模式下的文本编辑器。  (2) 根据文件扩展名自动判别编程语言。支持代码缩进、代码高亮等功能。  (3) 使用方式：vim filename  如果已有该文件，则打开它。  如果没有该文件，则打开个一个新的文件，并命名为filename 模式：  (1) 一般命令模式  默认模式。命令输入方式：类似于打游戏放技能，按不同字符，即可进行不同操作。可以复制、粘贴、删除文本等。  (2) 编辑模式  在一般命令模式里按下i，会进入编辑模式。  按下ESC会退出编辑模式，返回到一般命令模式。  (3) 命令行模式  在一般命令模式里按下:/?三个字母中的任意一个，会进入命令行模式。命令行在最下面。  可以查找、替换、保存、退出、配置编辑器等。 操作：  (1) i：进入编辑模式  (2) ESC：进入一般命令模式  (3) h 或 左箭头键：光标向左移动一个字符  (4) j 或 向下箭头：光标向下移动一个字符  (5) k 或 向上箭头：光标向上移动一个字符  (6) l 或 向右箭头：光标向右移动一个字符  (7) n：n表示数字，按下数字后再按空格，光标会向右移动这一行的n个字符  (8) 0 或 功能键[Home]：光标移动到本行开头  (9) $ 或 功能键[End]：光标移动到本行末尾  (10) G：光标移动到最后一行  (11) :n 或 nG：n为数字，光标移动到第n行  (12) gg：光标移动到第一行，相当于1G  (13) n：n为数字，光标向下移动n行  (14) /word：向光标之下寻找第一个值为word的字符串。  (15) ?word：向光标之上寻找第一个值为word的字符串。  (16) n：重复前一个查找操作  (17) N：反向重复前一个查找操作  (18) :n1,n2s/word1/word2/g：n1与n2为数字，在第n1行与n2行之间寻找word1这个字符串，并将该字符串替换为word2  (19) :1,$s/word1/word2/g：将全文的word1替换为word2  (20) :1,$s/word1/word2/gc：将全文的word1替换为word2，且在替换前要求用户确认。  (21) v：选中文本  (22) d：删除选中的文本  (23) dd: 删除当前行  (24) y：复制选中的文本  (25) yy: 复制当前行  (26) p: 将复制的数据在光标的下一行/下一个位置粘贴  (27) u：撤销  (28) Ctrl + r：取消撤销  (29) 大于号 ：将选中的文本整体向右缩进一次  (30) 小于号  (31) :w 保存  (32) :w! 强制保存  (33) :q 退出  (34) :q! 强制退出  (35) :wq 保存并退出  (36) :set paste 设置成粘贴模式，取消代码自动缩进  (37) :set nopaste 取消粘贴模式，开启代码自动缩进  (38) :set nu 显示行号  (39) :set nonu 隐藏行号  (40) gg=G：将全文代码格式化  (41) :noh 关闭查找关键词高亮  (42) Ctrl + q：当vim卡死时，可以取消当前正在执行的命令 异常处理：  每次用vim编辑文件时，会自动创建一个.filename.swp的临时文件。  如果打开某个文件时，该文件的swp文件已存在，则会报错。此时解决办法有两种：  (1) 找到正在打开该文件的程序，并退出  (2) 直接删掉该swp文件即可   shell脚本 https://www.acwing.com/file_system/file/content/whole/index/content/2855883/\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16  概论 注释 变量 默认变量 数组 expr命令 read命令 echo命令 printf命令 test命令与判断符号[] 判断语句 循环语句 函数 exit命令 文件重定向 引入外部脚本   ssh登录 https://www.acwing.com/file_system/file/content/whole/index/content/2898263/\nscp传文件 https://www.acwing.com/file_system/file/content/whole/index/content/2898266/\ngit https://www.acwing.com/file_system/file/content/whole/index/content/2932078/\nhttps://git.acwing.com/\n管道 https://www.acwing.com/file_system/file/content/whole/index/content/3030404/\n环境变量 https://www.acwing.com/file_system/file/content/whole/index/content/3030412/\n常用命令 https://www.acwing.com/file_system/file/content/whole/index/content/3030414/\n租云服务器和配置docker https://www.acwing.com/file_system/file/content/whole/index/content/3074146/\n",
+  "wordCount" : "5874",
+  "inLanguage": "en",
+  "datePublished": "2021-03-18T22:01:23Z",
+  "dateModified": "2021-03-18T22:01:23Z",
+  "author":{
+    "@type": "Person",
+    "name": "kevin"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kevinerr.github.io/posts/tech/linux/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hkh's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kevinerr.github.io/img/Q.jpg"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://kevinerr.github.io/" accesskey="h" title="hkh&#39;s Blog (Alt + H)">hkh&#39;s Blog</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://kevinerr.github.io/search" title="🔍搜索 (Alt &#43; /)" accesskey=/>
+                    <span>🔍搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/posts" title="📚文章">
+                    <span>📚文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/archives" title="⏱时间轴">
+                    <span>⏱时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/tags" title="🔖标签">
+                    <span>🔖标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/about" title="🙋🏻‍♂️关于">
+                    <span>🙋🏻‍♂️关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/links" title="🤝友链">
+                    <span>🤝友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://kevinerr.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://kevinerr.github.io/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://kevinerr.github.io/posts/tech/">👨🏻‍💻技术</a></div>
+    <h1 class="post-title">
+      linux
+    </h1>
+    <div class="post-meta">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2021-03-18 22:01:23 +0000 UTC'>2021-03-18</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-18&nbsp;|&nbsp;字数:&nbsp;5874字&nbsp;|&nbsp;时长: 12分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">Table of Contents</span>
+            </summary>
+
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#linux%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4" aria-label="Linux常用命令">Linux常用命令</a><ul>
+                            
+                    <li>
+                        <a href="#%e6%96%87%e4%bb%b6%e5%9f%ba%e6%9c%ac%e5%b1%9e%e6%80%a7" aria-label="文件基本属性">文件基本属性</a></li>
+                    <li>
+                        <a href="#%e6%9f%a5%e7%9c%8b%e6%96%87%e4%bb%b6" aria-label="查看文件">查看文件</a></li>
+                    <li>
+                        <a href="#%e8%b4%a6%e5%8f%b7%e7%ae%a1%e7%90%86" aria-label="账号管理">账号管理</a></li>
+                    <li>
+                        <a href="#%e7%94%a8%e6%88%b7%e7%bb%84%e7%ae%a1%e7%90%86" aria-label="用户组管理">用户组管理</a></li>
+                    <li>
+                        <a href="#%e7%a3%81%e7%9b%98%e7%ae%a1%e7%90%86" aria-label="磁盘管理">磁盘管理</a></li>
+                    <li>
+                        <a href="#%e8%bf%9b%e7%a8%8b%e7%ae%a1%e7%90%86" aria-label="进程管理">进程管理</a></li>
+                    <li>
+                        <a href="#%e4%b8%8b%e8%bd%bd%e7%8e%af%e5%a2%83" aria-label="下载环境">下载环境</a></li>
+                    <li>
+                        <a href="#%e9%98%b2%e7%81%ab%e5%a2%99" aria-label="防火墙">防火墙</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#shell%e8%84%9a%e6%9c%ac" aria-label="shell脚本">shell脚本</a></li>
+                    <li>
+                        <a href="#acwing" aria-label="ACwing">ACwing</a><ul>
+                            
+                    <li>
+                        <a href="#%e5%b8%b8%e7%94%a8%e6%96%87%e4%bb%b6%e7%ae%a1%e7%90%86%e5%91%bd%e4%bb%a4" aria-label="常用文件管理命令">常用文件管理命令</a></li>
+                    <li>
+                        <a href="#tmux%e6%95%99%e7%a8%8b" aria-label="tmux教程">tmux教程</a></li>
+                    <li>
+                        <a href="#vim%e6%95%99%e7%a8%8b" aria-label="vim教程">vim教程</a></li>
+                    <li>
+                        <a href="#shell%e8%84%9a%e6%9c%ac-1" aria-label="shell脚本">shell脚本</a></li>
+                    <li>
+                        <a href="#ssh%e7%99%bb%e5%bd%95" aria-label="ssh登录">ssh登录</a></li>
+                    <li>
+                        <a href="#scp%e4%bc%a0%e6%96%87%e4%bb%b6" aria-label="scp传文件">scp传文件</a></li>
+                    <li>
+                        <a href="#git" aria-label="git">git</a></li>
+                    <li>
+                        <a href="#%e7%ae%a1%e9%81%93" aria-label="管道">管道</a></li>
+                    <li>
+                        <a href="#%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f" aria-label="环境变量">环境变量</a></li>
+                    <li>
+                        <a href="#%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4" aria-label="常用命令">常用命令</a></li>
+                    <li>
+                        <a href="#%e7%a7%9f%e4%ba%91%e6%9c%8d%e5%8a%a1%e5%99%a8%e5%92%8c%e9%85%8d%e7%bd%aedocker" aria-label="租云服务器和配置docker">租云服务器和配置docker</a>
+                    </li>
+                </ul>
+                </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+         
+         activeElement = elements[0];
+         const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+         document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+     }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+             const id = encodeURI(element.getAttribute('id')).toLowerCase();
+             if (element === activeElement){
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+             } else {
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+             }
+         })
+     }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;   
+    }
+</script>
+
+  <div class="post-content"><h2 id="linux常用命令">Linux常用命令<a hidden class="anchor" aria-hidden="true" href="#linux常用命令">#</a></h2>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>打包并压缩文件:“tar -czvf 压缩包名.tar.gz 文件名”
+</span></span><span style="display:flex;"><span>解压并展开压缩包:“tar -xzvf 压缩包名.tar.gz”
+</span></span><span style="display:flex;"><span>unzip 解压后缀名.zip的文件
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sync <span style="color:#007f7f">#将数据从内存同步到硬盘</span>
+</span></span><span style="display:flex;"><span>shutdown -h <span style="color:#ff0;font-weight:bold">10</span> <span style="color:#007f7f">#十分钟后关机</span>
+</span></span><span style="display:flex;"><span>reboot <span style="color:#007f7f">#重启=shutdown -r now</span>
+</span></span><span style="display:flex;"><span>halt <span style="color:#007f7f">#关闭系统=shutdown -h now</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">cd</span> ~ <span style="color:#007f7f">#回到当前用户目录</span>
+</span></span><span style="display:flex;"><span>mkdir -p test2/test3/test4 <span style="color:#007f7f">#递归创建文件夹</span>
+</span></span><span style="display:flex;"><span>rmdir -p test2/test3/test4 <span style="color:#007f7f">#递归删除多个目录</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cp <span style="color:#007f7f">#只能复制文件</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>rm -rf <span style="color:#007f7f">#GG  -f强制删除 -r递归删除</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mv <span style="color:#007f7f">#移动文件和文件夹或重命名文件夹</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img loading="lazy" src="https://img-blog.csdn.net/20170225232223580?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWluOTk2MzU4MzEy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"  />
+</p>
+<p><em><strong>*/：*</strong></em> 根目录，一般根目录下只存放目录，不要存放文件，/etc、/bin、/dev、/lib、/sbin应该和根目录放置在一个分区中
+<em><strong>*/bin:/usr/bin:*</strong></em> 可执行二进制文件的目录，如常用的命令ls、tar、mv、cat等。
+<em><strong>*/boot：*</strong></em> 放置linux系统启动时用到的一些文件。/boot/vmlinuz为linux的内核文件，以及/boot/gurb。建议单独分区，分区大小100M即可
+<em><strong>*/dev：*</strong></em> 存放linux系统下的设备文件，访问该目录下某个文件，相当于访问某个设备，常用的是挂载光驱mount /dev/cdrom /mnt。
+<strong><em>*/etc：*</em> 系统配置文件存放的目录，不建议在此目录下存放可执行文件，重要的配置文件有/etc/inittab、/etc/fstab、/etc/init.d、/etc/X11、/etc/sysconfig、/etc/xinetd.d修改配置文件之前记得备份。注：/etc/X11存放与x windows有关的设置。</strong>
+<strong><em>*/home：*</em> 系统默认的用户家目录，新增用户账号时，用户的家目录都存放在此目录下，~表示当前用户的家目录，~test表示用户test的家目录。建议单独分区，并设置较大的磁盘空间，方便用户存放数据</strong>
+<em><strong>*/lib:/usr/lib:/usr/local/lib：*</strong></em> 系统使用的函数库的目录，程序在执行过程中，需要调用一些额外的参数时需要函数库的协助，比较重要的目录为/lib/modules。
+<em><strong>*/lost+fount：*</strong></em> 系统异常产生错误时，会将一些遗失的片段放置于此目录下，通常这个目录会自动出现在装置目录下。如加载硬盘于/disk 中，此目录下就会自动产生目录/disk/lost+found
+<em><strong>*/mnt:/media：*</strong></em> 光盘默认挂载点，通常光盘挂载于/mnt/cdrom下，也不一定，可以选择任意位置进行挂载。
+<strong><em>*/opt：*</em> 给主机额外安装软件所摆放的目录。如：FC4使用的Fedora 社群开发软件，如果想要自行安装新的KDE 桌面软件，可以将该软件安装在该目录下。以前的 Linux 系统中，习惯放置在 /usr/local 目录下</strong>
+<em><strong>*/proc：*</strong></em> 此目录的数据都在内存中，如系统核心，外部设备，网络状态，由于数据都存放于内存中，所以不占用磁盘空间，比较重要的目录有/proc/cpuinfo、/proc/interrupts、/proc/dma、/proc/ioports、/proc/net/<em><strong>等
+<em>*/root：*</em> 系统管理员root的家目录，系统第一个启动的分区为/，所以最好将/root和/放置在一个分区下。</strong>
+<em><strong>*/sbin:/usr/sbin:/usr/local/sbin：*</strong></em> 放置系统管理员使用的可执行命令，如fdisk、shutdown、mount等。与/bin不同的是，这几个目录是给系统管理员root使用的命令，一般用户只能&quot;查看&quot;而不能设置和使用。
+<em><strong>*/tmp：*</strong></em> 一般用户或正在执行的程序临时存放文件的目录,任何人都可以访问,重要数据不可放置在此目录下
+<strong>/srv：</strong> 服务启动之后需要访问的数据目录，如www服务需要访问的网页数据存放在/srv/www内
+**/usr： 应用程序存放目录，</em>*/usr/bin** 存放应用程序**， <strong>/usr/share</strong> 存放共享数据，<em><strong>*/usr/lib*</strong></em> 存放不能直接运行的，却是许多程序运行所必需的一些函数库文件。/usr/local:存放软件升级包。<em><strong>*/usr/share/doc:*</strong></em> 系统说明文件存放目录。<em><strong>*/usr/share/man:*</strong></em> 程序说明文件存放目录，使用 man ls时会查询/usr/share/man/man1/ls.1.gz的内容建议单独分区，设置较大的磁盘空间
+<em><strong>*/var：*</strong></em> 放置系统执行过程中经常变化的文件，如随时更改的日志文件 <strong>/var/log，/var/log/message：</strong> 所有的登录文件存放目录，<em><strong>*/var/spool/mail：*</strong></em> 邮件存放的目录，<strong>/var/run:</strong> 程序或服务启动</p>
+<h3 id="文件基本属性">文件基本属性<a hidden class="anchor" aria-hidden="true" href="#文件基本属性">#</a></h3>
+<ul>
+<li>
+<p>当为 <strong>d</strong> 则是目录</p>
+</li>
+<li>
+<p>当为 <strong>-</strong> 则是文件；</p>
+</li>
+<li>
+<p>若是 <strong>l</strong> 则表示为链接文档(link file)；</p>
+</li>
+<li>
+<p>若是 <strong>b</strong> 则表示为装置文件里面的可供储存的接口设备(可随机存取装置)；</p>
+</li>
+<li>
+<p>若是 <strong>c</strong> 则表示为装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)。</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>chmod <span style="color:#007f7f">#change mode</span>
+</span></span><span style="display:flex;"><span>chown <span style="color:#007f7f">#change ownership</span>
+</span></span><span style="display:flex;"><span>chgrp <span style="color:#007f7f">#change group</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h3 id="查看文件">查看文件<a hidden class="anchor" aria-hidden="true" href="#查看文件">#</a></h3>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span> <span style="color:#fff;font-weight:bold">cd</span> /etc/sysconfig/network-scripts/
+</span></span><span style="display:flex;"><span> cat -n <span style="color:#007f7f">#-n显示行号，用于显示小文件的内容，或者在shell脚本里显示文件内容，不支持翻页。</span>
+</span></span><span style="display:flex;"><span> tac <span style="color:#007f7f">#从最后一行开始</span>
+</span></span><span style="display:flex;"><span> head 
+</span></span><span style="display:flex;"><span> tail
+</span></span><span style="display:flex;"><span> more
+</span></span><span style="display:flex;"><span> less  <span style="color:#007f7f">#最好用，上下翻页，q键退出  /要查询的字符向下查询  ?向上查询 </span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> touch f1#创建文件
+</span></span><span style="display:flex;"><span> ln f1 f2
+</span></span><span style="display:flex;"><span> ln -s f1 f3
+</span></span><span style="display:flex;"><span> <span style="color:#fff;font-weight:bold">echo</span> <span style="color:#0ff;font-weight:bold">&#34;i love djx&#34;</span> &gt;&gt;f1  <span style="color:#007f7f">#输入字符串</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>硬链接：拷贝，只有数目为0时才删除</p>
+<p>软链接：快捷方式</p>
+<h3 id="账号管理">账号管理<a hidden class="anchor" aria-hidden="true" href="#账号管理">#</a></h3>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>useradd djx  <span style="color:#007f7f">#-G给用户分配组</span>
+</span></span><span style="display:flex;"><span>cat /etc/password  <span style="color:#007f7f">#用户名:口令:用户标识号:组标识号:注释性描述:主目录:登录Shell</span>
+</span></span><span style="display:flex;"><span>userdel -r djx
+</span></span><span style="display:flex;"><span>usermod -d /home/z 
+</span></span><span style="display:flex;"><span>passwd 选项 用户名 <span style="color:#007f7f">#-l 锁定口令，即禁用账号。 -u 口令解锁。</span>
+</span></span><span style="display:flex;"><span>passwd djx
+</span></span><span style="display:flex;"><span>su djx
+</span></span><span style="display:flex;"><span>hostname
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="用户组管理">用户组管理<a hidden class="anchor" aria-hidden="true" href="#用户组管理">#</a></h3>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span> groupadd -g <span style="color:#ff0;font-weight:bold">520</span> djx <span style="color:#007f7f">#指定520端口号，不指定默认自增1</span>
+</span></span><span style="display:flex;"><span> cat /etc/group
+</span></span><span style="display:flex;"><span> groupdel 
+</span></span><span style="display:flex;"><span> groupmod -g <span style="color:#ff0;font-weight:bold">666</span> -n newdjx djx 
+</span></span><span style="display:flex;"><span> su djx
+</span></span><span style="display:flex;"><span> newgrp root   <span style="color:#007f7f">#切换组</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>  cat /etc/shadow  <span style="color:#007f7f">#登录口令  加密的</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="磁盘管理">磁盘管理<a hidden class="anchor" aria-hidden="true" href="#磁盘管理">#</a></h3>
+<ol>
+<li>列出文件系统的整体磁盘使用量</li>
+<li>检查磁盘空间使用量</li>
+<li>磁盘分区</li>
+<li>磁盘格式化</li>
+<li>磁盘检验</li>
+<li>磁盘的挂载与删除</li>
+</ol>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>df
+</span></span><span style="display:flex;"><span>df -h
+</span></span><span style="display:flex;"><span>du
+</span></span><span style="display:flex;"><span>mkdir /mnt/hdc6  
+</span></span><span style="display:flex;"><span>mount /dev/hdc6 /mnt/hdc6 #Mac插入u盘或磁盘需要挂载到mnt目录中才能使用
+</span></span><span style="display:flex;"><span>umount /dev/hdc6
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="进程管理">进程管理<a hidden class="anchor" aria-hidden="true" href="#进程管理">#</a></h3>
+<p>基本概念</p>
+<ol>
+<li>linux中，每个程序都有自己的进程，每个进程都有一个id号</li>
+<li>每个进程都有一个父进程</li>
+<li>进程有前台和后台运行2种方式</li>
+<li>一般服务后台运行，程序前台运行</li>
+</ol>
+<p>命令</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ps -aux
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">kill</span> -9 进程id
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>nohup  代表后台z
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>文件：读写执行（查看、创建、删除、移动、复制、编辑），权限（用户、用户组），系统（磁盘、进程）</strong></p>
+<h3 id="下载环境">下载环境<a hidden class="anchor" aria-hidden="true" href="#下载环境">#</a></h3>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#007f7f"># rpm下载</span>
+</span></span><span style="display:flex;"><span>mkdir java#下载jdk rpm
+</span></span><span style="display:flex;"><span>java -version  <span style="color:#007f7f">#查看版本</span>
+</span></span><span style="display:flex;"><span>rpm -qa|grep jdk <span style="color:#007f7f">#检测jdk版本信息</span>
+</span></span><span style="display:flex;"><span>rpm -e --nodeps xx <span style="color:#007f7f">#卸载jdk，xx表示检测出来的jdk</span>
+</span></span><span style="display:flex;"><span>rpm -ivh rpm包  <span style="color:#007f7f">#安装，-i是安装（install），-v是列出更多详细信息（verbose），-h是在安装时列出hash标记</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">#tar下载</span>
+</span></span><span style="display:flex;"><span>mkdir java <span style="color:#007f7f">#在/usr下新建文件夹</span>
+</span></span><span style="display:flex;"><span>tar -zxvf jdk-8u171-linux-x64.tar.gz  <span style="color:#007f7f">#得到文件夹：jdk1.8.0_171</span>
+</span></span><span style="display:flex;"><span>vim /etc/profile <span style="color:#007f7f">#修改配置环境，添加以下环境,rpm安装不用配，解压缩才用配</span>
+</span></span><span style="display:flex;"><span>	JAVA_HOME=/usr/java/jdk1.8.0_171
+</span></span><span style="display:flex;"><span>    CLASSPATH=$JAVA_HOME/lib/
+</span></span><span style="display:flex;"><span>    PATH=$PATH:$JAVA_HOME/bin
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">export</span> PATH JAVA_HOME CLASSPATH
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">source</span> /etc/profile <span style="color:#007f7f">#重新加载文件</span>
+</span></span><span style="display:flex;"><span>java -version  <span style="color:#007f7f">#查看版本</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">#yum下载</span>
+</span></span><span style="display:flex;"><span>yum list installed |grep java  <span style="color:#007f7f">#查看是否自带jdk</span>
+</span></span><span style="display:flex;"><span>yum -y remove java-1.8.0-openjdk.x86_64
+</span></span><span style="display:flex;"><span>yum -y remove tzdata-java.noarch  <span style="color:#007f7f">#卸载掉自带的</span>
+</span></span><span style="display:flex;"><span>yum -y list java* <span style="color:#007f7f">#查看yum库中的Java安装包</span>
+</span></span><span style="display:flex;"><span>yum -y install java-1.8.0-openjdk*
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="防火墙">防火墙<a hidden class="anchor" aria-hidden="true" href="#防火墙">#</a></h3>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>常用命令：
+</span></span><span style="display:flex;"><span>systemctl start firewalld <span style="color:#007f7f">#启动</span>
+</span></span><span style="display:flex;"><span>systemctl stop firewalld <span style="color:#007f7f">#停止</span>
+</span></span><span style="display:flex;"><span>systemctl status firewalld <span style="color:#007f7f">#查看状态</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>开放或关闭端口：
+</span></span><span style="display:flex;"><span>firewall-cmd --zone=public --add-port=80/tcp --permanent <span style="color:#007f7f">#开放80/tcp端口 （--permanent永久生效，没有此参数重启后失效）</span>
+</span></span><span style="display:flex;"><span>firewall-cmd --zone=public --query-port=80/tcp <span style="color:#007f7f">#查看80/tcp端口</span>
+</span></span><span style="display:flex;"><span>firewall-cmd --zone=public --remove-port=80/tcp --permanent <span style="color:#007f7f">#关闭80/tcp端口</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>批量开放或关闭端口：
+</span></span><span style="display:flex;"><span>firewall-cmd --zone=public --add-port=40000-45000/tcp --permanent <span style="color:#007f7f">#批量开放端口，打开从40000到45000之间的所有端口</span>
+</span></span><span style="display:flex;"><span>firewall-cmd --zone=public --list-ports <span style="color:#007f7f">#查看系统所有开放的端口</span>
+</span></span><span style="display:flex;"><span>firewall-cmd --zone=public --remove-port=40000-45000/tcp --permanent <span style="color:#007f7f">#批量关闭端口，关闭从40000到45000之间的所有端口</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>更新防火墙的设置：
+</span></span><span style="display:flex;"><span>firewall-cmd --reload <span style="color:#007f7f">#更新防火墙的设置，使上面的修改生效</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>阿里云还需配置安全组规则
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="shell脚本">shell脚本<a hidden class="anchor" aria-hidden="true" href="#shell脚本">#</a></h2>
+<h2 id="acwing">ACwing<a hidden class="anchor" aria-hidden="true" href="#acwing">#</a></h2>
+<h3 id="常用文件管理命令">常用文件管理命令<a hidden class="anchor" aria-hidden="true" href="#常用文件管理命令">#</a></h3>
+<p><a href="https://www.acwing.com/file_system/file/content/whole/index/content/2855620/">https://www.acwing.com/file_system/file/content/whole/index/content/2855620/</a></p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>(1) ctrl c: 取消命令，并且换行
+</span></span><span style="display:flex;"><span>(2) ctrl u: 清空本行命令
+</span></span><span style="display:flex;"><span>(3) tab键：可以补全命令和文件名，如果补全不了快速按两下tab键，可以显示备选选项
+</span></span><span style="display:flex;"><span>(4) ls: 列出当前目录下所有文件，蓝色的是文件夹，白色的是普通文件，绿色的是可执行文件
+</span></span><span style="display:flex;"><span>(5) pwd: 显示当前路径
+</span></span><span style="display:flex;"><span>(6) cd XXX: 进入XXX目录下, cd .. 返回上层目录
+</span></span><span style="display:flex;"><span>(7) cp XXX YYY: 将XXX文件复制成YYY，XXX和YYY可以是一个路径，比如../dir_c/a.txt，表示上层目录下的dir_c文件夹下的文件a.txt
+</span></span><span style="display:flex;"><span>(8) mkdir XXX: 创建目录XXX
+</span></span><span style="display:flex;"><span>(9) rm XXX: 删除普通文件;  rm XXX -r: 删除文件夹
+</span></span><span style="display:flex;"><span>(10) mv XXX YYY: 将XXX文件移动到YYY，和cp命令一样，XXX和YYY可以是一个路径；重命名也是用这个命令
+</span></span><span style="display:flex;"><span>(11) touch XXX: 创建一个文件
+</span></span><span style="display:flex;"><span>(12) cat XXX: 展示文件XXX中的内容
+</span></span><span style="display:flex;"><span>(13) 复制文本
+</span></span><span style="display:flex;"><span>    windows/Linux下：Ctrl + insert，Mac下：command + c
+</span></span><span style="display:flex;"><span>(14) 粘贴文本
+</span></span><span style="display:flex;"><span>    windows/Linux下：Shift + insert，Mac下：command + v
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="tmux教程">tmux教程<a hidden class="anchor" aria-hidden="true" href="#tmux教程">#</a></h3>
+<p><a href="https://www.acwing.com/file_system/file/content/whole/index/content/2855620/">https://www.acwing.com/file_system/file/content/whole/index/content/2855620/</a></p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">45
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>功能：
+</span></span><span style="display:flex;"><span>    (1) 分屏。
+</span></span><span style="display:flex;"><span>    (2) 允许断开Terminal连接后，继续运行进程。
+</span></span><span style="display:flex;"><span>结构：
+</span></span><span style="display:flex;"><span>    一个tmux可以包含多个session，一个session可以包含多个window，一个window可以包含多个pane。
+</span></span><span style="display:flex;"><span>    实例：
+</span></span><span style="display:flex;"><span>        tmux:
+</span></span><span style="display:flex;"><span>            session 0:
+</span></span><span style="display:flex;"><span>                window 0:
+</span></span><span style="display:flex;"><span>                    pane <span style="color:#ff0;font-weight:bold">0</span>
+</span></span><span style="display:flex;"><span>                    pane <span style="color:#ff0;font-weight:bold">1</span>
+</span></span><span style="display:flex;"><span>                    pane <span style="color:#ff0;font-weight:bold">2</span>
+</span></span><span style="display:flex;"><span>                    ...
+</span></span><span style="display:flex;"><span>                window <span style="color:#ff0;font-weight:bold">1</span>
+</span></span><span style="display:flex;"><span>                window <span style="color:#ff0;font-weight:bold">2</span>
+</span></span><span style="display:flex;"><span>                ...
+</span></span><span style="display:flex;"><span>            session <span style="color:#ff0;font-weight:bold">1</span>
+</span></span><span style="display:flex;"><span>            session <span style="color:#ff0;font-weight:bold">2</span>
+</span></span><span style="display:flex;"><span>            ...
+</span></span><span style="display:flex;"><span>操作：
+</span></span><span style="display:flex;"><span>    (1) tmux：新建一个session，其中包含一个window，window中包含一个pane，pane里打开了一个shell对话框。
+</span></span><span style="display:flex;"><span>    (2) 按下Ctrl + a后手指松开，然后按%：将当前pane左右平分成两个pane。
+</span></span><span style="display:flex;"><span>    (3) 按下Ctrl + a后手指松开，然后按<span style="color:#0ff;font-weight:bold">&#34;（注意是双引号&#34;</span>）：将当前pane上下平分成两个pane。
+</span></span><span style="display:flex;"><span>    (4) Ctrl + d：关闭当前pane；如果当前window的所有pane均已关闭，则自动关闭window；如果当前session的所有window均已关闭，则自动关闭session。
+</span></span><span style="display:flex;"><span>    (5) 鼠标点击可以选pane。
+</span></span><span style="display:flex;"><span>    (6) 按下ctrl + a后手指松开，然后按方向键：选择相邻的pane。
+</span></span><span style="display:flex;"><span>    (7) 鼠标拖动pane之间的分割线，可以调整分割线的位置。
+</span></span><span style="display:flex;"><span>    (8) 按住ctrl + a的同时按方向键，可以调整pane之间分割线的位置。
+</span></span><span style="display:flex;"><span>    (9) 按下ctrl + a后手指松开，然后按z：将当前pane全屏/取消全屏。
+</span></span><span style="display:flex;"><span>    (10) 按下ctrl + a后手指松开，然后按d：挂起当前session。
+</span></span><span style="display:flex;"><span>    (11) tmux a：打开之前挂起的session。
+</span></span><span style="display:flex;"><span>    (12) 按下ctrl + a后手指松开，然后按s：选择其它session。
+</span></span><span style="display:flex;"><span>        方向键 —— 上：选择上一项 session/window/pane
+</span></span><span style="display:flex;"><span>        方向键 —— 下：选择下一项 session/window/pane
+</span></span><span style="display:flex;"><span>        方向键 —— 右：展开当前项 session/window
+</span></span><span style="display:flex;"><span>        方向键 —— 左：闭合当前项 session/window
+</span></span><span style="display:flex;"><span>    (13) 按下Ctrl + a后手指松开，然后按c：在当前session中创建一个新的window。
+</span></span><span style="display:flex;"><span>    (14) 按下Ctrl + a后手指松开，然后按w：选择其他window，操作方法与(12)完全相同。
+</span></span><span style="display:flex;"><span>    (15) 按下Ctrl + a后手指松开，然后按PageUp：翻阅当前pane内的内容。
+</span></span><span style="display:flex;"><span>    (16) 鼠标滚轮：翻阅当前pane内的内容。
+</span></span><span style="display:flex;"><span>    (17) 在tmux中选中文本时，需要按住shift键。（仅支持Windows和Linux，不支持Mac，不过该操作并不是必须的，因此影响不大）
+</span></span><span style="display:flex;"><span>    (18) tmux中复制/粘贴文本的通用方式：
+</span></span><span style="display:flex;"><span>        (1) 按下Ctrl + a后松开手指，然后按[
+</span></span><span style="display:flex;"><span>        (2) 用鼠标选中文本，被选中的文本会被自动复制到tmux的剪贴板
+</span></span><span style="display:flex;"><span>        (3) 按下Ctrl + a后松开手指，然后按]，会将剪贴板中的内容粘贴到光标处
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="vim教程">vim教程<a hidden class="anchor" aria-hidden="true" href="#vim教程">#</a></h3>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">63
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>功能：
+</span></span><span style="display:flex;"><span>    (1) 命令行模式下的文本编辑器。
+</span></span><span style="display:flex;"><span>    (2) 根据文件扩展名自动判别编程语言。支持代码缩进、代码高亮等功能。
+</span></span><span style="display:flex;"><span>    (3) 使用方式：vim filename
+</span></span><span style="display:flex;"><span>        如果已有该文件，则打开它。
+</span></span><span style="display:flex;"><span>        如果没有该文件，则打开个一个新的文件，并命名为filename
+</span></span><span style="display:flex;"><span>模式：
+</span></span><span style="display:flex;"><span>    (1) 一般命令模式
+</span></span><span style="display:flex;"><span>        默认模式。命令输入方式：类似于打游戏放技能，按不同字符，即可进行不同操作。可以复制、粘贴、删除文本等。
+</span></span><span style="display:flex;"><span>    (2) 编辑模式
+</span></span><span style="display:flex;"><span>        在一般命令模式里按下i，会进入编辑模式。
+</span></span><span style="display:flex;"><span>        按下ESC会退出编辑模式，返回到一般命令模式。
+</span></span><span style="display:flex;"><span>    (3) 命令行模式
+</span></span><span style="display:flex;"><span>        在一般命令模式里按下:/?三个字母中的任意一个，会进入命令行模式。命令行在最下面。
+</span></span><span style="display:flex;"><span>        可以查找、替换、保存、退出、配置编辑器等。
+</span></span><span style="display:flex;"><span>操作：
+</span></span><span style="display:flex;"><span>    (1) i：进入编辑模式
+</span></span><span style="display:flex;"><span>    (2) ESC：进入一般命令模式
+</span></span><span style="display:flex;"><span>    (3) h 或 左箭头键：光标向左移动一个字符
+</span></span><span style="display:flex;"><span>    (4) j 或 向下箭头：光标向下移动一个字符
+</span></span><span style="display:flex;"><span>    (5) k 或 向上箭头：光标向上移动一个字符
+</span></span><span style="display:flex;"><span>    (6) l 或 向右箭头：光标向右移动一个字符
+</span></span><span style="display:flex;"><span>    (7) n&lt;Space&gt;：n表示数字，按下数字后再按空格，光标会向右移动这一行的n个字符
+</span></span><span style="display:flex;"><span>    (8) <span style="color:#ff0;font-weight:bold">0</span> 或 功能键[Home]：光标移动到本行开头
+</span></span><span style="display:flex;"><span>    (9) $ 或 功能键[End]：光标移动到本行末尾
+</span></span><span style="display:flex;"><span>    (10) G：光标移动到最后一行
+</span></span><span style="display:flex;"><span>    (11) :n 或 nG：n为数字，光标移动到第n行
+</span></span><span style="display:flex;"><span>    (12) gg：光标移动到第一行，相当于1G
+</span></span><span style="display:flex;"><span>    (13) n&lt;Enter&gt;：n为数字，光标向下移动n行
+</span></span><span style="display:flex;"><span>    (14) /word：向光标之下寻找第一个值为word的字符串。
+</span></span><span style="display:flex;"><span>    (15) ?word：向光标之上寻找第一个值为word的字符串。
+</span></span><span style="display:flex;"><span>    (16) n：重复前一个查找操作
+</span></span><span style="display:flex;"><span>    (17) N：反向重复前一个查找操作
+</span></span><span style="display:flex;"><span>    (18) :n1,n2s/word1/word2/g：n1与n2为数字，在第n1行与n2行之间寻找word1这个字符串，并将该字符串替换为word2
+</span></span><span style="display:flex;"><span>    (19) :1,$s/word1/word2/g：将全文的word1替换为word2
+</span></span><span style="display:flex;"><span>    (20) :1,$s/word1/word2/gc：将全文的word1替换为word2，且在替换前要求用户确认。
+</span></span><span style="display:flex;"><span>    (21) v：选中文本
+</span></span><span style="display:flex;"><span>    (22) d：删除选中的文本
+</span></span><span style="display:flex;"><span>    (23) dd: 删除当前行
+</span></span><span style="display:flex;"><span>    (24) y：复制选中的文本
+</span></span><span style="display:flex;"><span>    (25) yy: 复制当前行
+</span></span><span style="display:flex;"><span>    (26) p: 将复制的数据在光标的下一行/下一个位置粘贴
+</span></span><span style="display:flex;"><span>    (27) u：撤销
+</span></span><span style="display:flex;"><span>    (28) Ctrl + r：取消撤销
+</span></span><span style="display:flex;"><span>    (29) 大于号 &gt;：将选中的文本整体向右缩进一次
+</span></span><span style="display:flex;"><span>    (30) 小于号 &lt;：将选中的文本整体向左缩进一次
+</span></span><span style="display:flex;"><span>    (31) :w 保存
+</span></span><span style="display:flex;"><span>    (32) :w! 强制保存
+</span></span><span style="display:flex;"><span>    (33) :q 退出
+</span></span><span style="display:flex;"><span>    (34) :q! 强制退出
+</span></span><span style="display:flex;"><span>    (35) :wq 保存并退出
+</span></span><span style="display:flex;"><span>    (36) :set paste 设置成粘贴模式，取消代码自动缩进
+</span></span><span style="display:flex;"><span>    (37) :set nopaste 取消粘贴模式，开启代码自动缩进
+</span></span><span style="display:flex;"><span>    (38) :set nu 显示行号
+</span></span><span style="display:flex;"><span>    (39) :set nonu 隐藏行号
+</span></span><span style="display:flex;"><span>    (40) gg=G：将全文代码格式化
+</span></span><span style="display:flex;"><span>    (41) :noh 关闭查找关键词高亮
+</span></span><span style="display:flex;"><span>    (42) Ctrl + q：当vim卡死时，可以取消当前正在执行的命令
+</span></span><span style="display:flex;"><span>异常处理：
+</span></span><span style="display:flex;"><span>    每次用vim编辑文件时，会自动创建一个.filename.swp的临时文件。
+</span></span><span style="display:flex;"><span>    如果打开某个文件时，该文件的swp文件已存在，则会报错。此时解决办法有两种：
+</span></span><span style="display:flex;"><span>        (1) 找到正在打开该文件的程序，并退出
+</span></span><span style="display:flex;"><span>        (2) 直接删掉该swp文件即可
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="shell脚本-1">shell脚本<a hidden class="anchor" aria-hidden="true" href="#shell脚本-1">#</a></h3>
+<p><a href="https://www.acwing.com/file_system/file/content/whole/index/content/2855883/">https://www.acwing.com/file_system/file/content/whole/index/content/2855883/</a></p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>概论
+</span></span><span style="display:flex;"><span>注释
+</span></span><span style="display:flex;"><span>变量
+</span></span><span style="display:flex;"><span>默认变量
+</span></span><span style="display:flex;"><span>数组
+</span></span><span style="display:flex;"><span>expr命令
+</span></span><span style="display:flex;"><span>read命令
+</span></span><span style="display:flex;"><span>echo命令
+</span></span><span style="display:flex;"><span>printf命令
+</span></span><span style="display:flex;"><span>test命令与判断符号[]
+</span></span><span style="display:flex;"><span>判断语句
+</span></span><span style="display:flex;"><span>循环语句
+</span></span><span style="display:flex;"><span>函数
+</span></span><span style="display:flex;"><span>exit命令
+</span></span><span style="display:flex;"><span>文件重定向
+</span></span><span style="display:flex;"><span>引入外部脚本
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="ssh登录">ssh登录<a hidden class="anchor" aria-hidden="true" href="#ssh登录">#</a></h3>
+<p><a href="https://www.acwing.com/file_system/file/content/whole/index/content/2898263/">https://www.acwing.com/file_system/file/content/whole/index/content/2898263/</a></p>
+<h3 id="scp传文件">scp传文件<a hidden class="anchor" aria-hidden="true" href="#scp传文件">#</a></h3>
+<p><a href="https://www.acwing.com/file_system/file/content/whole/index/content/2898266/">https://www.acwing.com/file_system/file/content/whole/index/content/2898266/</a></p>
+<h3 id="git">git<a hidden class="anchor" aria-hidden="true" href="#git">#</a></h3>
+<p><a href="https://www.acwing.com/file_system/file/content/whole/index/content/2932078/">https://www.acwing.com/file_system/file/content/whole/index/content/2932078/</a></p>
+<p><a href="https://git.acwing.com/">https://git.acwing.com/</a></p>
+<h3 id="管道">管道<a hidden class="anchor" aria-hidden="true" href="#管道">#</a></h3>
+<p><a href="https://www.acwing.com/file_system/file/content/whole/index/content/3030404/">https://www.acwing.com/file_system/file/content/whole/index/content/3030404/</a></p>
+<h3 id="环境变量">环境变量<a hidden class="anchor" aria-hidden="true" href="#环境变量">#</a></h3>
+<p><a href="https://www.acwing.com/file_system/file/content/whole/index/content/3030412/">https://www.acwing.com/file_system/file/content/whole/index/content/3030412/</a></p>
+<h3 id="常用命令">常用命令<a hidden class="anchor" aria-hidden="true" href="#常用命令">#</a></h3>
+<p><a href="https://www.acwing.com/file_system/file/content/whole/index/content/3030414/">https://www.acwing.com/file_system/file/content/whole/index/content/3030414/</a></p>
+<h3 id="租云服务器和配置docker">租云服务器和配置docker<a hidden class="anchor" aria-hidden="true" href="#租云服务器和配置docker">#</a></h3>
+<p><a href="https://www.acwing.com/file_system/file/content/whole/index/content/3074146/">https://www.acwing.com/file_system/file/content/whole/index/content/3074146/</a></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://kevinerr.github.io/tags/linux/">linux</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://kevinerr.github.io/posts/tech/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>计算机网络</span>
+  </a>
+  <a class="next" href="https://kevinerr.github.io/posts/tech/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>设计模式</span>
+  </a>
+</nav>
+
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share linux on twitter"
+        href="https://twitter.com/intent/tweet/?text=linux&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2flinux%2f&amp;hashtags=linux">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share linux on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2flinux%2f&amp;title=linux&amp;summary=linux&amp;source=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2flinux%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share linux on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2flinux%2f&title=linux">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share linux on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2flinux%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share linux on whatsapp"
+        href="https://api.whatsapp.com/send?text=linux%20-%20https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2flinux%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share linux on telegram"
+        href="https://telegram.me/share/url?text=linux&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2flinux%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+
+  </footer>
+<div>
+    <div class="pagination__title">
+        <span class="pagination__title-h" style="font-size: 20px;">💬评论</span>
+        <hr />
+    </div>
+    <div id="tcomment"></div>
+    <script src="https://cdn.jsdelivr.net/npm/twikoo@1.5.0/dist/twikoo.all.min.js"></script>
+    <script>
+        twikoo.init({
+            envId: "https://twikoo-two-psi.vercel.app/",  
+            el: "#tcomment",
+            lang: 'zh-CN',
+            region: 'ap-guangzhou',  
+            path: 'window.TWIKOO_MAGIC_PATH||window.location.pathname',
+        });
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://kevinerr.github.io/">hkh&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

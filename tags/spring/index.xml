@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>spring on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/spring/</link>
+    <description>Recent content in spring on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 30 Jan 2022 21:12:40 +0000</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/spring/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>springmvc</title>
+      <link>https://kevinerr.github.io/posts/tech/springmvc/</link>
+      <pubDate>Sun, 30 Jan 2022 21:12:40 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/springmvc/</guid>
+      <description>SpringMVC SpringMVC核心组件 SpringMVC工作流程 开发流程 视图解析器前缀后缀写反了 RequestMapping Cookie</description>
+    </item>
+    
+    <item>
+      <title>springcloud</title>
+      <link>https://kevinerr.github.io/posts/tech/springcloud/</link>
+      <pubDate>Fri, 09 Apr 2021 23:41:21 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/springcloud/</guid>
+      <description>Eureka Spring Cloud Eureka是Spring Cloud Netflix 子项目的核心组件之一，主要用于微服务架构中的服务治理。本文将对搭建Eureka注册中心，搭建Eureka</description>
+    </item>
+    
+    <item>
+      <title>spring</title>
+      <link>https://kevinerr.github.io/posts/tech/spring/</link>
+      <pubDate>Wed, 17 Mar 2021 19:22:02 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/spring/</guid>
+      <description>SSH Struts+Spring+Hibernate SSM SpringMVC+Spring+Mybatis ORM ORM就是对象关系匹配，是为了解决面向对象与关系数据库存在的互不匹配的问题。简单来说，就是把关系数据库中的数据转换成面向对象程序中</description>
+    </item>
+    
+  </channel>
+</rss>

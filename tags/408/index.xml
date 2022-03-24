@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>408 on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/408/</link>
+    <description>Recent content in 408 on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 21 Mar 2021 23:55:27 +0000</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/408/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>操作系统</title>
+      <link>https://kevinerr.github.io/posts/tech/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Sun, 21 Mar 2021 23:55:27 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
+      <description>概述 并发、共享、虚拟、异步 计算机系统资源的管理者；用户与计算机硬件之间的接口；扩充机器（工人） 进程/线程 1、进程是什么？ 是具有一定独立功能的</description>
+    </item>
+    
+    <item>
+      <title>计算机网络</title>
+      <link>https://kevinerr.github.io/posts/tech/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link>
+      <pubDate>Sun, 21 Mar 2021 20:05:10 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid>
+      <description>网络的功能 计算机网络的功能主要体现在资源共享、数据通信和分布式处理三个方面。资源共享是计算机网络用户提供的最主要的功能，资源是指在有限时间内</description>
+    </item>
+    
+  </channel>
+</rss>

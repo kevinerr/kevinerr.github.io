@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>🌹建站 on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/posts/algorithm/</link>
+    <description>Recent content in 🌹建站 on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 23 Mar 2022 21:50:21 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/posts/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2021每日一题暑假</title>
+      <link>https://kevinerr.github.io/posts/algorithm/2021%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%E6%9A%91%E5%81%87/</link>
+      <pubDate>Wed, 23 Mar 2022 21:50:21 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/2021%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%E6%9A%91%E5%81%87/</guid>
+      <description>[]: https://www.acwing.com/problem/content/description/3765/ 二进制矩阵 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 #include &amp;lt;iostream&amp;gt;#include &amp;lt;cstring&amp;gt;#include &amp;lt;algorithm&amp;gt; using namespace std; const</description>
+    </item>
+    
+    <item>
+      <title>排序</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E6%8E%92%E5%BA%8F/</link>
+      <pubDate>Wed, 23 Mar 2022 20:32:32 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E6%8E%92%E5%BA%8F/</guid>
+      <description>排序的问题基本都是让我们利用各种排序的思想去解决其他问题的 快排 思想 快速排序所采用的思想是分治的思想。所谓分治，就是指以一个数为基准，将序列中</description>
+    </item>
+    
+    <item>
+      <title>滑动窗口</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</link>
+      <pubDate>Sat, 19 Mar 2022 22:20:31 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</guid>
+      <description>滑动窗口法 什么情况下会想到滑动窗口法： 任何题目如果没有思路其实都可以想一下暴力解法。这道题暴力解法思路简单： 遍历任意i，j，使得i和j之间的</description>
+    </item>
+    
+    <item>
+      <title>Leetcode_hot100</title>
+      <link>https://kevinerr.github.io/posts/algorithm/leetcode_hot100/</link>
+      <pubDate>Tue, 15 Mar 2022 16:51:32 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/leetcode_hot100/</guid>
+      <description>简单模块 1、两数之和 简单题，用unordered_map&amp;lt;int,int&amp;gt; um;key为值，value为数组下标 遍历一遍，看um</description>
+    </item>
+    
+    <item>
+      <title>Stl</title>
+      <link>https://kevinerr.github.io/posts/algorithm/stl/</link>
+      <pubDate>Tue, 15 Mar 2022 16:40:10 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/stl/</guid>
+      <description>vector 初始化 1 2 3 4 vector&amp;lt;int&amp;gt; a(10); //没有给出初值，其值是不确定的 vector&amp;lt;int&amp;gt; a(10,1); //定义了10个整型元素的向量,且给出每个元素的初值为1 vector&amp;lt;int&amp;gt; a(b); //用b向量来创建a向量</description>
+    </item>
+    
+    <item>
+      <title>acwing</title>
+      <link>https://kevinerr.github.io/posts/algorithm/acwing/</link>
+      <pubDate>Fri, 16 Apr 2021 18:55:50 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/acwing/</guid>
+      <description>找出数组中重复的元素 n个数（每个数的取值范围是1到n-1） https://www.acwing.com/solution/content/707/ 把每个数放到它原本的位置上去O(n),O(1),数组发生了改变 https://www.acwing.com/solution/content/693/ 抽屉原理二分法，</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://kevinerr.github.io/sitemap.xml

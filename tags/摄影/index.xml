@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>摄影 on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/%E6%91%84%E5%BD%B1/</link>
+    <description>Recent content in 摄影 on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 07 Apr 2021 23:13:43 +0000</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/%E6%91%84%E5%BD%B1/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>摄影</title>
+      <link>https://kevinerr.github.io/posts/life/%E6%91%84%E5%BD%B1/</link>
+      <pubDate>Wed, 07 Apr 2021 23:13:43 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/life/%E6%91%84%E5%BD%B1/</guid>
+      <description>快门速度、iso以及光圈数值 快门速度：相机左下角的参数就是快门速度，指快门打开到闭合所需要的时间。快门速度越快，你定格的时间越短，比如：快门</description>
+    </item>
+    
+  </channel>
+</rss>
