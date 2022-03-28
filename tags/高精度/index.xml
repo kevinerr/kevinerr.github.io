@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>高精度 on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/</link>
+    <description>Recent content in 高精度 on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 26 Mar 2022 22:38:27 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>高精度</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E9%AB%98%E7%B2%BE%E5%BA%A6/</link>
+      <pubDate>Sat, 26 Mar 2022 22:38:27 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E9%AB%98%E7%B2%BE%E5%BA%A6/</guid>
+      <description>高精度加法 模板 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 // C = A + B, A &amp;gt;= 0, B &amp;gt;= 0 vector&amp;lt;int&amp;gt; add(vector&amp;lt;int&amp;gt; &amp;amp;A, vector&amp;lt;int&amp;gt; &amp;amp;B) { if (A.size() &amp;lt; B.size()) return add(B, A); vector&amp;lt;int&amp;gt; C; int t = 0; for (int i = 0; i &amp;lt; A.size(); i ++ ) { t +=</description>
+    </item>
+    
+  </channel>
+</rss>

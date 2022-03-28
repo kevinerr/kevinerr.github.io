@@ -6,7 +6,16 @@
     <description>Recent content in 👨🏻‍💻技术 on hkh&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 17 Mar 2022 12:04:29 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/posts/tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Mar 2022 11:17:57 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/posts/tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基于gin的备忘录开发</title>
+      <link>https://kevinerr.github.io/posts/tech/%E5%9F%BA%E4%BA%8Egin%E7%9A%84%E5%A4%87%E5%BF%98%E5%BD%95%E5%BC%80%E5%8F%91/</link>
+      <pubDate>Mon, 28 Mar 2022 11:17:57 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E5%9F%BA%E4%BA%8Egin%E7%9A%84%E5%A4%87%E5%BF%98%E5%BD%95%E5%BC%80%E5%8F%91/</guid>
+      <description>此项目使用Gin+Gorm ，基于RESTful API实现的一个备忘录 项目主要功能介绍 用户注册登录 ( jwt-go鉴权 ) 新增 / 删除 / 修改 / 查询 备</description>
+    </item>
+    
     <item>
       <title>Zinx Learn</title>
       <link>https://kevinerr.github.io/posts/tech/zinx-learn/</link>

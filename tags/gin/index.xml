@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>gin on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/gin/</link>
+    <description>Recent content in gin on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 28 Mar 2022 11:17:57 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/gin/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基于gin的备忘录开发</title>
+      <link>https://kevinerr.github.io/posts/tech/%E5%9F%BA%E4%BA%8Egin%E7%9A%84%E5%A4%87%E5%BF%98%E5%BD%95%E5%BC%80%E5%8F%91/</link>
+      <pubDate>Mon, 28 Mar 2022 11:17:57 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E5%9F%BA%E4%BA%8Egin%E7%9A%84%E5%A4%87%E5%BF%98%E5%BD%95%E5%BC%80%E5%8F%91/</guid>
+      <description>此项目使用Gin+Gorm ，基于RESTful API实现的一个备忘录 项目主要功能介绍 用户注册登录 ( jwt-go鉴权 ) 新增 / 删除 / 修改 / 查询 备</description>
+    </item>
+    
+  </channel>
+</rss>

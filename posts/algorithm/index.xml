@@ -6,7 +6,25 @@
     <description>Recent content in 🌹算法 on hkh&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 24 Mar 2022 20:18:43 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/posts/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 27 Mar 2022 22:07:44 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/posts/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>前缀和与差分</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86/</link>
+      <pubDate>Sun, 27 Mar 2022 22:07:44 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86/</guid>
+      <description>前缀和是一种极其优秀的线性结构，也是一种重要的思想，能极大地降低区间查询的时间复杂度。 一维前缀和 1 2 S[i] = a[1] + a[2] + ... a[i] a[l] + ... + a[r] = S[r] - S[l - 1] 二</description>
+    </item>
+    
+    <item>
+      <title>高精度</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E9%AB%98%E7%B2%BE%E5%BA%A6/</link>
+      <pubDate>Sat, 26 Mar 2022 22:38:27 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E9%AB%98%E7%B2%BE%E5%BA%A6/</guid>
+      <description>高精度加法 模板 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 // C = A + B, A &amp;gt;= 0, B &amp;gt;= 0 vector&amp;lt;int&amp;gt; add(vector&amp;lt;int&amp;gt; &amp;amp;A, vector&amp;lt;int&amp;gt; &amp;amp;B) { if (A.size() &amp;lt; B.size()) return add(B, A); vector&amp;lt;int&amp;gt; C; int t = 0; for (int i = 0; i &amp;lt; A.size(); i ++ ) { t +=</description>
+    </item>
+    
     <item>
       <title>二分</title>
       <link>https://kevinerr.github.io/posts/algorithm/%E4%BA%8C%E5%88%86/</link>
@@ -68,6 +86,15 @@
       
       <guid>https://kevinerr.github.io/posts/algorithm/acwing/</guid>
       <description>找出数组中重复的元素 n个数（每个数的取值范围是1到n-1） https://www.acwing.com/solution/content/707/ 把每个数放到它原本的位置上去O(n),O(1),数组发生了改变 https://www.acwing.com/solution/content/693/ 抽屉原理二分法，</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/</guid>
+      <description>ctitle: &amp;ldquo;排列组合&amp;rdquo; date: 2022-03-25T21:37:33+08:00 lastmod: 2022-03-25T21:37:33+08:00 author: [&amp;ldquo;kevin&amp;rdquo;] tags: 算法 排列组合 DFS 排列组合 回溯算法是什么？解决回溯算法相关的问题有什么技巧？如何学习回溯算法</description>
     </item>
     
   </channel>
