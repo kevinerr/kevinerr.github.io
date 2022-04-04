@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>离散化 on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/</link>
+    <description>Recent content in 离散化 on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 02 Apr 2022 12:33:29 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>离散化</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E7%A6%BB%E6%95%A3%E5%8C%96/</link>
+      <pubDate>Sat, 02 Apr 2022 12:33:29 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E7%A6%BB%E6%95%A3%E5%8C%96/</guid>
+      <description>离散化思想(好像都可以用map来解决捏) 数据离散化是一个非常重要的思想。 为什么要离散化?当以权值为下标的时候，有时候值太大，存不下。 所以把要</description>
+    </item>
+    
+  </channel>
+</rss>

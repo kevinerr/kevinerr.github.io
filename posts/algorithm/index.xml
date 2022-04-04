@@ -6,14 +6,59 @@
     <description>Recent content in 🌹算法 on hkh&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 27 Mar 2022 22:07:44 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/posts/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Apr 2022 21:59:38 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/posts/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Trie</title>
+      <link>https://kevinerr.github.io/posts/algorithm/trie/</link>
+      <pubDate>Mon, 04 Apr 2022 21:59:38 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/trie/</guid>
+      <description>模板 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 int son[N][26], cnt[N], idx; // 0号点既是根节点，又是空节点 // son[][]存储树中每个节点的子节</description>
+    </item>
+    
+    <item>
+      <title>Kmp</title>
+      <link>https://kevinerr.github.io/posts/algorithm/kmp/</link>
+      <pubDate>Mon, 04 Apr 2022 20:52:44 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/kmp/</guid>
+      <description>模板 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 // s[]是长文本，p[]是模式串，n是s的长度，m是p的长度 求模式串的Next数组： for (int i = 2, j</description>
+    </item>
+    
+    <item>
+      <title>2021寒假每日一题入门组</title>
+      <link>https://kevinerr.github.io/posts/algorithm/2021%E5%AF%92%E5%81%87%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%E5%85%A5%E9%97%A8%E7%BB%84/</link>
+      <pubDate>Sat, 02 Apr 2022 21:07:14 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/2021%E5%AF%92%E5%81%87%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%E5%85%A5%E9%97%A8%E7%BB%84/</guid>
+      <description>十三号星期五 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 #include &amp;lt;bits/stdc++.h&amp;gt;using namespace std; int main() { int n; cin &amp;gt;&amp;gt; n; int a[7] = {0};//记录星期出现</description>
+    </item>
+    
+    <item>
+      <title>区间合并</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E5%8C%BA%E9%97%B4%E5%90%88%E5%B9%B6/</link>
+      <pubDate>Sat, 02 Apr 2022 12:44:28 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E5%8C%BA%E9%97%B4%E5%90%88%E5%B9%B6/</guid>
+      <description>https://www.acwing.com/problem/search/1/?csrfmiddlewaretoken=A6hJmK9QIKhI2BjKpv9ngRnfmmlSDTEY6DjbNvDxBtLwn1nSLHtW0NrLCd6KKoSn&amp;amp;search_content=%E5%8C%BA%E9%97%B4%E5%90%88%E5%B9%B6 思想 一、简述 区间合并 就是将坐标轴中两个存在交集 的区间合并 成一个 区间 。 二、 思想 1.将所有 区间 按左端点从小到大排序 2.从左到右遍历每个 区间 ，把</description>
+    </item>
+    
+    <item>
+      <title>离散化</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E7%A6%BB%E6%95%A3%E5%8C%96/</link>
+      <pubDate>Sat, 02 Apr 2022 12:33:29 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E7%A6%BB%E6%95%A3%E5%8C%96/</guid>
+      <description>离散化思想(好像都可以用map来解决捏) 数据离散化是一个非常重要的思想。 为什么要离散化?当以权值为下标的时候，有时候值太大，存不下。 所以把要</description>
+    </item>
+    
     <item>
       <title>前缀和与差分</title>
       <link>https://kevinerr.github.io/posts/algorithm/%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86/</link>
       <pubDate>Sun, 27 Mar 2022 22:07:44 +0800</pubDate>
       
       <guid>https://kevinerr.github.io/posts/algorithm/%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86/</guid>
-      <description>前缀和是一种极其优秀的线性结构，也是一种重要的思想，能极大地降低区间查询的时间复杂度。 一维前缀和 1 2 S[i] = a[1] + a[2] + ... a[i] a[l] + ... + a[r] = S[r] - S[l - 1] 二</description>
+      <description>前缀和是一种极其优秀的线性结构，也是一种重要的思想，能极大地降低区间查询的时间复杂度。 一维前缀和 1 2 S[i] = a[1] + a[2] + ... a[i] a[l] + ... + a[r] = S[r] - S[l - 1] 最</description>
     </item>
     
     <item>
@@ -53,6 +98,15 @@
     </item>
     
     <item>
+      <title>排列组合</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/</link>
+      <pubDate>Sat, 19 Mar 2022 22:20:31 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/</guid>
+      <description>排列组合 回溯算法是什么？解决回溯算法相关的问题有什么技巧？如何学习回溯算法？回溯算法代码是否有规律可循？ 其实回溯算法其实就是我们常说的 DFS 算法</description>
+    </item>
+    
+    <item>
       <title>滑动窗口</title>
       <link>https://kevinerr.github.io/posts/algorithm/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</link>
       <pubDate>Sat, 19 Mar 2022 22:20:31 +0800</pubDate>
@@ -89,12 +143,12 @@
     </item>
     
     <item>
-      <title></title>
-      <link>https://kevinerr.github.io/posts/algorithm/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/</link>
+      <title>单调队列和单调栈</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E5%92%8C%E5%8D%95%E8%B0%83%E6%A0%88/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://kevinerr.github.io/posts/algorithm/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/</guid>
-      <description>ctitle: &amp;ldquo;排列组合&amp;rdquo; date: 2022-03-25T21:37:33+08:00 lastmod: 2022-03-25T21:37:33+08:00 author: [&amp;ldquo;kevin&amp;rdquo;] tags: 算法 排列组合 DFS 排列组合 回溯算法是什么？解决回溯算法相关的问题有什么技巧？如何学习回溯算法</description>
+      <guid>https://kevinerr.github.io/posts/algorithm/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E5%92%8C%E5%8D%95%E8%B0%83%E6%A0%88/</guid>
+      <description>单调队列 常见模型：找出滑动窗口中的最大值/最小值 是一种主要用于解决滑动窗口类问题的数据结构，即在长度为n 的序列中，求每个长度为 k的区间的区间</description>
     </item>
     
   </channel>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>区间合并 on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/%E5%8C%BA%E9%97%B4%E5%90%88%E5%B9%B6/</link>
+    <description>Recent content in 区间合并 on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 02 Apr 2022 12:44:28 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/%E5%8C%BA%E9%97%B4%E5%90%88%E5%B9%B6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>区间合并</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E5%8C%BA%E9%97%B4%E5%90%88%E5%B9%B6/</link>
+      <pubDate>Sat, 02 Apr 2022 12:44:28 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E5%8C%BA%E9%97%B4%E5%90%88%E5%B9%B6/</guid>
+      <description>https://www.acwing.com/problem/search/1/?csrfmiddlewaretoken=A6hJmK9QIKhI2BjKpv9ngRnfmmlSDTEY6DjbNvDxBtLwn1nSLHtW0NrLCd6KKoSn&amp;amp;search_content=%E5%8C%BA%E9%97%B4%E5%90%88%E5%B9%B6 思想 一、简述 区间合并 就是将坐标轴中两个存在交集 的区间合并 成一个 区间 。 二、 思想 1.将所有 区间 按左端点从小到大排序 2.从左到右遍历每个 区间 ，把</description>
+    </item>
+    
+  </channel>
+</rss>

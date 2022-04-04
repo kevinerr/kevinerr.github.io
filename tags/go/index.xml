@@ -6,7 +6,16 @@
     <description>Recent content in go on hkh&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 28 Mar 2022 11:17:57 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Mar 2022 14:44:23 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基于gin的聊天系统</title>
+      <link>https://kevinerr.github.io/posts/tech/%E5%9F%BA%E4%BA%8Egin%E7%9A%84%E8%81%8A%E5%A4%A9%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Mon, 28 Mar 2022 14:44:23 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E5%9F%BA%E4%BA%8Egin%E7%9A%84%E8%81%8A%E5%A4%A9%E7%B3%BB%E7%BB%9F/</guid>
+      <description>这个项目是基于WebSocket + MongoDB + MySQL + Redis。业务逻辑很简单，只是两人的聊天。 WebSocket WebSocket是应用层第七层上的一个应用层协议，</description>
+    </item>
+    
     <item>
       <title>基于gin的备忘录开发</title>
       <link>https://kevinerr.github.io/posts/tech/%E5%9F%BA%E4%BA%8Egin%E7%9A%84%E5%A4%87%E5%BF%98%E5%BD%95%E5%BC%80%E5%8F%91/</link>
@@ -22,7 +31,7 @@
       <pubDate>Thu, 17 Mar 2022 12:04:29 +0800</pubDate>
       
       <guid>https://kevinerr.github.io/posts/tech/zinx-learn/</guid>
-      <description>代码 MMO游戏 大型多人在线游戏</description>
+      <description>代码 本人代码仓库 官方代码仓库 官方教程 官方文档 MMO游戏 大型多人在线游戏</description>
     </item>
     
     <item>
@@ -31,7 +40,7 @@
       <pubDate>Mon, 14 Feb 2022 20:51:37 +0000</pubDate>
       
       <guid>https://kevinerr.github.io/posts/tech/go%E6%95%99%E7%A8%8B/</guid>
-      <description>四种变量声明 const和iota 多返回值 init函数 import导包 指针 defer 数组/动态数组</description>
+      <description>y以下是我的go学习之路，仅供参考 go入门 go语法基础 go菜鸟 go底层 Golang深入理解GPM模型 Golang中GC回收机制三色标记与混合</description>
     </item>
     
   </channel>

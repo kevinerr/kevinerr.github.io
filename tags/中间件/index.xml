@@ -40,7 +40,7 @@
       <pubDate>Tue, 16 Mar 2021 14:47:25 +0000</pubDate>
       
       <guid>https://kevinerr.github.io/posts/tech/redis/</guid>
-      <description>Redis(remote dictionary server) 远程字典服务 干什么 内存存储、持久化，内存中是断电即失，所以持久化很重要（rdb、aof） 效率高，用于高速缓存 发布订阅系统 地图信息分析 消</description>
+      <description>Redis常见面试题 Redis(remote dictionary server) 远程字典服务 1、 db，每次都从数据库中查 2、 用一个List存储查的全部结果，然后再在List中过滤 3、 本地缓存，同</description>
     </item>
     
   </channel>

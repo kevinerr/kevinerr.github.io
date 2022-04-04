@@ -7,7 +7,7 @@
 <meta name="robots" content="index, follow">
 <title>go教程 | hkh&#39;s Blog</title>
 <meta name="keywords" content="go" />
-<meta name="description" content="四种变量声明 const和iota 多返回值 init函数 import导包 指针 defer 数组/动态数组">
+<meta name="description" content="y以下是我的go学习之路，仅供参考 go入门 go语法基础 go菜鸟 go底层 Golang深入理解GPM模型 Golang中GC回收机制三色标记与混合">
 <meta name="author" content="
 作者:&nbsp;kevin">
 <link rel="canonical" href="https://kevinerr.github.io/posts/tech/go%E6%95%99%E7%A8%8B/" />
@@ -59,7 +59,7 @@
 
     </style>
 </noscript><meta property="og:title" content="go教程" />
-<meta property="og:description" content="四种变量声明 const和iota 多返回值 init函数 import导包 指针 defer 数组/动态数组" />
+<meta property="og:description" content="y以下是我的go学习之路，仅供参考 go入门 go语法基础 go菜鸟 go底层 Golang深入理解GPM模型 Golang中GC回收机制三色标记与混合" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://kevinerr.github.io/posts/tech/go%E6%95%99%E7%A8%8B/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-02-14T20:51:37&#43;00:00" />
@@ -67,7 +67,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="go教程"/>
-<meta name="twitter:description" content="四种变量声明 const和iota 多返回值 init函数 import导包 指针 defer 数组/动态数组"/>
+<meta name="twitter:description" content="y以下是我的go学习之路，仅供参考 go入门 go语法基础 go菜鸟 go底层 Golang深入理解GPM模型 Golang中GC回收机制三色标记与混合"/>
 
 
 <script type="application/ld+json">
@@ -102,12 +102,12 @@
   "@type": "BlogPosting",
   "headline": "go教程",
   "name": "go教程",
-  "description": "四种变量声明 const和iota 多返回值 init函数 import导包 指针 defer 数组/动态数组",
+  "description": "y以下是我的go学习之路，仅供参考 go入门 go语法基础 go菜鸟 go底层 Golang深入理解GPM模型 Golang中GC回收机制三色标记与混合",
   "keywords": [
     "go"
   ],
-  "articleBody": "四种变量声明 const和iota 多返回值 init函数 import导包 指针 defer 数组/动态数组 ",
-  "wordCount" : "44",
+  "articleBody": "y以下是我的go学习之路，仅供参考\ngo入门 go语法基础\ngo菜鸟\ngo底层 Golang深入理解GPM模型\nGolang中GC回收机制三色标记与混合写屏障\ngo修养之路\n1、最常用的调试 golang 的 bug 以及性能问题的实践方法？ 2、Golang的协程调度器原理及GMP设计思想？ 3、Golang中逃逸现象, 变量“何时栈?何时堆?” 4、Golang中make与new有何区别？ 5、Golang三色标记+混合写屏障GC模式全分析 6、面向对象的编程思维理解interface 7、Golang中的Defer必掌握的7知识点 8、精通Golang项目依赖Go modules 9、一站式精通Golang内存管理\n1、数据定义 2、数组和切片 3、Map 4、interface 5、channel 6、WaitGroup\n1、流？I/O操作？阻塞？epoll? 2、分布式从ACID、CAP、BASE的理论推进 3、对于操作系统而言进程、线程以及Goroutine协程的区别 4、Go是否可以无限go？ 如何限定数量？ 5、单点Server的N种并发模型汇总 6、TCP中TIME_WAIT状态意义详解 7、动态保活Worker工作池设计\ngin入门 gin入门\ngin官方文档\n",
+  "wordCount" : "496",
   "inLanguage": "en",
   "datePublished": "2022-02-14T20:51:37Z",
   "dateModified": "2022-02-14T20:51:37Z",
@@ -228,7 +228,7 @@
 
 
 
-创建:&nbsp;<span title='2022-02-14 20:51:37 +0000 UTC'>2022-02-14</span>&nbsp;|&nbsp;更新:&nbsp;2022-02-14&nbsp;|&nbsp;字数:&nbsp;44字&nbsp;|&nbsp;时长: 1分钟&nbsp;|&nbsp;
+创建:&nbsp;<span title='2022-02-14 20:51:37 +0000 UTC'>2022-02-14</span>&nbsp;|&nbsp;更新:&nbsp;2022-02-14&nbsp;|&nbsp;字数:&nbsp;496字&nbsp;|&nbsp;时长: 1分钟&nbsp;|&nbsp;
 作者:&nbsp;kevin
 
 </div>
@@ -241,21 +241,11 @@
 
             <div class="inner"><ul>
                     <li>
-                        <a href="#%e5%9b%9b%e7%a7%8d%e5%8f%98%e9%87%8f%e5%a3%b0%e6%98%8e" aria-label="四种变量声明">四种变量声明</a></li>
+                        <a href="#go%e5%85%a5%e9%97%a8" aria-label="go入门">go入门</a></li>
                     <li>
-                        <a href="#const%e5%92%8ciota" aria-label="const和iota">const和iota</a></li>
+                        <a href="#go%e5%ba%95%e5%b1%82" aria-label="go底层">go底层</a></li>
                     <li>
-                        <a href="#%e5%a4%9a%e8%bf%94%e5%9b%9e%e5%80%bc" aria-label="多返回值">多返回值</a></li>
-                    <li>
-                        <a href="#init%e5%87%bd%e6%95%b0" aria-label="init函数">init函数</a></li>
-                    <li>
-                        <a href="#import%e5%af%bc%e5%8c%85" aria-label="import导包">import导包</a></li>
-                    <li>
-                        <a href="#%e6%8c%87%e9%92%88" aria-label="指针">指针</a></li>
-                    <li>
-                        <a href="#defer" aria-label="defer">defer</a></li>
-                    <li>
-                        <a href="#%e6%95%b0%e7%bb%84%e5%8a%a8%e6%80%81%e6%95%b0%e7%bb%84" aria-label="数组/动态数组">数组/动态数组</a>
+                        <a href="#gin%e5%85%a5%e9%97%a8" aria-label="gin入门">gin入门</a>
                     </li>
                 </ul>
             </div>
@@ -322,59 +312,39 @@
     }
 </script>
 
-  <div class="post-content"><img src="image-20220214205225732.png" alt="image-20220214205225732" style="zoom: 50%;" />
-<p><img loading="lazy" src="image-20220214205300178.png" alt="image-20220214205300178"  />
-</p>
-<p><img loading="lazy" src="image-20220214205332176.png" alt="image-20220214205332176"  />
-</p>
-<p><img loading="lazy" src="image-20220214205402465.png" alt="image-20220214205402465"  />
-</p>
-<p><img loading="lazy" src="image-20220214205418246.png" alt="image-20220214205418246"  />
-</p>
-<p><img loading="lazy" src="image-20220214205610665.png" alt="image-20220214205610665"  />
-</p>
-<p><img loading="lazy" src="image-20220214205842972.png" alt="image-20220214205842972"  />
-</p>
-<p><img loading="lazy" src="image-20220214205925960.png" alt="image-20220214205925960"  />
-</p>
-<p><img loading="lazy" src="image-20220214210157755.png" alt="image-20220214210157755"  />
-</p>
-<h2 id="四种变量声明">四种变量声明<a hidden class="anchor" aria-hidden="true" href="#四种变量声明">#</a></h2>
-<p><img loading="lazy" src="image-20220214214304310.png" alt="image-20220214214304310"  />
-</p>
-<p><img loading="lazy" src="image-20220214214823001.png" alt="image-20220214214823001"  />
-</p>
-<p><img loading="lazy" src="image-20220214214739735.png" alt="image-20220214214739735"  />
-</p>
-<h2 id="const和iota">const和iota<a hidden class="anchor" aria-hidden="true" href="#const和iota">#</a></h2>
-<p><img loading="lazy" src="image-20220214215923076.png" alt="image-20220214215923076"  />
-</p>
-<p><img loading="lazy" src="image-20220214220031441.png" alt="image-20220214220031441"  />
-</p>
-<h2 id="多返回值">多返回值<a hidden class="anchor" aria-hidden="true" href="#多返回值">#</a></h2>
-<p><img loading="lazy" src="image-20220214221955885.png" alt="image-20220214221955885"  />
-</p>
-<h2 id="init函数">init函数<a hidden class="anchor" aria-hidden="true" href="#init函数">#</a></h2>
-<p><img loading="lazy" src="image-20220215103617327.png" alt="image-20220215103617327"  />
-</p>
-<h2 id="import导包">import导包<a hidden class="anchor" aria-hidden="true" href="#import导包">#</a></h2>
-<p><img loading="lazy" src="image-20220215103506913.png" alt="image-20220215103506913"  />
-</p>
-<h2 id="指针">指针<a hidden class="anchor" aria-hidden="true" href="#指针">#</a></h2>
-<p><img loading="lazy" src="image-20220215105454296.png" alt="image-20220215105454296"  />
-</p>
-<p><img loading="lazy" src="image-20220215105241191.png" alt="image-20220215105241191"  />
-</p>
-<h2 id="defer">defer<a hidden class="anchor" aria-hidden="true" href="#defer">#</a></h2>
-<p><img loading="lazy" src="image-20220215110104446.png" alt="image-20220215110104446"  />
-</p>
-<p><img loading="lazy" src="image-20220215110044033.png" alt="image-20220215110044033"  />
-</p>
-<h2 id="数组动态数组">数组/动态数组<a hidden class="anchor" aria-hidden="true" href="#数组动态数组">#</a></h2>
-<p><img loading="lazy" src="image-20220215111915221.png" alt="image-20220215111915221"  />
-</p>
-<p><img loading="lazy" src="image-20220215113834232.png" alt="image-20220215113834232"  />
-</p>
+  <div class="post-content"><p>y以下是我的go学习之路，仅供参考</p>
+<h2 id="go入门">go入门<a hidden class="anchor" aria-hidden="true" href="#go入门">#</a></h2>
+<p><a href="https://www.bilibili.com/video/BV1gf4y1r79E?spm_id_from=333.999.0.0">go语法基础</a></p>
+<p><a href="https://www.runoob.com/go/go-tutorial.html">go菜鸟</a></p>
+<h2 id="go底层">go底层<a hidden class="anchor" aria-hidden="true" href="#go底层">#</a></h2>
+<p><a href="https://www.bilibili.com/video/BV19r4y1w7Nx?spm_id_from=333.999.0.0">Golang深入理解GPM模型</a></p>
+<p><a href="https://www.bilibili.com/video/BV1wz4y1y7Kd?spm_id_from=333.999.0.0">Golang中GC回收机制三色标记与混合写屏障</a></p>
+<p><a href="https://www.kancloud.cn/aceld/golang/1958304">go修养之路</a></p>
+<p><a href="https://www.kancloud.cn/aceld/golang/1958304">1、最常用的调试 golang 的 bug 以及性能问题的实践方法？</a>
+<a href="https://www.kancloud.cn/aceld/golang/1958305">2、Golang的协程调度器原理及GMP设计思想？</a>
+<a href="https://www.kancloud.cn/aceld/golang/1958306">3、Golang中逃逸现象, 变量“何时栈?何时堆?”</a>
+<a href="https://www.kancloud.cn/aceld/golang/1958307">4、Golang中make与new有何区别？</a>
+<a href="https://www.kancloud.cn/aceld/golang/1958308">5、Golang三色标记+混合写屏障GC模式全分析</a>
+<a href="https://www.kancloud.cn/aceld/golang/1958309">6、面向对象的编程思维理解interface</a>
+<a href="https://www.kancloud.cn/aceld/golang/1958310">7、Golang中的Defer必掌握的7知识点</a>
+<a href="https://www.kancloud.cn/aceld/golang/1958311">8、精通Golang项目依赖Go modules</a>
+<a href="https://www.kancloud.cn/aceld/golang/2649488">9、一站式精通Golang内存管理</a></p>
+<p><a href="https://www.kancloud.cn/aceld/golang/1958313">1、数据定义</a>
+<a href="https://www.kancloud.cn/aceld/golang/1958314">2、数组和切片</a>
+<a href="https://www.kancloud.cn/aceld/golang/1958315">3、Map</a>
+<a href="https://www.kancloud.cn/aceld/golang/1958316">4、interface</a>
+<a href="https://www.kancloud.cn/aceld/golang/1958317">5、channel</a>
+<a href="https://www.kancloud.cn/aceld/golang/1958318">6、WaitGroup</a></p>
+<p><a href="https://www.kancloud.cn/aceld/golang/1958320">1、流？I/O操作？阻塞？epoll?</a>
+<a href="https://www.kancloud.cn/aceld/golang/1958321">2、分布式从ACID、CAP、BASE的理论推进</a>
+<a href="https://www.kancloud.cn/aceld/golang/1958322">3、对于操作系统而言进程、线程以及Goroutine协程的区别</a>
+<a href="https://www.kancloud.cn/aceld/golang/1958323">4、Go是否可以无限go？ 如何限定数量？</a>
+<a href="https://www.kancloud.cn/aceld/golang/1958324">5、单点Server的N种并发模型汇总</a>
+<a href="https://www.kancloud.cn/aceld/golang/1958325">6、TCP中TIME_WAIT状态意义详解</a>
+<a href="https://www.kancloud.cn/aceld/golang/2043313">7、动态保活Worker工作池设计</a></p>
+<h2 id="gin入门">gin入门<a hidden class="anchor" aria-hidden="true" href="#gin入门">#</a></h2>
+<p><a href="https://www.bilibili.com/video/BV1fA411F7aM?">gin入门</a></p>
+<p><a href="https://gin-gonic.com/zh-cn/docs/">gin官方文档</a></p>
 
 
   </div>

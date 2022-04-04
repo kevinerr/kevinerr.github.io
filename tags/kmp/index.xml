@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>kmp on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/kmp/</link>
+    <description>Recent content in kmp on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 04 Apr 2022 20:52:44 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/kmp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kmp</title>
+      <link>https://kevinerr.github.io/posts/algorithm/kmp/</link>
+      <pubDate>Mon, 04 Apr 2022 20:52:44 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/kmp/</guid>
+      <description>模板 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 // s[]是长文本，p[]是模式串，n是s的长度，m是p的长度 求模式串的Next数组： for (int i = 2, j</description>
+    </item>
+    
+  </channel>
+</rss>
