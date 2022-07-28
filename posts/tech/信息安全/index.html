@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>信息安全 | hkh&#39;s Blog</title>
+<meta name="keywords" content="信息安全" />
+<meta name="description" content="DDos https://www.zhihu.com/question/22259175 概念 Distributed Denial of Service，翻译成中文就是分布式拒绝服务 一般来说是指攻击者利用“肉鸡”对目标网站在较短的时间内发起大量请求，大规模消耗目标">
+<meta name="author" content="
+作者:&nbsp;kevin">
+<link rel="canonical" href="https://kevinerr.github.io/posts/tech/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.7724ad4800b622e9e86a37940cdc71441089d486cd46f35de38fdd833dd93d2f.css" integrity="sha256-dyStSAC2IunoajeUDNxxRBCJ1IbNRvNd44/dgz3ZPS8=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="16x16" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="apple-touch-icon" href="https://kevinerr.github.io/Q.jpg">
+<link rel="mask-icon" href="https://kevinerr.github.io/Q.jpg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.94.2" />
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="信息安全" />
+<meta property="og:description" content="DDos https://www.zhihu.com/question/22259175 概念 Distributed Denial of Service，翻译成中文就是分布式拒绝服务 一般来说是指攻击者利用“肉鸡”对目标网站在较短的时间内发起大量请求，大规模消耗目标" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kevinerr.github.io/posts/tech/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-25T14:49:30&#43;08:00" />
+<meta property="article:modified_time" content="2022-04-25T14:49:30&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="信息安全"/>
+<meta name="twitter:description" content="DDos https://www.zhihu.com/question/22259175 概念 Distributed Denial of Service，翻译成中文就是分布式拒绝服务 一般来说是指攻击者利用“肉鸡”对目标网站在较短的时间内发起大量请求，大规模消耗目标"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "📚文章",
+      "item": "https://kevinerr.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "👨🏻‍💻技术",
+      "item": "https://kevinerr.github.io/posts/tech/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "信息安全",
+      "item": "https://kevinerr.github.io/posts/tech/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "信息安全",
+  "name": "信息安全",
+  "description": "DDos https://www.zhihu.com/question/22259175 概念 Distributed Denial of Service，翻译成中文就是分布式拒绝服务 一般来说是指攻击者利用“肉鸡”对目标网站在较短的时间内发起大量请求，大规模消耗目标",
+  "keywords": [
+    "信息安全"
+  ],
+  "articleBody": "DDos https://www.zhihu.com/question/22259175\n概念 Distributed Denial of Service，翻译成中文就是分布式拒绝服务\n一般来说是指攻击者利用“肉鸡”对目标网站在较短的时间内发起大量请求，大规模消耗目标网站的主机资源，让它无法正常服务。在线游戏、互联网金融等领域是 DDoS 攻击的高发行业。\n举例\n我开了一家有五十个座位的重庆火锅店，由于用料上等，童叟无欺。平时门庭若市，生意特别红火，而对面二狗家的火锅店却无人问津。二狗为了对付我，想了一个办法，叫了五十个人来我的火锅店坐着却不点菜，让别的客人无法吃饭。\nDoS 拒绝服务\nDDoS 分布式拒绝服务\nDRDoS 分布式反射拒绝服务\nCC Challenge Collapsar\n0X1 A比B大，于是分出一部分资源，不停的对B网吧发起FLOOD攻击。导致A损失一部分资源，B关门了。 这就是DoS攻击。\n0X2 A比B小。但是A有很多兄弟C,D,E,F,G网吧，甚至A还控制了一些肉鸡。一起对B发起FLOOD攻击。B又关门了。这就是DDoS攻击。\n0X3 B很大，A和他的朋友打不动了。于是他们找到了很多公网提供的服务。如redis、mongodb、memcache、NTP、UPnP….. 然后一起对这些服务发送伪造的请求。如：Hi memcache，请把缓存的数据发给我。我的IP是B。（放大了几百倍） 这种攻击叫反射攻击。于是大量的反射攻击开始了。 全球几十万的弱验证开放服务一起给B发送数据。B又关门了。这就是DRDoS。\n0X4 B很生气，于是在运营商层面部署了很多硬防来清洗流量。 DDoS DRDoS 也没办法了。这时候A突然发现B有一个数据查询接口，部署在公网。如：会员信息查询之类的。A又联合他的兄弟，甚至找了很多公开的免费代理。一起对这个接口进行请求。每秒几十万次查询。最终B的会员数据库挂了。B又关门了。这就是CC攻击。\n最后B报警，把A抓起来了。。\n类型 ICMP Flood\nICMP（Internet控制报文协议）用于在IP主机、路由器之间传递控制消息，控制消息是指网络通不通、主机是否可达、路由是否可用等网络本身的消息，虽然并不传输用户数据，但是对于用户数据的传递起着重要的作用。通过对目标系统发送海量数据包，就可以令目标主机瘫痪，如果大量发送就成了洪水攻击。\nUDP Flood\nUDP协议是一种无连接的服务，在UDP Flood 中，攻击者通常发送大量伪造源IP地址的小UDP包冲击DNS服务器或Radius认证服务器、流媒体视频服务器。100k bps的UDP Flood经常将线路上的骨干设备例如防火墙打瘫，造成整个网段的瘫痪。\n上述传统的流量型攻击方式技术含量较低，伤人一千自损八百，攻击效果通常依赖受控主机本身的网络性能，而且容易被查到攻击源头，单独使用的情况已不常见。于是，具有四两拔千斤效果的反射型放大攻击就出现了。\nNTP Flood\nNTP是标准的基于UDP协议传输的网络时间同步协议，由于UDP协议的无连接性，方便伪造源地址。攻击者使用特殊的数据包，也就是IP地址指向作为反射器的服务器，源IP地址被伪造成攻击目标的IP，反射器接收到数据包时就被骗了，会将响应数据发送给被攻击目标，耗尽目标网络的带宽资源。一般的NTP服务器都有很大的带宽，攻击者可能只需要1Mbps的上传带宽欺骗NTP服务器，就可给目标服务器带来几百上千Mbps的攻击流量。\n因此，“问-答”方式的协议都可以被反射型攻击利用，将质询数据包的地址伪造为攻击目标地址，应答的数据包就会都被发送至目标，一旦协议具有递归效果，流量就被显著放大了，堪称一种“借刀杀人”的流量型攻击。\nSYN Flood\n这是一种利用TCP协议缺陷，发送大量伪造的TCP连接请求，从而使得被攻击方资源耗尽（CPU满负荷或内存不足）的攻击方式。建立TCP连接，需要三次握手——客户端发送SYN报文，服务端收到请求并返回报文表示接受，客户端也返回确认，完成连接。\nSYN Flood 就是用户向服务器发送报文后突然死机或掉线，那么服务器在发出应答报文后就无法收到客户端的确认报文（第三次握手无法完成），这时服务器端一般会重试并等待一段时间后再丢弃这个未完成的连接。一个用户出现异常导致服务器的一个线程等待一会儿并不是大问题，但恶意攻击者大量模拟这种情况，服务器端为了维护数以万计的半连接而消耗非常多的资源，结果往往是无暇理睬客户的正常请求，甚至崩溃。从正常客户的角度看来，网站失去了响应，无法访问。\nCC 攻击\nDNS Query Flood\n混合攻击\n如何应对 DDoS 攻击？ 高防服务器\n还是拿我开的重庆火锅店举例，高防服务器就是我给重庆火锅店增加了两名保安，这两名保安可以让保护店铺不受流氓骚扰，并且还会定期在店铺周围巡逻防止流氓骚扰。\n高防服务器主要是指能独立硬防御 50Gbps 以上的服务器，能够帮助网站拒绝服务攻击，定期扫描网络主节点等，这东西是不错，就是贵\n黑名单\n面对火锅店里面的流氓，我一怒之下将他们拍照入档，并禁止他们踏入店铺，但是有的时候遇到长得像的人也会禁止他进入店铺。这个就是设置黑名单，此方法秉承的就是“错杀一千，也不放一百”的原则，会封锁正常流量，影响到正常业务。\nDDoS 清洗\nDDos 清洗，就是我发现客人进店几分钟以后，但是一直不点餐，我就把他踢出店里。\nDDoS 清洗会对用户请求数据进行实时监控，及时发现DOS攻击等异常流量，在不影响正常业务开展的情况下清洗掉这些异常流量。\nCDN 加速\nCDN 加速，我们可以这么理解：为了减少流氓骚扰，我干脆将火锅店开到了线上，承接外卖服务，这样流氓找不到店在哪里，也耍不来流氓了。\n在现实中，CDN 服务将网站访问流量分配到了各个节点中，这样一方面隐藏网站的真实 IP，另一方面即使遭遇 DDoS 攻击，也可以将流量分散到各个节点中，防止源站崩溃。\nIDS 入侵检测系统（intrusion detection system，简称“IDS”）是一种对网络传输进行即时监视，在发现可疑传输时发出警报或者采取主动反应措施的网络安全设备。它与其他网络安全设备的不同之处便在于，IDS是一种积极主动的安全防护技术。 IDS最早出现在1980年4月。 1980年代中期，IDS逐渐发展成为入侵检测专家系统（IDES）。 1990年，IDS分化为基于网络的IDS和基于主机的IDS。后又出现分布式IDS。目前，IDS发展迅速，已有人宣称IDS可以完全取代防火墙。\n目前入侵检测系统研究的主流方向大都以提升异常检测的准确性或提高攻击行为特征提取的速率上。\n准确性：使用机器学习算法或网络算法实现的、大数据相关技术\nDPDK 高性能高速率包捕获框架\n入侵检测系统中极其重要的一环就是对数据包的处理进而通过分析数据包来做出相应的反馈\n目前比较流行的数据包处理技术主要有 Libpcap，PF_RING，Netmap 和 DPDK 等\nLibpcap工作原理中，必须使用网卡的硬中断做通讯，每次硬中断大约消耗 100 微秒，中断会带来上下文的切换，从而会造成不同类型的 cache miss 和内核态用户态之间切换，一旦发生 cache miss，速度就会下降，而内核态和用户态的切换又发生数据拷贝，增加 CPU 以及内存的消耗。\nPF_RING是 Luca Deri 研究出来的用来提高内核处理数据包效率的数据包捕获函数库。\n使用 NAPI 减少 CPU 中断响应网卡的技术。NAPI的基本思想就是当数据包到来时网卡发出中断请求，CPU 响应中断请求进入中断处理程序，同时 CPU 会关闭接下来的中断处理请求。因为在 CPU 进入中断处理程序后，会使用轮询的方式获取数据包，轮询持续到接收了一定数量的数据包以后再退出，并打开中断。通过这种方式减少 CPU 中断次数。 (2) 使用 mmap 和 DMA 实现零拷贝减少数据在内存之间的拷贝。数据由 DMA从网卡直接拷贝到内核空间后，应用程序可以在用户态的内存空间中通过 mmap 直接访问内核数据从而减少内存数据在内核态空间和用户态空间的拷贝。\nNetmap 也是一个基于零拷贝的高性能的数据包收发框架\n(1)花费在系统调用以及处理数据包的时间少。 (2) 利用自带的网卡驱动直接接管网卡，运行时会申请一块固定的内存池，用于 存储接收网卡的数据包和需要发送给网卡的数据包。 (3) 使用 mmap 减少内存拷贝。\nDPDK\n相比于 Libpcap 过多的内核和系统操作，PF_RING 中无法避免的内核处理等，Netmap 中支持该驱动的网卡较少等问题有更大的优势\n防火墙 （Firewall） 别名防护墙，于1993发明并引入国际互联网。\n他是一项信息安全的防护系统，依照特定的规则，允许或是限制传输的数据通过。在网络中，所谓的防火墙是指一种将内网和外网分开的方法，他实际上是一种隔离技术\n防火墙对流经它的网络通信进行扫描， 这样就能够过滤掉一些攻击，以免其在目标计算机上执行。\n通常的防火墙主要工作第二到第四层，重心是在网络层，用于过滤IP和协议类型。\nWAF (Web Application Firewall) Web应用防火墙\nWeb应用防火墙是通过执行一系列针对HTTP/HTTPS的安全策略还专门为Web应用提供保护的一款产品。\n与传统防火钱不同，WAF工作在应用层。\n",
+  "wordCount" : "3466",
+  "inLanguage": "en",
+  "datePublished": "2022-04-25T14:49:30+08:00",
+  "dateModified": "2022-04-25T14:49:30+08:00",
+  "author":[{
+    "@type": "Person",
+    "name": "kevin"
+  }],
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kevinerr.github.io/posts/tech/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hkh's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kevinerr.github.io/img/Q.jpg"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://kevinerr.github.io/" accesskey="h" title="hkh&#39;s Blog (Alt + H)">hkh&#39;s Blog</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://kevinerr.github.io/search" title="🔍搜索 (Alt &#43; /)" accesskey=/>
+                    <span>🔍搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/posts" title="📚文章">
+                    <span>📚文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/archives" title="⏱时间轴">
+                    <span>⏱时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/tags" title="🔖标签">
+                    <span>🔖标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/about" title="🙋🏻‍♂️关于">
+                    <span>🙋🏻‍♂️关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/links" title="🤝友链">
+                    <span>🤝友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://kevinerr.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://kevinerr.github.io/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://kevinerr.github.io/posts/tech/">👨🏻‍💻技术</a></div>
+    <h1 class="post-title">
+      信息安全
+    </h1>
+    <div class="post-meta">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2022-04-25 14:49:30 +0800 CST'>2022-04-25</span>&nbsp;|&nbsp;更新:&nbsp;2022-04-25&nbsp;|&nbsp;字数:&nbsp;3466字&nbsp;|&nbsp;时长: 7分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">Table of Contents</span>
+            </summary>
+
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#ddos" aria-label="DDos">DDos</a><ul>
+                            
+                    <li>
+                        <a href="#%e6%a6%82%e5%bf%b5" aria-label="概念">概念</a></li>
+                    <li>
+                        <a href="#%e7%b1%bb%e5%9e%8b" aria-label="类型">类型</a></li>
+                    <li>
+                        <a href="#%e5%a6%82%e4%bd%95%e5%ba%94%e5%af%b9-ddos-%e6%94%bb%e5%87%bb" aria-label="如何应对 DDoS 攻击？">如何应对 DDoS 攻击？</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#ids" aria-label="IDS">IDS</a></li>
+                    <li>
+                        <a href="#%e9%98%b2%e7%81%ab%e5%a2%99-firewall" aria-label="防火墙 （Firewall）">防火墙 （Firewall）</a></li>
+                    <li>
+                        <a href="#waf" aria-label="WAF">WAF</a>
+                    </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+         
+         activeElement = elements[0];
+         const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+         document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+     }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+             const id = encodeURI(element.getAttribute('id')).toLowerCase();
+             if (element === activeElement){
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+             } else {
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+             }
+         })
+     }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;   
+    }
+</script>
+
+  <div class="post-content"><h2 id="ddos">DDos<a hidden class="anchor" aria-hidden="true" href="#ddos">#</a></h2>
+<p><a href="https://www.zhihu.com/question/22259175">https://www.zhihu.com/question/22259175</a></p>
+<h3 id="概念">概念<a hidden class="anchor" aria-hidden="true" href="#概念">#</a></h3>
+<p>Distributed Denial of Service，翻译成中文就是分布式拒绝服务</p>
+<p>一般来说是指攻击者利用“肉鸡”对目标网站在较短的时间内发起大量请求，大规模消耗目标网站的主机资源，让它无法正常服务。在线游戏、<a href="https://www.zhihu.com/search?q=%E4%BA%92%E8%81%94%E7%BD%91%E9%87%91%E8%9E%8D&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A386244476%7D">互联网金融</a>等领域是 DDoS 攻击的高发行业。</p>
+<p>举例</p>
+<p>我开了一家有五十个座位的重庆火锅店，由于用料上等，童叟无欺。平时门庭若市，生意特别红火，而对面二狗家的火锅店却无人问津。二狗为了对付我，想了一个办法，叫了五十个人来我的火锅店坐着却不点菜，让别的客人无法吃饭。</p>
+<p>DoS 拒绝服务</p>
+<p>DDoS 分布式拒绝服务</p>
+<p>DRDoS 分布式反射拒绝服务</p>
+<p>CC Challenge Collapsar</p>
+<p>0X1  A比B大，于是分出一部分资源，不停的对B网吧发起FLOOD攻击。导致A损失一部分资源，B关门了。  这就是DoS攻击。</p>
+<p>0X2  A比B小。但是A有很多兄弟C,D,E,F,G网吧，甚至A还控制了一些肉鸡。一起对B发起FLOOD攻击。B又关门了。这就是DDoS攻击。</p>
+<p>0X3 B很大，A和他的朋友打不动了。于是他们找到了很多公网提供的服务。如redis、mongodb、memcache、NTP、UPnP&hellip;..  然后一起对这些服务发送伪造的请求。如：Hi  memcache，请把缓存的数据发给我。我的IP是B。（放大了几百倍）     这种攻击叫反射攻击。于是大量的反射攻击开始了。  全球几十万的弱验证开放服务一起给B发送数据。B又关门了。这就是DRDoS。</p>
+<p>0X4  B很生气，于是在运营商层面部署了很多硬防来清洗流量。 DDoS DRDoS 也没办法了。这时候A突然发现B有一个数据查询接口，部署在公网。如：会员信息查询之类的。A又联合他的兄弟，甚至找了很多公开的免费代理。一起对这个接口进行请求。每秒几十万次查询。最终B的会员数据库挂了。B又关门了。这就是CC攻击。</p>
+<p>最后B报警，把A抓起来了。。</p>
+<h3 id="类型">类型<a hidden class="anchor" aria-hidden="true" href="#类型">#</a></h3>
+<p><strong>ICMP Flood</strong></p>
+<p>ICMP（Internet控制报文协议）用于在IP主机、路由器之间传递控制消息，控制消息是指网络通不通、主机是否可达、路由是否可用等网络本身的消息，虽然并不传输用户数据，但是对于用户数据的传递起着重要的作用。通过对目标系统发送海量<a href="https://www.zhihu.com/search?q=%E6%95%B0%E6%8D%AE%E5%8C%85&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A378530276%7D">数据包</a>，就可以令目标主机瘫痪，如果大量发送就成了洪水攻击。</p>
+<p><strong>UDP Flood</strong></p>
+<p>UDP协议是一种无连接的服务，在UDP Flood 中，攻击者通常发送大量伪造源IP地址的小UDP包冲击DNS服务器或Radius认证服务器、流媒体视频服务器。100k bps的UDP Flood经常将线路上的骨干设备例如防火墙打瘫，造成整个网段的瘫痪。</p>
+<p>上述传统的流量型攻击方式技术含量较低，伤人一千自损八百，攻击效果通常依赖受控主机本身的网络性能，而且容易被查到攻击源头，单独使用的情况已不常见。于是，具有四两拔千斤效果的反射型放大攻击就出现了。</p>
+<p><strong>NTP Flood</strong></p>
+<p>NTP是标准的基于UDP协议传输的网络时间同步协议，由于UDP协议的无连接性，方便伪造源地址。攻击者使用特殊的数据包，也就是IP地址指向作为反射器的服务器，源IP地址被伪造成攻击目标的IP，反射器接收到数据包时就被骗了，会将响应数据发送给被攻击目标，耗尽目标网络的带宽资源。一般的NTP服务器都有很大的带宽，攻击者可能只需要1Mbps的上传带宽欺骗NTP服务器，就可给目标服务器带来几百上千Mbps的攻击流量。</p>
+<p>因此，“问-答”方式的协议都可以被反射型攻击利用，将质询数据包的地址伪造为攻击目标地址，应答的数据包就会都被发送至目标，一旦协议具有递归效果，流量就被显著放大了，堪称一种“借刀杀人”的流量型攻击。</p>
+<p><strong>SYN Flood</strong></p>
+<p>这是一种利用TCP协议缺陷，发送大量伪造的TCP连接请求，从而使得被攻击方资源耗尽（CPU满负荷或内存不足）的攻击方式。建立TCP连接，需要三次握手——客户端发送SYN报文，服务端收到请求并返回报文表示接受，客户端也返回确认，完成连接。</p>
+<p>SYN Flood 就是用户向服务器发送报文后突然死机或掉线，那么服务器在发出应答报文后就无法收到客户端的确认报文（第三次握手无法完成），这时服务器端一般会重试并等待一段时间后再丢弃这个未完成的连接。一个用户出现异常导致服务器的一个线程等待一会儿并不是大问题，但恶意攻击者大量模拟这种情况，服务器端为了维护数以万计的半连接而消耗非常多的资源，结果往往是无暇理睬客户的正常请求，甚至崩溃。从正常客户的角度看来，网站失去了响应，无法访问。</p>
+<p><strong>CC 攻击</strong></p>
+<p><strong>DNS Query Flood</strong></p>
+<p><strong>混合攻击</strong></p>
+<h3 id="如何应对-ddos-攻击">如何应对 DDoS 攻击？<a hidden class="anchor" aria-hidden="true" href="#如何应对-ddos-攻击">#</a></h3>
+<p><strong>高防服务器</strong></p>
+<p>还是拿我开的重庆火锅店举例，高防服务器就是我给重庆火锅店增加了两名保安，这两名保安可以让保护店铺不受流氓骚扰，并且还会定期在店铺周围巡逻防止流氓骚扰。</p>
+<p>高防服务器主要是指能独立硬防御 50Gbps 以上的服务器，能够帮助网站拒绝服务攻击，定期扫描网络主节点等，这东西是不错，就是贵</p>
+<p><strong>黑名单</strong></p>
+<p>面对火锅店里面的流氓，我一怒之下将他们拍照入档，并禁止他们踏入店铺，但是有的时候遇到长得像的人也会禁止他进入店铺。这个就是设置黑名单，此方法秉承的就是“错杀一千，也不放一百”的原则，会封锁正常流量，影响到正常业务。</p>
+<p><strong>DDoS 清洗</strong></p>
+<p>DDos 清洗，就是我发现客人进店几分钟以后，但是一直不点餐，我就把他踢出店里。</p>
+<p>DDoS 清洗会对用户请求数据进行实时监控，及时发现DOS攻击等异常流量，在不影响正常业务开展的情况下清洗掉这些异常流量。</p>
+<p>CDN 加速</p>
+<p>CDN 加速，我们可以这么理解：为了减少流氓骚扰，我干脆将火锅店开到了线上，承接外卖服务，这样流氓找不到店在哪里，也耍不来流氓了。</p>
+<p>在现实中，CDN 服务将网站访问流量分配到了各个节点中，这样一方面隐藏网站的真实 IP，另一方面即使遭遇 DDoS 攻击，也可以将流量分散到各个节点中，防止源站崩溃。</p>
+<h2 id="ids">IDS<a hidden class="anchor" aria-hidden="true" href="#ids">#</a></h2>
+<p>入侵检测系统（intrusion detection system，简称“IDS”）是一种对网络传输进行即时监视，在发现可疑传输时发出警报或者采取主动反应措施的网络安全设备。它与其他网络安全设备的不同之处便在于，IDS是一种积极主动的安全防护技术。 IDS最早出现在1980年4月。 1980年代中期，IDS逐渐发展成为入侵检测专家系统（IDES）。 1990年，IDS分化为基于网络的IDS和基于主机的IDS。后又出现分布式IDS。目前，IDS发展迅速，已有人宣称IDS可以完全取代防火墙。</p>
+<p>目前入侵检测系统研究的主流方向大都以提升异常检测的准确性或提高攻击行为特征提取的速率上。</p>
+<p>准确性：使用机器学习算法或网络算法实现的、大数据相关技术</p>
+<p>DPDK 高性能高速率包捕获框架</p>
+<p>入侵检测系统中极其重要的一环就是对数据包的处理进而通过分析数据包来做出相应的反馈</p>
+<p>目前比较流行的数据包处理技术主要有 Libpcap，PF_RING，Netmap 和 DPDK 等</p>
+<p>Libpcap工作原理中，必须使用网卡的硬中断做通讯，每次硬中断大约消耗 100 微秒，中断会带来上下文的切换，从而会造成不同类型的 cache miss 和内核态用户态之间切换，一旦发生 cache miss，速度就会下降，而内核态和用户态的切换又发生数据拷贝，增加 CPU 以及内存的消耗。</p>
+<p>PF_RING是 Luca Deri 研究出来的用来提高内核处理数据包效率的数据包捕获函数库。</p>
+<p>使用 NAPI 减少 CPU 中断响应网卡的技术。NAPI的基本思想就是当数据包到来时网卡发出中断请求，CPU 响应中断请求进入中断处理程序，同时 CPU 会关闭接下来的中断处理请求。因为在 CPU 进入中断处理程序后，会使用轮询的方式获取数据包，轮询持续到接收了一定数量的数据包以后再退出，并打开中断。通过这种方式减少 CPU 中断次数。
+(2)  使用 mmap 和 DMA 实现零拷贝减少数据在内存之间的拷贝。数据由 DMA从网卡直接拷贝到内核空间后，应用程序可以在用户态的内存空间中通过 mmap 直接访问内核数据从而减少内存数据在内核态空间和用户态空间的拷贝。</p>
+<p>Netmap 也是一个基于零拷贝的高性能的数据包收发框架</p>
+<p>(1)花费在系统调用以及处理数据包的时间少。
+(2)  利用自带的网卡驱动直接接管网卡，运行时会申请一块固定的内存池，用于
+存储接收网卡的数据包和需要发送给网卡的数据包。
+(3)  使用 mmap 减少内存拷贝。</p>
+<p>DPDK</p>
+<p>相比于 Libpcap 过多的内核和系统操作，PF_RING 中无法避免的内核处理等，Netmap 中支持该驱动的网卡较少等问题有更大的优势</p>
+<h2 id="防火墙-firewall">防火墙 （Firewall）<a hidden class="anchor" aria-hidden="true" href="#防火墙-firewall">#</a></h2>
+<p>别名防护墙，于1993发明并引入国际互联网。</p>
+<p>他是一项信息安全的防护系统，依照特定的规则，允许或是限制传输的数据通过。在网络中，所谓的防火墙是指一种将内网和外网分开的方法，他实际上是一种隔离技术</p>
+<p>防火墙对流经它的网络通信进行扫描， 这样就能够过滤掉一些攻击，以免其在目标计算机上执行。</p>
+<p>通常的防火墙主要工作第二到第四层，重心是在网络层，用于过滤IP和协议类型。</p>
+<h2 id="waf">WAF<a hidden class="anchor" aria-hidden="true" href="#waf">#</a></h2>
+<p>(Web Application Firewall) Web应用防火墙</p>
+<p>Web应用防火墙是通过执行一系列针对HTTP/HTTPS的安全策略还专门为Web应用提供保护的一款产品。</p>
+<p>与传统防火钱不同，WAF工作在应用层。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://kevinerr.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/">信息安全</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://kevinerr.github.io/posts/tech/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>计算机网络</span>
+  </a>
+  <a class="next" href="https://kevinerr.github.io/posts/algorithm/%E6%90%9C%E7%B4%A0/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>搜素</span>
+  </a>
+</nav>
+
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 信息安全 on twitter"
+        href="https://twitter.com/intent/tweet/?text=%e4%bf%a1%e6%81%af%e5%ae%89%e5%85%a8&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E4%25BF%25A1%25E6%2581%25AF%25E5%25AE%2589%25E5%2585%25A8%2f&amp;hashtags=%e4%bf%a1%e6%81%af%e5%ae%89%e5%85%a8">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 信息安全 on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E4%25BF%25A1%25E6%2581%25AF%25E5%25AE%2589%25E5%2585%25A8%2f&amp;title=%e4%bf%a1%e6%81%af%e5%ae%89%e5%85%a8&amp;summary=%e4%bf%a1%e6%81%af%e5%ae%89%e5%85%a8&amp;source=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E4%25BF%25A1%25E6%2581%25AF%25E5%25AE%2589%25E5%2585%25A8%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 信息安全 on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E4%25BF%25A1%25E6%2581%25AF%25E5%25AE%2589%25E5%2585%25A8%2f&title=%e4%bf%a1%e6%81%af%e5%ae%89%e5%85%a8">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 信息安全 on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E4%25BF%25A1%25E6%2581%25AF%25E5%25AE%2589%25E5%2585%25A8%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 信息安全 on whatsapp"
+        href="https://api.whatsapp.com/send?text=%e4%bf%a1%e6%81%af%e5%ae%89%e5%85%a8%20-%20https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E4%25BF%25A1%25E6%2581%25AF%25E5%25AE%2589%25E5%2585%25A8%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 信息安全 on telegram"
+        href="https://telegram.me/share/url?text=%e4%bf%a1%e6%81%af%e5%ae%89%e5%85%a8&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E4%25BF%25A1%25E6%2581%25AF%25E5%25AE%2589%25E5%2585%25A8%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+
+  </footer>
+<div>
+    <div class="pagination__title">
+        <span class="pagination__title-h" style="font-size: 20px;">💬评论</span>
+        <hr />
+    </div>
+    <div id="tcomment"></div>
+    <script src="https://cdn.jsdelivr.net/npm/twikoo@1.5.0/dist/twikoo.all.min.js"></script>
+    <script>
+        twikoo.init({
+            envId: "https://twikoo-two-psi.vercel.app/",  
+            el: "#tcomment",
+            lang: 'zh-CN',
+            region: 'ap-guangzhou',  
+            path: 'window.TWIKOO_MAGIC_PATH||window.location.pathname',
+        });
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://kevinerr.github.io/">hkh&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

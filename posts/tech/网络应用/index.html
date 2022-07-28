@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>网络应用 | hkh&#39;s Blog</title>
+<meta name="keywords" content="计算机网络, 网络应用" />
+<meta name="description" content="网络的功能 计算机网络的功能主要体现在资源共享、数据通信和分布式处理三个方面。资源共享是计算机网络用户提供的最主要的功能，资源是指在有限时间内">
+<meta name="author" content="
+作者:&nbsp;kevin">
+<link rel="canonical" href="https://kevinerr.github.io/posts/tech/%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.7724ad4800b622e9e86a37940cdc71441089d486cd46f35de38fdd833dd93d2f.css" integrity="sha256-dyStSAC2IunoajeUDNxxRBCJ1IbNRvNd44/dgz3ZPS8=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="16x16" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="apple-touch-icon" href="https://kevinerr.github.io/Q.jpg">
+<link rel="mask-icon" href="https://kevinerr.github.io/Q.jpg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.94.2" />
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="网络应用" />
+<meta property="og:description" content="网络的功能 计算机网络的功能主要体现在资源共享、数据通信和分布式处理三个方面。资源共享是计算机网络用户提供的最主要的功能，资源是指在有限时间内" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kevinerr.github.io/posts/tech/%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-21T20:05:10&#43;00:00" />
+<meta property="article:modified_time" content="2021-03-21T20:05:10&#43;00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="网络应用"/>
+<meta name="twitter:description" content="网络的功能 计算机网络的功能主要体现在资源共享、数据通信和分布式处理三个方面。资源共享是计算机网络用户提供的最主要的功能，资源是指在有限时间内"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "📚文章",
+      "item": "https://kevinerr.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "👨🏻‍💻技术",
+      "item": "https://kevinerr.github.io/posts/tech/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "网络应用",
+      "item": "https://kevinerr.github.io/posts/tech/%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "网络应用",
+  "name": "网络应用",
+  "description": "网络的功能 计算机网络的功能主要体现在资源共享、数据通信和分布式处理三个方面。资源共享是计算机网络用户提供的最主要的功能，资源是指在有限时间内",
+  "keywords": [
+    "计算机网络", "网络应用"
+  ],
+  "articleBody": "网络的功能 计算机网络的功能主要体现在资源共享、数据通信和分布式处理三个方面。资源共享是计算机网络用户提供的最主要的功能，资源是指在有限时间内可为用户提供各种服务的软、硬件，资源共享是指网络中的用户能够全部地使用网络中的资源，包括软件共享、硬件共享和数据共享，通常，用户本身不需要考虑自己所使用的资源在网络中的具体位置。\n数据通信主要完成资源子网中各个独立的计算机系统之间的信息数据的传递，分布式处理则是利用网络技术多个独立的计算机系统连接组合成一个高性能的计算机系统，计算机群集，分布式系统，网络等都是这一功能应用的典型实例。\nCOOKIE/SESSION https://www.jianshu.com/p/6623416161ff\n 由于HTTP协议是无状态的协议，所以服务端需要记录用户的状态时，就需要用某种机制来识具体的用户，这个机制就是Session.典型的场景比如购物车，当你点击下单按钮时，由于HTTP协议无状态，所以并不知道是哪个用户操作的，所以服务端要为特定的用户创建了特定的Session，用用于标识这个用户，并且跟踪用户，这样才知道购物车里面有几本书。这个Session是保存在服务端的，有一个唯一标识。在服务端保存Session的方法很多，内存、数据库、文件都有。集群的时候也要考虑Session的转移，在大型的网站，一般会有专门的Session服务器集群，用来保存用户会话，这个时候 Session 信息都是放在内存的，使用一些缓存服务比如Memcached之类的来放 Session。 思考一下服务端如何识别特定的客户？这个时候Cookie就登场了。每次HTTP请求的时候，客户端都会发送相应的Cookie信息到服务端。实际上大多数的应用都是用 Cookie 来实现Session跟踪的，第一次创建Session的时候，服务端会在HTTP协议中告诉客户端，需要在 Cookie 里面记录一个Session ID，以后每次请求把这个会话ID发送到服务器，我就知道你是谁了。有人问，如果客户端的浏览器禁用了 Cookie 怎么办？一般这种情况下，会使用一种叫做URL重写的技术来进行会话跟踪，即每次HTTP交互，URL后面都会被附加上一个诸如 sid=xxxxx 这样的参数，服务端据此来识别用户。 Cookie其实还可以用在一些方便用户的场景下，设想你某次登陆过一个网站，下次登录的时候不想再次输入账号了，怎么办？这个信息可以写到Cookie里面，访问网站的时候，网站页面的脚本可以读取这个信息，就自动帮你把用户名给填了，能够方便一下用户。这也是Cookie名称的由来，给用户的一点甜头。所以，总结一下：Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中；Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。  访问网站 1、在浏览器输入url 2、浏览器向DNS解析url的ip地址 3、浏览器与服务器建立tcp连接（默认端口号80；2个套接字确定一条tcp连接） 4、浏览器发出http请求（get index.html) 5、服务器通过http将index.html发送给浏览器 6、tcp连接释放，浏览器解释文件index.html，并将web页显示给用户 HTTP缓存 https://www.jianshu.com/p/227cee9c8d15\nHTTP 超文本传输协议HyperText Transfer Protocol\n基于TCP协议的应用层传输协议\n客户端和服务端\n无状态 (stateless) 协议 Cookie\nConnection: Keep-Alive实现长连接\n正在传输的类型由Content-Type加以标记\n在实际的应用中，客户端往往会发出一系列请求，接着服务器端对每个请求进行响应。对于这些请求|响应，如果每次都经过一个单独的TCP连接发送，称为非持久连接。反之，如果每次都经过相同的TCP连接进行发送，称为持久连接。\n非持久连接在每次请求|响应之后都要断开连接，下次再建立新的TCP连接，这样就造成了大量的通信开销。例如前面提到的往返时间(RTT) 就是在建立TCP连接的过程中的代价。\nHTTP请求 由请求行，消息报头，请求正文三部分构成\n1、请求行由请求Method, URL 字段和HTTP Version三部分构成\n1  GET /example.html HTTP/1.1 (CRLF)   2、消息报头由一系列的键值对组成，允许客户端向服务器端发送一些附加信息或者客户端自身的信息\n3、HTTP请求正文\n只有在发送POST请求时才会有请求正文，GET方法并没有请求正文\nHTTP响应 也由三部分组成，包括状态行，消息报头，响应正文。\n1、状态行也由三部分组成，包括HTTP协议的版本，状态码，以及对状态码的文本描述。例如\n1  HTTP/1.1 200 OK （CRLF）   GET/POST  GET提交的数据放在URL中，POST则不会。这是最显而易见的差别。这点意味着GET更不安全（POST也不安全，因为HTTP是明文传输抓包就能获取数据内容，要想安全还得加密） GET回退浏览器无害，POST会再次提交请求（GET方法回退后浏览器再缓存中拿结果，POST每次都会创建新资源） GET提交的数据大小有限制（是因为浏览器对URL的长度有限制，GET本身没有限制），POST没有 GET可以被保存为书签，POST不可以。这一点也能感受到。 GET能被缓存，POST不能 GET只允许ASCII字符，POST没有限制 GET会保存再浏览器历史记录中，POST不会。这点也能感受到。  HTTPS 内容加密建立一个信息安全通道，来保证数据传输的安全；\n身份认证确认网站的真实性\n数据完整性防止内容被第三方冒充或者篡改\nSSL (Secure Socket Layer，安全套接字层)\nTLS (Transport Layer Security，传输层安全协议)\nTLS\nhttps://zhuanlan.zhihu.com/p/399105434\n协议 https://zhuanlan.zhihu.com/p/93894145\n电子邮件 SMTP（simple mail transfer protocol）推 POP3（post office protocol邮局协议）拉 MIME（multipurpose internet mail extensions多用途网络邮件补充）：非ASCII码数据 IMAP（因特网报文存取协议）：只读报文的某一部分\nNAT (Network Address Translation)网络地址转换\n私有地址（10 172 192）–公用地址\n该网络中的主机使用私用IP地址.当私有网络内部主机和外部Internet通信时,网关(gateway)路由器负责将私有IP地址转换为全球IP地址\nNAPT (Network Address and Port Translation)\nCIDR Classless Inter-Domain Routing，无类域间路由\n细分网络、子网掩码、CIDR（构成超网，查找路由表最长前缀匹配）\nARP 地址解析协议，即ARP（Address Resolution Protocol）根据IP地址获取物理地址的一个TCP/IP协议\n工作过程\n假设主机A和B在同一个网段，主机A要向主机B发送信息，具体的地址解析过程如下：\n 主机A首先查看自己的ARP缓存表，确定其中是否包含有主机B对应的ARP表项。如果找到了对应的MAC地址，则主机A直接利用ARP表中的MAC地址，对IP数据包进行帧封装，并将数据包发送给主机B。 如果主机A在ARP表中找不到对应的MAC地址，则将缓存该数据报文，然后以广播方式发送一个ARP请求报文。ARP请求报文中的发送端IP地址和发送端MAC地址为主机A的IP地址和MAC地址，目标IP地址和目标MAC地址为主机B的IP地址和全0的MAC地址。由于ARP请求报文以广播方式发送，该网段上的所有主机都可以接收到该请求，但只有被请求的主机（即主机B）会对该请求进行处理。 主机B比较自己的IP地址和ARP请求报文中的目标IP地址，当两者相同时进行如下处理：将ARP请求报文中的发送端（即主机A）的IP地址和MAC地址存入自己的ARP表中。之后以单播方式发送ARP响应报文给主机A，其中包含了自己的MAC地址。 主机A收到ARP响应报文后，将主机B的MAC地址加入到自己的ARP表中以用于后续报文的转发，同时将IP数据包进行封装后发送出去。  当主机A和主机B不在同一网段时，主机A就会先向网关发出ARP请求，ARP请求报文中的目标IP地址为网关的IP地址。当主机A从收到的响应报文中获得网关的MAC地址后，将报文封装并发给网关。如果网关没有主机B的ARP表项，网关会广播ARP请求，目标IP地址为主机B的IP地址，当网关从收到的响应报文中获得主机B的MAC地址后，就可以将报文发给主机B；如果网关已经有主机B的ARP表项，网关直接把报文发给主机B。\nDHCP DHCP（Dynamic Host Configuration Protocol，动态主机配置协议）\n是一个局域网的网络协议，使用UDP协议工作，统一使用两个IANA分配的端口：67（服务器端），68（客户端）。DHCP通常被用于局域网环境，主要作用是集中的管理、分配IP地址，使client动态的获得IP地址、Gateway地址、DNS服务器地址等信息，并能够提升地址的使用率。简单来说，DHCP就是一个不需要账号密码登录的、自动给内网机器分配IP地址等信息的协议。\nICMP ping/traceroute\nICMP是 Internet Control Message Protocol 的缩写，即互联网控制消息协议\n它用于 TCP/IP 网络中发送控制消息，提供可能发生在通信环境中的各种问题反馈，通过这些信息，使网络管理者可以对所发生的问题作出诊断，然后采取适当的措施解决问题。虽然 ICMP 是网络层协议，但是它不像 IP 协议和 ARP 协议一样直接传递给数据链路层，而是先封装成 IP 数据包然后再传递给数据链路层。所以在 IP 数据包中如果协议类型字段的值是 1 的话，就表示 IP 数据是 ICMP 报文。\nICMP协议的类型分为两大类，查询报文和差错报文。\n非对称加密RSA 公钥(E,N) 私钥（D,N）\nCDN Content Delivery Network，内容分发网络\nhttps://zhuanlan.zhihu.com/p/52362950\n诞生 随着互联网的爆炸式发展，网络拥塞越来越严重，将会成为互联网发展的最大障碍。\n原理 CDN这个技术其实说起来并不复杂，最初的核心理念，就是将内容缓存在终端用户附近。\n内容源不是远么？那么，我们就在靠近用户的地方，建一个缓存服务器，把远端的内容，复制一份，放在这里，不就OK了？\nVPN 应用：居家办公、访问校园网、访问**\nISP（Internet Service Provider）：因特网服务提供商\nVPN（Virtual Private Network）：虚拟专用网络\n站点–站点 VPN 客户端站点VPN、远程登录VPN 不需要长时间进行链接、使用浏览器通信、\n全隧道、半隧道\nVPN的职责 加密（不然你知道、完整（数据被你破坏、认证（电脑被你黑了\nVPN框架 IPsec（网络层、SSL/TLS（表示层\n",
+  "wordCount" : "4044",
+  "inLanguage": "en",
+  "datePublished": "2021-03-21T20:05:10Z",
+  "dateModified": "2021-03-21T20:05:10Z",
+  "author":{
+    "@type": "Person",
+    "name": "kevin"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kevinerr.github.io/posts/tech/%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hkh's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kevinerr.github.io/img/Q.jpg"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://kevinerr.github.io/" accesskey="h" title="hkh&#39;s Blog (Alt + H)">hkh&#39;s Blog</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://kevinerr.github.io/search" title="🔍搜索 (Alt &#43; /)" accesskey=/>
+                    <span>🔍搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/posts" title="📚文章">
+                    <span>📚文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/archives" title="⏱时间轴">
+                    <span>⏱时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/tags" title="🔖标签">
+                    <span>🔖标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/about" title="🙋🏻‍♂️关于">
+                    <span>🙋🏻‍♂️关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/links" title="🤝友链">
+                    <span>🤝友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://kevinerr.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://kevinerr.github.io/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://kevinerr.github.io/posts/tech/">👨🏻‍💻技术</a></div>
+    <h1 class="post-title">
+      网络应用
+    </h1>
+    <div class="post-meta">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2021-03-21 20:05:10 +0000 UTC'>2021-03-21</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-21&nbsp;|&nbsp;字数:&nbsp;4044字&nbsp;|&nbsp;时长: 9分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">Table of Contents</span>
+            </summary>
+
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#%e7%bd%91%e7%bb%9c%e7%9a%84%e5%8a%9f%e8%83%bd" aria-label="网络的功能">网络的功能</a></li>
+                    <li>
+                        <a href="#cookiesession" aria-label="COOKIE/SESSION">COOKIE/SESSION</a></li>
+                    <li>
+                        <a href="#%e8%ae%bf%e9%97%ae%e7%bd%91%e7%ab%99" aria-label="访问网站">访问网站</a><ul>
+                            
+                    <li>
+                        <a href="#1%e5%9c%a8%e6%b5%8f%e8%a7%88%e5%99%a8%e8%be%93%e5%85%a5url" aria-label="1、在浏览器输入url">1、在浏览器输入url</a></li>
+                    <li>
+                        <a href="#3%e6%b5%8f%e8%a7%88%e5%99%a8%e4%b8%8e%e6%9c%8d%e5%8a%a1%e5%99%a8%e5%bb%ba%e7%ab%8btcp%e8%bf%9e%e6%8e%a5%e9%bb%98%e8%ae%a4%e7%ab%af%e5%8f%a3%e5%8f%b7802%e4%b8%aa%e5%a5%97%e6%8e%a5%e5%ad%97%e7%a1%ae%e5%ae%9a%e4%b8%80%e6%9d%a1tcp%e8%bf%9e%e6%8e%a5" aria-label="3、浏览器与服务器建立tcp连接（默认端口号80；2个套接字确定一条tcp连接）">3、浏览器与服务器建立tcp连接（默认端口号80；2个套接字确定一条tcp连接）</a></li>
+                    <li>
+                        <a href="#4%e6%b5%8f%e8%a7%88%e5%99%a8%e5%8f%91%e5%87%bahttp%e8%af%b7%e6%b1%82get-indexhtml" aria-label="4、浏览器发出http请求（get index.html)">4、浏览器发出http请求（get index.html)</a></li>
+                    <li>
+                        <a href="#5%e6%9c%8d%e5%8a%a1%e5%99%a8%e9%80%9a%e8%bf%87http%e5%b0%86indexhtml%e5%8f%91%e9%80%81%e7%bb%99%e6%b5%8f%e8%a7%88%e5%99%a8" aria-label="5、服务器通过http将index.html发送给浏览器">5、服务器通过http将index.html发送给浏览器</a></li>
+                    <li>
+                        <a href="#6tcp%e8%bf%9e%e6%8e%a5%e9%87%8a%e6%94%be%e6%b5%8f%e8%a7%88%e5%99%a8%e8%a7%a3%e9%87%8a%e6%96%87%e4%bb%b6indexhtml%e5%b9%b6%e5%b0%86web%e9%a1%b5%e6%98%be%e7%a4%ba%e7%bb%99%e7%94%a8%e6%88%b7" aria-label="6、tcp连接释放，浏览器解释文件index.html，并将web页显示给用户">6、tcp连接释放，浏览器解释文件index.html，并将web页显示给用户</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#http%e7%bc%93%e5%ad%98" aria-label="HTTP缓存">HTTP缓存</a></li>
+                    <li>
+                        <a href="#http" aria-label="HTTP">HTTP</a><ul>
+                            
+                    <li>
+                        <a href="#http%e8%af%b7%e6%b1%82" aria-label="HTTP请求">HTTP请求</a></li>
+                    <li>
+                        <a href="#http%e5%93%8d%e5%ba%94" aria-label="HTTP响应">HTTP响应</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#getpost" aria-label="GET/POST">GET/POST</a><ul>
+                            
+                    <li>
+                        <a href="#https" aria-label="HTTPS">HTTPS</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e5%8d%8f%e8%ae%ae" aria-label="协议">协议</a><ul>
+                            
+                    <li>
+                        <a href="#%e7%94%b5%e5%ad%90%e9%82%ae%e4%bb%b6" aria-label="电子邮件">电子邮件</a></li>
+                    <li>
+                        <a href="#nat" aria-label="NAT">NAT</a></li>
+                    <li>
+                        <a href="#napt" aria-label="NAPT">NAPT</a></li>
+                    <li>
+                        <a href="#cidr" aria-label="CIDR">CIDR</a></li>
+                    <li>
+                        <a href="#arp" aria-label="ARP">ARP</a></li>
+                    <li>
+                        <a href="#dhcp" aria-label="DHCP">DHCP</a></li>
+                    <li>
+                        <a href="#icmp" aria-label="ICMP">ICMP</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e9%9d%9e%e5%af%b9%e7%a7%b0%e5%8a%a0%e5%af%86rsa" aria-label="非对称加密RSA">非对称加密RSA</a></li>
+                    <li>
+                        <a href="#cdn" aria-label="CDN">CDN</a><ul>
+                            
+                    <li>
+                        <a href="#%e8%af%9e%e7%94%9f" aria-label="诞生">诞生</a></li>
+                    <li>
+                        <a href="#%e5%8e%9f%e7%90%86" aria-label="原理"><strong>原理</strong></a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#vpn" aria-label="VPN">VPN</a><ul>
+                            
+                    <li>
+                        <a href="#%e7%ab%99%e7%82%b9--%e7%ab%99%e7%82%b9-vpn" aria-label="站点&amp;ndash;站点 VPN">站点&ndash;站点 VPN</a></li>
+                    <li>
+                        <a href="#%e5%ae%a2%e6%88%b7%e7%ab%af%e7%ab%99%e7%82%b9vpn%e8%bf%9c%e7%a8%8b%e7%99%bb%e5%bd%95vpn" aria-label="客户端站点VPN、远程登录VPN">客户端站点VPN、远程登录VPN</a></li>
+                    <li>
+                        <a href="#vpn%e7%9a%84%e8%81%8c%e8%b4%a3" aria-label="VPN的职责">VPN的职责</a></li>
+                    <li>
+                        <a href="#vpn%e6%a1%86%e6%9e%b6" aria-label="VPN框架">VPN框架</a>
+                    </li>
+                </ul>
+                </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+         
+         activeElement = elements[0];
+         const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+         document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+     }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+             const id = encodeURI(element.getAttribute('id')).toLowerCase();
+             if (element === activeElement){
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+             } else {
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+             }
+         })
+     }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;   
+    }
+</script>
+
+  <div class="post-content"><h2 id="网络的功能">网络的功能<a hidden class="anchor" aria-hidden="true" href="#网络的功能">#</a></h2>
+<p>计算机网络的功能主要体现在资源共享、数据通信和分布式处理三个方面。资源共享是计算机网络用户提供的最主要的功能，资源是指在有限时间内可为用户提供各种服务的软、硬件，资源共享是指网络中的用户能够全部地使用网络中的资源，包括软件共享、硬件共享和数据共享，通常，用户本身不需要考虑自己所使用的资源在网络中的具体位置。</p>
+<p>数据通信主要完成资源子网中各个独立的计算机系统之间的信息数据的传递，分布式处理则是利用网络技术多个独立的计算机系统连接组合成一个高性能的计算机系统，计算机群集，分布式系统，网络等都是这一功能应用的典型实例。</p>
+<h2 id="cookiesession">COOKIE/SESSION<a hidden class="anchor" aria-hidden="true" href="#cookiesession">#</a></h2>
+<p><a href="https://www.jianshu.com/p/6623416161ff">https://www.jianshu.com/p/6623416161ff</a></p>
+<ol>
+<li>由于HTTP协议是无状态的协议，所以服务端需要记录用户的状态时，就需要用某种机制来识具体的用户，这个机制就是Session.典型的场景比如购物车，当你点击下单按钮时，由于HTTP协议无状态，所以并不知道是哪个用户操作的，所以服务端要为特定的用户创建了特定的Session，用用于标识这个用户，并且跟踪用户，这样才知道购物车里面有几本书。这个Session是保存在服务端的，有一个唯一标识。在服务端保存Session的方法很多，内存、数据库、文件都有。集群的时候也要考虑Session的转移，在大型的网站，一般会有专门的Session服务器集群，用来保存用户会话，这个时候 Session 信息都是放在内存的，使用一些缓存服务比如Memcached之类的来放 Session。</li>
+<li>思考一下服务端如何识别特定的客户？这个时候Cookie就登场了。每次HTTP请求的时候，客户端都会发送相应的Cookie信息到服务端。实际上大多数的应用都是用 Cookie 来实现Session跟踪的，第一次创建Session的时候，服务端会在HTTP协议中告诉客户端，需要在 Cookie 里面记录一个Session ID，以后每次请求把这个会话ID发送到服务器，我就知道你是谁了。有人问，如果客户端的浏览器禁用了 Cookie 怎么办？一般这种情况下，会使用一种叫做URL重写的技术来进行会话跟踪，即每次HTTP交互，URL后面都会被附加上一个诸如 sid=xxxxx 这样的参数，服务端据此来识别用户。</li>
+<li>Cookie其实还可以用在一些方便用户的场景下，设想你某次登陆过一个网站，下次登录的时候不想再次输入账号了，怎么办？这个信息可以写到Cookie里面，访问网站的时候，网站页面的脚本可以读取这个信息，就自动帮你把用户名给填了，能够方便一下用户。这也是Cookie名称的由来，给用户的一点甜头。所以，总结一下：Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中；Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。</li>
+</ol>
+<h2 id="访问网站">访问网站<a hidden class="anchor" aria-hidden="true" href="#访问网站">#</a></h2>
+<h3 id="1在浏览器输入url">1、在浏览器输入url<a hidden class="anchor" aria-hidden="true" href="#1在浏览器输入url">#</a></h3>
+<h3 id="image-20220212145245694image-20220212145245694png2浏览器向dns解析url的ip地址"><img loading="lazy" src="image-20220212145245694.png" alt="image-20220212145245694"  />
+2、浏览器向DNS解析url的ip地址</h3>
+<p><img loading="lazy" src="image-20220212145404075.png" alt="image-20220212145404075"  />
+</p>
+<h3 id="3浏览器与服务器建立tcp连接默认端口号802个套接字确定一条tcp连接">3、浏览器与服务器建立tcp连接（默认端口号80；2个套接字确定一条tcp连接）<a hidden class="anchor" aria-hidden="true" href="#3浏览器与服务器建立tcp连接默认端口号802个套接字确定一条tcp连接">#</a></h3>
+<p><img loading="lazy" src="image-20220212145424787.png" alt="image-20220212145424787"  />
+</p>
+<h3 id="4浏览器发出http请求get-indexhtml">4、浏览器发出http请求（get index.html)<a hidden class="anchor" aria-hidden="true" href="#4浏览器发出http请求get-indexhtml">#</a></h3>
+<p><img loading="lazy" src="image-20220212145519877.png" alt="image-20220212145519877"  />
+</p>
+<h3 id="5服务器通过http将indexhtml发送给浏览器">5、服务器通过http将index.html发送给浏览器<a hidden class="anchor" aria-hidden="true" href="#5服务器通过http将indexhtml发送给浏览器">#</a></h3>
+<p><img loading="lazy" src="image-20220212145551759.png" alt="image-20220212145551759"  />
+</p>
+<h3 id="6tcp连接释放浏览器解释文件indexhtml并将web页显示给用户">6、tcp连接释放，浏览器解释文件index.html，并将web页显示给用户<a hidden class="anchor" aria-hidden="true" href="#6tcp连接释放浏览器解释文件indexhtml并将web页显示给用户">#</a></h3>
+<p><img loading="lazy" src="image-20220212145645159.png" alt="image-20220212145645159"  />
+</p>
+<h2 id="http缓存">HTTP缓存<a hidden class="anchor" aria-hidden="true" href="#http缓存">#</a></h2>
+<p><img loading="lazy" src="image-20220212150038921.png" alt="image-20220212150038921"  />
+</p>
+<p><a href="https://www.jianshu.com/p/227cee9c8d15">https://www.jianshu.com/p/227cee9c8d15</a></p>
+<h2 id="http">HTTP<a hidden class="anchor" aria-hidden="true" href="#http">#</a></h2>
+<p>超文本传输协议HyperText Transfer Protocol</p>
+<p>基于TCP协议的应用层传输协议</p>
+<p>客户端和服务端</p>
+<p><strong>无状态</strong> (stateless) 协议  Cookie</p>
+<p><code>Connection: Keep-Alive</code>实现长连接</p>
+<p>正在传输的类型由<code>Content-Type</code>加以标记</p>
+<p>在实际的应用中，客户端往往会发出一系列请求，接着服务器端对每个请求进行响应。对于这些请求|响应，如果每次都经过一个单独的TCP连接发送，称为<strong>非持久连接</strong>。反之，如果每次都经过相同的TCP连接进行发送，称为<strong>持久连接</strong>。</p>
+<p>非持久连接在每次请求|响应之后都要断开连接，下次再建立新的TCP连接，这样就造成了大量的通信开销。例如前面提到的往返时间<code>(RTT)</code> 就是在建立TCP连接的过程中的代价。</p>
+<img src="https://pic4.zhimg.com/80/v2-1fdf96c5bd825e2d54b932eebb880de7_720w.jpg" alt="img" style="zoom: 80%;" />
+<h3 id="http请求">HTTP请求<a hidden class="anchor" aria-hidden="true" href="#http请求">#</a></h3>
+<p>由请求行，消息报头，请求正文三部分构成</p>
+<p>1、请求行由请求<code>Method</code>, <code>URL</code> 字段和<code>HTTP Version</code>三部分构成</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>GET /example.html HTTP/1.1 (CRLF)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>2、消息报头由一系列的键值对组成，允许客户端向服务器端发送一些附加信息或者客户端自身的信息</p>
+<img src="https://pic2.zhimg.com/80/v2-8b50f49b69a70379a52b47060dcdf1f9_720w.jpg" alt="img" style="zoom:33%;" />
+<p>3、HTTP请求正文</p>
+<p>只有在发送<code>POST</code>请求时才会有请求正文，<code>GET</code>方法并没有请求正文</p>
+<h3 id="http响应">HTTP响应<a hidden class="anchor" aria-hidden="true" href="#http响应">#</a></h3>
+<p>也由三部分组成，包括状态行，消息报头，响应正文。</p>
+<p>1、状态行也由三部分组成，包括HTTP协议的版本，状态码，以及对状态码的文本描述。例如</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>HTTP/1.1 200 OK （CRLF）
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="getpost">GET/POST<a hidden class="anchor" aria-hidden="true" href="#getpost">#</a></h2>
+<ol>
+<li>GET提交的数据放在URL中，POST则不会。这是最显而易见的差别。这点意味着GET更不安全（POST也不安全，因为HTTP是明文传输抓包就能获取数据内容，要想安全还得加密）</li>
+<li>GET回退浏览器无害，POST会再次提交请求（GET方法回退后浏览器再缓存中拿结果，POST每次都会创建新资源）</li>
+<li>GET提交的数据大小有限制（是因为浏览器对URL的长度有限制，GET本身没有限制），POST没有</li>
+<li>GET可以被保存为书签，POST不可以。这一点也能感受到。</li>
+<li>GET能被缓存，POST不能</li>
+<li>GET只允许ASCII字符，POST没有限制</li>
+<li>GET会保存再浏览器历史记录中，POST不会。这点也能感受到。</li>
+</ol>
+<h3 id="https">HTTPS<a hidden class="anchor" aria-hidden="true" href="#https">#</a></h3>
+<p><strong>内容加密</strong>建立一个信息安全通道，来保证数据传输的安全；</p>
+<p><strong>身份认证</strong>确认网站的真实性</p>
+<p><strong>数据完整性</strong>防止内容被第三方冒充或者篡改</p>
+<p>SSL (Secure Socket Layer，安全套接字层)</p>
+<p>TLS (Transport Layer Security，传输层安全协议)</p>
+<p>TLS</p>
+<p><a href="https://zhuanlan.zhihu.com/p/399105434">https://zhuanlan.zhihu.com/p/399105434</a></p>
+<p><img loading="lazy" src="image-20220213112218311.png" alt="image-20220213112218311"  />
+</p>
+<h2 id="协议">协议<a hidden class="anchor" aria-hidden="true" href="#协议">#</a></h2>
+<p><a href="https://zhuanlan.zhihu.com/p/93894145">https://zhuanlan.zhihu.com/p/93894145</a></p>
+<h3 id="电子邮件">电子邮件<a hidden class="anchor" aria-hidden="true" href="#电子邮件">#</a></h3>
+<p>SMTP（simple mail transfer protocol）推 POP3（post office protocol邮局协议）拉 MIME（multipurpose internet mail extensions多用途网络邮件补充）：非ASCII码数据 IMAP（因特网报文存取协议）：只读报文的某一部分</p>
+<h3 id="nat">NAT<a hidden class="anchor" aria-hidden="true" href="#nat">#</a></h3>
+<p>(Network Address Translation)网络地址转换</p>
+<p>私有地址（10 172 192）&ndash;公用地址</p>
+<p>该网络中的主机使用私用IP地址.当私有网络内部主机和外部Internet通信时,网关(gateway)路由器负责将私有IP地址转换为全球IP地址</p>
+<h3 id="napt">NAPT<a hidden class="anchor" aria-hidden="true" href="#napt">#</a></h3>
+<p>(Network Address and Port Translation)</p>
+<h3 id="cidr">CIDR<a hidden class="anchor" aria-hidden="true" href="#cidr">#</a></h3>
+<p>Classless Inter-Domain Routing，无类域间路由</p>
+<p>细分网络、子网掩码、CIDR（构成超网，查找路由表最长前缀匹配）</p>
+<h3 id="arp">ARP<a hidden class="anchor" aria-hidden="true" href="#arp">#</a></h3>
+<p>地址解析协议，即ARP（Address Resolution Protocol）根据IP地址获取物理地址的一个TCP/IP协议</p>
+<p>工作过程</p>
+<p>假设主机A和B在同一个网段，主机A要向主机B发送信息，具体的地址解析过程如下：</p>
+<ol>
+<li>主机A首先查看自己的ARP缓存表，确定其中是否包含有主机B对应的ARP表项。如果找到了对应的MAC地址，则主机A直接利用ARP表中的MAC地址，对IP数据包进行帧封装，并将数据包发送给主机B。</li>
+<li>如果主机A在ARP表中找不到对应的MAC地址，则将缓存该数据报文，然后以广播方式发送一个ARP请求报文。ARP请求报文中的发送端IP地址和发送端MAC地址为主机A的IP地址和MAC地址，目标IP地址和目标MAC地址为主机B的IP地址和全0的MAC地址。由于ARP请求报文以广播方式发送，该网段上的所有主机都可以接收到该请求，但只有被请求的主机（即主机B）会对该请求进行处理。</li>
+<li>主机B比较自己的IP地址和ARP请求报文中的目标IP地址，当两者相同时进行如下处理：将ARP请求报文中的发送端（即主机A）的IP地址和MAC地址存入自己的ARP表中。之后以单播方式发送ARP响应报文给主机A，其中包含了自己的MAC地址。</li>
+<li>主机A收到ARP响应报文后，将主机B的MAC地址加入到自己的ARP表中以用于后续报文的转发，同时将IP数据包进行封装后发送出去。</li>
+</ol>
+<p>当主机A和主机B不在同一网段时，主机A就会先向网关发出ARP请求，ARP请求报文中的目标IP地址为网关的IP地址。当主机A从收到的响应报文中获得网关的MAC地址后，将报文封装并发给网关。如果网关没有主机B的ARP表项，网关会广播ARP请求，目标IP地址为主机B的IP地址，当网关从收到的响应报文中获得主机B的MAC地址后，就可以将报文发给主机B；如果网关已经有主机B的ARP表项，网关直接把报文发给主机B。</p>
+<h3 id="dhcp">DHCP<a hidden class="anchor" aria-hidden="true" href="#dhcp">#</a></h3>
+<p>DHCP（Dynamic Host Configuration Protocol，动态主机配置协议）</p>
+<p>是一个局域网的网络协议，使用UDP协议工作，统一使用两个IANA分配的端口：67（服务器端），68（客户端）。DHCP通常被用于局域网环境，主要作用是集中的管理、分配IP地址，使client动态的获得IP地址、Gateway地址、DNS服务器地址等信息，并能够提升地址的使用率。简单来说，DHCP就是一个不需要账号密码登录的、自动给内网机器分配IP地址等信息的协议。</p>
+<h3 id="icmp">ICMP<a hidden class="anchor" aria-hidden="true" href="#icmp">#</a></h3>
+<p>ping/traceroute</p>
+<p>ICMP是 Internet Control Message Protocol 的缩写，即互联网控制消息协议</p>
+<p>它用于 TCP/IP 网络中发送控制消息，提供可能发生在通信环境中的各种问题反馈，通过这些信息，使网络管理者可以对所发生的问题作出诊断，然后采取适当的措施解决问题。虽然 ICMP 是网络层协议，但是它不像 IP 协议和 ARP 协议一样直接传递给数据链路层，而是先封装成 IP 数据包然后再传递给数据链路层。所以在 IP 数据包中如果协议类型字段的值是 1 的话，就表示 IP 数据是 ICMP 报文。</p>
+<p>ICMP协议的类型分为两大类，<strong>查询报文</strong>和<strong>差错报文</strong>。</p>
+<img src="image-20220213105234318.png" alt="image-20220213105234318" style="zoom:50%;" />
+<h2 id="非对称加密rsa">非对称加密RSA<a hidden class="anchor" aria-hidden="true" href="#非对称加密rsa">#</a></h2>
+<p>公钥(E,N)              私钥（D,N）</p>
+<p><img loading="lazy" src="image-20220212135558469.png" alt="image-20220212135558469"  />
+</p>
+<p><img loading="lazy" src="image-20220212135810923.png" alt="image-20220212135810923"  />
+</p>
+<h2 id="cdn">CDN<a hidden class="anchor" aria-hidden="true" href="#cdn">#</a></h2>
+<p><strong>Content Delivery Network，内容分发网络</strong></p>
+<p><a href="https://zhuanlan.zhihu.com/p/52362950">https://zhuanlan.zhihu.com/p/52362950</a></p>
+<h3 id="诞生">诞生<a hidden class="anchor" aria-hidden="true" href="#诞生">#</a></h3>
+<p>随着互联网的爆炸式发展，网络拥塞越来越严重，将会成为互联网发展的最大障碍。</p>
+<h3 id="原理"><strong>原理</strong><a hidden class="anchor" aria-hidden="true" href="#原理">#</a></h3>
+<p>CDN这个技术其实说起来并不复杂，最初的核心理念，就是<strong>将内容缓存在终端用户附近</strong>。</p>
+<p>内容源不是远么？那么，我们就在靠近用户的地方，建一个缓存服务器，把远端的内容，复制一份，放在这里，不就OK了？</p>
+<p><img loading="lazy" src="https://pic2.zhimg.com/80/v2-5e53690a7bfaace4a5a61d1c2bfab609_720w.jpg" alt="img"  />
+</p>
+<h2 id="vpn">VPN<a hidden class="anchor" aria-hidden="true" href="#vpn">#</a></h2>
+<p>应用：居家办公、访问校园网、访问**</p>
+<p>ISP（Internet Service Provider）：因特网服务提供商</p>
+<p>VPN（Virtual Private Network）：虚拟专用网络</p>
+<h3 id="站点--站点-vpn">站点&ndash;站点 VPN<a hidden class="anchor" aria-hidden="true" href="#站点--站点-vpn">#</a></h3>
+<p><img loading="lazy" src="image-20220212143647661.png" alt="image-20220212143647661"  />
+</p>
+<p><img loading="lazy" src="image-20220212143746451.png" alt="image-20220212143746451"  />
+</p>
+<h3 id="客户端站点vpn远程登录vpn">客户端站点VPN、远程登录VPN<a hidden class="anchor" aria-hidden="true" href="#客户端站点vpn远程登录vpn">#</a></h3>
+<p>不需要长时间进行链接、使用浏览器通信、</p>
+<p>全隧道、半隧道</p>
+<h3 id="vpn的职责">VPN的职责<a hidden class="anchor" aria-hidden="true" href="#vpn的职责">#</a></h3>
+<p>加密（不然你知道、完整（数据被你破坏、认证（电脑被你黑了</p>
+<p><img loading="lazy" src="image-20220212144023414.png" alt="image-20220212144023414"  />
+</p>
+<p><img loading="lazy" src="image-20220212144044826.png" alt="image-20220212144044826"  />
+</p>
+<p><img loading="lazy" src="image-20220212144205401.png" alt="image-20220212144205401"  />
+</p>
+<h3 id="vpn框架">VPN框架<a hidden class="anchor" aria-hidden="true" href="#vpn框架">#</a></h3>
+<p>IPsec（网络层、SSL/TLS（表示层</p>
+<p><img loading="lazy" src="image-20220212144306843.png" alt="image-20220212144306843"  />
+</p>
+<p><img loading="lazy" src="image-20220212144329076.png" alt="image-20220212144329076"  />
+</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://kevinerr.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></li>
+      <li><a href="https://kevinerr.github.io/tags/%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/">网络应用</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://kevinerr.github.io/posts/tech/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>操作系统</span>
+  </a>
+  <a class="next" href="https://kevinerr.github.io/posts/tech/linux/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>linux</span>
+  </a>
+</nav>
+
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 网络应用 on twitter"
+        href="https://twitter.com/intent/tweet/?text=%e7%bd%91%e7%bb%9c%e5%ba%94%e7%94%a8&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E7%25BD%2591%25E7%25BB%259C%25E5%25BA%2594%25E7%2594%25A8%2f&amp;hashtags=%e8%ae%a1%e7%ae%97%e6%9c%ba%e7%bd%91%e7%bb%9c%2c%e7%bd%91%e7%bb%9c%e5%ba%94%e7%94%a8">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 网络应用 on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E7%25BD%2591%25E7%25BB%259C%25E5%25BA%2594%25E7%2594%25A8%2f&amp;title=%e7%bd%91%e7%bb%9c%e5%ba%94%e7%94%a8&amp;summary=%e7%bd%91%e7%bb%9c%e5%ba%94%e7%94%a8&amp;source=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E7%25BD%2591%25E7%25BB%259C%25E5%25BA%2594%25E7%2594%25A8%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 网络应用 on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E7%25BD%2591%25E7%25BB%259C%25E5%25BA%2594%25E7%2594%25A8%2f&title=%e7%bd%91%e7%bb%9c%e5%ba%94%e7%94%a8">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 网络应用 on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E7%25BD%2591%25E7%25BB%259C%25E5%25BA%2594%25E7%2594%25A8%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 网络应用 on whatsapp"
+        href="https://api.whatsapp.com/send?text=%e7%bd%91%e7%bb%9c%e5%ba%94%e7%94%a8%20-%20https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E7%25BD%2591%25E7%25BB%259C%25E5%25BA%2594%25E7%2594%25A8%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 网络应用 on telegram"
+        href="https://telegram.me/share/url?text=%e7%bd%91%e7%bb%9c%e5%ba%94%e7%94%a8&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E7%25BD%2591%25E7%25BB%259C%25E5%25BA%2594%25E7%2594%25A8%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+
+  </footer>
+<div>
+    <div class="pagination__title">
+        <span class="pagination__title-h" style="font-size: 20px;">💬评论</span>
+        <hr />
+    </div>
+    <div id="tcomment"></div>
+    <script src="https://cdn.jsdelivr.net/npm/twikoo@1.5.0/dist/twikoo.all.min.js"></script>
+    <script>
+        twikoo.init({
+            envId: "https://twikoo-two-psi.vercel.app/",  
+            el: "#tcomment",
+            lang: 'zh-CN',
+            region: 'ap-guangzhou',  
+            path: 'window.TWIKOO_MAGIC_PATH||window.location.pathname',
+        });
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://kevinerr.github.io/">hkh&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

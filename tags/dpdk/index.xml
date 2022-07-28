@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>dpdk on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/dpdk/</link>
+    <description>Recent content in dpdk on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 09 Jul 2022 11:43:05 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/dpdk/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mempool</title>
+      <link>https://kevinerr.github.io/posts/tech/mempool/</link>
+      <pubDate>Sat, 09 Jul 2022 11:43:05 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/mempool/</guid>
+      <description>DPDK Mempool 库 内存池是一个具有固定大小的对象分配器。 在DPDK中，它由名称唯一标识，并且使用mempool handler来存储空闲对象。 默认的mem</description>
+    </item>
+    
+    <item>
+      <title>Mbuf</title>
+      <link>https://kevinerr.github.io/posts/tech/mbuf/</link>
+      <pubDate>Sat, 09 Jul 2022 11:42:35 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/mbuf/</guid>
+      <description>Mbuf Library mbuf 库提供分配和释放缓冲区 (mbuf) 的能力，DPDK 应用程序可以使用这些缓冲区来存储消息缓冲区。消息缓冲区使用内存池库存储在内存池中。 rte_mbuf 结构通常承</description>
+    </item>
+    
+    <item>
+      <title>深入浅出dpdk</title>
+      <link>https://kevinerr.github.io/posts/tech/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAdpdk/</link>
+      <pubDate>Tue, 26 Apr 2022 16:04:48 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAdpdk/</guid>
+      <description>第2章 Cache和内存 2.1 存储系统简介 本章会讨论Cache和内存 2.21 系统架构的演进 北桥也称为主桥（Host Bridge），主要用来处理高速信号，</description>
+    </item>
+    
+    <item>
+      <title>Dpdk</title>
+      <link>https://kevinerr.github.io/posts/tech/dpdk/</link>
+      <pubDate>Fri, 22 Apr 2022 13:38:30 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/dpdk/</guid>
+      <description>前置知识 网卡(Network Interface Card，简称NIC) https://blog.csdn.net/hellozhxy/article/details/120711251 UIO （Linux Userspace I/O） 作用 作为高并发大流量网络开发框架的DPDK，能够避免内核中断爆</description>
+    </item>
+    
+  </channel>
+</rss>

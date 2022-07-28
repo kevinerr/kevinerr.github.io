@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>最短路 on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/</link>
+    <description>Recent content in 最短路 on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 09 Apr 2022 20:02:22 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>最短路</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E6%9C%80%E7%9F%AD%E8%B7%AF/</link>
+      <pubDate>Sat, 09 Apr 2022 20:02:22 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E6%9C%80%E7%9F%AD%E8%B7%AF/</guid>
+      <description>朴素dijkstra算法 Dijkstra 算法是一个基于「贪心」、「广度优先搜索」、「动态规划」求一个图中一个点到其他所有点的最短路径的算法，时间复杂度 O(n2) 每</description>
+    </item>
+    
+  </channel>
+</rss>

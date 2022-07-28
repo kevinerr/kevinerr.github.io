@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>io复用 on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/io%E5%A4%8D%E7%94%A8/</link>
+    <description>Recent content in io复用 on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 20 Apr 2022 10:19:21 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/io%E5%A4%8D%E7%94%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Io复用</title>
+      <link>https://kevinerr.github.io/posts/tech/io%E5%A4%8D%E7%94%A8/</link>
+      <pubDate>Wed, 20 Apr 2022 10:19:21 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/io%E5%A4%8D%E7%94%A8/</guid>
+      <description>从 Go 源码目录结构和对应代码文件了解到 Go 在不同平台下的网络 I/O 模式的有不同实现。比如，在 Linux 系统下基于 epoll，freeBSD 系统下基于 kque</description>
+    </item>
+    
+  </channel>
+</rss>

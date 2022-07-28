@@ -6,7 +6,16 @@
     <description>Recent content in 🏖生活 on hkh&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 28 May 2021 22:38:52 +0000</lastBuildDate><atom:link href="https://kevinerr.github.io/posts/life/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Jul 2022 10:59:34 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/posts/life/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>20220728</title>
+      <link>https://kevinerr.github.io/posts/life/20220728/</link>
+      <pubDate>Thu, 28 Jul 2022 10:59:34 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/life/20220728/</guid>
+      <description>机器人跳跃问题 机器人正在玩一个古老的基于 DOS 的游戏。 游戏中有 N+1 座建筑——从 0到 N 编号，从左到右排列。 编号为 0 的建筑高度为 0个单位，编号为 i的建</description>
+    </item>
+    
     <item>
       <title>非常有用的小tips</title>
       <link>https://kevinerr.github.io/posts/life/%E9%9D%9E%E5%B8%B8%E6%9C%89%E7%94%A8%E7%9A%84%E5%B0%8Ftips/</link>

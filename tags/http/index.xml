@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>HTTP on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/http/</link>
+    <description>Recent content in HTTP on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 10 Apr 2022 14:24:33 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/http/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HTTP</title>
+      <link>https://kevinerr.github.io/posts/tech/http/</link>
+      <pubDate>Sun, 10 Apr 2022 14:24:33 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/http/</guid>
+      <description>host字段的作用. 同一个IP可以设置多个不同站点， 如果访问不同的域名都转发到同一IP，怎么区分这些不同的站点呢 ， 就是用的Host字段 ，如果</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>msgpack on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/msgpack/</link>
+    <description>Recent content in msgpack on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 10 Apr 2022 19:51:02 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/msgpack/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>数据交换格式</title>
+      <link>https://kevinerr.github.io/posts/tech/%E6%95%B0%E6%8D%AE%E4%BA%A4%E6%8D%A2%E6%A0%BC%E5%BC%8F/</link>
+      <pubDate>Sun, 10 Apr 2022 19:51:02 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E6%95%B0%E6%8D%AE%E4%BA%A4%E6%8D%A2%E6%A0%BC%E5%BC%8F/</guid>
+      <description>序列化与反序列化 将不同语言的特有数据结构搞成大家都认的二进制串 将大家都认的二进制串子搞成不同语言的特有数据结构 如果在一大坨微服务构成的庞大业</description>
+    </item>
+    
+  </channel>
+</rss>

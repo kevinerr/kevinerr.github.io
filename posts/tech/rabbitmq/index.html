@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>RabbitMQ | hkh&#39;s Blog</title>
+<meta name="keywords" content="RabbitMQ, 中间件" />
+<meta name="description" content="什么是中间件 中间件（Middleware）是处于操作系统和应用程序之间的软件 举例： 1，RMI（Remote Method Invocations, 远程调用） 2，Load Bala">
+<meta name="author" content="
+作者:&nbsp;kevin">
+<link rel="canonical" href="https://kevinerr.github.io/posts/tech/rabbitmq/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.7724ad4800b622e9e86a37940cdc71441089d486cd46f35de38fdd833dd93d2f.css" integrity="sha256-dyStSAC2IunoajeUDNxxRBCJ1IbNRvNd44/dgz3ZPS8=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="16x16" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="apple-touch-icon" href="https://kevinerr.github.io/Q.jpg">
+<link rel="mask-icon" href="https://kevinerr.github.io/Q.jpg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.94.2" />
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="RabbitMQ" />
+<meta property="og:description" content="什么是中间件 中间件（Middleware）是处于操作系统和应用程序之间的软件 举例： 1，RMI（Remote Method Invocations, 远程调用） 2，Load Bala" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kevinerr.github.io/posts/tech/rabbitmq/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-11T15:14:40&#43;08:00" />
+<meta property="article:modified_time" content="2022-04-11T15:14:40&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="RabbitMQ"/>
+<meta name="twitter:description" content="什么是中间件 中间件（Middleware）是处于操作系统和应用程序之间的软件 举例： 1，RMI（Remote Method Invocations, 远程调用） 2，Load Bala"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "📚文章",
+      "item": "https://kevinerr.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "👨🏻‍💻技术",
+      "item": "https://kevinerr.github.io/posts/tech/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "RabbitMQ",
+      "item": "https://kevinerr.github.io/posts/tech/rabbitmq/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "RabbitMQ",
+  "name": "RabbitMQ",
+  "description": "什么是中间件 中间件（Middleware）是处于操作系统和应用程序之间的软件 举例： 1，RMI（Remote Method Invocations, 远程调用） 2，Load Bala",
+  "keywords": [
+    "RabbitMQ", "中间件"
+  ],
+  "articleBody": "什么是中间件 中间件（Middleware）是处于操作系统和应用程序之间的软件\n举例： 1，RMI（Remote Method Invocations, 远程调用） 2，Load Balancing(负载均衡，将访问负荷分散到各个服务器中) 3，Transparent Fail-over(透明的故障切换) 4，Clustering(集群,用多个小的服务器代替大型机） 5，Back-end-Integration(后端集成，用现有的、新开发的系统如何去集成遗留的系统) 6，Transaction事务（全局/局部）全局事务（分布式事务）局部事务（在同一数据库联接内的事务） 7，Dynamic Redeployment(动态重新部署,在不停止原系统的情况下，部署新的系统） 8，System Management(系统管理) 9，Threading(多线程处理) 10，Message-oriented Middleware面向消息的中间件（异步的调用编程） 11，Component Life Cycle(组件的生命周期管理) 12，Resource pooling（资源池） 13，Security（安全） 14，Caching（缓存）\n基于消息中间件的分布式系统的架构 从上图中可以看出来，消息中间件的是 1：利用可靠的消息传递机制进行系统和系统直接的通讯 2：通过提供消息传递和消息的排队机制，它可以在分布式系统环境下扩展进程间的通讯。\n消息中间件应用的场景 1:跨系统数据传递 2:高并发的流量削峰 3:数据的分发和异步处理 4:大数据分析与传递 5:分布式事务 比如你有一个数据要进行迁移或者请求并发过多的时候，比如你有10W的并发请求下订单，我们可以在这些订单入库之前，我们可以把订单请求堆积到消息队列中，让它稳健可靠的入库和执行。\n消息中间件的核心组成部分 1：消息的协议 2：消息的持久化机制 3：消息的分发策略 4：消息的高可用，高可靠 5：消息的容错机制\n消息队列协议 面试题：为什么消息中间件不直接使用http协议呢？ 1: 因为http请求报文头和响应报文头是比较复杂的，包含了cookie，数据的加密解密，状态码，响应码等附加的功能，但是对于一个消息而言，我们并不需要这么复杂，也没有这个必要性，它其实就是负责数据传递，存储，分发就行，一定要追求的是高性能。尽量简洁，快速。 2:大部分情况下http大部分都是短链接，在实际的交互过程中，一个请求到响应很有可能会中断，中断以后就不会就行持久化，就会造成请求的丢失。这样就不利于消息中间件的业务场景，因为消息中间件可能是一个长期的获取消息的过程，出现问题和故障要对数据或消息就行持久化等，目的是为了保证消息和数据的高可靠和稳健的运行。\nAMQP协议 AMQP：(全称：Advanced Message Queuing Protocol) 是高级消息队列协议。由摩根大通集团联合其他公司共同设计。是一个提供统一消息服务的应用层标准高级消息队列协议，是应用层协议的一个开放标准，为面向消息的中间件设计。基于此协议的客户端与消息中间件可传递消息，并不受客户端/中间件不同产品，不同的开发语言等条件的限制。Erlang中的实现有RabbitMQ等。 特性： 1：分布式事务支持。 2：消息的持久化支持。 3：高性能和高可靠的消息处理优势。\nAMQP协议的支持者：RabbitMQ、ACTIVEMQ\nMQTT协议 [RabbitMQ使用MQTT实现即时通讯\nMQTT协议：（Message Queueing Telemetry Transport）消息队列遥测传输协议\n是IBM开放的一个即时通讯协议，物联网系统架构中的重要组成部分。 特点： 1：轻量 2：结构简单 3：传输快，不支持事务 4：没有持久化设计。 应用场景： 1：适用于计算能力有限 2：低带宽 3：网络不稳定的场景。\nMQTT协议的支持者：RabbitMQ、ACTIVEMQ\nOpenMessage协议 是近几年由阿里、雅虎和滴滴出行、Stremalio等公司共同参与创立的分布式消息中间件、流处理等领域的应用开发标准。 特点： 1：结构简单 2：解析速度快 3：支持事务和持久化设计。\nOpenMessage协议的支持者：RocketMQ\nKafka协议 Kafka协议是基于TCP/IP的二进制协议。消息内部是通过长度来分割，由一些基本数据类型组成。 特点是： 1：结构简单 2：解析速度快 3：无事务支持 4：有持久化设计、\nKafka协议的支持者：Kafka\n消息队列持久化 简单来说就是将数据存入磁盘，而不是存在内存中随服务器重启断开而消失，使数据能够永久保存。\n把消息默认放在内存中是为了加快传输和消费的速度，存入磁盘是保证消息数据的持久化。\n非持久消息：是指当内存不够用的时候，会把消息和数据转移到磁盘，但是重启以后非持久化队列消息就丢失。\nRabbitMQ的持久化队列分为： 1：队列持久化 2：消息持久化 3：交换机持久化 不论是持久化的消息还是非持久化的消息都可以写入到磁盘中，只不过非持久的是等内存不足的情况下才会被写入到磁盘中。\n    ActiveMQ RabbitMQ Kafka RocketMQ     文件存储 支持 支持 支持 支持   数据库 支持 / / /    消息的分发策略 MQ消息队列有如下几个角色 1：生产者 2：存储消息 3：消费者 那么生产者生成消息以后，MQ进行存储，消费者是如何获取消息的呢？一般获取数据的方式无外乎推（push）或者拉（pull）两种方式，典型的git就有推拉机制，我们发送的http请求就是一种典型的拉取数据库数据返回的过程。而消息队列MQ是一种推送的过程，而这些推机制会适用到很多的业务场景也有很多对应推机制策略。\n    ActiveMQ RabbitMQ Kafka RocketMQ     发布订阅 支持 支持 支持 支持   轮询分发 支持 支持 支持 /   公平分发 / 支持 支持 /   重发 支持 支持 / 支持   消息拉取 / 支持 支持 支持    消息队列高可用和高可靠 高可用 所谓高可用：是指产品在规定的条件和规定的时刻或时间内处于可执行规定功能状态的能力。 当业务量增加时，请求也过大，一台消息中间件服务器的会触及硬件（CPU,内存，磁盘）的极限，一台消息服务器你已经无法满足业务的需求，所以消息中间件必须支持集群部署。来达到高可用的目的。\n集群模式1 - Master-slave主从共享数据的部署方式 生产者讲消息发送到Master节点，所有的client都连接这个消息队列共享这块数据区域，Master节点负责写入，一旦Master挂掉，slave节点继续服务。从而形成高可用\n集群模式2 - Master- slave主从同步部署方式 这种模式写入消息同样在Master主节点上，但是主节点会同步数据到slave节点形成副本，和zookeeper或者redis主从机制很类同。这样可以达到负载均衡的效果，如果消费者有多个这样就可以去不同的节点就行消费，以为消息的拷贝和同步会暂用很大的带宽和网络资源。在后续的rabbtmq中会有使用。\n集群模式3 - 多主集群同步部署模式 和上面的区别不是特别的大，但是它的写入可以往任意节点去写入。\n集群模式4 - 多主集群转发部署模式 解释：如果你插入的数据是broker-1中，元数据信息会存储数据的相关描述和记录存放的位置（队列）。 它会对描述信息也就是元数据信息就行同步，如果消费者在broker-2中进行消费，发现自己几点没有对应的消息，可以从对应的元数据信息中去查询，然后返回对应的消息信息，场景：比如买火车票或者黄牛买演唱会门票，比如第一个黄牛有顾客说要买的演唱会门票，但是没有但是他会去联系其他的黄牛询问，如果有就返回。\n集群模式5 Master-slave与Breoker-cluster组合的方案 解释：实现多主多从的热备机制来完成消息的高可用以及数据的热备机制，在生产规模达到一定的阶段的时候，这种使用的频率比较高。\n这么集群模式，具体在后续的课程中会进行一个分析和讲解。他们的最终目的都是为保证：消息服务器不会挂掉，出现了故障依然可以抱着消息服务继续使用。\n反正终归三句话： 1：要么消息共享， 2：要么消息同步 3：要么元数据共享\n高可靠 所谓高可靠：是指系统可以无故障低持续运行，比如一个系统突然崩溃，报错，异常等等并不影响线上业务的正常运行，出错的几率极低，就称之为：高可靠。 在高并发的业务场景中，如果不能保证系统的高可靠，那造成的隐患和损失是非常严重的。 如何保证中间件消息的可靠性呢？可以从两个方面考虑： 1：消息的传输：通过协议来保证系统间数据解析的正确性。 2：消息的存储可靠：通过持久化来保证消息的可靠性。\nRabbitMQ的核心组成部分 AMQP生产者流转过程 AMQP生产者流转过程 核心概念： Server：又称Broker ,接受客户端的连接，实现AMQP实体服务。 安装rabbitmq-server Connection：连接，应用程序与Broker的网络连接 TCP/IP/ 三次握手和四次挥手 Channel：网络信道，几乎所有的操作都在Channel中进行，Channel是进行消息读写的通道，客户端可以建立对各Channel，每个Channel代表一个会话任务。 Message :消息：服务与应用程序之间传送的数据，由Properties和body组成，Properties可是对消息进行修饰，比如消息的优先级，延迟等高级特性，Body则就是消息体的内容。 Virtual Host 虚拟地址，用于进行逻辑隔离，最上层的消息路由，一个虚拟主机理由可以有若干个Exhange和Queueu，同一个虚拟主机里面不能有相同名字的Exchange Exchange：交换机，接受消息，根据路由键发送消息到绑定的队列。(不具备消息存储的能力) Bindings：Exchange和Queue之间的虚拟连接，binding中可以保护多个routing key. Routing key：是一个路由规则，虚拟机可以用它来确定如何路由一个特定消息。 Queue：队列：也成为Message Queue,消息队列，保存消息并将它们转发给消费者。\nRabbitMQ的安装和使用 5种消息模式 http://www.macrozheng.com/#/reference/rabbitmq_start\n这5种消息模式是构建基于RabbitMQ的消息应用的基础，一定要牢牢掌握它们。\n简单模式 简单模式是最简单的消息模式，它包含一个生产者、一个消费者和一个队列。生产者向队列里发送消息，消费者从队列中获取消息并消费。\n模式示意图\n工作模式 工作模式是指向多个互相竞争的消费者发送消息的模式，它包含一个生产者、两个消费者和一个队列。两个消费者同时绑定到一个队列上去，当消费者获取消息处理耗时任务时，空闲的消费者从队列中获取并消费消息。\n模式示意图\n发布/订阅模式 发布/订阅模式是指同时向多个消费者发送消息的模式（类似广播的形式），它包含一个生产者、两个消费者、两个队列和一个交换机。两个消费者同时绑定到不同的队列上去，两个队列绑定到交换机上去，生产者通过发送消息到交换机，所有消费者接收并消费消息。\n路由模式 路由模式是可以根据路由键选择性给多个消费者发送消息的模式，它包含一个生产者、两个消费者、两个队列和一个交换机。两个消费者同时绑定到不同的队列上去，两个队列通过路由键绑定到交换机上去，生产者发送消息到交换机，交换机通过路由键转发到不同队列，队列绑定的消费者接收并消费消息。\n通配符模式 通配符模式是可以根据路由键匹配规则选择性给多个消费者发送消息的模式，它包含一个生产者、两个消费者、两个队列和一个交换机。两个消费者同时绑定到不同的队列上去，两个队列通过路由键匹配规则绑定到交换机上去，生产者发送消息到交换机，交换机通过路由键匹配规则转发到不同队列，队列绑定的消费者接收并消费消息。\n *：只能匹配一个单词； #：可以匹配零个或多个单词。  rabbitmq和spring同属一个公司开放的产品，所以他们的支持也是非常完善，这也是为什么推荐使用rabbitmq的一个原因。\n解耦、削峰、异步 同步异步的问题（串行） 串行方式：将订单信息写入数据库成功后，发送注册邮件，再发送注册短信。以上三个任务全部完成后，返回给客户端\n并行方式 异步线程池 并行方式：将订单信息写入数据库成功后，发送注册邮件的同时，发送注册短信。以上三个任务完成后，返回给客户端。与串行的差别是，并行的方式可以提高处理的时间\n存在问题： 1：耦合度高 2：需要自己写线程池自己维护成本太高 3：出现了消息可能会丢失，需要你自己做消息补偿 4：如何保证消息的可靠性你自己写 5：如果服务器承载不了，你需要自己去写高可用\n异步消息队列的方式 好处 1：完全解耦，用MQ建立桥接 2：有独立的线程池和运行模型 3：出现了消息可能会丢失，MQ有持久化功能 4：如何保证消息的可靠性，死信队列和消息转移的等 5：如果服务器承载不了，你需要自己去写高可用，HA镜像模型高可用。 按照以上约定，用户的响应时间相当于是订单信息写入数据库的时间，也就是50毫秒。注册邮件，发送短信写入消息队列后，直接返回，因此写入消息队列的速度很快，基本可以忽略，因此用户的响应时间可能是50毫秒。因此架构改变后，系统的吞吐量提高到每秒20 QPS。比串行提高了3倍，比并行提高了两倍\n流量的削峰 04、分布式事务的可靠消费和可靠生产 05、索引、缓存、静态化处理的数据同步 06、流量监控 07、日志监控（ELK） 08、下单、订单分发、抢票\nRabbitMQ高级-过期时间TTL 1、概述 过期时间TTL表示可以对消息设置预期的时间，在这个时间内都可以被消费者接收获取；过了之后消息将自动被删除。RabbitMQ可以对消息和队列设置TTL。目前有两种方法可以设置。\n 第一种方法是通过队列属性设置，队列中所有消息都有相同的过期时间。 第二种方法是对消息进行单独设置，每条消息TTL可以不同。  如果上述两种方法同时使用，则消息的过期时间以两者之间TTL较小的那个数值为准。消息在队列的生存时间一旦超过设置的TTL值，就称为dead message被投递到死信队列， 消费者将无法再收到该消息。\nRabbitMQ高级-消息确认机制的配置 NONE值是禁用发布确认模式，是默认值 CORRELATED值是发布消息成功到交换器后会触发回调方法，如1示例 SIMPLE值经测试有两种效果，其一效果和CORRELATED值一样会触发回调方法，其二在发布消息成功后使用rabbitTemplate调用waitForConfirms或waitForConfirmsOrDie方法等待broker节点返回发送结果，根据返回结果来判定下一步的逻辑，要注意的点是waitForConfirmsOrDie方法如果返回false则会关闭channel，则接下来无法发送消息到broker;\nRabbitMQ高级-死信队列 DLX，全称为Dead-Letter-Exchange , 可以称之为死信交换机，也有人称之为死信邮箱。当消息在一个队列中变成死信(dead message)之后，它能被重新发送到另一个交换机中，这个交换机就是DLX ，绑定DLX的队列就称之为死信队列。 消息变成死信，可能是由于以下的原因：\n 消息被拒绝 消息过期 队列达到最大长度  DLX也是一个正常的交换机，和一般的交换机没有区别，它能在任何的队列上被指定，实际上就是设置某一个队列的属性。当这个队列中存在死信时，Rabbitmq就会自动地将这个消息重新发布到设置的DLX上去，进而被路由到另一个队列，即死信队列。 要想使用死信队列，只需要在定义队列的时候设置队列参数 x-dead-letter-exchange 指定交换机即可。\n流程\nRabbitMQ运维-内存磁盘的监控 当内存使用超过配置的阈值或者磁盘空间剩余空间对于配置的阈值时，RabbitMQ会暂时阻塞客户端的连接，并且停止接收从客户端发来的消息，以此避免服务器的崩溃，客户端与服务端的心态检测机制也会失效。 如下图：\n当出现blocking或blocked话说明到达了阈值和以及高负荷运行了。\nRabbitMQ的内存换页 在某个Broker节点及内存阻塞生产者之前，它会尝试将队列中的消息换页到磁盘以释放内存空间，持久化和非持久化的消息都会写入磁盘中，其中持久化的消息本身就在磁盘中有一个副本，所以在转移的过程中持久化的消息会先从内存中清除掉。\n 默认情况下，内存到达的阈值是50%时就会换页处理。 也就是说，在默认情况下该内存的阈值是0.4的情况下，当内存超过0.4*0.5=0.2时，会进行换页动作。\n 比如有1000MB内存，当内存的使用率达到了400MB,已经达到了极限，但是因为配置的换页内存0.5，这个时候会在达到极限400mb之前，会把内存中的200MB进行转移到磁盘中。从而达到稳健的运行。\n可以通过设置 vm_memory_high_watermark_paging_ratio 来进行调整\nRabbitMQ的磁盘预警 当磁盘的剩余空间低于确定的阈值时，RabbitMQ同样会阻塞生产者，这样可以避免因非持久化的消息持续换页而耗尽磁盘空间导致服务器崩溃。\n 默认情况下：磁盘预警为50MB的时候会进行预警。表示当前磁盘空间第50MB的时候会阻塞生产者并且停止内存消息换页到磁盘的过程。 这个阈值可以减小，但是不能完全的消除因磁盘耗尽而导致崩溃的可能性。比如在两次磁盘空间的检查空隙内，第一次检查是：60MB ，第二检查可能就是1MB,就会出现警告。\n ",
+  "wordCount" : "6796",
+  "inLanguage": "en",
+  "datePublished": "2022-04-11T15:14:40+08:00",
+  "dateModified": "2022-04-11T15:14:40+08:00",
+  "author":[{
+    "@type": "Person",
+    "name": "kevin"
+  }],
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kevinerr.github.io/posts/tech/rabbitmq/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hkh's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kevinerr.github.io/img/Q.jpg"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://kevinerr.github.io/" accesskey="h" title="hkh&#39;s Blog (Alt + H)">hkh&#39;s Blog</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://kevinerr.github.io/search" title="🔍搜索 (Alt &#43; /)" accesskey=/>
+                    <span>🔍搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/posts" title="📚文章">
+                    <span>📚文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/archives" title="⏱时间轴">
+                    <span>⏱时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/tags" title="🔖标签">
+                    <span>🔖标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/about" title="🙋🏻‍♂️关于">
+                    <span>🙋🏻‍♂️关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/links" title="🤝友链">
+                    <span>🤝友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://kevinerr.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://kevinerr.github.io/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://kevinerr.github.io/posts/tech/">👨🏻‍💻技术</a></div>
+    <h1 class="post-title">
+      RabbitMQ
+    </h1>
+    <div class="post-meta">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2022-04-11 15:14:40 +0800 CST'>2022-04-11</span>&nbsp;|&nbsp;更新:&nbsp;2022-04-11&nbsp;|&nbsp;字数:&nbsp;6796字&nbsp;|&nbsp;时长: 14分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">Table of Contents</span>
+            </summary>
+
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#%e4%bb%80%e4%b9%88%e6%98%af%e4%b8%ad%e9%97%b4%e4%bb%b6" aria-label="什么是中间件">什么是中间件</a></li>
+                    <li>
+                        <a href="#%e5%9f%ba%e4%ba%8e%e6%b6%88%e6%81%af%e4%b8%ad%e9%97%b4%e4%bb%b6%e7%9a%84%e5%88%86%e5%b8%83%e5%bc%8f%e7%b3%bb%e7%bb%9f%e7%9a%84%e6%9e%b6%e6%9e%84" aria-label="基于消息中间件的分布式系统的架构">基于消息中间件的分布式系统的架构</a></li>
+                    <li>
+                        <a href="#%e6%b6%88%e6%81%af%e4%b8%ad%e9%97%b4%e4%bb%b6%e5%ba%94%e7%94%a8%e7%9a%84%e5%9c%ba%e6%99%af" aria-label="消息中间件应用的场景">消息中间件应用的场景</a></li>
+                    <li>
+                        <a href="#%e6%b6%88%e6%81%af%e4%b8%ad%e9%97%b4%e4%bb%b6%e7%9a%84%e6%a0%b8%e5%bf%83%e7%bb%84%e6%88%90%e9%83%a8%e5%88%86" aria-label="消息中间件的核心组成部分">消息中间件的核心组成部分</a></li>
+                    <li>
+                        <a href="#%e6%b6%88%e6%81%af%e9%98%9f%e5%88%97%e5%8d%8f%e8%ae%ae" aria-label="消息队列协议">消息队列协议</a><ul>
+                            
+                    <li>
+                        <a href="#amqp%e5%8d%8f%e8%ae%ae" aria-label="AMQP协议">AMQP协议</a></li>
+                    <li>
+                        <a href="#mqtt%e5%8d%8f%e8%ae%ae" aria-label="MQTT协议">MQTT协议</a></li>
+                    <li>
+                        <a href="#openmessage%e5%8d%8f%e8%ae%ae" aria-label="OpenMessage协议">OpenMessage协议</a></li>
+                    <li>
+                        <a href="#kafka%e5%8d%8f%e8%ae%ae" aria-label="Kafka协议">Kafka协议</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e6%b6%88%e6%81%af%e9%98%9f%e5%88%97%e6%8c%81%e4%b9%85%e5%8c%96" aria-label="消息队列持久化">消息队列持久化</a></li>
+                    <li>
+                        <a href="#%e6%b6%88%e6%81%af%e7%9a%84%e5%88%86%e5%8f%91%e7%ad%96%e7%95%a5" aria-label="消息的分发策略">消息的分发策略</a></li>
+                    <li>
+                        <a href="#%e6%b6%88%e6%81%af%e9%98%9f%e5%88%97%e9%ab%98%e5%8f%af%e7%94%a8%e5%92%8c%e9%ab%98%e5%8f%af%e9%9d%a0" aria-label="消息队列高可用和高可靠">消息队列高可用和高可靠</a><ul>
+                            
+                    <li>
+                        <a href="#%e9%ab%98%e5%8f%af%e7%94%a8" aria-label="高可用">高可用</a><ul>
+                            
+                    <li>
+                        <a href="#%e9%9b%86%e7%be%a4%e6%a8%a1%e5%bc%8f1---master-slave%e4%b8%bb%e4%bb%8e%e5%85%b1%e4%ba%ab%e6%95%b0%e6%8d%ae%e7%9a%84%e9%83%a8%e7%bd%b2%e6%96%b9%e5%bc%8f" aria-label="集群模式1 - Master-slave主从共享数据的部署方式">集群模式1 - Master-slave主从共享数据的部署方式</a></li>
+                    <li>
+                        <a href="#%e9%9b%86%e7%be%a4%e6%a8%a1%e5%bc%8f2---master--slave%e4%b8%bb%e4%bb%8e%e5%90%8c%e6%ad%a5%e9%83%a8%e7%bd%b2%e6%96%b9%e5%bc%8f" aria-label="集群模式2 - Master- slave主从同步部署方式">集群模式2 - Master- slave主从同步部署方式</a></li>
+                    <li>
+                        <a href="#%e9%9b%86%e7%be%a4%e6%a8%a1%e5%bc%8f3---%e5%a4%9a%e4%b8%bb%e9%9b%86%e7%be%a4%e5%90%8c%e6%ad%a5%e9%83%a8%e7%bd%b2%e6%a8%a1%e5%bc%8f" aria-label="集群模式3 - 多主集群同步部署模式">集群模式3 - 多主集群同步部署模式</a></li>
+                    <li>
+                        <a href="#%e9%9b%86%e7%be%a4%e6%a8%a1%e5%bc%8f4---%e5%a4%9a%e4%b8%bb%e9%9b%86%e7%be%a4%e8%bd%ac%e5%8f%91%e9%83%a8%e7%bd%b2%e6%a8%a1%e5%bc%8f" aria-label="集群模式4 - 多主集群转发部署模式">集群模式4 - 多主集群转发部署模式</a></li>
+                    <li>
+                        <a href="#%e9%9b%86%e7%be%a4%e6%a8%a1%e5%bc%8f5-master-slave%e4%b8%8ebreoker-cluster%e7%bb%84%e5%90%88%e7%9a%84%e6%96%b9%e6%a1%88" aria-label="集群模式5 Master-slave与Breoker-cluster组合的方案">集群模式5 Master-slave与Breoker-cluster组合的方案</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e9%ab%98%e5%8f%af%e9%9d%a0" aria-label="高可靠">高可靠</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#rabbitmq%e7%9a%84%e6%a0%b8%e5%bf%83%e7%bb%84%e6%88%90%e9%83%a8%e5%88%86" aria-label="RabbitMQ的核心组成部分">RabbitMQ的核心组成部分</a><ul>
+                            
+                    <li>
+                        <a href="#amqp%e7%94%9f%e4%ba%a7%e8%80%85%e6%b5%81%e8%bd%ac%e8%bf%87%e7%a8%8b" aria-label="AMQP生产者流转过程">AMQP生产者流转过程</a></li>
+                    <li>
+                        <a href="#amqp%e7%94%9f%e4%ba%a7%e8%80%85%e6%b5%81%e8%bd%ac%e8%bf%87%e7%a8%8b-1" aria-label="AMQP生产者流转过程">AMQP生产者流转过程</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#rabbitmq%e7%9a%84%e5%ae%89%e8%a3%85%e5%92%8c%e4%bd%bf%e7%94%a8httpwwwmacrozhengcomarchitectmall_arch_09" aria-label="RabbitMQ的安装和使用"><a href="http://www.macrozheng.com/#/architect/mall_arch_09">RabbitMQ的安装和使用</a></a></li>
+                    <li>
+                        <a href="#5%e7%a7%8d%e6%b6%88%e6%81%af%e6%a8%a1%e5%bc%8f" aria-label="5种消息模式">5种消息模式</a><ul>
+                            
+                    <li>
+                        <a href="#%e7%ae%80%e5%8d%95%e6%a8%a1%e5%bc%8f" aria-label="简单模式">简单模式</a></li>
+                    <li>
+                        <a href="#%e5%b7%a5%e4%bd%9c%e6%a8%a1%e5%bc%8f" aria-label="工作模式">工作模式</a></li>
+                    <li>
+                        <a href="#%e5%8f%91%e5%b8%83%e8%ae%a2%e9%98%85%e6%a8%a1%e5%bc%8f" aria-label="发布/订阅模式">发布/订阅模式</a></li>
+                    <li>
+                        <a href="#%e8%b7%af%e7%94%b1%e6%a8%a1%e5%bc%8f" aria-label="路由模式">路由模式</a></li>
+                    <li>
+                        <a href="#%e9%80%9a%e9%85%8d%e7%ac%a6%e6%a8%a1%e5%bc%8f" aria-label="通配符模式">通配符模式</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e8%a7%a3%e8%80%a6%e5%89%8a%e5%b3%b0%e5%bc%82%e6%ad%a5" aria-label="解耦、削峰、异步">解耦、削峰、异步</a><ul>
+                            
+                    <li>
+                        <a href="#%e5%90%8c%e6%ad%a5%e5%bc%82%e6%ad%a5%e7%9a%84%e9%97%ae%e9%a2%98%e4%b8%b2%e8%a1%8c" aria-label="同步异步的问题（串行）">同步异步的问题（串行）</a></li>
+                    <li>
+                        <a href="#%e5%b9%b6%e8%a1%8c%e6%96%b9%e5%bc%8f-%e5%bc%82%e6%ad%a5%e7%ba%bf%e7%a8%8b%e6%b1%a0" aria-label="并行方式 异步线程池">并行方式 异步线程池</a></li>
+                    <li>
+                        <a href="#%e5%bc%82%e6%ad%a5%e6%b6%88%e6%81%af%e9%98%9f%e5%88%97%e7%9a%84%e6%96%b9%e5%bc%8f" aria-label="异步消息队列的方式">异步消息队列的方式</a></li>
+                    <li>
+                        <a href="#%e6%b5%81%e9%87%8f%e7%9a%84%e5%89%8a%e5%b3%b0" aria-label="流量的削峰">流量的削峰</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#rabbitmq%e9%ab%98%e7%ba%a7-%e8%bf%87%e6%9c%9f%e6%97%b6%e9%97%b4ttl" aria-label="RabbitMQ高级-过期时间TTL">RabbitMQ高级-过期时间TTL</a><ul>
+                            
+                    <li>
+                        <a href="#1%e6%a6%82%e8%bf%b0" aria-label="1、概述">1、概述</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#rabbitmq%e9%ab%98%e7%ba%a7-%e6%b6%88%e6%81%af%e7%a1%ae%e8%ae%a4%e6%9c%ba%e5%88%b6%e7%9a%84%e9%85%8d%e7%bd%ae" aria-label="RabbitMQ高级-消息确认机制的配置">RabbitMQ高级-消息确认机制的配置</a></li>
+                    <li>
+                        <a href="#rabbitmq%e9%ab%98%e7%ba%a7-%e6%ad%bb%e4%bf%a1%e9%98%9f%e5%88%97" aria-label="RabbitMQ高级-死信队列">RabbitMQ高级-死信队列</a></li>
+                    <li>
+                        <a href="#rabbitmq%e8%bf%90%e7%bb%b4-%e5%86%85%e5%ad%98%e7%a3%81%e7%9b%98%e7%9a%84%e7%9b%91%e6%8e%a7" aria-label="RabbitMQ运维-内存磁盘的监控">RabbitMQ运维-内存磁盘的监控</a></li>
+                    <li>
+                        <a href="#rabbitmq%e7%9a%84%e5%86%85%e5%ad%98%e6%8d%a2%e9%a1%b5" aria-label="RabbitMQ的内存换页">RabbitMQ的内存换页</a></li>
+                    <li>
+                        <a href="#rabbitmq%e7%9a%84%e7%a3%81%e7%9b%98%e9%a2%84%e8%ad%a6" aria-label="RabbitMQ的磁盘预警">RabbitMQ的磁盘预警</a>
+                    </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+         
+         activeElement = elements[0];
+         const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+         document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+     }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+             const id = encodeURI(element.getAttribute('id')).toLowerCase();
+             if (element === activeElement){
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+             } else {
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+             }
+         })
+     }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;   
+    }
+</script>
+
+  <div class="post-content"><h2 id="什么是中间件">什么是中间件<a hidden class="anchor" aria-hidden="true" href="#什么是中间件">#</a></h2>
+<p>中间件（Middleware）是处于操作系统和应用程序之间的软件</p>
+<p>举例：
+1，RMI（Remote Method Invocations, 远程调用）
+2，Load Balancing(负载均衡，将访问负荷分散到各个服务器中)
+3，Transparent Fail-over(透明的故障切换)
+4，Clustering(集群,用多个小的服务器代替大型机）
+5，Back-end-Integration(后端集成，用现有的、新开发的系统如何去集成遗留的系统)
+6，Transaction事务（全局/局部）全局事务（分布式事务）局部事务（在同一数据库联接内的事务）
+7，Dynamic Redeployment(动态重新部署,在不停止原系统的情况下，部署新的系统）
+8，System Management(系统管理)
+9，Threading(多线程处理)
+10，Message-oriented Middleware面向消息的中间件（异步的调用编程）
+11，Component Life Cycle(组件的生命周期管理)
+12，Resource pooling（资源池）
+13，Security（安全）
+14，Caching（缓存）</p>
+<h2 id="基于消息中间件的分布式系统的架构">基于消息中间件的分布式系统的架构<a hidden class="anchor" aria-hidden="true" href="#基于消息中间件的分布式系统的架构">#</a></h2>
+<p><img loading="lazy" src="https://img-blog.csdnimg.cn/img_convert/b3c637c211bcc7dbc09235060967391a.png" alt="image1"  />
+</p>
+<p>从上图中可以看出来，消息中间件的是
+1：利用可靠的消息传递机制进行系统和系统直接的通讯
+2：通过提供消息传递和消息的排队机制，它可以在分布式系统环境下扩展进程间的通讯。</p>
+<h2 id="消息中间件应用的场景">消息中间件应用的场景<a hidden class="anchor" aria-hidden="true" href="#消息中间件应用的场景">#</a></h2>
+<p>1:跨系统数据传递
+2:高并发的流量削峰
+3:数据的分发和异步处理
+4:大数据分析与传递
+5:分布式事务
+比如你有一个数据要进行迁移或者请求并发过多的时候，比如你有10W的并发请求下订单，我们可以在这些订单入库之前，我们可以把订单请求堆积到消息队列中，让它稳健可靠的入库和执行。</p>
+<h2 id="消息中间件的核心组成部分">消息中间件的核心组成部分<a hidden class="anchor" aria-hidden="true" href="#消息中间件的核心组成部分">#</a></h2>
+<p>1：消息的协议
+2：消息的持久化机制
+3：消息的分发策略
+4：消息的高可用，高可靠
+5：消息的容错机制</p>
+<h2 id="消息队列协议">消息队列协议<a hidden class="anchor" aria-hidden="true" href="#消息队列协议">#</a></h2>
+<p><strong>面试题：为什么消息中间件不直接使用http协议呢？</strong>
+1: 因为http请求报文头和响应报文头是比较复杂的，包含了cookie，数据的加密解密，状态码，响应码等附加的功能，但是对于一个消息而言，我们并不需要这么复杂，也没有这个必要性，它其实就是负责数据传递，存储，分发就行，一定要追求的是高性能。尽量简洁，快速。
+2:大部分情况下http大部分都是短链接，在实际的交互过程中，一个请求到响应很有可能会中断，中断以后就不会就行持久化，就会造成请求的丢失。这样就不利于消息中间件的业务场景，因为消息中间件可能是一个长期的获取消息的过程，出现问题和故障要对数据或消息就行持久化等，目的是为了保证消息和数据的高可靠和稳健的运行。</p>
+<h3 id="amqp协议">AMQP协议<a hidden class="anchor" aria-hidden="true" href="#amqp协议">#</a></h3>
+<p>AMQP：(全称：Advanced Message Queuing Protocol) 是高级消息队列协议。由摩根大通集团联合其他公司共同设计。是一个提供统一消息服务的应用层标准高级消息队列协议，是应用层协议的一个开放标准，为面向消息的中间件设计。基于此协议的客户端与消息中间件可传递消息，并不受客户端/中间件不同产品，不同的开发语言等条件的限制。Erlang中的实现有RabbitMQ等。
+特性：
+1：分布式事务支持。
+2：消息的持久化支持。
+3：高性能和高可靠的消息处理优势。</p>
+<p>AMQP协议的支持者：RabbitMQ、ACTIVEMQ</p>
+<h3 id="mqtt协议">MQTT协议<a hidden class="anchor" aria-hidden="true" href="#mqtt协议">#</a></h3>
+<p>[<a href="http://www.macrozheng.com/#/reference/rabbitmq_mqtt_start">RabbitMQ使用MQTT实现即时通讯</a></p>
+<p>MQTT协议：（Message Queueing Telemetry Transport）消息队列遥测传输协议</p>
+<p>是IBM开放的一个即时通讯协议，物联网系统架构中的重要组成部分。
+特点：
+1：轻量
+2：结构简单
+3：传输快，不支持事务
+4：没有持久化设计。
+应用场景：
+1：适用于计算能力有限
+2：低带宽
+3：网络不稳定的场景。</p>
+<p>MQTT协议的支持者：RabbitMQ、ACTIVEMQ</p>
+<h3 id="openmessage协议">OpenMessage协议<a hidden class="anchor" aria-hidden="true" href="#openmessage协议">#</a></h3>
+<p>是近几年由阿里、雅虎和滴滴出行、Stremalio等公司共同参与创立的分布式消息中间件、流处理等领域的应用开发标准。
+特点：
+1：结构简单
+2：解析速度快
+3：支持事务和持久化设计。</p>
+<p>OpenMessage协议的支持者：RocketMQ</p>
+<h3 id="kafka协议">Kafka协议<a hidden class="anchor" aria-hidden="true" href="#kafka协议">#</a></h3>
+<p>Kafka协议是基于TCP/IP的二进制协议。消息内部是通过长度来分割，由一些基本数据类型组成。
+特点是：
+1：结构简单
+2：解析速度快
+3：无事务支持
+4：有持久化设计、</p>
+<p>Kafka协议的支持者：Kafka</p>
+<h2 id="消息队列持久化">消息队列持久化<a hidden class="anchor" aria-hidden="true" href="#消息队列持久化">#</a></h2>
+<p>简单来说就是将数据存入磁盘，而不是存在内存中随服务器重启断开而消失，使数据能够永久保存。</p>
+<p>把消息默认放在内存中是为了加快传输和消费的速度，存入磁盘是保证消息数据的持久化。</p>
+<p><img loading="lazy" src="https://img-blog.csdnimg.cn/img_convert/8c010be41c1868eb4d0ca534f8730c2a.png" alt="image1"  />
+</p>
+<p>非持久消息：是指当内存不够用的时候，会把消息和数据转移到磁盘，但是重启以后非持久化队列消息就丢失。</p>
+<p>RabbitMQ的持久化队列分为：
+1：队列持久化
+2：消息持久化
+3：交换机持久化
+不论是持久化的消息还是非持久化的消息都可以写入到磁盘中，只不过非持久的是等内存不足的情况下才会被写入到磁盘中。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">ActiveMQ</th>
+<th style="text-align:center">RabbitMQ</th>
+<th style="text-align:center">Kafka</th>
+<th style="text-align:center">RocketMQ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">文件存储</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+</tr>
+<tr>
+<td style="text-align:center">数据库</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">/</td>
+</tr>
+</tbody>
+</table>
+<h2 id="消息的分发策略">消息的分发策略<a hidden class="anchor" aria-hidden="true" href="#消息的分发策略">#</a></h2>
+<p>MQ消息队列有如下几个角色
+1：生产者
+2：存储消息
+3：消费者
+那么生产者生成消息以后，MQ进行存储，消费者是如何获取消息的呢？一般获取数据的方式无外乎推（push）或者拉（pull）两种方式，典型的git就有推拉机制，我们发送的http请求就是一种典型的拉取数据库数据返回的过程。而消息队列MQ是一种推送的过程，而这些推机制会适用到很多的业务场景也有很多对应推机制策略。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">ActiveMQ</th>
+<th style="text-align:center">RabbitMQ</th>
+<th style="text-align:center">Kafka</th>
+<th style="text-align:center">RocketMQ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">发布订阅</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+</tr>
+<tr>
+<td style="text-align:center">轮询分发</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">/</td>
+</tr>
+<tr>
+<td style="text-align:center">公平分发</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">/</td>
+</tr>
+<tr>
+<td style="text-align:center">重发</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">支持</td>
+</tr>
+<tr>
+<td style="text-align:center">消息拉取</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+</tr>
+</tbody>
+</table>
+<h2 id="消息队列高可用和高可靠">消息队列高可用和高可靠<a hidden class="anchor" aria-hidden="true" href="#消息队列高可用和高可靠">#</a></h2>
+<h3 id="高可用">高可用<a hidden class="anchor" aria-hidden="true" href="#高可用">#</a></h3>
+<p>所谓高可用：是指产品在规定的条件和规定的时刻或时间内处于可执行规定功能状态的能力。
+当业务量增加时，请求也过大，一台消息中间件服务器的会触及硬件（CPU,内存，磁盘）的极限，一台消息服务器你已经无法满足业务的需求，所以消息中间件必须支持集群部署。来达到高可用的目的。</p>
+<h4 id="集群模式1---master-slave主从共享数据的部署方式">集群模式1 - Master-slave主从共享数据的部署方式<a hidden class="anchor" aria-hidden="true" href="#集群模式1---master-slave主从共享数据的部署方式">#</a></h4>
+<p><img loading="lazy" src="https://img-blog.csdnimg.cn/img_convert/6d5a68de3f8de6149b3cafd4a28c4091.png" alt="image1"  />
+</p>
+<p>生产者讲消息发送到Master节点，所有的client都连接这个消息队列共享这块数据区域，Master节点负责写入，一旦Master挂掉，slave节点继续服务。从而形成高可用</p>
+<h4 id="集群模式2---master--slave主从同步部署方式">集群模式2 - Master- slave主从同步部署方式<a hidden class="anchor" aria-hidden="true" href="#集群模式2---master--slave主从同步部署方式">#</a></h4>
+<p><img loading="lazy" src="https://img-blog.csdnimg.cn/img_convert/39d3615a1a9a126796e77acfa0529585.png" alt="image1"  />
+</p>
+<p>这种模式写入消息同样在Master主节点上，但是主节点会同步数据到slave节点形成副本，和zookeeper或者redis主从机制很类同。这样可以达到负载均衡的效果，如果消费者有多个这样就可以去不同的节点就行消费，以为消息的拷贝和同步会暂用很大的带宽和网络资源。在后续的rabbtmq中会有使用。</p>
+<h4 id="集群模式3---多主集群同步部署模式">集群模式3 - 多主集群同步部署模式<a hidden class="anchor" aria-hidden="true" href="#集群模式3---多主集群同步部署模式">#</a></h4>
+<p><img loading="lazy" src="https://img-blog.csdnimg.cn/img_convert/92ceac29ec49c309f052b657dda03e70.png" alt="image1"  />
+</p>
+<p>和上面的区别不是特别的大，但是它的写入可以往任意节点去写入。</p>
+<h4 id="集群模式4---多主集群转发部署模式">集群模式4 - 多主集群转发部署模式<a hidden class="anchor" aria-hidden="true" href="#集群模式4---多主集群转发部署模式">#</a></h4>
+<p><img loading="lazy" src="https://img-blog.csdnimg.cn/img_convert/c1d84bf25a281e020662493d707ebfbf.png" alt="image1"  />
+</p>
+<p>解释：如果你插入的数据是broker-1中，元数据信息会存储数据的相关描述和记录存放的位置（队列）。
+它会对描述信息也就是元数据信息就行同步，如果消费者在broker-2中进行消费，发现自己几点没有对应的消息，可以从对应的元数据信息中去查询，然后返回对应的消息信息，场景：比如买火车票或者黄牛买演唱会门票，比如第一个黄牛有顾客说要买的演唱会门票，但是没有但是他会去联系其他的黄牛询问，如果有就返回。</p>
+<h4 id="集群模式5-master-slave与breoker-cluster组合的方案">集群模式5 Master-slave与Breoker-cluster组合的方案<a hidden class="anchor" aria-hidden="true" href="#集群模式5-master-slave与breoker-cluster组合的方案">#</a></h4>
+<p><img loading="lazy" src="https://img-blog.csdnimg.cn/img_convert/531282de817bf980b9064de942e5dd96.png" alt="image1"  />
+</p>
+<p>解释：实现多主多从的热备机制来完成消息的高可用以及数据的热备机制，在生产规模达到一定的阶段的时候，这种使用的频率比较高。</p>
+<p>这么集群模式，具体在后续的课程中会进行一个分析和讲解。他们的最终目的都是为保证：消息服务器不会挂掉，出现了故障依然可以抱着消息服务继续使用。</p>
+<p>反正终归三句话：
+1：要么消息共享，
+2：要么消息同步
+3：要么元数据共享</p>
+<h3 id="高可靠">高可靠<a hidden class="anchor" aria-hidden="true" href="#高可靠">#</a></h3>
+<p>所谓高可靠：是指系统可以无故障低持续运行，比如一个系统突然崩溃，报错，异常等等并不影响线上业务的正常运行，出错的几率极低，就称之为：高可靠。
+在高并发的业务场景中，如果不能保证系统的高可靠，那造成的隐患和损失是非常严重的。
+如何保证中间件消息的可靠性呢？可以从两个方面考虑：
+1：消息的传输：通过协议来保证系统间数据解析的正确性。
+2：消息的存储可靠：通过持久化来保证消息的可靠性。</p>
+<h2 id="rabbitmq的核心组成部分">RabbitMQ的核心组成部分<a hidden class="anchor" aria-hidden="true" href="#rabbitmq的核心组成部分">#</a></h2>
+<h3 id="amqp生产者流转过程">AMQP生产者流转过程<a hidden class="anchor" aria-hidden="true" href="#amqp生产者流转过程">#</a></h3>
+<p><img loading="lazy" src="https://img-blog.csdnimg.cn/img_convert/be902d1a8713e221d1f93e2f6fae936c.png" alt="image1"  />
+</p>
+<h3 id="amqp生产者流转过程-1">AMQP生产者流转过程<a hidden class="anchor" aria-hidden="true" href="#amqp生产者流转过程-1">#</a></h3>
+<p><img loading="lazy" src="https://img-blog.csdnimg.cn/img_convert/760304fced101daf71919620f93d51cb.png" alt="image1"  />
+</p>
+<p><img loading="lazy" src="https://img-blog.csdnimg.cn/img_convert/becf4792d1aafac1858c9ad9222d5676.png" alt="image1"  />
+</p>
+<p>核心概念：
+<strong>Server</strong>：又称Broker ,接受客户端的连接，实现AMQP实体服务。 安装rabbitmq-server
+<strong>Connection</strong>：连接，应用程序与Broker的网络连接 TCP/IP/ 三次握手和四次挥手
+<strong>Channel</strong>：网络信道，几乎所有的操作都在Channel中进行，Channel是进行消息读写的通道，客户端可以建立对各Channel，每个Channel代表一个会话任务。
+<strong>Message</strong> :消息：服务与应用程序之间传送的数据，由Properties和body组成，Properties可是对消息进行修饰，比如消息的优先级，延迟等高级特性，Body则就是消息体的内容。
+<strong>Virtual Host</strong> 虚拟地址，用于进行逻辑隔离，最上层的消息路由，一个虚拟主机理由可以有若干个Exhange和Queueu，同一个虚拟主机里面不能有相同名字的Exchange
+<strong>Exchange</strong>：交换机，接受消息，根据路由键发送消息到绑定的队列。(不具备消息存储的能力)
+<strong>Bindings</strong>：Exchange和Queue之间的虚拟连接，binding中可以保护多个routing key.
+<strong>Routing key</strong>：是一个路由规则，虚拟机可以用它来确定如何路由一个特定消息。
+<strong>Queue</strong>：队列：也成为Message Queue,消息队列，保存消息并将它们转发给消费者。</p>
+<h2 id="rabbitmq的安装和使用httpwwwmacrozhengcomarchitectmall_arch_09"><a href="http://www.macrozheng.com/#/architect/mall_arch_09">RabbitMQ的安装和使用</a><a hidden class="anchor" aria-hidden="true" href="#rabbitmq的安装和使用httpwwwmacrozhengcomarchitectmall_arch_09">#</a></h2>
+<h2 id="5种消息模式">5种消息模式<a hidden class="anchor" aria-hidden="true" href="#5种消息模式">#</a></h2>
+<p><a href="http://www.macrozheng.com/#/reference/rabbitmq_start">http://www.macrozheng.com/#/reference/rabbitmq_start</a></p>
+<p>这5种消息模式是构建基于RabbitMQ的消息应用的基础，一定要牢牢掌握它们。</p>
+<h3 id="简单模式">简单模式<a hidden class="anchor" aria-hidden="true" href="#简单模式">#</a></h3>
+<p>简单模式是最简单的消息模式，它包含一个生产者、一个消费者和一个队列。生产者向队列里发送消息，消费者从队列中获取消息并消费。</p>
+<p>模式示意图</p>
+<p><img loading="lazy" src="http://www.macrozheng.com/images/rabbitmq_start_12.png" alt="image1"  />
+</p>
+<h3 id="工作模式">工作模式<a hidden class="anchor" aria-hidden="true" href="#工作模式">#</a></h3>
+<p>工作模式是指向多个互相竞争的消费者发送消息的模式，它包含一个生产者、两个消费者和一个队列。两个消费者同时绑定到一个队列上去，当消费者获取消息处理耗时任务时，空闲的消费者从队列中获取并消费消息。</p>
+<p>模式示意图</p>
+<p><img loading="lazy" src="http://www.macrozheng.com/images/rabbitmq_start_15.png" alt="image2"  />
+</p>
+<h3 id="发布订阅模式">发布/订阅模式<a hidden class="anchor" aria-hidden="true" href="#发布订阅模式">#</a></h3>
+<p>发布/订阅模式是指同时向多个消费者发送消息的模式（类似广播的形式），它包含一个生产者、两个消费者、两个队列和一个交换机。两个消费者同时绑定到不同的队列上去，两个队列绑定到交换机上去，生产者通过发送消息到交换机，所有消费者接收并消费消息。</p>
+<p><img loading="lazy" src="http://www.macrozheng.com/images/rabbitmq_start_19.png" alt="image3"  />
+</p>
+<h3 id="路由模式">路由模式<a hidden class="anchor" aria-hidden="true" href="#路由模式">#</a></h3>
+<p>路由模式是可以根据<code>路由键</code>选择性给多个消费者发送消息的模式，它包含一个生产者、两个消费者、两个队列和一个交换机。两个消费者同时绑定到不同的队列上去，两个队列通过<code>路由键</code>绑定到交换机上去，生产者发送消息到交换机，交换机通过<code>路由键</code>转发到不同队列，队列绑定的消费者接收并消费消息。</p>
+<p><img loading="lazy" src="http://www.macrozheng.com/images/rabbitmq_start_23.png" alt="image4"  />
+</p>
+<h3 id="通配符模式">通配符模式<a hidden class="anchor" aria-hidden="true" href="#通配符模式">#</a></h3>
+<p>通配符模式是可以根据<code>路由键匹配规则</code>选择性给多个消费者发送消息的模式，它包含一个生产者、两个消费者、两个队列和一个交换机。两个消费者同时绑定到不同的队列上去，两个队列通过<code>路由键匹配规则</code>绑定到交换机上去，生产者发送消息到交换机，交换机通过<code>路由键匹配规则</code>转发到不同队列，队列绑定的消费者接收并消费消息。</p>
+<ul>
+<li><code>*</code>：只能匹配一个单词；</li>
+<li><code>#</code>：可以匹配零个或多个单词。</li>
+</ul>
+<p><img loading="lazy" src="http://www.macrozheng.com/images/rabbitmq_start_27.png" alt="image5"  />
+</p>
+<p>rabbitmq和spring同属一个公司开放的产品，所以他们的支持也是非常完善，这也是为什么推荐使用rabbitmq的一个原因。</p>
+<h2 id="解耦削峰异步">解耦、削峰、异步<a hidden class="anchor" aria-hidden="true" href="#解耦削峰异步">#</a></h2>
+<h3 id="同步异步的问题串行">同步异步的问题（串行）<a hidden class="anchor" aria-hidden="true" href="#同步异步的问题串行">#</a></h3>
+<p>串行方式：将订单信息写入数据库成功后，发送注册邮件，再发送注册短信。以上三个任务全部完成后，返回给客户端</p>
+<p><img loading="lazy" src="https://img-blog.csdnimg.cn/img_convert/2bd296f7a65b8292b751b29869e65f45.png" alt="image5"  />
+</p>
+<h3 id="并行方式-异步线程池">并行方式 异步线程池<a hidden class="anchor" aria-hidden="true" href="#并行方式-异步线程池">#</a></h3>
+<p>并行方式：将订单信息写入数据库成功后，发送注册邮件的同时，发送注册短信。以上三个任务完成后，返回给客户端。与串行的差别是，并行的方式可以提高处理的时间</p>
+<p><img loading="lazy" src="https://img-blog.csdnimg.cn/img_convert/f8127f0bdfd0e9ad7af4cdee57dea722.png" alt="image5"  />
+</p>
+<p>存在问题：
+1：耦合度高
+2：需要自己写线程池自己维护成本太高
+3：出现了消息可能会丢失，需要你自己做消息补偿
+4：如何保证消息的可靠性你自己写
+5：如果服务器承载不了，你需要自己去写高可用</p>
+<h3 id="异步消息队列的方式">异步消息队列的方式<a hidden class="anchor" aria-hidden="true" href="#异步消息队列的方式">#</a></h3>
+<p><img loading="lazy" src="https://img-blog.csdnimg.cn/img_convert/668430cc2ff031d0e126cc1bde74ec4d.png" alt="image5"  />
+</p>
+<p><strong>好处</strong>
+1：完全解耦，用MQ建立桥接
+2：有独立的线程池和运行模型
+3：出现了消息可能会丢失，MQ有持久化功能
+4：如何保证消息的可靠性，死信队列和消息转移的等
+5：如果服务器承载不了，你需要自己去写高可用，HA镜像模型高可用。
+按照以上约定，用户的响应时间相当于是订单信息写入数据库的时间，也就是50毫秒。注册邮件，发送短信写入消息队列后，直接返回，因此写入消息队列的速度很快，基本可以忽略，因此用户的响应时间可能是50毫秒。因此架构改变后，系统的吞吐量提高到每秒20 QPS。比串行提高了3倍，比并行提高了两倍</p>
+<h3 id="流量的削峰">流量的削峰<a hidden class="anchor" aria-hidden="true" href="#流量的削峰">#</a></h3>
+<p><img loading="lazy" src="https://img-blog.csdnimg.cn/img_convert/531726aa415386fcf3793cac5ddcdfd1.png" alt="image5"  />
+</p>
+<p>04、分布式事务的可靠消费和可靠生产
+05、索引、缓存、静态化处理的数据同步
+06、流量监控
+07、日志监控（ELK）
+08、下单、订单分发、抢票</p>
+<h2 id="rabbitmq高级-过期时间ttl">RabbitMQ高级-过期时间TTL<a hidden class="anchor" aria-hidden="true" href="#rabbitmq高级-过期时间ttl">#</a></h2>
+<h3 id="1概述">1、概述<a hidden class="anchor" aria-hidden="true" href="#1概述">#</a></h3>
+<p>过期时间TTL表示可以对消息设置预期的时间，在这个时间内都可以被消费者接收获取；过了之后消息将自动被删除。RabbitMQ可以对<strong>消息和队列</strong>设置TTL。目前有两种方法可以设置。</p>
+<ul>
+<li>第一种方法是通过队列属性设置，队列中所有消息都有相同的过期时间。</li>
+<li>第二种方法是对消息进行单独设置，每条消息TTL可以不同。</li>
+</ul>
+<p>如果上述两种方法同时使用，则消息的过期时间以两者之间TTL较小的那个数值为准。消息在队列的生存时间一旦超过设置的TTL值，就称为dead message被投递到死信队列， 消费者将无法再收到该消息。</p>
+<h2 id="rabbitmq高级-消息确认机制的配置">RabbitMQ高级-消息确认机制的配置<a hidden class="anchor" aria-hidden="true" href="#rabbitmq高级-消息确认机制的配置">#</a></h2>
+<p>NONE值是禁用发布确认模式，是默认值
+CORRELATED值是发布消息成功到交换器后会触发回调方法，如1示例
+SIMPLE值经测试有两种效果，其一效果和CORRELATED值一样会触发回调方法，其二在发布消息成功后使用rabbitTemplate调用waitForConfirms或waitForConfirmsOrDie方法等待broker节点返回发送结果，根据返回结果来判定下一步的逻辑，要注意的点是waitForConfirmsOrDie方法如果返回false则会关闭channel，则接下来无法发送消息到broker;</p>
+<h2 id="rabbitmq高级-死信队列">RabbitMQ高级-死信队列<a hidden class="anchor" aria-hidden="true" href="#rabbitmq高级-死信队列">#</a></h2>
+<p>DLX，全称为Dead-Letter-Exchange , 可以称之为死信交换机，也有人称之为死信邮箱。当消息在一个队列中变成死信(dead message)之后，它能被重新发送到另一个交换机中，这个交换机就是DLX ，绑定DLX的队列就称之为死信队列。
+消息变成死信，可能是由于以下的原因：</p>
+<ul>
+<li>消息被拒绝</li>
+<li>消息过期</li>
+<li>队列达到最大长度</li>
+</ul>
+<p>DLX也是一个正常的交换机，和一般的交换机没有区别，它能在任何的队列上被指定，实际上就是设置某一个队列的属性。当这个队列中存在死信时，Rabbitmq就会自动地将这个消息重新发布到设置的DLX上去，进而被路由到另一个队列，即死信队列。
+要想使用死信队列，只需要在定义队列的时候设置队列参数 <code>x-dead-letter-exchange</code> 指定交换机即可。</p>
+<p><img loading="lazy" src="https://img-blog.csdnimg.cn/img_convert/3f9a11d5ee5f8d74f49e82869408bb78.png" alt="image5"  />
+</p>
+<p>流程</p>
+<p><img loading="lazy" src="https://img-blog.csdnimg.cn/img_convert/df6ca1a36687ccfc9dfbbfb81a8dd2e6.png" alt="image5"  />
+</p>
+<h2 id="rabbitmq运维-内存磁盘的监控">RabbitMQ运维-内存磁盘的监控<a hidden class="anchor" aria-hidden="true" href="#rabbitmq运维-内存磁盘的监控">#</a></h2>
+<p>当内存使用超过配置的阈值或者磁盘空间剩余空间对于配置的阈值时，RabbitMQ会暂时阻塞客户端的连接，并且停止接收从客户端发来的消息，以此避免服务器的崩溃，客户端与服务端的心态检测机制也会失效。
+如下图：</p>
+<p><img loading="lazy" src="https://img-blog.csdnimg.cn/img_convert/828b2beac8cdc3e138f532b2e3720c3d.png" alt="image5"  />
+当出现blocking或blocked话说明到达了阈值和以及高负荷运行了。</p>
+<h2 id="rabbitmq的内存换页">RabbitMQ的内存换页<a hidden class="anchor" aria-hidden="true" href="#rabbitmq的内存换页">#</a></h2>
+<p>在某个Broker节点及内存阻塞生产者之前，它会尝试将队列中的消息换页到磁盘以释放内存空间，持久化和非持久化的消息都会写入磁盘中，其中持久化的消息本身就在磁盘中有一个副本，所以在转移的过程中持久化的消息会先从内存中清除掉。</p>
+<blockquote>
+<p>默认情况下，内存到达的阈值是50%时就会换页处理。
+也就是说，在默认情况下该内存的阈值是0.4的情况下，当内存超过0.4*0.5=0.2时，会进行换页动作。</p>
+</blockquote>
+<p>比如有1000MB内存，当内存的使用率达到了400MB,已经达到了极限，但是因为配置的换页内存0.5，这个时候会在达到极限400mb之前，会把内存中的200MB进行转移到磁盘中。从而达到稳健的运行。</p>
+<p>可以通过设置 <code>vm_memory_high_watermark_paging_ratio</code> 来进行调整</p>
+<h2 id="rabbitmq的磁盘预警">RabbitMQ的磁盘预警<a hidden class="anchor" aria-hidden="true" href="#rabbitmq的磁盘预警">#</a></h2>
+<p>当磁盘的剩余空间低于确定的阈值时，RabbitMQ同样会阻塞生产者，这样可以避免因非持久化的消息持续换页而耗尽磁盘空间导致服务器崩溃。</p>
+<blockquote>
+<p>默认情况下：磁盘预警为50MB的时候会进行预警。表示当前磁盘空间第50MB的时候会阻塞生产者并且停止内存消息换页到磁盘的过程。
+这个阈值可以减小，但是不能完全的消除因磁盘耗尽而导致崩溃的可能性。比如在两次磁盘空间的检查空隙内，第一次检查是：60MB ，第二检查可能就是1MB,就会出现警告。</p>
+</blockquote>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://kevinerr.github.io/tags/rabbitmq/">RabbitMQ</a></li>
+      <li><a href="https://kevinerr.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://kevinerr.github.io/posts/tech/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>注册中心</span>
+  </a>
+  <a class="next" href="https://kevinerr.github.io/posts/tech/%E6%95%B0%E6%8D%AE%E4%BA%A4%E6%8D%A2%E6%A0%BC%E5%BC%8F/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>数据交换格式</span>
+  </a>
+</nav>
+
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share RabbitMQ on twitter"
+        href="https://twitter.com/intent/tweet/?text=RabbitMQ&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2frabbitmq%2f&amp;hashtags=RabbitMQ%2c%e4%b8%ad%e9%97%b4%e4%bb%b6">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share RabbitMQ on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2frabbitmq%2f&amp;title=RabbitMQ&amp;summary=RabbitMQ&amp;source=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2frabbitmq%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share RabbitMQ on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2frabbitmq%2f&title=RabbitMQ">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share RabbitMQ on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2frabbitmq%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share RabbitMQ on whatsapp"
+        href="https://api.whatsapp.com/send?text=RabbitMQ%20-%20https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2frabbitmq%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share RabbitMQ on telegram"
+        href="https://telegram.me/share/url?text=RabbitMQ&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2frabbitmq%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+
+  </footer>
+<div>
+    <div class="pagination__title">
+        <span class="pagination__title-h" style="font-size: 20px;">💬评论</span>
+        <hr />
+    </div>
+    <div id="tcomment"></div>
+    <script src="https://cdn.jsdelivr.net/npm/twikoo@1.5.0/dist/twikoo.all.min.js"></script>
+    <script>
+        twikoo.init({
+            envId: "https://twikoo-two-psi.vercel.app/",  
+            el: "#tcomment",
+            lang: 'zh-CN',
+            region: 'ap-guangzhou',  
+            path: 'window.TWIKOO_MAGIC_PATH||window.location.pathname',
+        });
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://kevinerr.github.io/">hkh&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

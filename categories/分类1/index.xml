@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>分类1 on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/categories/%E5%88%86%E7%B1%BB1/</link>
+    <description>Recent content in 分类1 on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 24 Jul 2022 09:37:17 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/categories/%E5%88%86%E7%B1%BB1/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>字节大数据</title>
+      <link>https://kevinerr.github.io/posts/tech/%E5%AD%97%E8%8A%82%E5%A4%A7%E6%95%B0%E6%8D%AE/</link>
+      <pubDate>Sun, 24 Jul 2022 09:37:17 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E5%AD%97%E8%8A%82%E5%A4%A7%E6%95%B0%E6%8D%AE/</guid>
+      <description>SQL Optimizer 解析 https://bytedance.feishu.cn/file/boxcn9uWBTLWg2a8GIUSRJ0Txqb https://live.juejin.cn/4354/yc_SQL hash join和sort merge join：https://blog.csdn.net/lp284558195/article/detail</description>
+    </item>
+    
+    <item>
+      <title>DSMM</title>
+      <link>https://kevinerr.github.io/posts/tech/dsmm/</link>
+      <pubDate>Sun, 03 Jul 2022 11:01:22 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/dsmm/</guid>
+      <description>DSMM:数据安全能力成熟度模型(Data Security Capability Maturity Model) 规定了数据采集安全、数据传输安全、数据存 储安全、数据处理安全、数据交换安全、数据销毁安全、</description>
+    </item>
+    
+    <item>
+      <title>KVM</title>
+      <link>https://kevinerr.github.io/posts/tech/kvm/</link>
+      <pubDate>Fri, 01 Jul 2022 14:52:10 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/kvm/</guid>
+      <description>kvm内核虚拟机 简介 虚拟机网络 （1）桥接模式的虚拟机，就像一个在路由器&amp;quot;民政局&amp;quot;那里&amp;quot;上过户口&amp;quot;的成</description>
+    </item>
+    
+    <item>
+      <title>Gopacket</title>
+      <link>https://kevinerr.github.io/posts/tech/gopacket/</link>
+      <pubDate>Mon, 30 May 2022 16:05:21 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/gopacket/</guid>
+      <description>1</description>
+    </item>
+    
+    <item>
+      <title>云设计模式</title>
+      <link>https://kevinerr.github.io/posts/read/%E4%BA%91%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Fri, 20 May 2022 09:47:39 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/read/%E4%BA%91%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>d断路器模式（接受失败是为了更好的成功） 问题与背景 处理连接到远程服务或资源时可能需要不同时间才能纠正的故障。存在故障是由于不易预料的意外事件</description>
+    </item>
+    
+    <item>
+      <title>字节青训营</title>
+      <link>https://kevinerr.github.io/posts/tech/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5/</link>
+      <pubDate>Fri, 06 May 2022 10:00:50 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5/</guid>
+      <description>day1 go语言上手-基础语言 https://bytedance.feishu.cn/file/boxcnQnHXuDOdzd8CqVid7nQLmg 随机数 rand.Intn () 函数是个伪随机函数，不管运行多少次都只会返回同样的随机数，因为它默认的资源就是单一值，所以必须调用 rand.Seed (), 并</description>
+    </item>
+    
+    <item>
+      <title>搜素</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E6%90%9C%E7%B4%A0/</link>
+      <pubDate>Mon, 25 Apr 2022 09:36:37 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E6%90%9C%E7%B4%A0/</guid>
+      <description>顺序搜索 顺序查找又称为线性查找，是一种最简单的查找方法。适用于线性表的顺序存储结构和链式存储结构。该算法的时间复杂度为O(n)。 从第一个元素</description>
+    </item>
+    
+  </channel>
+</rss>

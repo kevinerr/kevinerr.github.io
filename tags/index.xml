@@ -6,22 +6,391 @@
     <description>Recent content in Tags on hkh&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 04 Apr 2022 21:59:38 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Jul 2022 10:59:34 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Trie</title>
-      <link>https://kevinerr.github.io/tags/trie/</link>
-      <pubDate>Mon, 04 Apr 2022 21:59:38 +0800</pubDate>
+      <title>每日一题</title>
+      <link>https://kevinerr.github.io/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/</link>
+      <pubDate>Thu, 28 Jul 2022 10:59:34 +0800</pubDate>
       
-      <guid>https://kevinerr.github.io/tags/trie/</guid>
+      <guid>https://kevinerr.github.io/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/</guid>
       <description></description>
     </item>
     
     <item>
       <title>算法</title>
       <link>https://kevinerr.github.io/tags/%E7%AE%97%E6%B3%95/</link>
-      <pubDate>Mon, 04 Apr 2022 21:59:38 +0800</pubDate>
+      <pubDate>Thu, 28 Jul 2022 10:59:34 +0800</pubDate>
       
       <guid>https://kevinerr.github.io/tags/%E7%AE%97%E6%B3%95/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>标签1</title>
+      <link>https://kevinerr.github.io/tags/%E6%A0%87%E7%AD%BE1/</link>
+      <pubDate>Sun, 24 Jul 2022 09:37:17 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E6%A0%87%E7%AD%BE1/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>标签2</title>
+      <link>https://kevinerr.github.io/tags/%E6%A0%87%E7%AD%BE2/</link>
+      <pubDate>Sun, 24 Jul 2022 09:37:17 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E6%A0%87%E7%AD%BE2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TCP</title>
+      <link>https://kevinerr.github.io/tags/tcp/</link>
+      <pubDate>Mon, 18 Jul 2022 10:10:23 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/tcp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>书籍</title>
+      <link>https://kevinerr.github.io/tags/%E4%B9%A6%E7%B1%8D/</link>
+      <pubDate>Mon, 18 Jul 2022 10:10:23 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E4%B9%A6%E7%B1%8D/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dpdk</title>
+      <link>https://kevinerr.github.io/tags/dpdk/</link>
+      <pubDate>Sat, 09 Jul 2022 11:43:05 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/dpdk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mempool</title>
+      <link>https://kevinerr.github.io/tags/mempool/</link>
+      <pubDate>Sat, 09 Jul 2022 11:43:05 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/mempool/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mbuf</title>
+      <link>https://kevinerr.github.io/tags/mbuf/</link>
+      <pubDate>Sat, 09 Jul 2022 11:42:35 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/mbuf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>抓包</title>
+      <link>https://kevinerr.github.io/tags/%E6%8A%93%E5%8C%85/</link>
+      <pubDate>Tue, 24 May 2022 16:01:15 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E6%8A%93%E5%8C%85/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>计算机网络</title>
+      <link>https://kevinerr.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link>
+      <pubDate>Tue, 24 May 2022 16:01:15 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>博客</title>
+      <link>https://kevinerr.github.io/tags/%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Wed, 11 May 2022 10:16:17 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E5%8D%9A%E5%AE%A2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>阅读</title>
+      <link>https://kevinerr.github.io/tags/%E9%98%85%E8%AF%BB/</link>
+      <pubDate>Wed, 11 May 2022 10:16:17 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E9%98%85%E8%AF%BB/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go</title>
+      <link>https://kevinerr.github.io/tags/go/</link>
+      <pubDate>Tue, 03 May 2022 15:52:43 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>java</title>
+      <link>https://kevinerr.github.io/tags/java/</link>
+      <pubDate>Thu, 28 Apr 2022 13:04:47 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>编译原理</title>
+      <link>https://kevinerr.github.io/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Thu, 28 Apr 2022 13:04:47 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>408</title>
+      <link>https://kevinerr.github.io/tags/408/</link>
+      <pubDate>Mon, 25 Apr 2022 19:58:39 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/408/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>计算机组成原理</title>
+      <link>https://kevinerr.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Mon, 25 Apr 2022 19:58:39 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>信息安全</title>
+      <link>https://kevinerr.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/</link>
+      <pubDate>Mon, 25 Apr 2022 14:49:30 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>django</title>
+      <link>https://kevinerr.github.io/tags/django/</link>
+      <pubDate>Sat, 23 Apr 2022 10:22:07 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/django/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://kevinerr.github.io/tags/python/</link>
+      <pubDate>Sat, 23 Apr 2022 10:22:07 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>数据面开发套件</title>
+      <link>https://kevinerr.github.io/tags/%E6%95%B0%E6%8D%AE%E9%9D%A2%E5%BC%80%E5%8F%91%E5%A5%97%E4%BB%B6/</link>
+      <pubDate>Fri, 22 Apr 2022 13:38:30 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E6%95%B0%E6%8D%AE%E9%9D%A2%E5%BC%80%E5%8F%91%E5%A5%97%E4%BB%B6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>context</title>
+      <link>https://kevinerr.github.io/tags/context/</link>
+      <pubDate>Wed, 20 Apr 2022 15:08:32 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/context/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>io复用</title>
+      <link>https://kevinerr.github.io/tags/io%E5%A4%8D%E7%94%A8/</link>
+      <pubDate>Wed, 20 Apr 2022 10:19:21 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/io%E5%A4%8D%E7%94%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>约瑟夫环</title>
+      <link>https://kevinerr.github.io/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF/</link>
+      <pubDate>Tue, 19 Apr 2022 21:58:18 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mysql</title>
+      <link>https://kevinerr.github.io/tags/mysql/</link>
+      <pubDate>Thu, 14 Apr 2022 12:55:16 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>高性能mysql</title>
+      <link>https://kevinerr.github.io/tags/%E9%AB%98%E6%80%A7%E8%83%BDmysql/</link>
+      <pubDate>Thu, 14 Apr 2022 12:55:16 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E9%AB%98%E6%80%A7%E8%83%BDmysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>注册中心</title>
+      <link>https://kevinerr.github.io/tags/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/</link>
+      <pubDate>Tue, 12 Apr 2022 16:10:07 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RabbitMQ</title>
+      <link>https://kevinerr.github.io/tags/rabbitmq/</link>
+      <pubDate>Mon, 11 Apr 2022 15:14:40 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/rabbitmq/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>中间件</title>
+      <link>https://kevinerr.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/</link>
+      <pubDate>Mon, 11 Apr 2022 15:14:40 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>json</title>
+      <link>https://kevinerr.github.io/tags/json/</link>
+      <pubDate>Sun, 10 Apr 2022 19:51:02 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/json/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>msgpack</title>
+      <link>https://kevinerr.github.io/tags/msgpack/</link>
+      <pubDate>Sun, 10 Apr 2022 19:51:02 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/msgpack/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>protobuf</title>
+      <link>https://kevinerr.github.io/tags/protobuf/</link>
+      <pubDate>Sun, 10 Apr 2022 19:51:02 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/protobuf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>thrift</title>
+      <link>https://kevinerr.github.io/tags/thrift/</link>
+      <pubDate>Sun, 10 Apr 2022 19:51:02 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/thrift/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>xml</title>
+      <link>https://kevinerr.github.io/tags/xml/</link>
+      <pubDate>Sun, 10 Apr 2022 19:51:02 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/xml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>数据交换格式</title>
+      <link>https://kevinerr.github.io/tags/%E6%95%B0%E6%8D%AE%E4%BA%A4%E6%8D%A2%E6%A0%BC%E5%BC%8F/</link>
+      <pubDate>Sun, 10 Apr 2022 19:51:02 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E6%95%B0%E6%8D%AE%E4%BA%A4%E6%8D%A2%E6%A0%BC%E5%BC%8F/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>HTTP</title>
+      <link>https://kevinerr.github.io/tags/http/</link>
+      <pubDate>Sun, 10 Apr 2022 14:24:33 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/http/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>最短路</title>
+      <link>https://kevinerr.github.io/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/</link>
+      <pubDate>Sat, 09 Apr 2022 20:02:22 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>面向对象</title>
+      <link>https://kevinerr.github.io/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
+      <pubDate>Sat, 09 Apr 2022 10:59:32 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>BFS</title>
+      <link>https://kevinerr.github.io/tags/bfs/</link>
+      <pubDate>Thu, 07 Apr 2022 22:20:18 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/bfs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DFS</title>
+      <link>https://kevinerr.github.io/tags/dfs/</link>
+      <pubDate>Thu, 07 Apr 2022 22:20:18 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/dfs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>并查集</title>
+      <link>https://kevinerr.github.io/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/</link>
+      <pubDate>Wed, 06 Apr 2022 20:44:27 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Trie</title>
+      <link>https://kevinerr.github.io/tags/trie/</link>
+      <pubDate>Mon, 04 Apr 2022 21:59:38 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/tags/trie/</guid>
       <description></description>
     </item>
     
@@ -67,15 +436,6 @@
       <pubDate>Mon, 28 Mar 2022 14:44:23 +0800</pubDate>
       
       <guid>https://kevinerr.github.io/tags/gin/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>go</title>
-      <link>https://kevinerr.github.io/tags/go/</link>
-      <pubDate>Mon, 28 Mar 2022 14:44:23 +0800</pubDate>
-      
-      <guid>https://kevinerr.github.io/tags/go/</guid>
       <description></description>
     </item>
     
@@ -170,15 +530,6 @@
     </item>
     
     <item>
-      <title>中间件</title>
-      <link>https://kevinerr.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/</link>
-      <pubDate>Mon, 07 Mar 2022 09:15:30 +0000</pubDate>
-      
-      <guid>https://kevinerr.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>服务器</title>
       <link>https://kevinerr.github.io/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
       <pubDate>Mon, 07 Mar 2022 09:15:30 +0000</pubDate>
@@ -202,15 +553,6 @@
       <pubDate>Wed, 09 Feb 2022 18:55:50 +0000</pubDate>
       
       <guid>https://kevinerr.github.io/tags/%E8%BF%90%E7%BB%B4/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>java</title>
-      <link>https://kevinerr.github.io/tags/java/</link>
-      <pubDate>Sun, 30 Jan 2022 21:12:40 +0000</pubDate>
-      
-      <guid>https://kevinerr.github.io/tags/java/</guid>
       <description></description>
     </item>
     
@@ -278,20 +620,20 @@
     </item>
     
     <item>
-      <title>408</title>
-      <link>https://kevinerr.github.io/tags/408/</link>
+      <title>操作系统</title>
+      <link>https://kevinerr.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
       <pubDate>Sun, 21 Mar 2021 23:55:27 +0000</pubDate>
       
-      <guid>https://kevinerr.github.io/tags/408/</guid>
+      <guid>https://kevinerr.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>计算机网络</title>
-      <link>https://kevinerr.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link>
+      <title>网络应用</title>
+      <link>https://kevinerr.github.io/tags/%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/</link>
       <pubDate>Sun, 21 Mar 2021 20:05:10 +0000</pubDate>
       
-      <guid>https://kevinerr.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid>
+      <guid>https://kevinerr.github.io/tags/%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/</guid>
       <description></description>
     </item>
     

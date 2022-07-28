@@ -174,11 +174,11 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>计算机网络
+    <h2>Dpdk
     </h2>
   </header>
   <section class="entry-content">
-    <p>网络的功能 计算机网络的功能主要体现在资源共享、数据通信和分布式处理三个方面。资源共享是计算机网络用户提供的最主要的功能，资源是指在有限时间内...</p>
+    <p>前置知识 网卡(Network Interface Card，简称NIC) https://blog.csdn.net/hellozhxy/article/details/120711251 UIO （Linux Userspace I/O） 作用 作为高并发大流量网络开发框架的DPDK，能够避免内核中断爆...</p>
   </section>
   <footer class="entry-footer">
 
@@ -191,18 +191,18 @@
 
 
 
-创建:&nbsp;<span title='2021-03-21 20:05:10 +0000 UTC'>2021-03-21</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-21&nbsp;|&nbsp;字数:&nbsp;4043字&nbsp;|&nbsp;时长: 9分钟&nbsp;|&nbsp;
+创建:&nbsp;<span title='2022-04-22 13:38:30 +0800 CST'>2022-04-22</span>&nbsp;|&nbsp;更新:&nbsp;2022-04-22&nbsp;|&nbsp;字数:&nbsp;8720字&nbsp;|&nbsp;时长: 18分钟&nbsp;|&nbsp;
 作者:&nbsp;kevin</footer>
-  <a class="entry-link" aria-label="post link to 计算机网络" href="https://kevinerr.github.io/posts/tech/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"></a>
+  <a class="entry-link" aria-label="post link to Dpdk" href="https://kevinerr.github.io/posts/tech/dpdk/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>linux
+    <h2>Context
     </h2>
   </header>
   <section class="entry-content">
-    <p>Linux常用命令 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 打包并压缩文件:“tar -czvf 压缩包名.tar.gz 文件名” 解压并展开压缩包:“tar -xzvf...</p>
+    <p>context 一个接口、四种具体实现、六个函数 1 2 3 4 5 6 7 8 9 10 type Context interface { Deadline() (deadline time.Time, ok bool) Done() &lt;-chan struct{} Err() error Value(key interface{}) interface{} } Deadline返回绑定当前context的任务被...</p>
   </section>
   <footer class="entry-footer">
 
@@ -215,18 +215,18 @@
 
 
 
-创建:&nbsp;<span title='2021-03-18 22:01:23 +0000 UTC'>2021-03-18</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-18&nbsp;|&nbsp;字数:&nbsp;5874字&nbsp;|&nbsp;时长: 12分钟&nbsp;|&nbsp;
+创建:&nbsp;<span title='2022-04-20 15:08:32 +0800 CST'>2022-04-20</span>&nbsp;|&nbsp;更新:&nbsp;2022-04-20&nbsp;|&nbsp;字数:&nbsp;1924字&nbsp;|&nbsp;时长: 4分钟&nbsp;|&nbsp;
 作者:&nbsp;kevin</footer>
-  <a class="entry-link" aria-label="post link to linux" href="https://kevinerr.github.io/posts/tech/linux/"></a>
+  <a class="entry-link" aria-label="post link to Context" href="https://kevinerr.github.io/posts/tech/context/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>设计模式
+    <h2>Io复用
     </h2>
   </header>
   <section class="entry-content">
-    <p>好东西 设计模式的原则 1、开闭原则（Open Close Principle） 开闭原则的意思是：对扩展开放，对修改关闭。在程序需要进行拓展的时候，不能去修...</p>
+    <p>从 Go 源码目录结构和对应代码文件了解到 Go 在不同平台下的网络 I/O 模式的有不同实现。比如，在 Linux 系统下基于 epoll，freeBSD 系统下基于 kque...</p>
   </section>
   <footer class="entry-footer">
 
@@ -239,18 +239,18 @@
 
 
 
-创建:&nbsp;<span title='2021-03-18 21:52:15 +0000 UTC'>2021-03-18</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-18&nbsp;|&nbsp;字数:&nbsp;1663字&nbsp;|&nbsp;时长: 4分钟&nbsp;|&nbsp;
+创建:&nbsp;<span title='2022-04-20 10:19:21 +0800 CST'>2022-04-20</span>&nbsp;|&nbsp;更新:&nbsp;2022-04-20&nbsp;|&nbsp;字数:&nbsp;2182字&nbsp;|&nbsp;时长: 5分钟&nbsp;|&nbsp;
 作者:&nbsp;kevin</footer>
-  <a class="entry-link" aria-label="post link to 设计模式" href="https://kevinerr.github.io/posts/tech/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"></a>
+  <a class="entry-link" aria-label="post link to Io复用" href="https://kevinerr.github.io/posts/tech/io%E5%A4%8D%E7%94%A8/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>并发/多线程
+    <h2>高性能mysql笔记
     </h2>
   </header>
   <section class="entry-content">
-    <p>并发编程基础 线程会带来额外的开销，如cpu调度 继承thread类，重写run()方法，调用start()开启线程 run() 只有主线程一条执行路径；s...</p>
+    <p>第四章 Schema与数据类型优化 4.1 选择优化的数据类型 几个简单的原则 更小的通常更好 eg：能用varchar(1)就不用开varchar(10)...</p>
   </section>
   <footer class="entry-footer">
 
@@ -263,18 +263,18 @@
 
 
 
-创建:&nbsp;<span title='2021-03-18 21:46:48 +0000 UTC'>2021-03-18</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-18&nbsp;|&nbsp;字数:&nbsp;6153字&nbsp;|&nbsp;时长: 13分钟&nbsp;|&nbsp;
+创建:&nbsp;<span title='2022-04-14 12:55:16 +0800 CST'>2022-04-14</span>&nbsp;|&nbsp;更新:&nbsp;2022-04-14&nbsp;|&nbsp;字数:&nbsp;5088字&nbsp;|&nbsp;时长: 11分钟&nbsp;|&nbsp;
 作者:&nbsp;kevin</footer>
-  <a class="entry-link" aria-label="post link to 并发/多线程" href="https://kevinerr.github.io/posts/tech/%E5%B9%B6%E5%8F%91-%E5%A4%9A%E7%BA%BF%E7%A8%8B/"></a>
+  <a class="entry-link" aria-label="post link to 高性能mysql笔记" href="https://kevinerr.github.io/posts/tech/%E9%AB%98%E6%80%A7%E8%83%BDmysql%E7%AC%94%E8%AE%B0/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>Java基础
+    <h2>注册中心
     </h2>
   </header>
   <section class="entry-content">
-    <p>基础语法 对象：对象是类的一个实例，有状态和行为。例如，一条狗是一个对象，它的状态有：颜色、名字、品种；行为有：摇尾巴、叫、吃等。 类：类是一个...</p>
+    <p>如何设计一个注册中心？ 如何设计一个RPC框架？</p>
   </section>
   <footer class="entry-footer">
 
@@ -287,18 +287,18 @@
 
 
 
-创建:&nbsp;<span title='2021-03-18 17:00:07 +0000 UTC'>2021-03-18</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-18&nbsp;|&nbsp;字数:&nbsp;3415字&nbsp;|&nbsp;时长: 7分钟&nbsp;|&nbsp;
+创建:&nbsp;<span title='2022-04-12 16:10:07 +0800 CST'>2022-04-12</span>&nbsp;|&nbsp;更新:&nbsp;2022-04-12&nbsp;|&nbsp;字数:&nbsp;23字&nbsp;|&nbsp;时长: 1分钟&nbsp;|&nbsp;
 作者:&nbsp;kevin</footer>
-  <a class="entry-link" aria-label="post link to Java基础" href="https://kevinerr.github.io/posts/tech/java%E5%9F%BA%E7%A1%80/"></a>
+  <a class="entry-link" aria-label="post link to 注册中心" href="https://kevinerr.github.io/posts/tech/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>spring
+    <h2>RabbitMQ
     </h2>
   </header>
   <section class="entry-content">
-    <p>SSH Struts&#43;Spring&#43;Hibernate SSM SpringMVC&#43;Spring&#43;Mybatis ORM ORM就是对象关系匹配，是为了解决面向对象与关系数据库存在的互不匹配的问题。简单来说，就是把关系数据库中的数据转换成面向对象程序中...</p>
+    <p>什么是中间件 中间件（Middleware）是处于操作系统和应用程序之间的软件 举例： 1，RMI（Remote Method Invocations, 远程调用） 2，Load Bala...</p>
   </section>
   <footer class="entry-footer">
 
@@ -311,18 +311,18 @@
 
 
 
-创建:&nbsp;<span title='2021-03-17 19:22:02 +0000 UTC'>2021-03-17</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-17&nbsp;|&nbsp;字数:&nbsp;723字&nbsp;|&nbsp;时长: 2分钟&nbsp;|&nbsp;
+创建:&nbsp;<span title='2022-04-11 15:14:40 +0800 CST'>2022-04-11</span>&nbsp;|&nbsp;更新:&nbsp;2022-04-11&nbsp;|&nbsp;字数:&nbsp;6796字&nbsp;|&nbsp;时长: 14分钟&nbsp;|&nbsp;
 作者:&nbsp;kevin</footer>
-  <a class="entry-link" aria-label="post link to spring" href="https://kevinerr.github.io/posts/tech/spring/"></a>
+  <a class="entry-link" aria-label="post link to RabbitMQ" href="https://kevinerr.github.io/posts/tech/rabbitmq/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>redis学习笔记
+    <h2>数据交换格式
     </h2>
   </header>
   <section class="entry-content">
-    <p>Redis常见面试题 Redis(remote dictionary server) 远程字典服务 1、 db，每次都从数据库中查 2、 用一个List存储查的全部结果，然后再在List中过滤 3、 本地缓存，同...</p>
+    <p>序列化与反序列化 将不同语言的特有数据结构搞成大家都认的二进制串 将大家都认的二进制串子搞成不同语言的特有数据结构 如果在一大坨微服务构成的庞大业...</p>
   </section>
   <footer class="entry-footer">
 
@@ -335,18 +335,18 @@
 
 
 
-创建:&nbsp;<span title='2021-03-16 14:47:25 +0000 UTC'>2021-03-16</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-16&nbsp;|&nbsp;字数:&nbsp;8025字&nbsp;|&nbsp;时长: 17分钟&nbsp;|&nbsp;
+创建:&nbsp;<span title='2022-04-10 19:51:02 +0800 CST'>2022-04-10</span>&nbsp;|&nbsp;更新:&nbsp;2022-04-10&nbsp;|&nbsp;字数:&nbsp;2142字&nbsp;|&nbsp;时长: 5分钟&nbsp;|&nbsp;
 作者:&nbsp;kevin</footer>
-  <a class="entry-link" aria-label="post link to redis学习笔记" href="https://kevinerr.github.io/posts/tech/redis/"></a>
+  <a class="entry-link" aria-label="post link to 数据交换格式" href="https://kevinerr.github.io/posts/tech/%E6%95%B0%E6%8D%AE%E4%BA%A4%E6%8D%A2%E6%A0%BC%E5%BC%8F/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>jvm
+    <h2>HTTP
     </h2>
   </header>
   <section class="entry-content">
-    <p>面试问题 谈谈对JVM的理解？java8虚拟机和以前有什么区别 什么是OOM？什么是栈溢出StackOverFlowError？ JVM的常用调优...</p>
+    <p>host字段的作用. 同一个IP可以设置多个不同站点， 如果访问不同的域名都转发到同一IP，怎么区分这些不同的站点呢 ， 就是用的Host字段 ，如果...</p>
   </section>
   <footer class="entry-footer">
 
@@ -359,18 +359,18 @@
 
 
 
-创建:&nbsp;<span title='2021-03-15 19:13:13 +0000 UTC'>2021-03-15</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-15&nbsp;|&nbsp;字数:&nbsp;5550字&nbsp;|&nbsp;时长: 12分钟&nbsp;|&nbsp;
+创建:&nbsp;<span title='2022-04-10 14:24:33 +0800 CST'>2022-04-10</span>&nbsp;|&nbsp;更新:&nbsp;2022-04-10&nbsp;|&nbsp;字数:&nbsp;948字&nbsp;|&nbsp;时长: 2分钟&nbsp;|&nbsp;
 作者:&nbsp;kevin</footer>
-  <a class="entry-link" aria-label="post link to jvm" href="https://kevinerr.github.io/posts/tech/jvm/"></a>
+  <a class="entry-link" aria-label="post link to HTTP" href="https://kevinerr.github.io/posts/tech/http/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>
+    <h2>Go的封装、继承和多态
     </h2>
   </header>
   <section class="entry-content">
-    <p>1 2 3 4 5 6 7 pdflatex test.tex #不允许有中文 xelatex test.tex #通用 texdoc #打开文档 texdoc ctex texdoc lshort-zh-ch texdoc symbols-a4 texdoc beame</p>
+    <p>封装 封装主要是通过访问权限控制实现的。 在Java中，共有public 、protected、default、private这四种权限控制。 而相...</p>
   </section>
   <footer class="entry-footer">
 
@@ -383,13 +383,158 @@
 
 
 
-更新:&nbsp;0001-01-01&nbsp;|&nbsp;字数:&nbsp;35字&nbsp;|&nbsp;时长: 1分钟&nbsp;|&nbsp;
+创建:&nbsp;<span title='2022-04-09 10:59:32 +0800 CST'>2022-04-09</span>&nbsp;|&nbsp;更新:&nbsp;2022-04-09&nbsp;|&nbsp;字数:&nbsp;19509字&nbsp;|&nbsp;时长: 39分钟&nbsp;|&nbsp;
 作者:&nbsp;kevin</footer>
-  <a class="entry-link" aria-label="post link to " href="https://kevinerr.github.io/posts/tech/latex/"></a>
+  <a class="entry-link" aria-label="post link to Go的封装、继承和多态" href="https://kevinerr.github.io/posts/tech/go%E7%9A%84%E5%B0%81%E8%A3%85%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>基于gin的聊天系统
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>这个项目是基于WebSocket &#43; MongoDB &#43; MySQL &#43; Redis。业务逻辑很简单，只是两人的聊天。 WebSocket WebSocket是应用层第七层上的一个应用层协议，...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2022-03-28 14:44:23 +0800 CST'>2022-03-28</span>&nbsp;|&nbsp;更新:&nbsp;2022-03-28&nbsp;|&nbsp;字数:&nbsp;951字&nbsp;|&nbsp;时长: 2分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to 基于gin的聊天系统" href="https://kevinerr.github.io/posts/tech/%E5%9F%BA%E4%BA%8Egin%E7%9A%84%E8%81%8A%E5%A4%A9%E7%B3%BB%E7%BB%9F/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>基于gin的备忘录开发
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>此项目使用Gin&#43;Gorm ，基于RESTful API实现的一个备忘录 https://blog.csdn.net/weixin_45304503/article/details/120680957 项目主要功能介绍 用户注册登录 ( jwt-go鉴权 ) 新增 / 删除 / 修改 / 查询...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2022-03-28 11:17:57 +0800 CST'>2022-03-28</span>&nbsp;|&nbsp;更新:&nbsp;2022-03-28&nbsp;|&nbsp;字数:&nbsp;1678字&nbsp;|&nbsp;时长: 4分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to 基于gin的备忘录开发" href="https://kevinerr.github.io/posts/tech/%E5%9F%BA%E4%BA%8Egin%E7%9A%84%E5%A4%87%E5%BF%98%E5%BD%95%E5%BC%80%E5%8F%91/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Zinx Learn
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>代码 本人代码仓库 官方代码仓库 官方教程 官方文档 引言 Golang目前在服务器的应用框架很多，但是应用在游戏领域或者其他长链接的领域的轻量级企业框...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2022-03-17 12:04:29 +0800 CST'>2022-03-17</span>&nbsp;|&nbsp;更新:&nbsp;2022-03-17&nbsp;|&nbsp;字数:&nbsp;2641字&nbsp;|&nbsp;时长: 6分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to Zinx Learn" href="https://kevinerr.github.io/posts/tech/zinx-learn/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>nginx
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>简介 Nginx 是高性能的 HTTP 和反向代理的服务器，处理高并发能力是十分强大的，能经受高负载的考验,有报告表明能支持高达 50,000 个并发连接数。 三大功能 反向代理 负...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2022-03-07 09:15:30 +0000 UTC'>2022-03-07</span>&nbsp;|&nbsp;更新:&nbsp;2022-03-07&nbsp;|&nbsp;字数:&nbsp;91字&nbsp;|&nbsp;时长: 1分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to nginx" href="https://kevinerr.github.io/posts/tech/nginx/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>go教程
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>y以下是我的go学习之路，仅供参考 https://juejin.cn/post/7038967716459315208 go入门 go语法基础 go菜鸟 https://studygolang.com/articles/35591 go底层 Golang深入理解GPM模型 Golang中GC回收机制三色标记与...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2022-02-14 20:51:37 +0000 UTC'>2022-02-14</span>&nbsp;|&nbsp;更新:&nbsp;2022-02-14&nbsp;|&nbsp;字数:&nbsp;2505字&nbsp;|&nbsp;时长: 5分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to go教程" href="https://kevinerr.github.io/posts/tech/go%E6%95%99%E7%A8%8B/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>docker
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>docker官方文档 https://zhuanlan.zhihu.com/p/187505981 docker安装 卸载旧版本 1 2 3 4 5 6 7 8 sudo yum remove docker \ docker-client \ docker-client-latest \ docker-common \ docker-latest \ docker-latest-logrotate \ docker-logrotate \ docker-engine 2.安装yum-utils 1 sudo yum install -y yum-utils 3...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2022-02-09 18:55:50 +0000 UTC'>2022-02-09</span>&nbsp;|&nbsp;更新:&nbsp;2022-02-09&nbsp;|&nbsp;字数:&nbsp;3471字&nbsp;|&nbsp;时长: 7分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to docker" href="https://kevinerr.github.io/posts/tech/docker/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
     <a class="prev" href="https://kevinerr.github.io/posts/tech/">« Prev Page</a>
+    <a class="next" href="https://kevinerr.github.io/posts/tech/page/3/">Next Page »</a>
   </nav>
 </footer>
     </main>

@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>云设计模式 | hkh&#39;s Blog</title>
+<meta name="keywords" content="标签1, 标签2" />
+<meta name="description" content="d断路器模式（接受失败是为了更好的成功） 问题与背景 处理连接到远程服务或资源时可能需要不同时间才能纠正的故障。存在故障是由于不易预料的意外事件">
+<meta name="author" content="
+作者:&nbsp;kevin">
+<link rel="canonical" href="https://kevinerr.github.io/posts/read/%E4%BA%91%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.7724ad4800b622e9e86a37940cdc71441089d486cd46f35de38fdd833dd93d2f.css" integrity="sha256-dyStSAC2IunoajeUDNxxRBCJ1IbNRvNd44/dgz3ZPS8=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="16x16" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="apple-touch-icon" href="https://kevinerr.github.io/Q.jpg">
+<link rel="mask-icon" href="https://kevinerr.github.io/Q.jpg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.94.2" />
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="云设计模式" />
+<meta property="og:description" content="d断路器模式（接受失败是为了更好的成功） 问题与背景 处理连接到远程服务或资源时可能需要不同时间才能纠正的故障。存在故障是由于不易预料的意外事件" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kevinerr.github.io/posts/read/%E4%BA%91%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-20T09:47:39&#43;08:00" />
+<meta property="article:modified_time" content="2022-05-20T09:47:39&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="云设计模式"/>
+<meta name="twitter:description" content="d断路器模式（接受失败是为了更好的成功） 问题与背景 处理连接到远程服务或资源时可能需要不同时间才能纠正的故障。存在故障是由于不易预料的意外事件"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "📚文章",
+      "item": "https://kevinerr.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "📕阅读",
+      "item": "https://kevinerr.github.io/posts/read/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "云设计模式",
+      "item": "https://kevinerr.github.io/posts/read/%E4%BA%91%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "云设计模式",
+  "name": "云设计模式",
+  "description": "d断路器模式（接受失败是为了更好的成功） 问题与背景 处理连接到远程服务或资源时可能需要不同时间才能纠正的故障。存在故障是由于不易预料的意外事件",
+  "keywords": [
+    "标签1", "标签2"
+  ],
+  "articleBody": "d断路器模式（接受失败是为了更好的成功） 问题与背景 处理连接到远程服务或资源时可能需要不同时间才能纠正的故障。存在故障是由于不易预料的意外事件造成的，并且可能需要更长的时间来纠正。这些故障的严重程度可以从部分连接丢失到服务完全失败。在这些情况下，应用程序不断重试执行不太可能成功的操作可能毫无意义，相反，应用程序应迅速接受该操作已失败并相应地处理此失败。\n解决方案 1、断路器模式要防止应用程序重复尝试执行可能失败的操作，允许它继续运行，无需等待\n2、断路器模式还使应用程序能够检测故障是否已解决。\n代理 代理应该监视最近发生的失败次数，然后使用此信息来决定是允许操作继续进行，还是立即返回异常。\n代理可以实现为具有以下模仿电气断路器功能的状态的状态机：\nClosed：如果对操作的调用不成功，代理会增加此计数。如果在给定时间段内最近失败的数量超过了指定的阈值，则代理将进入打开状态。此时代理启动一个超时计时器，当该计时器到期时，代理将进入半开状态。\nOpen：来自应用程序的请求立即失败，并向应用程序返回异常。\n半开放：允许来自应用程序的有限数量的请求通过并调用操作。如果这些请求成功，则假定先前导致故障的故障已修复，并且断路器切换到Closed状态（故障计数器被重置）。如果任何请求失败，断路器会假定故障仍然存在，因此它会恢复到打开状态并重新启动超时计时器，以使系统有更多时间从故障中恢复。\n超时计时器的目的是在允许应用程序再次尝试执行操作之前，给系统时间来纠正导致失败的问题。\n半开状态有助于防止正在恢复的服务突然被请求淹没。当服务恢复时，它可能能够支持有限数量的请求，直到恢复完成，但在恢复过程中，大量工作可能会导致服务超时或再次失败。\n该模式是可定制的，并且可以根据可能的故障的性质进行调整。例如，您可以将增加的超时计时器应用于断路器。您最初可以将断路器置于打开状态几秒钟，然后如果故障尚未解决，则将超时时间增加到几分钟，依此类推。在某些情况下，与其让Open状态返回失败并引发异常，不如返回对应用程序有意义的默认值。\n问题和注意事项 何时使用此模式 使用此模式：\n 如果此操作很可能失败，则防止应用程序尝试调用远程服务或访问共享资源。  此模式可能不适合：\n 用于处理对应用程序中本地私有资源的访问，例如内存数据结构。在这种环境中，使用断路器只会增加系统的开销。 代替处理应用程序业务逻辑中的异常。  相关模式和指导 在实现此模式时，以下模式也可能是相关的：\n 重试模式。重试模式是断路器模式的有用补充。它描述了应用程序在尝试连接到服务或网络资源时如何处理预期的临时故障，方法是透明地重试先前失败的操作，并期望故障原因是暂时的。 健康端点监控模式。断路器可能能够通过向服务公开的端点发送请求来测试服务的健康状况。该服务应返回指示其状态的信息。  kitex中采取的策略 Kitex 默认提供了三个基本的熔断触发策略：\n 连续错误数达到阈值 (ConsecutiveTripFunc) 错误数达到阈值 (ThresholdTripFunc) 错误率达到阈值 (RateTripFunc)  熔断器会统计一段时间窗口内的成功，失败和超时，默认窗口大小是 10S；\n重试模式（不达目的不罢休） 解决瞬态故障\n问题与背景 应用程序必须对该环境中可能发生的瞬态故障敏感。此类故障包括与组件和服务的网络连接暂时丢失、服务暂时不可用或服务繁忙时出现的超时。这些故障通常是自我纠正的，如果触发故障的动作在适当的延迟后重复，它很可能是成功的。例如，正在处理大量并发请求的数据库服务可能会实施一种限制策略，在其工作负载减轻之前暂时拒绝任何进一步的请求。尝试访问数据库的应用程序可能无法连接，但如果它在适当的延迟后再次尝试，它可能会成功。\n解决方案 如果应用程序在尝试向远程服务发送请求时检测到失败，它可以使用以下策略来处理失败：\n 如果故障表明失败不是暂时的，或者如果重复失败则不太可能成功（例如，由于提供无效凭据而导致的身份验证失败，无论尝试多少次都不太可能成功），则应用程序应中止操作并报告一个合适的例外。（不再重试） 如果报告的特定故障异常或罕见，则可能是由异常情况引起的，例如网络数据包在传输过程中损坏。在这种情况下，应用程序可以立即重试失败的请求，因为同样的失败不太可能重复，并且请求可能会成功。（立即重试） 如果故障是由更常见的连接或“繁忙”故障之一引起的，则网络或服务可能需要很短的时间来纠正连接问题或清除积压的工作。在重试请求之前，应用程序应该等待一段合适的时间。（随机重试，诸如指数回退之类的计时策略）  问题和注意事项 由实现重试策略的应用程序调用的服务中的操作可能需要是幂等的。\n考虑重试作为事务的一部分的操作将如何影响整个事务的一致性。\n记录所有提示重试的连接失败非常重要，这样可以识别应用程序、服务或资源的潜在问题。\n何时使用此模式 使用此模式：\n 当应用程序在与远程服务交互或访问远程资源时可能会遇到瞬时故障。这些故障预计是短暂的，重复先前失败的请求可能会在后续尝试中成功。  此模式可能不适合：\n 当故障可能持续很长时间时，因为这会影响应用程序的响应能力。应用程序可能只是在浪费时间和资源尝试重复最有可能失败的请求。 用于处理非暂时性故障引起的故障，例如应用程序的业务逻辑错误导致的内部异常。 作为解决系统中可扩展性问题的替代方案。如果应用程序经常遇到“繁忙”故障，这通常表明正在访问的服务或资源应该扩大规模。  kitex中采取的策略 超时重试、Backup Request，建连失败重试（默认）。其中建连失败是网络层面问题，由于请求未发出，框架会默认重试。\n 超时重试：提高服务整体的成功率 Backup Request：减少服务的延迟波动  因为很多的业务请求不具有幂等性，这两类重试不会作为默认策略。\n超时重试 MaxRetryTimes：最大重试次数\nMaxDurationMS：累计最大耗时，包括首次失败请求和重试请求耗时，如果耗时达到了限制的时间则停止后续的重试\nEERThreshold：重试熔断错误率阈值, 方法级别请求错误率超过阈值则停止重试。\nChainStop：链路中止, 默认启用。如果上游请求是重试请求，超时后不会重试。\nDDLStop：链路超时中止，该策略是从链路的超时时间判断是否需要重试。\nBackOff：重试等待策略，默认立即重试（NoneBackOff）。可选：固定时长退避 (FixedBackOff)、随机时长退避 (RandomBackOff)。\nRetrySameNode：框架默认选择其他节点重试，若需要同节点重试，可配置为 true。\nBackup Request RetryDelayMS：Backup Request 的等待时间，若该时间内若请求未返回，会发送新的请求。必须手动配置\n健康端点健康模式 背景与问题 监控 Web 应用程序、中间层和共享服务是一种很好的做法（通常是业务需求），以确保它们可用并正确执行。\n解决方案 通过向应用程序上的端点发送请求来实施健康监控。应用程序应执行必要的检查，并返回其状态指示。\n健康监控检查通常结合两个因素：应用程序或服务为响应对健康验证端点的请求而执行的检查（如果有），以及执行健康验证检查的工具或框架对结果的分析。响应代码指示应用程序的状态，以及它使用的任何组件或服务（可选）。延迟或响应时间检查由监控工具或框架执行。图 1 显示了该模式的实现概览。\n问题和注意事项 何时使用此模式  监控网站和 Web 应用程序以验证可用性。 监控网站和 Web 应用程序以检查是否正确运行。 监控中间层或共享服务以检测和隔离可能中断其他应用程序的故障。 补充应用程序中的现有工具，例如性能计数器和错误处理程序。健康验证检查不会取代应用程序中的日志记录和审计要求。Instrumentation 可以为监控计数器和错误日志以检测故障或其他问题的现有框架提供有价值的信息。但是，如果应用程序不可用，它就无法提供信息。  优先队列模式 背景与问题 对发送到服务的请求进行优先级排序，以便接收和处理具有较高优先级的请求比那些具有较低优先级的请求更快。这种模式在为各个客户端提供不同服务级别保证的应用程序中很有用。\n解决方案 使用支持消息优先级的排队机制\n为每个优先级使用单独的消息队列\n使用优先级排队机制可以提供以下优势：\n 它允许应用程序满足需要优先考虑可用性或性能的业务需求，例如为特定的客户群体提供不同级别的服务。 它可以帮助最大限度地降低运营成本。在单队列方法中，您可以在必要时缩减消费者数量。高优先级的消息仍将首先处理（尽管可能更慢），而低优先级的消息可能会延迟更长的时间。如果你已经实现了多消息队列方法，每个队列有单独的消费者池，你可以减少低优先级队列的消费者池，甚至通过停止所有监听消息的消费者来暂停一些非常低优先级队列的处理。那些队列。 多消息队列方法可以通过根据处理要求对消息进行分区来帮助最大化应用程序的性能和可伸缩性。例如，重要任务可以优先由立即运行的接收器处理，而不太重要的后台任务可以由计划在不太繁忙的时段运行的接收器处理。  问题与注意事项  在解决方案的上下文中定义优先级。例如，“高优先级”可能意味着应该在十秒内处理消息。确定处理高优先级项目的要求，以及必须分配哪些其他资源才能满足这些标准。 决定是否必须先处理所有高优先级项目，然后再处理任何低优先级项目。如果消息正在由单个消费者池处理，则可能需要提供一种机制，该机制可以在更高优先级的消息可用时抢占并暂停正在处理低优先级消息的任务。 在多队列方法中，当使用单个消费者进程池来侦听所有队列而不是为每个队列使用专用消费者池时，消费者必须应用一种算法，以确保它始终在处理来自较低优先级队列的消息之前为来自较高优先级队列的消息提供服务排队。 监控高优先级和低优先级队列的处理速度，以确保这些队列中的消息以预期的速率处理。 如果您需要保证处理低优先级消息，则可能需要实现具有多个消费者池的多消息队列方法。或者，在支持消息优先级的队列中，可能会随着队列消息的老化而动态增加队列消息的优先级。但是，这种方法取决于提供此功能的消息队列。 为每个消息优先级使用单独的队列最适合具有少量明确定义的优先级的系统。 消息优先级可以由系统在逻辑上确定。例如，可以将它们指定为“付费客户”或“非付费客户”，而不是具有明确的高优先级和低优先级消息。根据您的业务模型，您的系统可能会分配更多资源来处理来自付费客户的消息，而不是非付费客户。 检查队列中的消息可能会产生财务和处理成本（一些商业消息传递系统在每次发布或检索消息时以及每次查询队列中的消息时都会收取少量费用）。检查多个队列时，此成本将增加。  何时使用此模式 此模式非常适合以下场景：\n 系统必须处理可能具有不同优先级的多个任务。 应该以不同的优先级为不同的用户或租户提供服务。  竞争消费者模式 背景与问题 允许多个并发消费者处理在同一消息传递通道上接收到的消息。这种模式使系统能够同时处理多个消息以优化吞吐量、提高可伸缩性和可用性以及平衡工作负载。\n在云中运行的应用程序可能会处理大量请求。一种常见的技术不是同步处理每个请求，而是让应用程序通过消息传递系统将它们传递给另一个异步处理它们的服务（消费者服务）。此策略有助于确保在处理请求时不会阻塞应用程序中的业务逻辑。\n解决方案 它启用了一个固有的负载均衡系统\n它提高了可靠性\n它不需要消费者之间或生产者和消费者实例之间的复杂协调。\n它是可扩展的。\n如果消息队列提供事务性读取操作，它可以提高弹性。\n问题与注意事项 留言订购。消费者服务实例接收消息的顺序无法保证，也不一定反映消息的创建顺序。设计系统以确保消息处理是幂等的，因为这将有助于消除对消息处理顺序的任何依赖。\n设计弹性服务。如果系统设计用于检测和重新启动失败的服务实例，则可能需要将服务实例执行的处理实现为幂等操作，以最小化单个消息被多次检索和处理的影响。\n检测毒药信息。格式错误的消息或需要访问不可用资源的任务可能会导致服务实例失败。系统应防止此类消息返回队列，而是捕获这些消息的详细信息并将其存储在其他位置，以便在必要时对其进行分析。\n处理结果。处理消息的服务实例与生成消息的应用程序逻辑完全解耦，它们可能无法直接通信。如果服务实例生成的结果必须传回应用程序逻辑，则此信息必须存储在双方都可以访问的位置，并且系统必须提供一些处理完成时间的指示，以防止应用程序逻辑检索不完整的数据.\n扩展消息系统。在大规模解决方案中，单个消息队列可能会被消息数量所淹没，并成为系统的瓶颈。在这种情况下，请考虑对消息系统进行分区以将消息从特定生产者定向到特定队列，或者使用负载平衡将消息分发到多个消息队列。\n**确保消息系统的可靠性。**需要一个可靠的消息传递系统来保证，一旦应用程序将消息加入队列，它就不会丢失。这对于确保所有消息至少传递一次至关重要。\n何时使用此模式 在以下情况下使用此模式：\n 应用程序的工作负载分为可以异步运行的任务。 任务是独立的，可以并行运行。 工作量变化很大，需要可扩展的解决方案。 该解决方案必须提供高可用性，并且在任务处理失败时必须具有弹性。  在以下情况下，此模式可能不适合：\n  将应用程序工作负载分离成离散的任务并不容易，或者任务之间存在高度依赖关系。\n  任务必须同步执行，应用程序逻辑必须等待任务完成才能继续。\n  任务必须按特定顺序执行。\n一些消息传递系统支持使生产者能够将消息组合在一起并确保它们都由同一个消费者处理的会话。此机制可与优先消息（如果支持）一起使用，以实现一种消息排序形式，将消息按顺序从生产者传递到单个消费者。\n  ",
+  "wordCount" : "5376",
+  "inLanguage": "en",
+  "datePublished": "2022-05-20T09:47:39+08:00",
+  "dateModified": "2022-05-20T09:47:39+08:00",
+  "author":[{
+    "@type": "Person",
+    "name": "kevin"
+  }],
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kevinerr.github.io/posts/read/%E4%BA%91%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hkh's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kevinerr.github.io/img/Q.jpg"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://kevinerr.github.io/" accesskey="h" title="hkh&#39;s Blog (Alt + H)">hkh&#39;s Blog</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://kevinerr.github.io/search" title="🔍搜索 (Alt &#43; /)" accesskey=/>
+                    <span>🔍搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/posts" title="📚文章">
+                    <span>📚文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/archives" title="⏱时间轴">
+                    <span>⏱时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/tags" title="🔖标签">
+                    <span>🔖标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/about" title="🙋🏻‍♂️关于">
+                    <span>🙋🏻‍♂️关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/links" title="🤝友链">
+                    <span>🤝友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://kevinerr.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://kevinerr.github.io/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://kevinerr.github.io/posts/read/">📕阅读</a></div>
+    <h1 class="post-title">
+      云设计模式
+    </h1>
+    <div class="post-meta">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2022-05-20 09:47:39 +0800 CST'>2022-05-20</span>&nbsp;|&nbsp;更新:&nbsp;2022-05-20&nbsp;|&nbsp;字数:&nbsp;5376字&nbsp;|&nbsp;时长: 11分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">Table of Contents</span>
+            </summary>
+
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#d%e6%96%ad%e8%b7%af%e5%99%a8%e6%a8%a1%e5%bc%8f%e6%8e%a5%e5%8f%97%e5%a4%b1%e8%b4%a5%e6%98%af%e4%b8%ba%e4%ba%86%e6%9b%b4%e5%a5%bd%e7%9a%84%e6%88%90%e5%8a%9f" aria-label="d断路器模式（接受失败是为了更好的成功）">d断路器模式（接受失败是为了更好的成功）</a><ul>
+                            
+                    <li>
+                        <a href="#%e9%97%ae%e9%a2%98%e4%b8%8e%e8%83%8c%e6%99%af" aria-label="问题与背景">问题与背景</a></li>
+                    <li>
+                        <a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88" aria-label="解决方案">解决方案</a><ul>
+                            
+                    <li>
+                        <a href="#%e4%bb%a3%e7%90%86" aria-label="代理">代理</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e9%97%ae%e9%a2%98%e5%92%8c%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" aria-label="问题和注意事项">问题和注意事项</a></li>
+                    <li>
+                        <a href="#%e4%bd%95%e6%97%b6%e4%bd%bf%e7%94%a8%e6%ad%a4%e6%a8%a1%e5%bc%8f" aria-label="何时使用此模式">何时使用此模式</a></li>
+                    <li>
+                        <a href="#%e7%9b%b8%e5%85%b3%e6%a8%a1%e5%bc%8f%e5%92%8c%e6%8c%87%e5%af%bc" aria-label="相关模式和指导">相关模式和指导</a></li>
+                    <li>
+                        <a href="#kitex%e4%b8%ad%e9%87%87%e5%8f%96%e7%9a%84%e7%ad%96%e7%95%a5" aria-label="kitex中采取的策略">kitex中采取的策略</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e9%87%8d%e8%af%95%e6%a8%a1%e5%bc%8f%e4%b8%8d%e8%be%be%e7%9b%ae%e7%9a%84%e4%b8%8d%e7%bd%a2%e4%bc%91" aria-label="重试模式（不达目的不罢休）">重试模式（不达目的不罢休）</a><ul>
+                            
+                    <li>
+                        <a href="#%e9%97%ae%e9%a2%98%e4%b8%8e%e8%83%8c%e6%99%af-1" aria-label="问题与背景">问题与背景</a></li>
+                    <li>
+                        <a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88-1" aria-label="解决方案">解决方案</a></li>
+                    <li>
+                        <a href="#%e9%97%ae%e9%a2%98%e5%92%8c%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9-1" aria-label="问题和注意事项">问题和注意事项</a></li>
+                    <li>
+                        <a href="#%e4%bd%95%e6%97%b6%e4%bd%bf%e7%94%a8%e6%ad%a4%e6%a8%a1%e5%bc%8f-1" aria-label="何时使用此模式">何时使用此模式</a></li>
+                    <li>
+                        <a href="#kitex%e4%b8%ad%e9%87%87%e5%8f%96%e7%9a%84%e7%ad%96%e7%95%a5-1" aria-label="kitex中采取的策略">kitex中采取的策略</a><ul>
+                            
+                    <li>
+                        <a href="#%e8%b6%85%e6%97%b6%e9%87%8d%e8%af%95" aria-label="超时重试">超时重试</a></li>
+                    <li>
+                        <a href="#backup-request" aria-label="Backup Request">Backup Request</a></li></ul>
+                    </li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e5%81%a5%e5%ba%b7%e7%ab%af%e7%82%b9%e5%81%a5%e5%ba%b7%e6%a8%a1%e5%bc%8f" aria-label="健康端点健康模式">健康端点健康模式</a><ul>
+                            
+                    <li>
+                        <a href="#%e8%83%8c%e6%99%af%e4%b8%8e%e9%97%ae%e9%a2%98" aria-label="背景与问题">背景与问题</a></li>
+                    <li>
+                        <a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88-2" aria-label="解决方案">解决方案</a></li>
+                    <li>
+                        <a href="#%e9%97%ae%e9%a2%98%e5%92%8c%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9-2" aria-label="问题和注意事项">问题和注意事项</a></li>
+                    <li>
+                        <a href="#%e4%bd%95%e6%97%b6%e4%bd%bf%e7%94%a8%e6%ad%a4%e6%a8%a1%e5%bc%8f-2" aria-label="何时使用此模式">何时使用此模式</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e4%bc%98%e5%85%88%e9%98%9f%e5%88%97%e6%a8%a1%e5%bc%8f" aria-label="优先队列模式">优先队列模式</a><ul>
+                            
+                    <li>
+                        <a href="#%e8%83%8c%e6%99%af%e4%b8%8e%e9%97%ae%e9%a2%98-1" aria-label="背景与问题">背景与问题</a></li>
+                    <li>
+                        <a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88-3" aria-label="解决方案">解决方案</a></li>
+                    <li>
+                        <a href="#%e9%97%ae%e9%a2%98%e4%b8%8e%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" aria-label="问题与注意事项">问题与注意事项</a></li>
+                    <li>
+                        <a href="#%e4%bd%95%e6%97%b6%e4%bd%bf%e7%94%a8%e6%ad%a4%e6%a8%a1%e5%bc%8f-3" aria-label="何时使用此模式">何时使用此模式</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e7%ab%9e%e4%ba%89%e6%b6%88%e8%b4%b9%e8%80%85%e6%a8%a1%e5%bc%8f" aria-label="竞争消费者模式">竞争消费者模式</a><ul>
+                            
+                    <li>
+                        <a href="#%e8%83%8c%e6%99%af%e4%b8%8e%e9%97%ae%e9%a2%98-2" aria-label="背景与问题">背景与问题</a></li>
+                    <li>
+                        <a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88-4" aria-label="解决方案">解决方案</a></li>
+                    <li>
+                        <a href="#%e9%97%ae%e9%a2%98%e4%b8%8e%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9-1" aria-label="问题与注意事项">问题与注意事项</a></li>
+                    <li>
+                        <a href="#%e4%bd%95%e6%97%b6%e4%bd%bf%e7%94%a8%e6%ad%a4%e6%a8%a1%e5%bc%8f-4" aria-label="何时使用此模式">何时使用此模式</a>
+                    </li>
+                </ul>
+                </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+         
+         activeElement = elements[0];
+         const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+         document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+     }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+             const id = encodeURI(element.getAttribute('id')).toLowerCase();
+             if (element === activeElement){
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+             } else {
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+             }
+         })
+     }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;   
+    }
+</script>
+
+  <div class="post-content"><h2 id="d断路器模式接受失败是为了更好的成功">d断路器模式（接受失败是为了更好的成功）<a hidden class="anchor" aria-hidden="true" href="#d断路器模式接受失败是为了更好的成功">#</a></h2>
+<h3 id="问题与背景">问题与背景<a hidden class="anchor" aria-hidden="true" href="#问题与背景">#</a></h3>
+<p>处理连接到远程服务或资源时可能需要不同时间才能纠正的故障。存在故障是由于不易预料的意外事件造成的，并且可能需要更长的时间来纠正。这些故障的严重程度可以从部分连接丢失到服务完全失败。在这些情况下，应用程序不断重试执行不太可能成功的操作可能毫无意义，相反，应用程序应迅速接受该操作已失败并相应地处理此失败。</p>
+<h3 id="解决方案">解决方案<a hidden class="anchor" aria-hidden="true" href="#解决方案">#</a></h3>
+<p>1、断路器模式要防止应用程序重复尝试执行可能失败的操作，允许它继续运行，无需等待</p>
+<p>2、断路器模式还使应用程序能够检测故障是否已解决。</p>
+<h4 id="代理">代理<a hidden class="anchor" aria-hidden="true" href="#代理">#</a></h4>
+<p>代理应该监视最近发生的失败次数，然后使用此信息来决定是允许操作继续进行，还是立即返回异常。</p>
+<p>代理可以实现为具有以下模仿电气断路器功能的状态的状态机：</p>
+<p><strong>Closed</strong>：如果对操作的调用不成功，代理会增加此计数。如果在给定时间段内最近失败的数量超过了指定的阈值，则代理将进入<strong>打开</strong>状态。此时代理启动一个超时计时器，当该计时器到期时，代理将进入<strong>半开</strong>状态。</p>
+<p><strong>Open</strong>：来自应用程序的请求立即失败，并向应用程序返回异常。</p>
+<p><strong>半开放</strong>：允许来自应用程序的有限数量的请求通过并调用操作。如果这些请求成功，则假定先前导致故障的故障已修复，并且断路器切换到<strong>Closed</strong>状态（故障计数器被重置）。如果任何请求失败，断路器会假定故障仍然存在，因此它会恢复到<strong>打开</strong>状态并重新启动超时计时器，以使系统有更多时间从故障中恢复。</p>
+<p>超时计时器的目的是在允许应用程序再次尝试执行操作之前，给系统时间来纠正导致失败的问题。</p>
+<p><strong>半开</strong>状态有助于防止正在恢复的服务突然被请求淹没。当服务恢复时，它可能能够支持有限数量的请求，直到恢复完成，但在恢复过程中，大量工作可能会导致服务超时或再次失败。</p>
+<p>该模式是可定制的，并且可以根据可能的故障的性质进行调整。例如，您可以将增加的超时计时器应用于断路器。您最初可以将断路器置于<strong>打开</strong>状态几秒钟，然后如果故障尚未解决，则将超时时间增加到几分钟，依此类推。在某些情况下，与其让<strong>Open</strong>状态返回失败并引发异常，不如返回对应用程序有意义的默认值。</p>
+<h3 id="问题和注意事项">问题和注意事项<a hidden class="anchor" aria-hidden="true" href="#问题和注意事项">#</a></h3>
+<h3 id="何时使用此模式">何时使用此模式<a hidden class="anchor" aria-hidden="true" href="#何时使用此模式">#</a></h3>
+<p>使用此模式：</p>
+<ul>
+<li>如果此操作很可能失败，则防止应用程序尝试调用远程服务或访问共享资源。</li>
+</ul>
+<p>此模式可能不适合：</p>
+<ul>
+<li>用于处理对应用程序中本地私有资源的访问，例如内存数据结构。在这种环境中，使用断路器只会增加系统的开销。</li>
+<li>代替处理应用程序业务逻辑中的异常。</li>
+</ul>
+<h3 id="相关模式和指导">相关模式和指导<a hidden class="anchor" aria-hidden="true" href="#相关模式和指导">#</a></h3>
+<p>在实现此模式时，以下模式也可能是相关的：</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/previous-versions/msp-n-p/dn589788(v=pandp.10)">重试模式</a>。重试模式是断路器模式的有用补充。它描述了应用程序在尝试连接到服务或网络资源时如何处理预期的临时故障，方法是透明地重试先前失败的操作，并期望故障原因是暂时的。</li>
+<li><a href="https://docs.microsoft.com/en-us/previous-versions/msp-n-p/dn589789(v=pandp.10)">健康端点监控模式</a>。断路器可能能够通过向服务公开的端点发送请求来测试服务的健康状况。该服务应返回指示其状态的信息。</li>
+</ul>
+<h3 id="kitex中采取的策略">kitex中采取的策略<a hidden class="anchor" aria-hidden="true" href="#kitex中采取的策略">#</a></h3>
+<p>Kitex 默认提供了三个基本的熔断触发策略：</p>
+<ul>
+<li>连续错误数达到阈值 (ConsecutiveTripFunc)</li>
+<li>错误数达到阈值 (ThresholdTripFunc)</li>
+<li>错误率达到阈值 (RateTripFunc)</li>
+</ul>
+<p>熔断器会统计一段时间窗口内的成功，失败和超时，默认窗口大小是 10S；</p>
+<h2 id="重试模式不达目的不罢休">重试模式（不达目的不罢休）<a hidden class="anchor" aria-hidden="true" href="#重试模式不达目的不罢休">#</a></h2>
+<p>解决瞬态故障</p>
+<h3 id="问题与背景-1">问题与背景<a hidden class="anchor" aria-hidden="true" href="#问题与背景-1">#</a></h3>
+<p>应用程序必须对该环境中可能发生的瞬态故障敏感。此类故障包括与组件和服务的网络连接暂时丢失、服务暂时不可用或服务繁忙时出现的超时。这些故障通常是自我纠正的，如果触发故障的动作在适当的延迟后重复，它很可能是成功的。例如，正在处理大量并发请求的数据库服务可能会实施一种限制策略，在其工作负载减轻之前暂时拒绝任何进一步的请求。尝试访问数据库的应用程序可能无法连接，但如果它在适当的延迟后再次尝试，它可能会成功。</p>
+<h3 id="解决方案-1">解决方案<a hidden class="anchor" aria-hidden="true" href="#解决方案-1">#</a></h3>
+<p>如果应用程序在尝试向远程服务发送请求时检测到失败，它可以使用以下策略来处理失败：</p>
+<ul>
+<li>如果故障表明失败不是暂时的，或者如果重复失败则不太可能成功（例如，由于提供无效凭据而导致的身份验证失败，无论尝试多少次都不太可能成功），则应用程序应中止操作并报告一个合适的例外。（不再重试）</li>
+<li>如果报告的特定故障异常或罕见，则可能是由异常情况引起的，例如网络数据包在传输过程中损坏。在这种情况下，应用程序可以立即重试失败的请求，因为同样的失败不太可能重复，并且请求可能会成功。（立即重试）</li>
+<li>如果故障是由更常见的连接或“繁忙”故障之一引起的，则网络或服务可能需要很短的时间来纠正连接问题或清除积压的工作。在重试请求之前，应用程序应该等待一段合适的时间。（随机重试，诸如指数回退之类的计时策略）</li>
+</ul>
+<h3 id="问题和注意事项-1">问题和注意事项<a hidden class="anchor" aria-hidden="true" href="#问题和注意事项-1">#</a></h3>
+<p>由实现重试策略的应用程序调用的服务中的操作可能需要是幂等的。</p>
+<p>考虑重试作为事务的一部分的操作将如何影响整个事务的一致性。</p>
+<p>记录所有提示重试的连接失败非常重要，这样可以识别应用程序、服务或资源的潜在问题。</p>
+<h3 id="何时使用此模式-1">何时使用此模式<a hidden class="anchor" aria-hidden="true" href="#何时使用此模式-1">#</a></h3>
+<p>使用此模式：</p>
+<ul>
+<li>当应用程序在与远程服务交互或访问远程资源时可能会遇到瞬时故障。这些故障预计是短暂的，重复先前失败的请求可能会在后续尝试中成功。</li>
+</ul>
+<p>此模式可能不适合：</p>
+<ul>
+<li>当故障可能持续很长时间时，因为这会影响应用程序的响应能力。应用程序可能只是在浪费时间和资源尝试重复最有可能失败的请求。</li>
+<li>用于处理非暂时性故障引起的故障，例如应用程序的业务逻辑错误导致的内部异常。</li>
+<li>作为解决系统中可扩展性问题的替代方案。如果应用程序经常遇到“繁忙”故障，这通常表明正在访问的服务或资源应该扩大规模。</li>
+</ul>
+<h3 id="kitex中采取的策略-1">kitex中采取的策略<a hidden class="anchor" aria-hidden="true" href="#kitex中采取的策略-1">#</a></h3>
+<p>超时重试、Backup Request，建连失败重试（默认）。其中建连失败是网络层面问题，由于请求未发出，框架会默认重试。</p>
+<ul>
+<li>超时重试：提高服务整体的成功率</li>
+<li>Backup Request：减少服务的延迟波动</li>
+</ul>
+<p>因为很多的业务请求不具有幂等性，这两类重试不会作为默认策略。</p>
+<h4 id="超时重试">超时重试<a hidden class="anchor" aria-hidden="true" href="#超时重试">#</a></h4>
+<p>MaxRetryTimes：最大重试次数</p>
+<p>MaxDurationMS：累计最大耗时，包括首次失败请求和重试请求耗时，如果耗时达到了限制的时间则停止后续的重试</p>
+<p>EERThreshold：重试熔断错误率阈值, 方法级别请求错误率超过阈值则停止重试。</p>
+<p>ChainStop：链路中止, 默认启用。如果上游请求是重试请求，超时后不会重试。</p>
+<p>DDLStop：链路超时中止，该策略是从链路的超时时间判断是否需要重试。</p>
+<p>BackOff：重试等待策略，默认立即重试（<code>NoneBackOff</code>）。可选：固定时长退避 (<code>FixedBackOff</code>)、随机时长退避 (<code>RandomBackOff</code>)。</p>
+<p>RetrySameNode：框架默认选择其他节点重试，若需要同节点重试，可配置为 true。</p>
+<h4 id="backup-request">Backup Request<a hidden class="anchor" aria-hidden="true" href="#backup-request">#</a></h4>
+<p>RetryDelayMS：Backup Request 的等待时间，若该时间内若请求未返回，会发送新的请求。必须手动配置</p>
+<h2 id="健康端点健康模式">健康端点健康模式<a hidden class="anchor" aria-hidden="true" href="#健康端点健康模式">#</a></h2>
+<h3 id="背景与问题">背景与问题<a hidden class="anchor" aria-hidden="true" href="#背景与问题">#</a></h3>
+<p>监控 Web 应用程序、中间层和共享服务是一种很好的做法（通常是业务需求），以确保它们可用并正确执行。</p>
+<h3 id="解决方案-2">解决方案<a hidden class="anchor" aria-hidden="true" href="#解决方案-2">#</a></h3>
+<p>通过向应用程序上的端点发送请求来实施健康监控。应用程序应执行必要的检查，并返回其状态指示。</p>
+<p>健康监控检查通常结合两个因素：应用程序或服务为响应对健康验证端点的请求而执行的检查（如果有），以及执行健康验证检查的工具或框架对结果的分析。响应代码指示应用程序的状态，以及它使用的任何组件或服务（可选）。延迟或响应时间检查由监控工具或框架执行。图 1 显示了该模式的实现概览。</p>
+<h3 id="问题和注意事项-2">问题和注意事项<a hidden class="anchor" aria-hidden="true" href="#问题和注意事项-2">#</a></h3>
+<h3 id="何时使用此模式-2">何时使用此模式<a hidden class="anchor" aria-hidden="true" href="#何时使用此模式-2">#</a></h3>
+<ul>
+<li>监控网站和 Web 应用程序以验证可用性。</li>
+<li>监控网站和 Web 应用程序以检查是否正确运行。</li>
+<li>监控中间层或共享服务以检测和隔离可能中断其他应用程序的故障。</li>
+<li>补充应用程序中的现有工具，例如性能计数器和错误处理程序。健康验证检查不会取代应用程序中的日志记录和审计要求。Instrumentation 可以为监控计数器和错误日志以检测故障或其他问题的现有框架提供有价值的信息。但是，如果应用程序不可用，它就无法提供信息。</li>
+</ul>
+<h2 id="优先队列模式">优先队列模式<a hidden class="anchor" aria-hidden="true" href="#优先队列模式">#</a></h2>
+<h3 id="背景与问题-1">背景与问题<a hidden class="anchor" aria-hidden="true" href="#背景与问题-1">#</a></h3>
+<p>对发送到服务的请求进行优先级排序，以便接收和处理具有较高优先级的请求比那些具有较低优先级的请求更快。这种模式在为各个客户端提供不同服务级别保证的应用程序中很有用。</p>
+<h3 id="解决方案-3">解决方案<a hidden class="anchor" aria-hidden="true" href="#解决方案-3">#</a></h3>
+<p>使用支持消息优先级的排队机制</p>
+<p><img loading="lazy" src="https://docs.microsoft.com/en-us/previous-versions/msp-n-p/images/dn589794.b030a05277c200f2e90d2e8cfa964549%28en-us,pandp.10%29.png" alt=""  />
+</p>
+<p>为每个优先级使用单独的消息队列</p>
+<p><img loading="lazy" src="https://docs.microsoft.com/en-us/previous-versions/msp-n-p/images/dn589794.7125ac4bce90d3e21557b3914217624f%28en-us,pandp.10%29.png" alt=""  />
+</p>
+<p>使用优先级排队机制可以提供以下优势：</p>
+<ul>
+<li>它允许应用程序满足需要优先考虑可用性或性能的业务需求，例如为特定的客户群体提供不同级别的服务。</li>
+<li>它可以帮助最大限度地降低运营成本。在单队列方法中，您可以在必要时缩减消费者数量。高优先级的消息仍将首先处理（尽管可能更慢），而低优先级的消息可能会延迟更长的时间。如果你已经实现了多消息队列方法，每个队列有单独的消费者池，你可以减少低优先级队列的消费者池，甚至通过停止所有监听消息的消费者来暂停一些非常低优先级队列的处理。那些队列。</li>
+<li>多消息队列方法可以通过根据处理要求对消息进行分区来帮助最大化应用程序的性能和可伸缩性。例如，重要任务可以优先由立即运行的接收器处理，而不太重要的后台任务可以由计划在不太繁忙的时段运行的接收器处理。</li>
+</ul>
+<h3 id="问题与注意事项">问题与注意事项<a hidden class="anchor" aria-hidden="true" href="#问题与注意事项">#</a></h3>
+<ul>
+<li>在解决方案的上下文中定义优先级。例如，“高优先级”可能意味着应该在十秒内处理消息。确定处理高优先级项目的要求，以及必须分配哪些其他资源才能满足这些标准。</li>
+<li>决定是否必须先处理所有高优先级项目，然后再处理任何低优先级项目。如果消息正在由单个消费者池处理，则可能需要提供一种机制，该机制可以在更高优先级的消息可用时抢占并暂停正在处理低优先级消息的任务。</li>
+<li>在多队列方法中，当使用单个消费者进程池来侦听所有队列而不是为每个队列使用专用消费者池时，消费者必须应用一种算法，以确保它始终在处理来自较低优先级队列的消息之前为来自较高优先级队列的消息提供服务排队。</li>
+<li>监控高优先级和低优先级队列的处理速度，以确保这些队列中的消息以预期的速率处理。</li>
+<li>如果您需要保证处理低优先级消息，则可能需要实现具有多个消费者池的多消息队列方法。或者，在支持消息优先级的队列中，可能会随着队列消息的老化而动态增加队列消息的优先级。但是，这种方法取决于提供此功能的消息队列。</li>
+<li>为每个消息优先级使用单独的队列最适合具有少量明确定义的优先级的系统。</li>
+<li>消息优先级可以由系统在逻辑上确定。例如，可以将它们指定为“付费客户”或“非付费客户”，而不是具有明确的高优先级和低优先级消息。根据您的业务模型，您的系统可能会分配更多资源来处理来自付费客户的消息，而不是非付费客户。</li>
+<li>检查队列中的消息可能会产生财务和处理成本（一些商业消息传递系统在每次发布或检索消息时以及每次查询队列中的消息时都会收取少量费用）。检查多个队列时，此成本将增加。</li>
+</ul>
+<h3 id="何时使用此模式-3">何时使用此模式<a hidden class="anchor" aria-hidden="true" href="#何时使用此模式-3">#</a></h3>
+<p>此模式非常适合以下场景：</p>
+<ul>
+<li>系统必须处理可能具有不同优先级的多个任务。</li>
+<li>应该以不同的优先级为不同的用户或租户提供服务。</li>
+</ul>
+<h2 id="竞争消费者模式">竞争消费者模式<a hidden class="anchor" aria-hidden="true" href="#竞争消费者模式">#</a></h2>
+<h3 id="背景与问题-2">背景与问题<a hidden class="anchor" aria-hidden="true" href="#背景与问题-2">#</a></h3>
+<p>允许多个并发消费者处理在同一消息传递通道上接收到的消息。这种模式使系统能够同时处理多个消息以优化吞吐量、提高可伸缩性和可用性以及平衡工作负载。</p>
+<p>在云中运行的应用程序可能会处理大量请求。一种常见的技术不是同步处理每个请求，而是让应用程序通过消息传递系统将它们传递给另一个异步处理它们的服务（<em>消费者</em>服务）。此策略有助于确保在处理请求时不会阻塞应用程序中的业务逻辑。</p>
+<h3 id="解决方案-4">解决方案<a hidden class="anchor" aria-hidden="true" href="#解决方案-4">#</a></h3>
+<p><img loading="lazy" src="https://docs.microsoft.com/en-us/previous-versions/msp-n-p/images/dn568101.86e90781340e96aa4881509e565cfa6b%28en-us,pandp.10%29.png" alt=""  />
+</p>
+<p>它启用了一个固有的负载均衡系统</p>
+<p>它提高了可靠性</p>
+<p>它不需要消费者之间或生产者和消费者实例之间的复杂协调。</p>
+<p>它是可扩展的。</p>
+<p>如果消息队列提供事务性读取操作，它可以提高弹性。</p>
+<h3 id="问题与注意事项-1">问题与注意事项<a hidden class="anchor" aria-hidden="true" href="#问题与注意事项-1">#</a></h3>
+<p><strong>留言订购</strong>。消费者服务实例接收消息的顺序无法保证，也不一定反映消息的创建顺序。设计系统以确保消息处理是幂等的，因为这将有助于消除对消息处理顺序的任何依赖。</p>
+<p><strong>设计弹性服务</strong>。如果系统设计用于检测和重新启动失败的服务实例，则可能需要将服务实例执行的处理实现为幂等操作，以最小化单个消息被多次检索和处理的影响。</p>
+<p><strong>检测毒药信息</strong>。格式错误的消息或需要访问不可用资源的任务可能会导致服务实例失败。系统应防止此类消息返回队列，而是捕获这些消息的详细信息并将其存储在其他位置，以便在必要时对其进行分析。</p>
+<p><strong>处理结果</strong>。处理消息的服务实例与生成消息的应用程序逻辑完全解耦，它们可能无法直接通信。如果服务实例生成的结果必须传回应用程序逻辑，则此信息必须存储在双方都可以访问的位置，并且系统必须提供一些处理完成时间的指示，以防止应用程序逻辑检索不完整的数据.</p>
+<p><strong>扩展消息系统</strong>。在大规模解决方案中，单个消息队列可能会被消息数量所淹没，并成为系统的瓶颈。在这种情况下，请考虑对消息系统进行分区以将消息从特定生产者定向到特定队列，或者使用负载平衡将消息分发到多个消息队列。</p>
+<p>**确保消息系统的可靠性。**需要一个可靠的消息传递系统来保证，一旦应用程序将消息加入队列，它就不会丢失。这对于确保所有消息至少传递一次至关重要。</p>
+<h3 id="何时使用此模式-4">何时使用此模式<a hidden class="anchor" aria-hidden="true" href="#何时使用此模式-4">#</a></h3>
+<p>在以下情况下使用此模式：</p>
+<ul>
+<li>应用程序的工作负载分为可以异步运行的任务。</li>
+<li>任务是独立的，可以并行运行。</li>
+<li>工作量变化很大，需要可扩展的解决方案。</li>
+<li>该解决方案必须提供高可用性，并且在任务处理失败时必须具有弹性。</li>
+</ul>
+<p>在以下情况下，此模式可能不适合：</p>
+<ul>
+<li>
+<p>将应用程序工作负载分离成离散的任务并不容易，或者任务之间存在高度依赖关系。</p>
+</li>
+<li>
+<p>任务必须同步执行，应用程序逻辑必须等待任务完成才能继续。</p>
+</li>
+<li>
+<p>任务必须按特定顺序执行。</p>
+<p>一些消息传递系统支持使生产者能够将消息组合在一起并确保它们都由同一个消费者处理的会话。此机制可与优先消息（如果支持）一起使用，以实现一种消息排序形式，将消息按顺序从生产者传递到单个消费者。</p>
+</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://kevinerr.github.io/tags/%E6%A0%87%E7%AD%BE1/">标签1</a></li>
+      <li><a href="https://kevinerr.github.io/tags/%E6%A0%87%E7%AD%BE2/">标签2</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://kevinerr.github.io/posts/tech/wireshark/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>WireShark</span>
+  </a>
+  <a class="next" href="https://kevinerr.github.io/posts/read/%E5%8D%9A%E5%AE%A2%E9%98%85%E8%AF%BB/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>博客阅读</span>
+  </a>
+</nav>
+
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 云设计模式 on twitter"
+        href="https://twitter.com/intent/tweet/?text=%e4%ba%91%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2fread%2f%25E4%25BA%2591%25E8%25AE%25BE%25E8%25AE%25A1%25E6%25A8%25A1%25E5%25BC%258F%2f&amp;hashtags=%e6%a0%87%e7%ad%be1%2c%e6%a0%87%e7%ad%be2">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 云设计模式 on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2fread%2f%25E4%25BA%2591%25E8%25AE%25BE%25E8%25AE%25A1%25E6%25A8%25A1%25E5%25BC%258F%2f&amp;title=%e4%ba%91%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f&amp;summary=%e4%ba%91%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f&amp;source=https%3a%2f%2fkevinerr.github.io%2fposts%2fread%2f%25E4%25BA%2591%25E8%25AE%25BE%25E8%25AE%25A1%25E6%25A8%25A1%25E5%25BC%258F%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 云设计模式 on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fkevinerr.github.io%2fposts%2fread%2f%25E4%25BA%2591%25E8%25AE%25BE%25E8%25AE%25A1%25E6%25A8%25A1%25E5%25BC%258F%2f&title=%e4%ba%91%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 云设计模式 on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fkevinerr.github.io%2fposts%2fread%2f%25E4%25BA%2591%25E8%25AE%25BE%25E8%25AE%25A1%25E6%25A8%25A1%25E5%25BC%258F%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 云设计模式 on whatsapp"
+        href="https://api.whatsapp.com/send?text=%e4%ba%91%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f%20-%20https%3a%2f%2fkevinerr.github.io%2fposts%2fread%2f%25E4%25BA%2591%25E8%25AE%25BE%25E8%25AE%25A1%25E6%25A8%25A1%25E5%25BC%258F%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 云设计模式 on telegram"
+        href="https://telegram.me/share/url?text=%e4%ba%91%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2fread%2f%25E4%25BA%2591%25E8%25AE%25BE%25E8%25AE%25A1%25E6%25A8%25A1%25E5%25BC%258F%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+
+  </footer>
+<div>
+    <div class="pagination__title">
+        <span class="pagination__title-h" style="font-size: 20px;">💬评论</span>
+        <hr />
+    </div>
+    <div id="tcomment"></div>
+    <script src="https://cdn.jsdelivr.net/npm/twikoo@1.5.0/dist/twikoo.all.min.js"></script>
+    <script>
+        twikoo.init({
+            envId: "https://twikoo-two-psi.vercel.app/",  
+            el: "#tcomment",
+            lang: 'zh-CN',
+            region: 'ap-guangzhou',  
+            path: 'window.TWIKOO_MAGIC_PATH||window.location.pathname',
+        });
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://kevinerr.github.io/">hkh&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>TCP on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/tcp/</link>
+    <description>Recent content in TCP on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 18 Jul 2022 10:10:23 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/tcp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TCP</title>
+      <link>https://kevinerr.github.io/posts/tech/tcp/</link>
+      <pubDate>Mon, 18 Jul 2022 10:10:23 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/tcp/</guid>
+      <description>2、TCP/IP 历史与分层模型 目前 TCP/IP 协议可以说是名气最大、使用最广泛的计算机网络，从这篇文章来会讲解 TCP 协议的历史和分层模型。将分以下两个部分</description>
+    </item>
+    
+  </channel>
+</rss>

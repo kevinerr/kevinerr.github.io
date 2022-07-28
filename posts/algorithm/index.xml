@@ -6,7 +6,52 @@
     <description>Recent content in 🌹算法 on hkh&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 04 Apr 2022 21:59:38 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/posts/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 25 Apr 2022 09:36:37 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/posts/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>搜素</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E6%90%9C%E7%B4%A0/</link>
+      <pubDate>Mon, 25 Apr 2022 09:36:37 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E6%90%9C%E7%B4%A0/</guid>
+      <description>顺序搜索 顺序查找又称为线性查找，是一种最简单的查找方法。适用于线性表的顺序存储结构和链式存储结构。该算法的时间复杂度为O(n)。 从第一个元素</description>
+    </item>
+    
+    <item>
+      <title>约瑟夫环</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF/</link>
+      <pubDate>Tue, 19 Apr 2022 21:58:18 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF/</guid>
+      <description>玩游戏 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 #include&amp;lt;bits/stdc++.h&amp;gt;using namespace std; int n,k; int main() { cin&amp;gt;&amp;gt;n&amp;gt;&amp;gt;k; queue&amp;lt;int&amp;gt; q; for(int i =1;i&amp;lt;=n;i++) q.push(i); while(k--){ int a; cin&amp;gt;&amp;gt;a; a%=q.size(); for(int i =1;i&amp;lt;=a;i++){ q.push(q.front()); q.pop(); } cout&amp;lt;&amp;lt;q.front()&amp;lt;&amp;lt;&amp;#34; &amp;#34;; q.pop(); } return 0; } 招聘 1 2 3 4 5 6 7 8 9 10</description>
+    </item>
+    
+    <item>
+      <title>最短路</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E6%9C%80%E7%9F%AD%E8%B7%AF/</link>
+      <pubDate>Sat, 09 Apr 2022 20:02:22 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E6%9C%80%E7%9F%AD%E8%B7%AF/</guid>
+      <description>朴素dijkstra算法 Dijkstra 算法是一个基于「贪心」、「广度优先搜索」、「动态规划」求一个图中一个点到其他所有点的最短路径的算法，时间复杂度 O(n2) 每</description>
+    </item>
+    
+    <item>
+      <title>BFS与DFS</title>
+      <link>https://kevinerr.github.io/posts/algorithm/bfs%E4%B8%8Edfs/</link>
+      <pubDate>Thu, 07 Apr 2022 22:20:18 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/bfs%E4%B8%8Edfs/</guid>
+      <description>树与图的存储 树是一种特殊的图，与图的存储方式相同。 对于无向图中的边ab，存储两条有向边a-&amp;gt;b, b-&amp;gt;a。 因此我们可以只考虑有向</description>
+    </item>
+    
+    <item>
+      <title>并查集</title>
+      <link>https://kevinerr.github.io/posts/algorithm/%E5%B9%B6%E6%9F%A5%E9%9B%86/</link>
+      <pubDate>Wed, 06 Apr 2022 20:44:27 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/%E5%B9%B6%E6%9F%A5%E9%9B%86/</guid>
+      <description>思想 并查集可以理解为一种解决问题的思想，将有关系的元素合并为一个集合。 模板 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33</description>
+    </item>
+    
     <item>
       <title>Trie</title>
       <link>https://kevinerr.github.io/posts/algorithm/trie/</link>

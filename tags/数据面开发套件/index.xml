@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>数据面开发套件 on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/%E6%95%B0%E6%8D%AE%E9%9D%A2%E5%BC%80%E5%8F%91%E5%A5%97%E4%BB%B6/</link>
+    <description>Recent content in 数据面开发套件 on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 22 Apr 2022 13:38:30 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/%E6%95%B0%E6%8D%AE%E9%9D%A2%E5%BC%80%E5%8F%91%E5%A5%97%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dpdk</title>
+      <link>https://kevinerr.github.io/posts/tech/dpdk/</link>
+      <pubDate>Fri, 22 Apr 2022 13:38:30 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/dpdk/</guid>
+      <description>前置知识 网卡(Network Interface Card，简称NIC) https://blog.csdn.net/hellozhxy/article/details/120711251 UIO （Linux Userspace I/O） 作用 作为高并发大流量网络开发框架的DPDK，能够避免内核中断爆</description>
+    </item>
+    
+  </channel>
+</rss>

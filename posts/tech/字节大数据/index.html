@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>字节大数据 | hkh&#39;s Blog</title>
+<meta name="keywords" content="标签1, 标签2" />
+<meta name="description" content="SQL Optimizer 解析 https://bytedance.feishu.cn/file/boxcn9uWBTLWg2a8GIUSRJ0Txqb https://live.juejin.cn/4354/yc_SQL hash join和sort merge join：https://blog.csdn.net/lp284558195/article/detail">
+<meta name="author" content="
+作者:&nbsp;kevin">
+<link rel="canonical" href="https://kevinerr.github.io/posts/tech/%E5%AD%97%E8%8A%82%E5%A4%A7%E6%95%B0%E6%8D%AE/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.7724ad4800b622e9e86a37940cdc71441089d486cd46f35de38fdd833dd93d2f.css" integrity="sha256-dyStSAC2IunoajeUDNxxRBCJ1IbNRvNd44/dgz3ZPS8=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="16x16" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="apple-touch-icon" href="https://kevinerr.github.io/Q.jpg">
+<link rel="mask-icon" href="https://kevinerr.github.io/Q.jpg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.94.2" />
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="字节大数据" />
+<meta property="og:description" content="SQL Optimizer 解析 https://bytedance.feishu.cn/file/boxcn9uWBTLWg2a8GIUSRJ0Txqb https://live.juejin.cn/4354/yc_SQL hash join和sort merge join：https://blog.csdn.net/lp284558195/article/detail" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kevinerr.github.io/posts/tech/%E5%AD%97%E8%8A%82%E5%A4%A7%E6%95%B0%E6%8D%AE/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-24T09:37:17&#43;08:00" />
+<meta property="article:modified_time" content="2022-07-24T09:37:17&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="字节大数据"/>
+<meta name="twitter:description" content="SQL Optimizer 解析 https://bytedance.feishu.cn/file/boxcn9uWBTLWg2a8GIUSRJ0Txqb https://live.juejin.cn/4354/yc_SQL hash join和sort merge join：https://blog.csdn.net/lp284558195/article/detail"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "📚文章",
+      "item": "https://kevinerr.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "👨🏻‍💻技术",
+      "item": "https://kevinerr.github.io/posts/tech/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "字节大数据",
+      "item": "https://kevinerr.github.io/posts/tech/%E5%AD%97%E8%8A%82%E5%A4%A7%E6%95%B0%E6%8D%AE/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "字节大数据",
+  "name": "字节大数据",
+  "description": "SQL Optimizer 解析 https://bytedance.feishu.cn/file/boxcn9uWBTLWg2a8GIUSRJ0Txqb https://live.juejin.cn/4354/yc_SQL hash join和sort merge join：https://blog.csdn.net/lp284558195/article/detail",
+  "keywords": [
+    "标签1", "标签2"
+  ],
+  "articleBody": "SQL Optimizer 解析 https://bytedance.feishu.cn/file/boxcn9uWBTLWg2a8GIUSRJ0Txqb\nhttps://live.juejin.cn/4354/yc_SQL\nhash join和sort merge join：https://blog.csdn.net/lp284558195/article/details/80717219\n大数据体系和SQL SQL 的一生     Parser  把文本变成抽象语法树结构（AST） 涉及词法分析阶段（拆分字符串，提取关键字，字符串，数值等）和语法分析阶段（把词条按照定义的语法规则组装成抽象语法树结构） 和编译原理课程里的“前端”知识相关   Analyzer  访问库/表元信息并绑定 判断 SQL 是否合理，比如数据库，表和列名是否存在，列的数据类型是否正确 将 AST 转换成逻辑计划树（在某些系统中这个工作由一个 Converter 完成）      逻辑计划树\n 所谓逻辑计划树，可以理解为逻辑地描述一个 SQL 如何一步步地执行查询和计算，最终得到执行结果的一个分步骤地计划。树中每个节点是是一个算子，定义了对数据集合的计算操作（过滤，排序，聚合，连接），边代表了数据的流向，从孩子节点流向父节点。之所以称它为逻辑的，是因为算子定义的是逻辑的计算操作，没有指定实际的算法，比如对于逻辑的排序算子，逻辑计划树里没有指定使用快排还是堆排。    查询优化\n SQL 是一种声明式语言，用户只描述做什么，没有告诉数据库怎么做 查询优化的目标是为 SQL 找到一个正确的且执行代价最小的执行计划 查询优化器是数据库的大脑，最复杂的模块，很多相关问题都是 NP 的 一般 SQL 越复杂，Join 的表越多，数据量越大，查询优化的意义就越大，因为不同执行方式的性能差别可能有成百上千倍  类比 gcc/g++ 编译程序时的编译级别（-O1, -O2, -O3），经过编译优化的程序运行效率更高      物理执行计划\n 优化器的输出是一个分布式的物理执行计划。 分布式物理执行计划的目标是在单机 Plan 的基础上最小化数据移动和最大化本地 Scan，生成 PlanFragment 树。 一个 PlanFragment 封装了在一台机器上对数据集的操作逻辑。每个 PlanFragment 可以在每个 executor 节点生成 1 个或多个执行实例，不同执行实例处理不同的数据集，通过并发来提升查询性能。 Plan 分布式化的方法是增加 shuffle 算子，执行计划树会以 shuffle 算子为边界拆分为PlanFragment。    Executor\n Executor 按照物理执行计划扫描和处理数据，充分利用机器资源（CPU 流水线，乱序执行，cache，SIMD）    常见的查询优化器 RBO Rule-based Optimizer\n 基于关系代数等价规则对逻辑计划进行变换 实现上：  Pattern：定义了特定结构的 Operator 子树（结构） Rule：定义了如何将其匹配的节点替换（Substitute）为新形态，从而生成新的、等价的Operator 树（原地替换） 优化器搜索过程被抽象为不断匹配 Pattern 然后应用 Rule 转换，直到没有可以匹配的 rule   局限性：  无法解决多表连接问题 无法确定和选择最优的分布式 Join/Aggregate 执行方式    列裁剪 scan时只扫描select选中的列\n谓词下推 如有where条件，在scan时就过滤掉\n传递闭包 如有jion on条件，可将一个表的where scan 传递给另一个表的 where scan\nRuntime Filter（min-max filter，in-list filter，bloom filter） jion前2个表都有filter，可将一个表filter后的一些索引特性在运行时传递给另一个表，这是另一个表进行filter时就可以减少很大一部分数据\nJoin 消除 谓词合并 小结 主流RBO实现一般都有几百条基于经验归纳得到的优化规则\n实现简单，优化速度块，但不能保证最优的执行计划\nCBO Cost-based Optimizer\n过程 使用一个模型估算执行计划的代价，选择代价最小的执行计划\n分而治之，执行计划的代价等于所有算子的执行代价之和\n通过 RBO 得到（所有）可能的等价执行计划（非原地替换）\n算子代价包含 CPU，cache misses，memory，disk I/O，network I/O 等代价\n 和算子的统计信息有关，比如输入、输出结果的行数，每行大小等 叶子算子 scan：通过统计原始表数据得到  中间算子：根据一定的推导规则，从下层算子的统计信息推导得到 和具体的算子类型，以及算子的物理实现有关（e.g. hash join vs. sort join）    使用动态规划枚举所有执行计划，选出执行代价最小的执行计划\n统计信息  基表统计信息  表或者分区级别：行数、行平均大小、表在磁盘中占用了多少字节等 列级别：min、max、num nulls、num、not nulls、num、distinct value(NDV)、histogram 等   推导统计信息  选择率（selectivity） ：对于某一个过滤条件，查询会从表中返回多大比例的数据 基数（cardinality） ：基本含义是表的 unique 行数，在查询计划中常指算子需要处理的行数    统计信息的收集方式 三种\n统计信息推导规则 统计信息的问题 小结 CBO使用代价模型和统计信息估算执行计划的代价\nCBO使用贪心或者动态规划算法寻求最优执行计划\n社区开源实践 Apache Calcite 主流的查询优化器都包含RBO/CBO\nApache Calcite是大数据领域很流行的查询优化器\nApache Calcite RBO定义了很多优化规则，使用pattern匹配子树，执行等价变换\nApache Calcite CBO基于Volcano/Cascade 框架\nVolcano/Cascade的精髓Memo、动态规划、剪枝\n前沿趋势 存储计算分离\nHSAP, HTAP, HTSAP\nCloud Native, Serverless\n数据仓库，数据湖，湖仓一体，联邦查询\n智能化\n AI4DB  自配置：智能调参（OtterTune，QTune）、负载预测、负载调度 自诊断和自愈合：软硬件错误、错误恢复和迁移 自优化：统计信息估计（ Learned cardinalities ）、代价估计、学习型优化器（IBM DB2 LEO），索引推荐，视图推荐   DB4AI  内嵌人工智能算法（MLSQL，SQLFlow） 内嵌机器学习框架（SparkML， Alink， dl-on-flink ）    流/批/OLAP 一体的 Flink 引擎介绍 https://bytedance.feishu.cn/file/boxcni8teJOjd4vUsgxn8rL0ylc\nhttps://live.juejin.cn/4354/yc_OLAP\nApache Flink 概述 批处理 所谓 批处理 是指把一项数据处理任务先分解成更小粒度的任务，把这些任务分布在集群中的各台实例上进行计算，之后把各实例上的计算结果重新计算和组合成最终结果。批处理系统通常会操作大量的静态的数据，并等到这些数据全部处理完成后才能得到返回的结果。\n批处理方式使用的数据集通常有以下特征：\n 有界：批处理数据集代表数据的有限集合 持久：数据通常始终存储在某种类型的持久存储位置中 大量：批处理操作通常是处理极为海量数据集的唯一方法  流处理 流处理 方式会随时对进入系统的数据进行实时的计算，这种模式不需要针对整个数据集执行操作，而是对通过系统传输的每个数据项执行操作。流处理中的数据集是 无边界 的，这就产生了几个重要的影响：\n 完整数据集只能代表截至目前已经进入到系统中的数据总量。 工作数据集也许更相关，在特定时间只能代表某个单一数据项。 处理工作是基于事件的，除非明确停止否则没有“尽头”。处理结果立刻可用，并会随着新数据的抵达继续更新。  混合处理 在大数据处理技术中流派中，除了单纯的批处理和流处理模式之外，还有一些处理框架既可以进行批处理也可以进行流处理，我们称之为混合处理框架。虽然专注于一种处理方式可能非常适合特定场景，但是混合框架为数据处理提供了通用的解决方案。这些框架可以用相同或相关的组件和 API 处理两种类型的数据，借此让不同的处理需求得以简化。混合处理框架中目前比较著名的就是 Spark 和 Flink 。\n为什么 Flink 会脱颖而出 完全一次保证：故障后应正确恢复有状态运算符中的状态；\n低延迟：越低越好。许多应用程序需要亚秒级延迟；\n高吞吐量：随着数据速率的增长，通过管道推送大量数据至关重要；\n强大的计算模型：框架应该提供一种编程模型，该模型不限制用户并允许各种各样的应用程序在没有故障的情况下，容错机制的开销很低；\n流量控制：来自慢速算子的反压应该由系统和数据源自然吸收，以避免因消费者缓慢而导致崩溃或降低性能；\n乱序数据的支持：支持由于其他原因导致的数据乱序达到、延迟到达后，计算出正确的结果；\n完备的流式语义：支持窗口等现代流式处理语义抽象；\nGoogle Dataflow Model 的开源引擎实现。\nApache Flink 开源生态 Apache Flink 在开源生态上的能力比较强大，可以支持：\n流批一体：支持流式计算和批式计算；\nOLAP：Flink 可以支持 OLAP 这种短查询场景；\nFlink ML：pyFlink、ALink、AIFlow 等生态支持 Flink 在 ML 场景的应用；\nGelly：图计算；\nStateful Function：支持有状态的 FAAS 场景；\nFlink 整体架构 Flink 分层架构   SDK 层：Flink’s APIs Overview；\n  执行引擎层（Runtime 层）：执行引擎层提供了统一的 DAG，用来描述数据处理的 Pipeline，不管是流还是批，都会转化为 DAG 图，调度层再把 DAG 转化成分布式环境下的 Task，Task 之间通过 Shuffle 传输数据；\n 调度：Jobs and Scheduling； Task 生命周期：Task Lifecycle； Flink Failover 机制：Task Failure Recovery； Flink 反压概念及监控：Monitoring Back Pressure； Flink HA 机制：Flink HA Overview；    状态存储层：负责存储算子的状态信息\n  Flink 整体架构   JobManager（JM）负责整个任务的协调工作，包括：调度 task、触发协调 Task 做 Checkpoint、协调容错恢复等，核心有下面三个组件：\n Dispatcher: 接收作业，拉起 JobManager 来执行作业，并在 JobMaster 挂掉之后恢复作业； JobMaster: 管理一个 job 的整个生命周期，会向 ResourceManager 申请 slot，并将 task 调度到对应 TM 上； ResourceManager：负责 slot 资源的管理和调度，Task manager 拉起之后会向 RM 注册；    TaskManager（TM）：负责执行一个 DataFlow Graph 的各个 task 以及 data streams 的 buffer 和数据交换。\n  Flink 如何做到流批一体 批式计算是流式计算的特例，Everything is Streams，有界数据集（批式数据）也是一种数据流、一种特殊的数据流；\n站在 Flink 的角度，Everything is Streams，无边界数据集是一种数据流，一个无边界的数据流可以按时间切段成一个个有边界的数据集，所以有界数据集（批式数据）也是一种数据流。因此，不管是有边界的数据集（批式数据）还是无边界数据集，Flink 都可以天然地支持，这是 Flink 支持流批一体的基础。并且 Flink 在流批一体上，从上面的 API 到底层的处理机制都是统一的，是真正意义上的流批一体。\nApache Flink 主要从以下几个模块来做流批一体：\n SQL 层； DataStream API 层统一，批和流都可以使用 DataStream API 来开发； Scheduler 层架构统一，支持流批场景； Failover Recovery 层 架构统一，支持流批场景； Shuffle Service 层架构统一，流批场景选择不同的 Shuffle Service；  Flink 架构优化 Flink 如何支持 OLAP 场景 Flink 做 OLAP 的优势\n 统一引擎：流处理、批处理、OLAP 统一使用 Flink 引擎；  降低学习成本，仅需要学习一个引擎； 提高开发效率，很多 SQL 是流批通用； 提高维护效率，可以更集中维护好一个引擎；   既有优势：利用 Flink 已有的很多特性，使 OLAP 使用场景更为广泛；  使用流处理的内存计算、Pipeline； 支持代码动态生成； 也可以支持批处理数据落盘能力；   相互增强：OLAP 能享有现有引擎的优势，同时也能增强引擎能力  无统计信息场景的优化； 开发更高效的算子； 使 Flink 同时兼备流、批、OLAP 处理的能力，成为更通用的框架。    Flink OLAP 场景的挑战\n  秒级和毫秒级的小作业；\n  作业频繁启停、资源碎片；\n Flink OLAP 计算相比流式和批式计算，最大的特点是 Flink OLAP 计算是一个面向秒级和毫秒级的小作业，作业在启动过程中会频繁申请内存、网络以及磁盘资源，导致 Flink 集群内产生大量的资源碎片；    Latency + 高 APS 要求；\n OLAP 最大的特点是查询作业对 Latency 和 QPS 有要求的，需要保证作业在 Latency 的前提下提供比较高的并发调度和执行能力，这就对 Flink 引擎提出了一个新的要求。    Flink OLAP 架构现状\n Client：提交 SQL Query； Gateway：接收 Client 提交的 SQL Query，对 SQL 进行语法解析和查询优化，生成 Flink 作业执行计划，提交给 Session 集群； Session Cluster：执行作业调度及计算，并返回结果。  JobManager 管理作业的执行，在接收到 Gateway 提交过来的作业逻辑执行计划后，将逻辑执行计划转换为物理执行计划，为每个物理计算任务分配资源，将每个计算任务分发给不同的 TaskManager 执行，同时管理作业以及每个计算任务执行状态； TaskManager执行具体的计算任务，采用线程模型，为每个计算任务创建计算线程，根据计算任务的上下游数据依赖关系跟上游计算任务建立/复用网络连接，向上游计算任务发送数据请求，并处理上游分发给它的数据。      Flink 在 OLAP 架构上的问题与设想\n 架构与功能模块：  JobManager 与 ResourceManager 在一个进程内启动，无法对JobManager 进行水平扩展； Gateway 与 Flink Session Cluster 互相独立，无法进行统一管理；   作业管理及部署模块：  JobManager 处理和调度作业时，负责的功能比较多，导致单作业处理时间长、并占用了过多的内存； TaskManager 部署计算任务时，任务初始化部分耗时验证，消耗大量 CPU；   资源管理及计算任务调度：  资源申请及资源释放流程链路过长； Slot 作为资源管理单元，JM 管理 slot 资源，导致 JM 无法感知到 TM 维度的资源分布，使得资源管理完全依赖于 ResourceManager；   其他：  作业心跳与 Failover 机制，并不合适 AP 这种秒级或毫秒级计算场景； AP 目前使用 Batch 算子进行计算，这些算子初始化比较耗时；    精选案例讲解 Exactly Once 语义在 Flink 中的实现 https://bytedance.feishu.cn/file/boxcnFPburXr95rMNel1SHOvISg\nhttps://live.juejin.cn/4354/yc_Once\n数据流和动态表   如何在实时数据流中定义 SQL 语义中的表？\n 动态表 ： 随时间不断变化的表，在任意时刻，可以像查询静态批处理表一样查询它们    实时流的查询特点？\n 查询从不终止 查询结果会不断更新，并且会产生一个新的动态表 结果的动态表也可转换成输出的实时流    动态表到实时流的转换\n Append-only Stream: Append-only 流（只有 INSERT 消息） Retract Stream: Retract 流（同时包含 INSERT 消息和 DELETE 消息） Upsert Stream:: Upsert 流（同时包含 UPSERT 消息和 DELETE 消息）    算子状态\n在流式计算中，会存在有状态的计算逻辑（算子）\n比如，需要计算某个用户在网上的点击量，该用户在网站当前的总点击次数就是算子状态，对于新的输入数据，先判断是否是该用户的点击行为，如果是，则将保留的点击次数（状态）增加一，并将当前累加结果输出。\nExactly-Once 和 Checkpoint 一致性保证语义   At-most-once：每条数据消费至多一次，处理延迟低\n  At-least-once：每条数据消费至少一次，一条数据可能存在重复消费\n  Exactly-once：每条数据都被消费且仅被消费一次，仿佛故障从未发生\n  端到端 Exactly-Once 实现 Chandy-Lamport算法 解耦了快照制作和数据处理过程，各个算子制作完成状态快照后就可以正常处理数据，不用等下游算子制作制作完成快照； 在快照制作和 Barrier Alignment 过程中需要暂停处理数据，仍然会增加数据处理延迟； 快照保存到远端也有可能极为耗时。\nCheckpoint 能保证每条数据都对各个有状态的算子更新一次，sink 输出算子仍然可能下发重复的数据； 严格意义的端到端的 Exactly-once 语义需要特殊的 sink 算子实现。\n两阶段提交协议（2PC）   Coordinator：协作者，同步和协调所有节点处理逻辑的中心节点\n  Participant：参与者，被中心节点调度的其他执行处理逻辑的业务节点\n  事务开启：在 sink task 向下游写数据之前，均会开启一个事务，后续所有写数据的操作均在这个事务中执行，事务未提交前，事务写入的数据下游不可读； 预提交阶段：JobManager 开始下发 Checkpoint Barrier，当各个处理逻辑接收到 barrier 后停止处理后续数据，对当前状态制作快照，此时 sink 也不在当前事务下继续处理数据（处理后续的数据需要新打开下一个事务）。状态制作成功则向 JM 成功的消息，失败则发送失败的消息； 提交阶段：若 JM 收到所有预提交成功的消息，则向所有处理逻辑（包括 sink）发送可以提交此次事务的消息，sink 接收到此消息后，则完成此次事务的提交，此时下游可以读到这次事务写入的数据；若 JM 有收到预提交失败的消息，则通知所有处理逻辑回滚这次事务的操作，此时 sink 则丢弃这次事务提交的数据下。\nFlink 案例讲解 流式计算中的 Window 计算 https://zhuanlan.zhihu.com/p/102484347\nhttps://bytedance.feishu.cn/file/boxcn5expS9gYOnxpZUBayXPwVg\nhttps://live.juejin.cn/4354/yc_Window\nWatermark Watermark定义：当前系统认为的事件时间所在的真实时间。\n简单来说 Watermark 是一个时间戳，表示已经收集完毕的数据的最大 event time，换句话说 event time 小于 Watermark 的数据不应该再出现，基于这个前提我们才有可能将 event time 窗口视为完整并输出结果。\n  怎么观察一个任务中的watermark是多少，是否是正常的\n 一般通过Flink Web UI上的信息来观察当前任务的watermark情况 这个问题是生产实践中最容易遇到的问题，大家在开发事件时间的窗口任务的时候，经常会忘记了设置watermark，或者数据太少，watermark没有及时的更新，导致窗口一直不能触发。    如果有部分partition/subtask会断流，应该如何处理\n 数据断流是很常见的问题，有时候是业务数据本身就有这种特点，比如白天有数据，晚上没有数据。在这种情况下，watermark默认是不会更新的，因为它要取上游subtask发来的watermark中的最小值。此时我们可以用一种IDLE状态来标记这种subtask，被标记为这种状态的subtask，我们在计算watermark的时候，可以把它先排除在外。这样就可以保证有部分partition断流的时候，watermark仍然可以继续更新。    算子对于时间晚于watermark的数据的处理\n 对于迟到数据，不同的算子对于这种情况的处理可以有不同的实现（主要是根据算子本身的语义来决定的） 比如window对于迟到的数据，默认就是丢弃；比如双流join，对于迟到数据，可以认为是无法与之前正常数据join上。    Window TUMBLE Window （滚动窗口） HOP Window （滑动窗口） SESSION Window （会话窗口） 迟到数据处理 根据上面说到的watermark原理，watermark驱动某个窗口触发输出之后，这个窗口如果后面又来了数据，那这种情况就属于是迟到的数据了。（注意，不是数据的时间晚于watermark就算是迟到，而是它所属的窗口已经被触发了，才算迟到）。\n对于迟到的数据，我们现在有两种处理方式：\n  使用side output方式，把迟到的数据转变成一个单独的流，再由用户自己来决定如何处理这部分数据\n  直接drop掉\n  注意：side output只有在DataStream的窗口中才可以用，在SQL中目前还没有这种语义，所以暂时只有drop这一个策略。\n增量计算 VS 全量计算   增量计算：每条数据到来后，直接参与计算（但是还不需要输出结果）\n  全量计算：每条数据到来后，先放到一个buffer中，这个buffer会存储到状态里，直到窗口触发输出的时候，才把所有数据拿出来统一进行计算\n  EMIT触发 正常的窗口都是窗口结束的时候才会进行输出,EMIT触发就是在这种情况下，可以提前把窗口内容输出出来的一种机制。比如我们可以配置一个1天的窗口，每隔5s输出一次它的最新结果，那这样下游就可以更快的获取到窗口计算的结果了。\n这种emit的场景就是一个典型的retract的场景，发送的结果类似于+[1], -[1], +[2], -[2], +[4]这样子。这样才能保证window的输出的最终结果是符合语义的。\nWindow Offset 滑动窗口的时间戳是按照unix timestamp来算的。比如我们要用一个一周的窗口，想要的是从周一开始，到周日结束，但是按照上面这种方式计算出来的窗口的话，就是从周四开始的\nWindow 高级优化 Mini-batch 赞一小批数据再进行计算，这批数据每个key的state访问只有一次，这样在单个key的数据比较集中的情况下，对于状态访问可以有效的降低频率，最终提升性能。\nLocal-global 所谓的local-global，就是将原本的聚合划分成两阶段，第一阶段先做一个local的聚合，这个阶段不需要数据shuffle，是直接跟在上游算子之后进行处理的；第二个阶段是要对第一个阶段的结果做一个merge\nDistinct状态复用 对于distinct的优化，一般批里面的引擎都是通过把它优化成aggregate的方式来处理，但是在流式window中，我们不能直接这样进行优化，要不然算子就变成会下发retract的数据了。\n滑动窗口pane复用 将窗口的状态划分成更小粒度的pane，比如上面3小时窗口、1小时滑动的情况，可以把pane设置为1h，这样每来一条数据，我们就只更新这条数据对应的pane的结果就可以了。当窗口需要输出结果的时候，只需要将这个窗口对应的pane的结果merge起来就可以了。\nSpark 原理与实践 https://www.bilibili.com/video/BV11A411L7CK\nhttps://zhuanlan.zhihu.com/p/34436165\nhttps://bytedance.feishu.cn/file/boxcnvEmKZp3gR3Q1swBBrrxDJb\nhttps://live.juejin.cn/4354/yc_Spark\n大数据处理引擎Spark介绍 Spark下载编译 1、官网download\n2、查看运行是需要的依赖、参数配置等等\n1  tree . -L 1   3、查看客户端的命令\n1  tree ./bin -L 1   Spark运行架构和工作原理 Spark生态组件：\n  Spark Core：Spark核心组件，它实现了Spark的基本功能，包含任务调度、内存管理、错误恢复、与存储系统交互等模块。\n  Spark SQL：用来操作结构化数据的核心组件，通过Spark SQL可以直接查询Hive、HBase等多种外部数据源中的数据。\n  Spark Structured Streaming：Spark提供的流式计算框架，支持高吞吐量、可容错处理的实时流式数据处理。\n  MLlib：Spark提供的关于机器学习功能的算法程序库，包括分类、回归、聚类、协同过滤算法等，还提供了模型评估、数据导入等额外的功能。\n  GraphX：Spark提供的分布式图处理框架，拥有对图计算和图挖掘算法的API接口以及丰富的功能和运算符。\n  独立调度器、Yarn、Mesos、Kubernetes：Spark框架可以高效地在一个到数千个节点之间伸缩计算，集群管理器则主要负责各个节点的资源管理工作，为了实现这样的要求，同时获得最大灵活性，Spark支持在各种集群管理器（Cluster Manager）上运行。\n  Spark 运行架构和工作原理：\n  Application（应用）：Spark上运行的应用。Application中包含了一个驱动器（Driver）进程和集群上的多个执行器（Executor）进程。\n  Driver Program（驱动器）：运行main()方法并创建SparkContext的进程。\n  Cluster Manager（集群管理器）：用于在集群上申请资源的外部服务（如：独立部署的集群管理器、Mesos或者Yarn）。\n  Worker Node（工作节点）：集群上运行应用程序代码的任意一个节点。\n  Executor（执行器）：在集群工作节点上为某个应用启动的工作进程，该进程负责运行计算任务，并为应用程序存储数据。\n  Task（任务）：执行器的工作单元。\n  Job（作业）：一个并行计算作业，由一组任务（Task）组成，并由Spark的行动（Action）算子（如：save、collect）触发启动。\n  Stage（阶段）：每个Job可以划分为更小的Task集合，每组任务被称为Stage。\n  Spark目前支持几个集群管理器：\n  Standalone ：Spark 附带的简单集群管理器，可以轻松设置集群。\n  Apache Mesos：通用集群管理器，也可以运行 Hadoop MapReduce 和服务应用程序。（已弃用）\n  Hadoop YARN： Hadoop 2 和 3 中的资源管理器。\n  Kubernetes：用于自动部署、扩展和管理容器化应用程序的开源系统。\n  SparkCore RDD(Resilient Distributed Dataset)：弹性分布式数据集，是一个容错的、并行的数据结构\nRDD算子：对任何函数进行某一项操作都可以认为是一个算子，RDD算子是RDD的成员函数\nTransform(转换)算子: 根据已有RDD创建新的RDD\nAction(动作)算子: 将在数据集上运行计算后的数值返回到驱动程序，从而触发真正的计算\nDAG(Directed Acyclic Graph): 有向无环图，Spark中的RDD通过一系列的转换算子操作和行动算子操作形成了一个DAG\nDAGScheduler：将作业的DAG划分成不同的Stage，每个Stage都是TaskSet任务集合，并以TaskSet为单位提交给TaskScheduler。\nTaskScheduler：通过TaskSetManager管理Task，并通过集群中的资源管理器（Standalone模式下是Master，Yarn模式下是ResourceManager）把Task发给集群中Worker的Executor\nShuffle：Spark中数据重分发的一种机制。\nSparkSQL DataFrame： 是一种以RDD为基础的分布式数据集， 被称为SchemaRDD\nCatalyst：SparkSQL核心模块，主要是对执行过程中的执行计划进行处理和优化\nDataSource：Spark\u0008SQL支持通过 DataFrame 接口对各种数据源进行操作。\nAdaptive Query Execution：自适应查询执行\nRuntime Filter：运行时过滤\nCodegen：生成程序代码的技术或系统，可以在运行时环境中独立于生成器系统使用\nSparkSql执行过程：\n  Unresolved Logical Plan：未解析的逻辑计划，仅仅是数据结构，不包含任何数据信息。\n  Logical Plan：解析后的逻辑计划，节点中绑定了各种优化信息。\n  Optimized Logical Plan：优化后的逻辑计划\n  Physical Plans：物理计划列表\n  Selected Physical Plan 从列表中按照一定的策略选取最优的物理计划\n  业界挑战与实践 向量化(vectorization)：将循环转换为向量操作的编译器优化\n代码生成(Codegen：Code generation)：生成程序代码的技术或系统，可以在运行时环境中独立于生成器系统使用\n大数据 Shuffle 原理与实践 https://bytedance.feishu.cn/file/boxcnQaV9uaxTp4xF0d1vEK5W3c\nhttps://live.juejin.cn/4354/yc_Shuffle\nshuffle概述 https://www.cnblogs.com/lintong-zf/p/14231356.html\n所谓shuffle就是指把数据打乱重新组合。指数据从map task输出到reduce task输入的这段过程。\nMapreduce  map阶段：在单机上进行的针对一小块数据的计算 shuffle阶段：在map阶段的基础上，进行数据移动 reduce阶段：对移动后的数据进行处理，依然是在单机上处理一小份数据  为什么shuffle如此重要  数据shuffle表示了不同分区数据交换的过程，不同的shuffle策略性能差异较大。目前在各个引擎中shuffle都是优化的重点，在spark框架中，shuffle是支撑spark进行大规模复杂数据处理的基石。  shuffle算子 常见的触发shuffle的算子\n  repartition\n coalesce、repartition  重分区一般会shuffle，因为需要在整个集群中，对之前所有的分区的数据进行随机，均匀的打乱，然后把数据放入下游新的指定数量的分区内。\n  ByKey\n groupByKey、reduceByKey、aggregateByKey、combineByKey、sortByKeysortBy  byKey类的操作要对一个key，进行聚合操作，那么肯定要保证集群中，所有节点上的相同的key，移动到同一个节点上进行处理。\n  Join\n cogroup、join  两个rdd进行join，就必须将相同join key的数据，shuffle到同一个节点上，然后进行相同key的两个rdd数据的笛卡尔乘积。\n  shuffle过程 HashShuffle\n 优点：不需要排序 缺点：打开，创建的文件过多  SortShuffle\n 优点：打开的文件少、支持map-side combine 缺点：需要排序  TungstenSortShuffle\n 优点：更快的排序效率，更高的内存利用效率 缺点：不支持map-side combine  push shuffle ",
+  "wordCount" : "10481",
+  "inLanguage": "en",
+  "datePublished": "2022-07-24T09:37:17+08:00",
+  "dateModified": "2022-07-24T09:37:17+08:00",
+  "author":[{
+    "@type": "Person",
+    "name": "kevin"
+  }],
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kevinerr.github.io/posts/tech/%E5%AD%97%E8%8A%82%E5%A4%A7%E6%95%B0%E6%8D%AE/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "hkh's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kevinerr.github.io/img/Q.jpg"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://kevinerr.github.io/" accesskey="h" title="hkh&#39;s Blog (Alt + H)">hkh&#39;s Blog</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://kevinerr.github.io/search" title="🔍搜索 (Alt &#43; /)" accesskey=/>
+                    <span>🔍搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/posts" title="📚文章">
+                    <span>📚文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/archives" title="⏱时间轴">
+                    <span>⏱时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/tags" title="🔖标签">
+                    <span>🔖标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/about" title="🙋🏻‍♂️关于">
+                    <span>🙋🏻‍♂️关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/links" title="🤝友链">
+                    <span>🤝友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://kevinerr.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://kevinerr.github.io/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://kevinerr.github.io/posts/tech/">👨🏻‍💻技术</a></div>
+    <h1 class="post-title">
+      字节大数据
+    </h1>
+    <div class="post-meta">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2022-07-24 09:37:17 +0800 CST'>2022-07-24</span>&nbsp;|&nbsp;更新:&nbsp;2022-07-24&nbsp;|&nbsp;字数:&nbsp;10481字&nbsp;|&nbsp;时长: 21分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">Table of Contents</span>
+            </summary>
+
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#sql-optimizer-%e8%a7%a3%e6%9e%90" aria-label="SQL Optimizer 解析">SQL Optimizer 解析</a><ul>
+                            
+                    <li>
+                        <a href="#%e5%a4%a7%e6%95%b0%e6%8d%ae%e4%bd%93%e7%b3%bb%e5%92%8csql" aria-label="大数据体系和SQL">大数据体系和SQL</a><ul>
+                            
+                    <li>
+                        <a href="#sql-%e7%9a%84%e4%b8%80%e7%94%9f" aria-label="SQL 的一生">SQL 的一生</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e5%b8%b8%e8%a7%81%e7%9a%84%e6%9f%a5%e8%af%a2%e4%bc%98%e5%8c%96%e5%99%a8" aria-label="常见的查询优化器">常见的查询优化器</a><ul>
+                            
+                    <li>
+                        <a href="#rbo" aria-label="RBO">RBO</a><ul>
+                            
+                    <li>
+                        <a href="#%e5%88%97%e8%a3%81%e5%89%aa" aria-label="列裁剪">列裁剪</a></li>
+                    <li>
+                        <a href="#%e8%b0%93%e8%af%8d%e4%b8%8b%e6%8e%a8" aria-label="谓词下推">谓词下推</a></li>
+                    <li>
+                        <a href="#%e4%bc%a0%e9%80%92%e9%97%ad%e5%8c%85" aria-label="传递闭包">传递闭包</a></li>
+                    <li>
+                        <a href="#runtime-filtermin-max-filterin-list-filterbloom-filter" aria-label="Runtime Filter（min-max filter，in-list filter，bloom filter）">Runtime Filter（min-max filter，in-list filter，bloom filter）</a></li>
+                    <li>
+                        <a href="#join-%e6%b6%88%e9%99%a4" aria-label="Join 消除">Join 消除</a></li>
+                    <li>
+                        <a href="#%e8%b0%93%e8%af%8d%e5%90%88%e5%b9%b6" aria-label="谓词合并">谓词合并</a></li>
+                    <li>
+                        <a href="#%e5%b0%8f%e7%bb%93" aria-label="小结">小结</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#cbo" aria-label="CBO">CBO</a><ul>
+                            
+                    <li>
+                        <a href="#%e8%bf%87%e7%a8%8b" aria-label="过程">过程</a></li>
+                    <li>
+                        <a href="#%e7%bb%9f%e8%ae%a1%e4%bf%a1%e6%81%af" aria-label="统计信息">统计信息</a></li>
+                    <li>
+                        <a href="#%e7%bb%9f%e8%ae%a1%e4%bf%a1%e6%81%af%e7%9a%84%e6%94%b6%e9%9b%86%e6%96%b9%e5%bc%8f" aria-label="统计信息的收集方式">统计信息的收集方式</a></li>
+                    <li>
+                        <a href="#%e7%bb%9f%e8%ae%a1%e4%bf%a1%e6%81%af%e6%8e%a8%e5%af%bc%e8%a7%84%e5%88%99" aria-label="统计信息推导规则">统计信息推导规则</a></li>
+                    <li>
+                        <a href="#%e7%bb%9f%e8%ae%a1%e4%bf%a1%e6%81%af%e7%9a%84%e9%97%ae%e9%a2%98" aria-label="统计信息的问题">统计信息的问题</a></li>
+                    <li>
+                        <a href="#%e5%b0%8f%e7%bb%93-1" aria-label="小结">小结</a></li></ul>
+                    </li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e7%a4%be%e5%8c%ba%e5%bc%80%e6%ba%90%e5%ae%9e%e8%b7%b5" aria-label="社区开源实践">社区开源实践</a><ul>
+                            
+                    <li>
+                        <a href="#apache-calcite" aria-label="Apache Calcite">Apache Calcite</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e5%89%8d%e6%b2%bf%e8%b6%8b%e5%8a%bf" aria-label="前沿趋势">前沿趋势</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e6%b5%81%e6%89%b9olap-%e4%b8%80%e4%bd%93%e7%9a%84-flink-%e5%bc%95%e6%93%8e%e4%bb%8b%e7%bb%8d" aria-label="流/批/OLAP 一体的 Flink 引擎介绍">流/批/OLAP 一体的 Flink 引擎介绍</a><ul>
+                            
+                    <li>
+                        <a href="#apache-flink-%e6%a6%82%e8%bf%b0" aria-label="Apache Flink 概述">Apache Flink 概述</a><ul>
+                            
+                    <li>
+                        <a href="#%e6%89%b9%e5%a4%84%e7%90%86" aria-label="批处理">批处理</a></li>
+                    <li>
+                        <a href="#%e6%b5%81%e5%a4%84%e7%90%86" aria-label="流处理">流处理</a></li>
+                    <li>
+                        <a href="#%e6%b7%b7%e5%90%88%e5%a4%84%e7%90%86" aria-label="混合处理">混合处理</a></li>
+                    <li>
+                        <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88-flink-%e4%bc%9a%e8%84%b1%e9%a2%96%e8%80%8c%e5%87%ba" aria-label="为什么 Flink 会脱颖而出">为什么 Flink 会脱颖而出</a></li>
+                    <li>
+                        <a href="#apache-flink-%e5%bc%80%e6%ba%90%e7%94%9f%e6%80%81" aria-label="Apache Flink 开源生态">Apache Flink 开源生态</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#flink-%e6%95%b4%e4%bd%93%e6%9e%b6%e6%9e%84" aria-label="Flink 整体架构">Flink 整体架构</a><ul>
+                            
+                    <li>
+                        <a href="#flink-%e5%88%86%e5%b1%82%e6%9e%b6%e6%9e%84" aria-label="Flink 分层架构">Flink 分层架构</a></li>
+                    <li>
+                        <a href="#flink-%e6%95%b4%e4%bd%93%e6%9e%b6%e6%9e%84-1" aria-label="Flink 整体架构">Flink 整体架构</a></li>
+                    <li>
+                        <a href="#flink-%e5%a6%82%e4%bd%95%e5%81%9a%e5%88%b0%e6%b5%81%e6%89%b9%e4%b8%80%e4%bd%93" aria-label="Flink 如何做到流批一体">Flink 如何做到流批一体</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#flink-%e6%9e%b6%e6%9e%84%e4%bc%98%e5%8c%96" aria-label="Flink 架构优化">Flink 架构优化</a><ul>
+                            
+                    <li>
+                        <a href="#flink-%e5%a6%82%e4%bd%95%e6%94%af%e6%8c%81-olap-%e5%9c%ba%e6%99%af" aria-label="Flink 如何支持 OLAP 场景">Flink 如何支持 OLAP 场景</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e7%b2%be%e9%80%89%e6%a1%88%e4%be%8b%e8%ae%b2%e8%a7%a3" aria-label="精选案例讲解">精选案例讲解</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#exactly-once-%e8%af%ad%e4%b9%89%e5%9c%a8-flink-%e4%b8%ad%e7%9a%84%e5%ae%9e%e7%8e%b0" aria-label="Exactly Once 语义在 Flink 中的实现">Exactly Once 语义在 Flink 中的实现</a><ul>
+                            
+                    <li>
+                        <a href="#%e6%95%b0%e6%8d%ae%e6%b5%81%e5%92%8c%e5%8a%a8%e6%80%81%e8%a1%a8" aria-label="数据流和动态表">数据流和动态表</a></li>
+                    <li>
+                        <a href="#exactly-once-%e5%92%8c-checkpoint" aria-label="Exactly-Once 和 Checkpoint">Exactly-Once 和 Checkpoint</a><ul>
+                            
+                    <li>
+                        <a href="#%e4%b8%80%e8%87%b4%e6%80%a7%e4%bf%9d%e8%af%81%e8%af%ad%e4%b9%89" aria-label="一致性保证语义">一致性保证语义</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e7%ab%af%e5%88%b0%e7%ab%af-exactly-once-%e5%ae%9e%e7%8e%b0" aria-label="端到端 Exactly-Once 实现">端到端 Exactly-Once 实现</a><ul>
+                            
+                    <li>
+                        <a href="#chandy-lamport%e7%ae%97%e6%b3%95" aria-label="Chandy-Lamport算法">Chandy-Lamport算法</a></li>
+                    <li>
+                        <a href="#%e4%b8%a4%e9%98%b6%e6%ae%b5%e6%8f%90%e4%ba%a4%e5%8d%8f%e8%ae%ae2pc" aria-label="两阶段提交协议（2PC）">两阶段提交协议（2PC）</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#flink-%e6%a1%88%e4%be%8b%e8%ae%b2%e8%a7%a3" aria-label="Flink 案例讲解">Flink 案例讲解</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e6%b5%81%e5%bc%8f%e8%ae%a1%e7%ae%97%e4%b8%ad%e7%9a%84-window-%e8%ae%a1%e7%ae%97" aria-label="流式计算中的 Window 计算">流式计算中的 Window 计算</a><ul>
+                            
+                    <li>
+                        <a href="#watermark" aria-label="Watermark">Watermark</a></li>
+                    <li>
+                        <a href="#window" aria-label="Window">Window</a><ul>
+                            
+                    <li>
+                        <a href="#tumble-window-%e6%bb%9a%e5%8a%a8%e7%aa%97%e5%8f%a3" aria-label="TUMBLE Window （滚动窗口）"><strong>TUMBLE Window （滚动窗口）</strong></a></li>
+                    <li>
+                        <a href="#hop-window-%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3" aria-label="HOP Window （滑动窗口）"><strong>HOP Window （滑动窗口）</strong></a></li>
+                    <li>
+                        <a href="#session-window-%e4%bc%9a%e8%af%9d%e7%aa%97%e5%8f%a3" aria-label="SESSION Window （会话窗口）"><strong>SESSION</strong> <strong>Window （会话窗口）</strong></a></li>
+                    <li>
+                        <a href="#%e8%bf%9f%e5%88%b0%e6%95%b0%e6%8d%ae%e5%a4%84%e7%90%86" aria-label="迟到数据处理">迟到数据处理</a></li>
+                    <li>
+                        <a href="#%e5%a2%9e%e9%87%8f%e8%ae%a1%e7%ae%97-vs-%e5%85%a8%e9%87%8f%e8%ae%a1%e7%ae%97" aria-label="增量计算 VS 全量计算">增量计算 VS 全量计算</a></li>
+                    <li>
+                        <a href="#emit%e8%a7%a6%e5%8f%91" aria-label="EMIT触发">EMIT触发</a></li>
+                    <li>
+                        <a href="#window-offset" aria-label="Window Offset">Window Offset</a></li>
+                    <li>
+                        <a href="#window-%e9%ab%98%e7%ba%a7%e4%bc%98%e5%8c%96" aria-label="Window 高级优化">Window 高级优化</a><ul>
+                            
+                    <li>
+                        <a href="#mini-batch" aria-label="Mini-batch">Mini-batch</a></li>
+                    <li>
+                        <a href="#local-global" aria-label="Local-global">Local-global</a></li>
+                    <li>
+                        <a href="#distinct%e7%8a%b6%e6%80%81%e5%a4%8d%e7%94%a8" aria-label="Distinct状态复用">Distinct状态复用</a></li>
+                    <li>
+                        <a href="#%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3pane%e5%a4%8d%e7%94%a8" aria-label="滑动窗口pane复用">滑动窗口pane复用</a></li></ul>
+                    </li></ul>
+                    </li></ul>
+                    </li>
+                    <li>
+                        <a href="#spark-%e5%8e%9f%e7%90%86%e4%b8%8e%e5%ae%9e%e8%b7%b5" aria-label="Spark 原理与实践">Spark 原理与实践</a><ul>
+                            
+                    <li>
+                        <a href="#%e5%a4%a7%e6%95%b0%e6%8d%ae%e5%a4%84%e7%90%86%e5%bc%95%e6%93%8espark%e4%bb%8b%e7%bb%8d" aria-label="大数据处理引擎Spark介绍">大数据处理引擎Spark介绍</a><ul>
+                            
+                    <li>
+                        <a href="#spark%e4%b8%8b%e8%bd%bd%e7%bc%96%e8%af%91" aria-label="Spark下载编译">Spark下载编译</a></li>
+                    <li>
+                        <a href="#spark%e8%bf%90%e8%a1%8c%e6%9e%b6%e6%9e%84%e5%92%8c%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86" aria-label="Spark运行架构和工作原理">Spark运行架构和工作原理</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#sparkcore" aria-label="SparkCore">SparkCore</a></li>
+                    <li>
+                        <a href="#sparksql" aria-label="SparkSQL">SparkSQL</a></li>
+                    <li>
+                        <a href="#%e4%b8%9a%e7%95%8c%e6%8c%91%e6%88%98%e4%b8%8e%e5%ae%9e%e8%b7%b5" aria-label="业界挑战与实践">业界挑战与实践</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e5%a4%a7%e6%95%b0%e6%8d%ae-shuffle-%e5%8e%9f%e7%90%86%e4%b8%8e%e5%ae%9e%e8%b7%b5" aria-label="大数据 Shuffle 原理与实践">大数据 Shuffle 原理与实践</a><ul>
+                            
+                    <li>
+                        <a href="#shuffle%e6%a6%82%e8%bf%b0" aria-label="shuffle概述">shuffle概述</a><ul>
+                            
+                    <li>
+                        <a href="#mapreduce" aria-label="Mapreduce">Mapreduce</a></li>
+                    <li>
+                        <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88shuffle%e5%a6%82%e6%ad%a4%e9%87%8d%e8%a6%81" aria-label="为什么shuffle如此重要">为什么shuffle如此重要</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#shuffle%e7%ae%97%e5%ad%90" aria-label="shuffle算子">shuffle算子</a></li>
+                    <li>
+                        <a href="#shuffle%e8%bf%87%e7%a8%8b" aria-label="shuffle过程">shuffle过程</a></li>
+                    <li>
+                        <a href="#push-shuffle" aria-label="push shuffle">push shuffle</a>
+                    </li>
+                </ul>
+                </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+         
+         activeElement = elements[0];
+         const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+         document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+     }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+             const id = encodeURI(element.getAttribute('id')).toLowerCase();
+             if (element === activeElement){
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+             } else {
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+             }
+         })
+     }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;   
+    }
+</script>
+
+  <div class="post-content"><h1 id="sql-optimizer-解析">SQL Optimizer 解析<a hidden class="anchor" aria-hidden="true" href="#sql-optimizer-解析">#</a></h1>
+<p><a href="https://bytedance.feishu.cn/file/boxcn9uWBTLWg2a8GIUSRJ0Txqb">https://bytedance.feishu.cn/file/boxcn9uWBTLWg2a8GIUSRJ0Txqb</a></p>
+<p><a href="https://live.juejin.cn/4354/yc_SQL">https://live.juejin.cn/4354/yc_SQL</a></p>
+<p>hash join和sort merge join：https://blog.csdn.net/lp284558195/article/details/80717219</p>
+<h2 id="大数据体系和sql">大数据体系和SQL<a hidden class="anchor" aria-hidden="true" href="#大数据体系和sql">#</a></h2>
+<h3 id="sql-的一生">SQL 的一生<a hidden class="anchor" aria-hidden="true" href="#sql-的一生">#</a></h3>
+<ol>
+<li>
+<ol>
+<li><img loading="lazy" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f35f432396e1463dafc4cdb8ea9f8305~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp" alt="img"  />
+</li>
+<li>Parser
+<ol>
+<li>把文本变成抽象语法树结构（AST）</li>
+<li>涉及词法分析阶段（拆分字符串，提取关键字，字符串，数值等）和语法分析阶段（把词条按照定义的语法规则组装成抽象语法树结构）</li>
+<li>和编译原理课程里的“前端”知识相关</li>
+</ol>
+</li>
+<li>Analyzer
+<ol>
+<li>访问库/表元信息并绑定</li>
+<li>判断 SQL 是否合理，比如数据库，表和列名是否存在，列的数据类型是否正确</li>
+<li>将 AST 转换成逻辑计划树（在某些系统中这个工作由一个 Converter 完成）</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>逻辑计划树</p>
+<ol>
+<li>所谓逻辑计划树，可以理解为<strong>逻辑地</strong>描述一个 SQL 如何一步步地执行查询和计算，最终得到执行结果的一个分步骤地计划。树中每个节点是是一个算子，定义了对数据集合的计算操作（过滤，排序，聚合，连接），边代表了数据的流向，从孩子节点流向父节点。之所以称它为逻辑的，是因为算子定义的是逻辑的计算操作，没有指定实际的算法，比如对于逻辑的排序算子，逻辑计划树里没有指定使用快排还是堆排。</li>
+</ol>
+</li>
+<li>
+<p>查询优化</p>
+<ol>
+<li>SQL 是一种声明式语言，用户只描述做什么，没有告诉数据库怎么做</li>
+<li>查询优化的目标是为 SQL 找到一个正确的且执行代价最小的执行计划</li>
+<li>查询优化器是数据库的大脑，最复杂的模块，很多相关问题都是 NP 的</li>
+<li>一般 SQL 越复杂，Join 的表越多，数据量越大，查询优化的意义就越大，因为不同执行方式的性能差别可能有成百上千倍
+<ol>
+<li>类比 gcc/g++ 编译程序时的编译级别（-O1, -O2, -O3），经过编译优化的程序运行效率更高</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>物理执行计划</p>
+<ol>
+<li>优化器的输出是一个分布式的物理执行计划。</li>
+<li>分布式物理执行计划的目标是在单机 Plan 的基础上最小化数据移动和最大化本地 Scan，生成 PlanFragment 树。</li>
+<li>一个 PlanFragment 封装了在一台机器上对数据集的操作逻辑。每个 PlanFragment 可以在每个 executor 节点生成 1 个或多个执行实例，不同执行实例处理不同的数据集，通过并发来提升查询性能。</li>
+<li>Plan 分布式化的方法是增加 shuffle 算子，执行计划树会以 shuffle 算子为边界拆分为PlanFragment。</li>
+</ol>
+</li>
+<li>
+<p>Executor</p>
+<ol>
+<li>Executor 按照物理执行计划扫描和处理数据，充分利用机器资源（CPU 流水线，乱序执行，cache，SIMD）</li>
+</ol>
+</li>
+</ol>
+<h2 id="常见的查询优化器">常见的查询优化器<a hidden class="anchor" aria-hidden="true" href="#常见的查询优化器">#</a></h2>
+<h3 id="rbo">RBO<a hidden class="anchor" aria-hidden="true" href="#rbo">#</a></h3>
+<p>Rule-based Optimizer</p>
+<ul>
+<li>基于关系代数等价规则对逻辑计划进行变换</li>
+<li>实现上：
+<ul>
+<li>Pattern：定义了特定结构的 Operator 子树（结构）</li>
+<li>Rule：定义了如何将其匹配的节点替换（Substitute）为新形态，从而生成新的、等价的Operator 树（<strong>原地替换</strong>）</li>
+<li>优化器搜索过程被抽象为不断匹配 Pattern 然后应用 Rule 转换，直到没有可以匹配的 rule</li>
+</ul>
+</li>
+<li>局限性：
+<ul>
+<li>无法解决多表连接问题</li>
+<li>无法确定和选择最优的分布式 Join/Aggregate 执行方式</li>
+</ul>
+</li>
+</ul>
+<h4 id="列裁剪">列裁剪<a hidden class="anchor" aria-hidden="true" href="#列裁剪">#</a></h4>
+<p>scan时只扫描select选中的列</p>
+<h4 id="谓词下推">谓词下推<a hidden class="anchor" aria-hidden="true" href="#谓词下推">#</a></h4>
+<p>如有where条件，在scan时就过滤掉</p>
+<h4 id="传递闭包">传递闭包<a hidden class="anchor" aria-hidden="true" href="#传递闭包">#</a></h4>
+<p>如有jion on条件，可将一个表的where scan 传递给另一个表的 where scan</p>
+<h4 id="runtime-filtermin-max-filterin-list-filterbloom-filter">Runtime Filter（min-max filter，in-list filter，bloom filter）<a hidden class="anchor" aria-hidden="true" href="#runtime-filtermin-max-filterin-list-filterbloom-filter">#</a></h4>
+<p>jion前2个表都有filter，可将一个表filter后的一些索引特性在运行时传递给另一个表，这是另一个表进行filter时就可以减少很大一部分数据</p>
+<h4 id="join-消除">Join 消除<a hidden class="anchor" aria-hidden="true" href="#join-消除">#</a></h4>
+<h4 id="谓词合并">谓词合并<a hidden class="anchor" aria-hidden="true" href="#谓词合并">#</a></h4>
+<h4 id="小结">小结<a hidden class="anchor" aria-hidden="true" href="#小结">#</a></h4>
+<p>主流RBO实现一般都有几百条基于经验归纳得到的优化规则</p>
+<p>实现简单，优化速度块，但不能保证最优的执行计划</p>
+<h3 id="cbo">CBO<a hidden class="anchor" aria-hidden="true" href="#cbo">#</a></h3>
+<p>Cost-based Optimizer</p>
+<h4 id="过程">过程<a hidden class="anchor" aria-hidden="true" href="#过程">#</a></h4>
+<p>使用一个模型估算执行计划的代价，选择代价最小的执行计划</p>
+<p>分而治之，执行计划的代价等于所有算子的执行代价之和</p>
+<p>通过 RBO 得到（所有）可能的等价执行计划（<strong>非原地替换</strong>）</p>
+<p>算子代价包含 CPU，cache misses，memory，disk I/O，network I/O 等代价</p>
+<ul>
+<li>和算子的统计信息有关，比如输入、输出结果的行数，每行大小等</li>
+<li>叶子算子 scan：通过统计原始表数据得到
+<ul>
+<li>中间算子：根据一定的推导规则，从下层算子的统计信息推导得到</li>
+<li>和具体的算子类型，以及算子的物理实现有关（e.g. hash join vs. sort join）</li>
+</ul>
+</li>
+</ul>
+<p>使用动态规划枚举所有执行计划，选出执行代价最小的执行计划</p>
+<h4 id="统计信息">统计信息<a hidden class="anchor" aria-hidden="true" href="#统计信息">#</a></h4>
+<ul>
+<li>基表统计信息
+<ul>
+<li>表或者分区级别：行数、行平均大小、表在磁盘中占用了多少字节等</li>
+<li>列级别：min、max、num nulls、num、not nulls、num、distinct value(NDV)、histogram 等</li>
+</ul>
+</li>
+<li>推导统计信息
+<ul>
+<li><strong>选择率（selectivity）</strong> ：对于某一个过滤条件，查询会从表中返回多大比例的数据</li>
+<li><strong>基数（cardinality）</strong> ：基本含义是表的 unique 行数，在查询计划中常指算子需要处理的行数</li>
+</ul>
+</li>
+</ul>
+<h4 id="统计信息的收集方式">统计信息的收集方式<a hidden class="anchor" aria-hidden="true" href="#统计信息的收集方式">#</a></h4>
+<p>三种</p>
+<h4 id="统计信息推导规则">统计信息推导规则<a hidden class="anchor" aria-hidden="true" href="#统计信息推导规则">#</a></h4>
+<h4 id="统计信息的问题">统计信息的问题<a hidden class="anchor" aria-hidden="true" href="#统计信息的问题">#</a></h4>
+<h4 id="小结-1">小结<a hidden class="anchor" aria-hidden="true" href="#小结-1">#</a></h4>
+<p>CBO使用代价模型和统计信息估算执行计划的代价</p>
+<p>CBO使用贪心或者动态规划算法寻求最优执行计划</p>
+<h2 id="社区开源实践">社区开源实践<a hidden class="anchor" aria-hidden="true" href="#社区开源实践">#</a></h2>
+<h3 id="apache-calcite">Apache Calcite<a hidden class="anchor" aria-hidden="true" href="#apache-calcite">#</a></h3>
+<p>主流的查询优化器都包含RBO/CBO</p>
+<p>Apache Calcite是大数据领域很流行的查询优化器</p>
+<p>Apache Calcite RBO定义了很多优化规则，使用pattern匹配子树，执行等价变换</p>
+<p>Apache Calcite CBO基于Volcano/Cascade 框架</p>
+<p>Volcano/Cascade的精髓Memo、动态规划、剪枝</p>
+<h2 id="前沿趋势">前沿趋势<a hidden class="anchor" aria-hidden="true" href="#前沿趋势">#</a></h2>
+<p>存储计算分离</p>
+<p>HSAP, HTAP, HTSAP</p>
+<p>Cloud Native, Serverless</p>
+<p>数据仓库，数据湖，湖仓一体，联邦查询</p>
+<p>智能化</p>
+<ul>
+<li>AI4DB
+<ul>
+<li>自配置：智能调参（<a href="https://link.juejin.cn?target=https%3A%2F%2Fwww.cs.cmu.edu%2F~ggordon%2Fvan-aken-etal-parameters.pdf">OtterTune</a>，<a href="https://link.juejin.cn?target=https%3A%2F%2Fwww.vldb.org%2Fpvldb%2Fvol12%2Fp2118-li.pdf">QTune</a>）、负载预测、负载调度</li>
+<li>自诊断和自愈合：软硬件错误、错误恢复和迁移</li>
+<li>自优化：统计信息估计（ <a href="https://link.juejin.cn?target=https%3A%2F%2Farxiv.org%2Fabs%2F1809.00677">Learned cardinalities </a>）、代价估计、学习型优化器（<a href="https://link.juejin.cn?target=http%3A%2F%2Fdiaswww.epfl.ch%2Fcourses%2Fadms07%2Fpapers%2Fleo.pdf">IBM DB2 LEO</a>），索引推荐，视图推荐</li>
+</ul>
+</li>
+<li>DB4AI
+<ul>
+<li>内嵌人工智能算法（MLSQL，SQLFlow）</li>
+<li>内嵌机器学习框架（SparkML， Alink， dl-on-flink ）</li>
+</ul>
+</li>
+</ul>
+<h1 id="流批olap-一体的-flink-引擎介绍">流/批/OLAP 一体的 Flink 引擎介绍<a hidden class="anchor" aria-hidden="true" href="#流批olap-一体的-flink-引擎介绍">#</a></h1>
+<p><a href="https://bytedance.feishu.cn/file/boxcni8teJOjd4vUsgxn8rL0ylc">https://bytedance.feishu.cn/file/boxcni8teJOjd4vUsgxn8rL0ylc</a></p>
+<p><a href="https://live.juejin.cn/4354/yc_OLAP">https://live.juejin.cn/4354/yc_OLAP</a></p>
+<h2 id="apache-flink-概述">Apache Flink 概述<a hidden class="anchor" aria-hidden="true" href="#apache-flink-概述">#</a></h2>
+<h3 id="批处理">批处理<a hidden class="anchor" aria-hidden="true" href="#批处理">#</a></h3>
+<p>所谓 <strong>批处理</strong> 是指把一项数据处理任务先分解成更小粒度的任务，把这些任务分布在集群中的各台实例上进行计算，之后把各实例上的计算结果重新计算和组合成最终结果。批处理系统通常会操作大量的静态的数据，并等到这些数据全部处理完成后才能得到返回的结果。</p>
+<p>批处理方式使用的数据集通常有以下特征：</p>
+<ul>
+<li>有界：批处理数据集代表数据的有限集合</li>
+<li>持久：数据通常始终存储在某种类型的持久存储位置中</li>
+<li>大量：批处理操作通常是处理极为海量数据集的唯一方法</li>
+</ul>
+<h3 id="流处理">流处理<a hidden class="anchor" aria-hidden="true" href="#流处理">#</a></h3>
+<p><strong>流处理</strong> 方式会随时对进入系统的数据进行实时的计算，这种模式不需要针对整个数据集执行操作，而是对通过系统传输的每个数据项执行操作。流处理中的数据集是 <strong>无边界</strong> 的，这就产生了几个重要的影响：</p>
+<ul>
+<li>完整数据集只能代表截至目前已经进入到系统中的数据总量。</li>
+<li>工作数据集也许更相关，在特定时间只能代表某个单一数据项。</li>
+<li>处理工作是基于事件的，除非明确停止否则没有“尽头”。处理结果立刻可用，并会随着新数据的抵达继续更新。</li>
+</ul>
+<h3 id="混合处理">混合处理<a hidden class="anchor" aria-hidden="true" href="#混合处理">#</a></h3>
+<p>在大数据处理技术中流派中，除了单纯的批处理和流处理模式之外，还有一些处理框架既可以进行批处理也可以进行流处理，我们称之为混合处理框架。虽然专注于一种处理方式可能非常适合特定场景，但是混合框架为数据处理提供了通用的解决方案。这些框架可以用相同或相关的组件和 API 处理两种类型的数据，借此让不同的处理需求得以简化。混合处理框架中目前比较著名的就是 Spark 和 Flink 。</p>
+<h3 id="为什么-flink-会脱颖而出">为什么 Flink 会脱颖而出<a hidden class="anchor" aria-hidden="true" href="#为什么-flink-会脱颖而出">#</a></h3>
+<p>完全一次保证：故障后应正确恢复有状态运算符中的状态；</p>
+<p>低延迟：越低越好。许多应用程序需要亚秒级延迟；</p>
+<p>高吞吐量：随着数据速率的增长，通过管道推送大量数据至关重要；</p>
+<p>强大的计算模型：框架应该提供一种编程模型，该模型不限制用户并允许各种各样的应用程序在没有故障的情况下，容错机制的开销很低；</p>
+<p>流量控制：来自慢速算子的反压应该由系统和数据源自然吸收，以避免因消费者缓慢而导致崩溃或降低性能；</p>
+<p>乱序数据的支持：支持由于其他原因导致的数据乱序达到、延迟到达后，计算出正确的结果；</p>
+<p>完备的流式语义：支持窗口等现代流式处理语义抽象；</p>
+<p>Google Dataflow Model 的开源引擎实现。</p>
+<h3 id="apache-flink-开源生态">Apache Flink 开源生态<a hidden class="anchor" aria-hidden="true" href="#apache-flink-开源生态">#</a></h3>
+<p>Apache Flink 在开源生态上的能力比较强大，可以支持：</p>
+<p>流批一体：支持流式计算和批式计算；</p>
+<p>OLAP：Flink 可以支持 OLAP 这种短查询场景；</p>
+<p>Flink ML：pyFlink、ALink、AIFlow 等生态支持 Flink 在 ML 场景的应用；</p>
+<p>Gelly：图计算；</p>
+<p>Stateful Function：支持有状态的 FAAS 场景；</p>
+<h2 id="flink-整体架构">Flink 整体架构<a hidden class="anchor" aria-hidden="true" href="#flink-整体架构">#</a></h2>
+<h3 id="flink-分层架构">Flink 分层架构<a hidden class="anchor" aria-hidden="true" href="#flink-分层架构">#</a></h3>
+<ul>
+<li>
+<p>SDK 层：<a href="https://link.juejin.cn?target=https%3A%2F%2Fnightlies.apache.org%2Fflink%2Fflink-docs-release-1.15%2Fdocs%2Flearn-flink%2Foverview%2F">Flink&rsquo;s APIs Overview</a>；</p>
+</li>
+<li>
+<p>执行引擎层（Runtime 层）：执行引擎层提供了统一的 DAG，用来描述数据处理的 Pipeline，不管是流还是批，都会转化为 DAG 图，调度层再把 DAG 转化成分布式环境下的 Task，Task 之间通过 Shuffle 传输数据；</p>
+<ul>
+<li>调度：<a href="https://link.juejin.cn?target=https%3A%2F%2Fnightlies.apache.org%2Fflink%2Fflink-docs-release-1.15%2Fdocs%2Finternals%2Fjob_scheduling%2F">Jobs and Scheduling</a>；</li>
+<li>Task 生命周期：<a href="https://link.juejin.cn?target=https%3A%2F%2Fnightlies.apache.org%2Fflink%2Fflink-docs-release-1.15%2Fdocs%2Finternals%2Ftask_lifecycle%2F">Task Lifecycle</a>；</li>
+<li>Flink Failover 机制：<a href="https://link.juejin.cn?target=https%3A%2F%2Fnightlies.apache.org%2Fflink%2Fflink-docs-release-1.15%2Fdocs%2Fops%2Fstate%2Ftask_failure_recovery%2F">Task Failure Recovery</a>；</li>
+<li>Flink 反压概念及监控：<a href="https://link.juejin.cn?target=https%3A%2F%2Fnightlies.apache.org%2Fflink%2Fflink-docs-release-1.15%2Fdocs%2Fops%2Fmonitoring%2Fback_pressure%2F">Monitoring Back Pressure</a>；</li>
+<li>Flink HA 机制：<a href="https://link.juejin.cn?target=https%3A%2F%2Fnightlies.apache.org%2Fflink%2Fflink-docs-release-1.15%2Fdocs%2Fdeployment%2Fha%2Foverview%2F">Flink HA Overview</a>；</li>
+</ul>
+</li>
+<li>
+<p>状态存储层：负责存储算子的状态信息</p>
+</li>
+</ul>
+<h3 id="flink-整体架构-1">Flink 整体架构<a hidden class="anchor" aria-hidden="true" href="#flink-整体架构-1">#</a></h3>
+<ul>
+<li>
+<p>JobManager（JM）负责整个任务的协调工作，包括：调度 task、触发协调 Task 做 Checkpoint、协调容错恢复等，核心有下面三个组件：</p>
+<ul>
+<li>Dispatcher: 接收作业，拉起 JobManager 来执行作业，并在 JobMaster 挂掉之后恢复作业；</li>
+<li>JobMaster: 管理一个 job 的整个生命周期，会向 ResourceManager 申请 slot，并将 task 调度到对应 TM 上；</li>
+<li>ResourceManager：负责 slot 资源的管理和调度，Task manager 拉起之后会向 RM 注册；</li>
+</ul>
+</li>
+<li>
+<p>TaskManager（TM）：负责执行一个 DataFlow Graph 的各个 task 以及 data streams 的 buffer 和数据交换。</p>
+</li>
+</ul>
+<h3 id="flink-如何做到流批一体">Flink 如何做到流批一体<a hidden class="anchor" aria-hidden="true" href="#flink-如何做到流批一体">#</a></h3>
+<p>批式计算是流式计算的特例，Everything is Streams，有界数据集（批式数据）也是一种数据流、一种特殊的数据流；</p>
+<p>站在 Flink 的角度，Everything is Streams，无边界数据集是一种数据流，一个无边界的数据流可以按时间切段成一个个有边界的数据集，所以有界数据集（批式数据）也是一种数据流。因此，不管是有边界的数据集（批式数据）还是无边界数据集，Flink 都可以天然地支持，这是 Flink 支持流批一体的基础。并且 Flink 在流批一体上，从上面的 API 到底层的处理机制都是统一的，是真正意义上的流批一体。</p>
+<p>Apache Flink 主要从以下几个模块来做流批一体：</p>
+<ul>
+<li>SQL 层；</li>
+<li>DataStream API 层统一，批和流都可以使用 DataStream API 来开发；</li>
+<li>Scheduler 层架构统一，支持流批场景；</li>
+<li>Failover Recovery 层 架构统一，支持流批场景；</li>
+<li>Shuffle Service 层架构统一，流批场景选择不同的 Shuffle Service；</li>
+</ul>
+<h2 id="flink-架构优化">Flink 架构优化<a hidden class="anchor" aria-hidden="true" href="#flink-架构优化">#</a></h2>
+<h3 id="flink-如何支持-olap-场景">Flink 如何支持 OLAP 场景<a hidden class="anchor" aria-hidden="true" href="#flink-如何支持-olap-场景">#</a></h3>
+<p>Flink 做 OLAP 的优势</p>
+<ul>
+<li>统一引擎：流处理、批处理、OLAP 统一使用 Flink 引擎；
+<ul>
+<li>降低学习成本，仅需要学习一个引擎；</li>
+<li>提高开发效率，很多 SQL 是流批通用；</li>
+<li>提高维护效率，可以更集中维护好一个引擎；</li>
+</ul>
+</li>
+<li>既有优势：利用 Flink 已有的很多特性，使 OLAP 使用场景更为广泛；
+<ul>
+<li>使用流处理的内存计算、Pipeline；</li>
+<li>支持代码动态生成；</li>
+<li>也可以支持批处理数据落盘能力；</li>
+</ul>
+</li>
+<li>相互增强：OLAP 能享有现有引擎的优势，同时也能增强引擎能力
+<ul>
+<li>无统计信息场景的优化；</li>
+<li>开发更高效的算子；</li>
+<li>使 Flink 同时兼备流、批、OLAP 处理的能力，成为更通用的框架。</li>
+</ul>
+</li>
+</ul>
+<p>Flink OLAP 场景的挑战</p>
+<ul>
+<li>
+<p>秒级和毫秒级的小作业；</p>
+</li>
+<li>
+<p>作业频繁启停、资源碎片；</p>
+<ul>
+<li>Flink OLAP 计算相比流式和批式计算，最大的特点是 Flink OLAP 计算是一个面向秒级和毫秒级的小作业，作业在启动过程中会频繁申请内存、网络以及磁盘资源，导致 Flink 集群内产生大量的资源碎片；</li>
+</ul>
+</li>
+<li>
+<p>Latency + 高 APS 要求；</p>
+<ul>
+<li>OLAP 最大的特点是查询作业对 Latency 和 QPS 有要求的，需要保证作业在 Latency 的前提下提供比较高的并发调度和执行能力，这就对 Flink 引擎提出了一个新的要求。</li>
+</ul>
+</li>
+<li>
+<p>Flink OLAP 架构现状</p>
+<ul>
+<li>Client：提交 SQL Query；</li>
+<li>Gateway：接收 Client 提交的 SQL Query，对 SQL 进行语法解析和查询优化，生成 Flink 作业执行计划，提交给 Session 集群；</li>
+<li>Session Cluster：执行作业调度及计算，并返回结果。
+<ul>
+<li>JobManager 管理作业的执行，在接收到 Gateway 提交过来的作业逻辑执行计划后，将逻辑执行计划转换为物理执行计划，为每个物理计算任务分配资源，将每个计算任务分发给不同的 TaskManager 执行，同时管理作业以及每个计算任务执行状态；</li>
+<li>TaskManager执行具体的计算任务，采用线程模型，为每个计算任务创建计算线程，根据计算任务的上下游数据依赖关系跟上游计算任务建立/复用网络连接，向上游计算任务发送数据请求，并处理上游分发给它的数据。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Flink 在 OLAP 架构上的问题与设想</p>
+<ul>
+<li>架构与功能模块：
+<ul>
+<li>JobManager 与 ResourceManager 在一个进程内启动，无法对JobManager 进行水平扩展；</li>
+<li>Gateway 与 Flink Session Cluster 互相独立，无法进行统一管理；</li>
+</ul>
+</li>
+<li>作业管理及部署模块：
+<ul>
+<li>JobManager 处理和调度作业时，负责的功能比较多，导致单作业处理时间长、并占用了过多的内存；</li>
+<li>TaskManager 部署计算任务时，任务初始化部分耗时验证，消耗大量 CPU；</li>
+</ul>
+</li>
+<li>资源管理及计算任务调度：
+<ul>
+<li>资源申请及资源释放流程链路过长；</li>
+<li>Slot 作为资源管理单元，JM 管理 slot 资源，导致 JM 无法感知到 TM 维度的资源分布，使得资源管理完全依赖于 ResourceManager；</li>
+</ul>
+</li>
+<li>其他：
+<ul>
+<li>作业心跳与 Failover 机制，并不合适 AP 这种秒级或毫秒级计算场景；</li>
+<li>AP 目前使用 Batch 算子进行计算，这些算子初始化比较耗时；</li>
+</ul>
+</li>
+</ul>
+<h2 id="精选案例讲解">精选案例讲解<a hidden class="anchor" aria-hidden="true" href="#精选案例讲解">#</a></h2>
+<h1 id="exactly-once-语义在-flink-中的实现">Exactly Once 语义在 Flink 中的实现<a hidden class="anchor" aria-hidden="true" href="#exactly-once-语义在-flink-中的实现">#</a></h1>
+<p><a href="https://bytedance.feishu.cn/file/boxcnFPburXr95rMNel1SHOvISg">https://bytedance.feishu.cn/file/boxcnFPburXr95rMNel1SHOvISg</a></p>
+<p><a href="https://live.juejin.cn/4354/yc_Once">https://live.juejin.cn/4354/yc_Once</a></p>
+<h2 id="数据流和动态表">数据流和动态表<a hidden class="anchor" aria-hidden="true" href="#数据流和动态表">#</a></h2>
+<ul>
+<li>
+<p>如何在实时数据流中定义 SQL 语义中的表？</p>
+<ul>
+<li><strong>动态表</strong> <strong>：</strong> <strong>随时间不断变化的表</strong>，在任意时刻，可以像查询静态批处理表一样查询它们</li>
+</ul>
+</li>
+<li>
+<p>实时流的查询特点？</p>
+<ul>
+<li>查询<strong>从不终止</strong></li>
+<li>查询结果会<strong>不断更新</strong>，并且会产生一个新的<strong>动态表</strong></li>
+<li>结果的动态表也可转换成输出的<strong>实时流</strong></li>
+</ul>
+</li>
+<li>
+<p>动态表到实时流的转换</p>
+<ul>
+<li>Append-only Stream: Append-only 流（只有 INSERT 消息）</li>
+<li><strong>Retract Stream</strong>: Retract 流（同时包含 INSERT 消息和 DELETE 消息）</li>
+<li>Upsert Stream:: Upsert 流（同时包含 UPSERT 消息和 DELETE 消息）</li>
+</ul>
+</li>
+</ul>
+<p>算子状态</p>
+<p>在流式计算中，会存在有<strong>状态</strong>的计算逻辑（算子）</p>
+<p>比如，需要计算某个用户在网上的点击量，该用户在网站当前的总点击次数就是算子状态，对于新的输入数据，先判断是否是该用户的点击行为，如果是，则将保留的点击次数（状态）增加一，并将当前累加结果输出。</p>
+<h2 id="exactly-once-和-checkpoint">Exactly-Once 和 Checkpoint<a hidden class="anchor" aria-hidden="true" href="#exactly-once-和-checkpoint">#</a></h2>
+<h3 id="一致性保证语义">一致性保证语义<a hidden class="anchor" aria-hidden="true" href="#一致性保证语义">#</a></h3>
+<ul>
+<li>
+<p>At-most-once：每条数据消费至多一次，处理延迟低</p>
+</li>
+<li>
+<p>At-least-once：每条数据消费至少一次，一条数据可能存在重复消费</p>
+</li>
+<li>
+<p>Exactly-once：每条数据都被消费且仅被消费一次，仿佛故障从未发生</p>
+</li>
+</ul>
+<h2 id="端到端-exactly-once-实现">端到端 Exactly-Once 实现<a hidden class="anchor" aria-hidden="true" href="#端到端-exactly-once-实现">#</a></h2>
+<h3 id="chandy-lamport算法">Chandy-Lamport算法<a hidden class="anchor" aria-hidden="true" href="#chandy-lamport算法">#</a></h3>
+<p>解耦了快照制作和数据处理过程，各个算子制作完成状态快照后就可以正常处理数据，不用等下游算子制作制作完成快照；
+在快照制作和 Barrier Alignment 过程中需要暂停处理数据，仍然会增加数据处理延迟；
+快照保存到远端也有可能极为耗时。</p>
+<p>Checkpoint 能保证每条数据都对各个有状态的算子更新一次，sink 输出算子仍然可能下发重复的数据；
+严格意义的端到端的 Exactly-once 语义需要特殊的 sink 算子实现。</p>
+<h3 id="两阶段提交协议2pc">两阶段提交协议（2PC）<a hidden class="anchor" aria-hidden="true" href="#两阶段提交协议2pc">#</a></h3>
+<ul>
+<li>
+<p>Coordinator：协作者，同步和协调所有节点处理逻辑的中心节点</p>
+</li>
+<li>
+<p>Participant：参与者，被中心节点调度的其他执行处理逻辑的业务节点</p>
+</li>
+</ul>
+<p>事务开启：在 sink task 向下游写数据之前，均会开启一个事务，后续所有写数据的操作均在这个事务中执行，事务未提交前，事务写入的数据下游不可读；
+预提交阶段：JobManager 开始下发 Checkpoint Barrier，当各个处理逻辑接收到 barrier 后停止处理后续数据，对当前状态制作快照，此时 sink 也不在当前事务下继续处理数据（处理后续的数据需要新打开下一个事务）。状态制作成功则向 JM 成功的消息，失败则发送失败的消息；
+提交阶段：若 JM 收到所有预提交成功的消息，则向所有处理逻辑（包括 sink）发送可以提交此次事务的消息，sink 接收到此消息后，则完成此次事务的提交，此时下游可以读到这次事务写入的数据；若 JM 有收到预提交失败的消息，则通知所有处理逻辑回滚这次事务的操作，此时 sink 则丢弃这次事务提交的数据下。</p>
+<h2 id="flink-案例讲解">Flink 案例讲解<a hidden class="anchor" aria-hidden="true" href="#flink-案例讲解">#</a></h2>
+<h1 id="流式计算中的-window-计算">流式计算中的 Window 计算<a hidden class="anchor" aria-hidden="true" href="#流式计算中的-window-计算">#</a></h1>
+<p><a href="https://zhuanlan.zhihu.com/p/102484347">https://zhuanlan.zhihu.com/p/102484347</a></p>
+<p><a href="https://bytedance.feishu.cn/file/boxcn5expS9gYOnxpZUBayXPwVg">https://bytedance.feishu.cn/file/boxcn5expS9gYOnxpZUBayXPwVg</a></p>
+<p><a href="https://live.juejin.cn/4354/yc_Window">https://live.juejin.cn/4354/yc_Window</a></p>
+<h2 id="watermark">Watermark<a hidden class="anchor" aria-hidden="true" href="#watermark">#</a></h2>
+<p><strong>Watermark定义</strong>：当前系统认为的事件时间所在的真实时间。</p>
+<p>简单来说 Watermark 是一个时间戳，表示已经收集完毕的数据的最大 event time，换句话说 event time 小于 Watermark 的数据不应该再出现，基于这个前提我们才有可能将 event time 窗口视为完整并输出结果。</p>
+<ul>
+<li>
+<p>怎么观察一个任务中的watermark是多少，是否是正常的</p>
+<ul>
+<li>一般通过Flink Web UI上的信息来观察当前任务的watermark情况</li>
+<li>这个问题是生产实践中最容易遇到的问题，大家在开发事件时间的窗口任务的时候，经常会忘记了设置watermark，或者数据太少，watermark没有及时的更新，导致窗口一直不能触发。</li>
+</ul>
+</li>
+<li>
+<p>如果有部分partition/subtask会断流，应该如何处理</p>
+<ul>
+<li>数据断流是很常见的问题，有时候是业务数据本身就有这种特点，比如白天有数据，晚上没有数据。在这种情况下，watermark默认是不会更新的，因为它要取上游subtask发来的watermark中的最小值。此时我们可以用一种IDLE状态来标记这种subtask，被标记为这种状态的subtask，我们在计算watermark的时候，可以把它先排除在外。这样就可以保证有部分partition断流的时候，watermark仍然可以继续更新。</li>
+</ul>
+</li>
+<li>
+<p>算子对于时间晚于watermark的数据的处理</p>
+<ul>
+<li>对于迟到数据，不同的算子对于这种情况的处理可以有不同的实现（主要是根据算子本身的语义来决定的）</li>
+<li>比如window对于迟到的数据，默认就是丢弃；比如双流join，对于迟到数据，可以认为是无法与之前正常数据join上。</li>
+</ul>
+</li>
+</ul>
+<h2 id="window">Window<a hidden class="anchor" aria-hidden="true" href="#window">#</a></h2>
+<h3 id="tumble-window-滚动窗口"><strong>TUMBLE Window （滚动窗口）</strong><a hidden class="anchor" aria-hidden="true" href="#tumble-window-滚动窗口">#</a></h3>
+<h3 id="hop-window-滑动窗口"><strong>HOP Window （滑动窗口）</strong><a hidden class="anchor" aria-hidden="true" href="#hop-window-滑动窗口">#</a></h3>
+<h3 id="session-window-会话窗口"><strong>SESSION</strong> <strong>Window （会话窗口）</strong><a hidden class="anchor" aria-hidden="true" href="#session-window-会话窗口">#</a></h3>
+<h3 id="迟到数据处理">迟到数据处理<a hidden class="anchor" aria-hidden="true" href="#迟到数据处理">#</a></h3>
+<p>根据上面说到的watermark原理，watermark驱动某个窗口触发输出之后，这个窗口如果后面又来了数据，那这种情况就属于是迟到的数据了。（注意，不是数据的时间晚于watermark就算是迟到，而是它所属的窗口已经被触发了，才算迟到）。</p>
+<p>对于迟到的数据，我们现在有两种处理方式：</p>
+<ol>
+<li>
+<p>使用side output方式，把迟到的数据转变成一个单独的流，再由用户自己来决定如何处理这部分数据</p>
+</li>
+<li>
+<p>直接drop掉</p>
+</li>
+</ol>
+<p>注意：side output只有在DataStream的窗口中才可以用，在SQL中目前还没有这种语义，所以暂时只有drop这一个策略。</p>
+<h3 id="增量计算-vs-全量计算">增量计算 VS 全量计算<a hidden class="anchor" aria-hidden="true" href="#增量计算-vs-全量计算">#</a></h3>
+<ul>
+<li>
+<p>增量计算：每条数据到来后，直接参与计算（但是还不需要输出结果）</p>
+</li>
+<li>
+<p>全量计算：每条数据到来后，先放到一个buffer中，这个buffer会存储到状态里，直到窗口触发输出的时候，才把所有数据拿出来统一进行计算</p>
+</li>
+</ul>
+<h3 id="emit触发">EMIT触发<a hidden class="anchor" aria-hidden="true" href="#emit触发">#</a></h3>
+<p>正常的窗口都是窗口结束的时候才会进行输出,EMIT触发就是在这种情况下，可以提前把窗口内容输出出来的一种机制。比如我们可以配置一个1天的窗口，每隔5s输出一次它的最新结果，那这样下游就可以更快的获取到窗口计算的结果了。</p>
+<p>这种emit的场景就是一个典型的retract的场景，发送的结果类似于+[1], -[1], +[2], -[2], +[4]这样子。这样才能保证window的输出的最终结果是符合语义的。</p>
+<h3 id="window-offset">Window Offset<a hidden class="anchor" aria-hidden="true" href="#window-offset">#</a></h3>
+<p>滑动窗口的时间戳是按照unix timestamp来算的。比如我们要用一个一周的窗口，想要的是从周一开始，到周日结束，但是按照上面这种方式计算出来的窗口的话，就是从周四开始的</p>
+<h3 id="window-高级优化">Window 高级优化<a hidden class="anchor" aria-hidden="true" href="#window-高级优化">#</a></h3>
+<h4 id="mini-batch">Mini-batch<a hidden class="anchor" aria-hidden="true" href="#mini-batch">#</a></h4>
+<p>赞一小批数据再进行计算，这批数据每个key的state访问只有一次，这样在单个key的数据比较集中的情况下，对于状态访问可以有效的降低频率，最终提升性能。</p>
+<h4 id="local-global">Local-global<a hidden class="anchor" aria-hidden="true" href="#local-global">#</a></h4>
+<p>所谓的local-global，就是将原本的聚合划分成两阶段，第一阶段先做一个local的聚合，这个阶段不需要数据shuffle，是直接跟在上游算子之后进行处理的；第二个阶段是要对第一个阶段的结果做一个merge</p>
+<h4 id="distinct状态复用">Distinct状态复用<a hidden class="anchor" aria-hidden="true" href="#distinct状态复用">#</a></h4>
+<p>对于distinct的优化，一般批里面的引擎都是通过把它优化成aggregate的方式来处理，但是在流式window中，我们不能直接这样进行优化，要不然算子就变成会下发retract的数据了。</p>
+<h4 id="滑动窗口pane复用">滑动窗口pane复用<a hidden class="anchor" aria-hidden="true" href="#滑动窗口pane复用">#</a></h4>
+<p>将窗口的状态划分成更小粒度的pane，比如上面3小时窗口、1小时滑动的情况，可以把pane设置为1h，这样每来一条数据，我们就只更新这条数据对应的pane的结果就可以了。当窗口需要输出结果的时候，只需要将这个窗口对应的pane的结果merge起来就可以了。</p>
+<h1 id="spark-原理与实践">Spark 原理与实践<a hidden class="anchor" aria-hidden="true" href="#spark-原理与实践">#</a></h1>
+<p><a href="https://www.bilibili.com/video/BV11A411L7CK">https://www.bilibili.com/video/BV11A411L7CK</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/34436165">https://zhuanlan.zhihu.com/p/34436165</a></p>
+<p><a href="https://bytedance.feishu.cn/file/boxcnvEmKZp3gR3Q1swBBrrxDJb">https://bytedance.feishu.cn/file/boxcnvEmKZp3gR3Q1swBBrrxDJb</a></p>
+<p><a href="https://live.juejin.cn/4354/yc_Spark">https://live.juejin.cn/4354/yc_Spark</a></p>
+<h2 id="大数据处理引擎spark介绍">大数据处理引擎Spark介绍<a hidden class="anchor" aria-hidden="true" href="#大数据处理引擎spark介绍">#</a></h2>
+<h3 id="spark下载编译">Spark下载编译<a hidden class="anchor" aria-hidden="true" href="#spark下载编译">#</a></h3>
+<p>1、官网download</p>
+<p>2、查看运行是需要的依赖、参数配置等等</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>tree . -L <span style="color:#ff0;font-weight:bold">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>3、查看客户端的命令</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>tree ./bin -L <span style="color:#ff0;font-weight:bold">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="spark运行架构和工作原理">Spark运行架构和工作原理<a hidden class="anchor" aria-hidden="true" href="#spark运行架构和工作原理">#</a></h3>
+<p>Spark生态组件：</p>
+<ul>
+<li>
+<p>Spark Core：Spark核心组件，它实现了Spark的基本功能，包含任务调度、内存管理、错误恢复、与存储系统交互等模块。</p>
+</li>
+<li>
+<p>Spark SQL：用来操作结构化数据的核心组件，通过Spark SQL可以直接查询Hive、HBase等多种外部数据源中的数据。</p>
+</li>
+<li>
+<p>Spark Structured Streaming：Spark提供的流式计算框架，支持高吞吐量、可容错处理的实时流式数据处理。</p>
+</li>
+<li>
+<p>MLlib：Spark提供的关于机器学习功能的算法程序库，包括分类、回归、聚类、协同过滤算法等，还提供了模型评估、数据导入等额外的功能。</p>
+</li>
+<li>
+<p>GraphX：Spark提供的分布式图处理框架，拥有对图计算和图挖掘算法的API接口以及丰富的功能和运算符。</p>
+</li>
+<li>
+<p>独立调度器、Yarn、Mesos、Kubernetes：Spark框架可以高效地在一个到数千个节点之间伸缩计算，集群管理器则主要负责各个节点的资源管理工作，为了实现这样的要求，同时获得最大灵活性，Spark支持在各种集群管理器（Cluster Manager）上运行。</p>
+</li>
+</ul>
+<p>Spark 运行架构和工作原理：</p>
+<ul>
+<li>
+<p>Application（应用）：Spark上运行的应用。Application中包含了一个驱动器（Driver）进程和集群上的多个执行器（Executor）进程。</p>
+</li>
+<li>
+<p>Driver Program（驱动器）：运行main()方法并创建SparkContext的进程。</p>
+</li>
+<li>
+<p>Cluster Manager（集群管理器）：用于在集群上申请资源的外部服务（如：独立部署的集群管理器、Mesos或者Yarn）。</p>
+</li>
+<li>
+<p>Worker Node（工作节点）：集群上运行应用程序代码的任意一个节点。</p>
+</li>
+<li>
+<p>Executor（执行器）：在集群工作节点上为某个应用启动的工作进程，该进程负责运行计算任务，并为应用程序存储数据。</p>
+</li>
+<li>
+<p>Task（任务）：执行器的工作单元。</p>
+</li>
+<li>
+<p>Job（作业）：一个并行计算作业，由一组任务（Task）组成，并由Spark的行动（Action）算子（如：save、collect）触发启动。</p>
+</li>
+<li>
+<p>Stage（阶段）：每个Job可以划分为更小的Task集合，每组任务被称为Stage。</p>
+</li>
+</ul>
+<p>Spark目前支持几个集群管理器：</p>
+<ul>
+<li>
+<p>Standalone ：Spark 附带的简单集群管理器，可以轻松设置集群。</p>
+</li>
+<li>
+<p>Apache Mesos：通用集群管理器，也可以运行 Hadoop MapReduce 和服务应用程序。（已弃用）</p>
+</li>
+<li>
+<p>Hadoop YARN： Hadoop 2 和 3 中的资源管理器。</p>
+</li>
+<li>
+<p>Kubernetes：用于自动部署、扩展和管理容器化应用程序的开源系统。</p>
+</li>
+</ul>
+<h2 id="sparkcore">SparkCore<a hidden class="anchor" aria-hidden="true" href="#sparkcore">#</a></h2>
+<p>RDD(Resilient Distributed Dataset)：弹性分布式数据集，是一个容错的、并行的数据结构</p>
+<p>RDD算子：对任何函数进行某一项操作都可以认为是一个算子，RDD算子是RDD的成员函数</p>
+<p>Transform(转换)算子: 根据已有RDD创建新的RDD</p>
+<p>Action(动作)算子: 将在数据集上运行计算后的数值返回到驱动程序，从而触发真正的计算</p>
+<p>DAG(Directed Acyclic Graph): 有向无环图，Spark中的RDD通过一系列的转换算子操作和行动算子操作形成了一个DAG</p>
+<p>DAGScheduler：将作业的DAG划分成不同的Stage，每个Stage都是TaskSet任务集合，并以TaskSet为单位提交给TaskScheduler。</p>
+<p>TaskScheduler：通过TaskSetManager管理Task，并通过集群中的资源管理器（Standalone模式下是Master，Yarn模式下是ResourceManager）把Task发给集群中Worker的Executor</p>
+<p>Shuffle：Spark中数据重分发的一种机制。</p>
+<h2 id="sparksql">SparkSQL<a hidden class="anchor" aria-hidden="true" href="#sparksql">#</a></h2>
+<p>DataFrame： 是一种以RDD为基础的分布式数据集， 被称为SchemaRDD</p>
+<p>Catalyst：SparkSQL核心模块，主要是对执行过程中的执行计划进行处理和优化</p>
+<p>DataSource：SparkSQL支持通过 DataFrame 接口对各种数据源进行操作。</p>
+<p>Adaptive Query Execution：自适应查询执行</p>
+<p>Runtime Filter：运行时过滤</p>
+<p>Codegen：生成程序代码的技术或系统，可以在运行时环境中独立于生成器系统使用</p>
+<p>SparkSql执行过程：</p>
+<ul>
+<li>
+<p>Unresolved Logical Plan：未解析的逻辑计划，仅仅是数据结构，不包含任何数据信息。</p>
+</li>
+<li>
+<p>Logical Plan：解析后的逻辑计划，节点中绑定了各种优化信息。</p>
+</li>
+<li>
+<p>Optimized Logical Plan：优化后的逻辑计划</p>
+</li>
+<li>
+<p>Physical Plans：物理计划列表</p>
+</li>
+<li>
+<p>Selected Physical Plan 从列表中按照一定的策略选取最优的物理计划</p>
+</li>
+</ul>
+<h2 id="业界挑战与实践">业界挑战与实践<a hidden class="anchor" aria-hidden="true" href="#业界挑战与实践">#</a></h2>
+<p>向量化(vectorization)：将循环转换为向量操作的编译器优化</p>
+<p>代码生成(Codegen：Code generation)：生成程序代码的技术或系统，可以在运行时环境中独立于生成器系统使用</p>
+<h1 id="大数据-shuffle-原理与实践">大数据 Shuffle 原理与实践<a hidden class="anchor" aria-hidden="true" href="#大数据-shuffle-原理与实践">#</a></h1>
+<p><a href="https://bytedance.feishu.cn/file/boxcnQaV9uaxTp4xF0d1vEK5W3c">https://bytedance.feishu.cn/file/boxcnQaV9uaxTp4xF0d1vEK5W3c</a></p>
+<p><a href="https://live.juejin.cn/4354/yc_Shuffle">https://live.juejin.cn/4354/yc_Shuffle</a></p>
+<h2 id="shuffle概述">shuffle概述<a hidden class="anchor" aria-hidden="true" href="#shuffle概述">#</a></h2>
+<p><a href="https://www.cnblogs.com/lintong-zf/p/14231356.html">https://www.cnblogs.com/lintong-zf/p/14231356.html</a></p>
+<p>所谓shuffle就是指把数据打乱重新组合。指数据从map task输出到reduce task输入的这段过程。</p>
+<h3 id="mapreduce">Mapreduce<a hidden class="anchor" aria-hidden="true" href="#mapreduce">#</a></h3>
+<ul>
+<li>map阶段：在单机上进行的针对一小块数据的计算</li>
+<li>shuffle阶段：在map阶段的基础上，进行数据移动</li>
+<li>reduce阶段：对移动后的数据进行处理，依然是在单机上处理一小份数据</li>
+</ul>
+<h3 id="为什么shuffle如此重要">为什么shuffle如此重要<a hidden class="anchor" aria-hidden="true" href="#为什么shuffle如此重要">#</a></h3>
+<ul>
+<li>数据shuffle表示了不同分区数据交换的过程，不同的shuffle策略性能差异较大。目前在各个引擎中shuffle都是优化的重点，在spark框架中，shuffle是支撑spark进行大规模复杂数据处理的基石。</li>
+</ul>
+<h2 id="shuffle算子">shuffle算子<a hidden class="anchor" aria-hidden="true" href="#shuffle算子">#</a></h2>
+<p>常见的触发shuffle的算子</p>
+<ul>
+<li>
+<p>repartition</p>
+<ul>
+<li>coalesce、repartition</li>
+</ul>
+<p>重分区一般会shuffle，因为需要在整个集群中，对之前所有的分区的数据进行随机，均匀的打乱，然后把数据放入下游新的指定数量的分区内。</p>
+</li>
+<li>
+<p>ByKey</p>
+<ul>
+<li>groupByKey、reduceByKey、aggregateByKey、combineByKey、sortByKeysortBy</li>
+</ul>
+<p>byKey类的操作要对一个key，进行聚合操作，那么肯定要保证集群中，所有节点上的相同的key，移动到同一个节点上进行处理。</p>
+</li>
+<li>
+<p>Join</p>
+<ul>
+<li>cogroup、join</li>
+</ul>
+<p>两个rdd进行join，就必须将相同join key的数据，shuffle到同一个节点上，然后进行相同key的两个rdd数据的笛卡尔乘积。</p>
+</li>
+</ul>
+<h2 id="shuffle过程">shuffle过程<a hidden class="anchor" aria-hidden="true" href="#shuffle过程">#</a></h2>
+<p>HashShuffle</p>
+<ul>
+<li>优点：不需要排序</li>
+<li>缺点：打开，创建的文件过多</li>
+</ul>
+<p>SortShuffle</p>
+<ul>
+<li>优点：打开的文件少、支持map-side combine</li>
+<li>缺点：需要排序</li>
+</ul>
+<p>TungstenSortShuffle</p>
+<ul>
+<li>优点：更快的排序效率，更高的内存利用效率</li>
+<li>缺点：不支持map-side combine</li>
+</ul>
+<h2 id="push-shuffle">push shuffle<a hidden class="anchor" aria-hidden="true" href="#push-shuffle">#</a></h2>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://kevinerr.github.io/tags/%E6%A0%87%E7%AD%BE1/">标签1</a></li>
+      <li><a href="https://kevinerr.github.io/tags/%E6%A0%87%E7%AD%BE2/">标签2</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://kevinerr.github.io/posts/life/20220728/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>20220728</span>
+  </a>
+  <a class="next" href="https://kevinerr.github.io/posts/tech/tcp/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>TCP</span>
+  </a>
+</nav>
+
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 字节大数据 on twitter"
+        href="https://twitter.com/intent/tweet/?text=%e5%ad%97%e8%8a%82%e5%a4%a7%e6%95%b0%e6%8d%ae&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E5%25AD%2597%25E8%258A%2582%25E5%25A4%25A7%25E6%2595%25B0%25E6%258D%25AE%2f&amp;hashtags=%e6%a0%87%e7%ad%be1%2c%e6%a0%87%e7%ad%be2">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 字节大数据 on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E5%25AD%2597%25E8%258A%2582%25E5%25A4%25A7%25E6%2595%25B0%25E6%258D%25AE%2f&amp;title=%e5%ad%97%e8%8a%82%e5%a4%a7%e6%95%b0%e6%8d%ae&amp;summary=%e5%ad%97%e8%8a%82%e5%a4%a7%e6%95%b0%e6%8d%ae&amp;source=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E5%25AD%2597%25E8%258A%2582%25E5%25A4%25A7%25E6%2595%25B0%25E6%258D%25AE%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 字节大数据 on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E5%25AD%2597%25E8%258A%2582%25E5%25A4%25A7%25E6%2595%25B0%25E6%258D%25AE%2f&title=%e5%ad%97%e8%8a%82%e5%a4%a7%e6%95%b0%e6%8d%ae">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 字节大数据 on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E5%25AD%2597%25E8%258A%2582%25E5%25A4%25A7%25E6%2595%25B0%25E6%258D%25AE%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 字节大数据 on whatsapp"
+        href="https://api.whatsapp.com/send?text=%e5%ad%97%e8%8a%82%e5%a4%a7%e6%95%b0%e6%8d%ae%20-%20https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E5%25AD%2597%25E8%258A%2582%25E5%25A4%25A7%25E6%2595%25B0%25E6%258D%25AE%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 字节大数据 on telegram"
+        href="https://telegram.me/share/url?text=%e5%ad%97%e8%8a%82%e5%a4%a7%e6%95%b0%e6%8d%ae&amp;url=https%3a%2f%2fkevinerr.github.io%2fposts%2ftech%2f%25E5%25AD%2597%25E8%258A%2582%25E5%25A4%25A7%25E6%2595%25B0%25E6%258D%25AE%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+
+  </footer>
+<div>
+    <div class="pagination__title">
+        <span class="pagination__title-h" style="font-size: 20px;">💬评论</span>
+        <hr />
+    </div>
+    <div id="tcomment"></div>
+    <script src="https://cdn.jsdelivr.net/npm/twikoo@1.5.0/dist/twikoo.all.min.js"></script>
+    <script>
+        twikoo.init({
+            envId: "https://twikoo-two-psi.vercel.app/",  
+            el: "#tcomment",
+            lang: 'zh-CN',
+            region: 'ap-guangzhou',  
+            path: 'window.TWIKOO_MAGIC_PATH||window.location.pathname',
+        });
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://kevinerr.github.io/">hkh&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

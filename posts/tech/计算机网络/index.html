@@ -7,7 +7,7 @@
 <meta name="robots" content="index, follow">
 <title>计算机网络 | hkh&#39;s Blog</title>
 <meta name="keywords" content="计算机网络, 408" />
-<meta name="description" content="网络的功能 计算机网络的功能主要体现在资源共享、数据通信和分布式处理三个方面。资源共享是计算机网络用户提供的最主要的功能，资源是指在有限时间内">
+<meta name="description" content="https://blog.csdn.net/weixin_43914604/article/details/104722679 第1 章 计算机网络体系结构 1.1 计算机网络概述 1.1.1 计算机网络的概念、组成、功能和分类 1.1.2 计算机网络的性能指标（速率、带宽、吞吐量、时延、往返时延、时">
 <meta name="author" content="
 作者:&nbsp;kevin">
 <link rel="canonical" href="https://kevinerr.github.io/posts/tech/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" />
@@ -59,15 +59,15 @@
 
     </style>
 </noscript><meta property="og:title" content="计算机网络" />
-<meta property="og:description" content="网络的功能 计算机网络的功能主要体现在资源共享、数据通信和分布式处理三个方面。资源共享是计算机网络用户提供的最主要的功能，资源是指在有限时间内" />
+<meta property="og:description" content="https://blog.csdn.net/weixin_43914604/article/details/104722679 第1 章 计算机网络体系结构 1.1 计算机网络概述 1.1.1 计算机网络的概念、组成、功能和分类 1.1.2 计算机网络的性能指标（速率、带宽、吞吐量、时延、往返时延、时" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://kevinerr.github.io/posts/tech/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-03-21T20:05:10&#43;00:00" />
-<meta property="article:modified_time" content="2021-03-21T20:05:10&#43;00:00" />
+<meta property="article:published_time" content="2022-04-25T19:46:10&#43;08:00" />
+<meta property="article:modified_time" content="2022-04-25T19:46:10&#43;08:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="计算机网络"/>
-<meta name="twitter:description" content="网络的功能 计算机网络的功能主要体现在资源共享、数据通信和分布式处理三个方面。资源共享是计算机网络用户提供的最主要的功能，资源是指在有限时间内"/>
+<meta name="twitter:description" content="https://blog.csdn.net/weixin_43914604/article/details/104722679 第1 章 计算机网络体系结构 1.1 计算机网络概述 1.1.1 计算机网络的概念、组成、功能和分类 1.1.2 计算机网络的性能指标（速率、带宽、吞吐量、时延、往返时延、时"/>
 
 
 <script type="application/ld+json">
@@ -102,19 +102,19 @@
   "@type": "BlogPosting",
   "headline": "计算机网络",
   "name": "计算机网络",
-  "description": "网络的功能 计算机网络的功能主要体现在资源共享、数据通信和分布式处理三个方面。资源共享是计算机网络用户提供的最主要的功能，资源是指在有限时间内",
+  "description": "https://blog.csdn.net/weixin_43914604/article/details/104722679 第1 章 计算机网络体系结构 1.1 计算机网络概述 1.1.1 计算机网络的概念、组成、功能和分类 1.1.2 计算机网络的性能指标（速率、带宽、吞吐量、时延、往返时延、时",
   "keywords": [
     "计算机网络", "408"
   ],
-  "articleBody": "网络的功能 计算机网络的功能主要体现在资源共享、数据通信和分布式处理三个方面。资源共享是计算机网络用户提供的最主要的功能，资源是指在有限时间内可为用户提供各种服务的软、硬件，资源共享是指网络中的用户能够全部地使用网络中的资源，包括软件共享、硬件共享和数据共享，通常，用户本身不需要考虑自己所使用的资源在网络中的具体位置。\n数据通信主要完成资源子网中各个独立的计算机系统之间的信息数据的传递，分布式处理则是利用网络技术多个独立的计算机系统连接组合成一个高性能的计算机系统，计算机群集，分布式系统，网络等都是这一功能应用的典型实例。\nCOOKIE/SESSION https://www.jianshu.com/p/6623416161ff\n 由于HTTP协议是无状态的协议，所以服务端需要记录用户的状态时，就需要用某种机制来识具体的用户，这个机制就是Session.典型的场景比如购物车，当你点击下单按钮时，由于HTTP协议无状态，所以并不知道是哪个用户操作的，所以服务端要为特定的用户创建了特定的Session，用用于标识这个用户，并且跟踪用户，这样才知道购物车里面有几本书。这个Session是保存在服务端的，有一个唯一标识。在服务端保存Session的方法很多，内存、数据库、文件都有。集群的时候也要考虑Session的转移，在大型的网站，一般会有专门的Session服务器集群，用来保存用户会话，这个时候 Session 信息都是放在内存的，使用一些缓存服务比如Memcached之类的来放 Session。 思考一下服务端如何识别特定的客户？这个时候Cookie就登场了。每次HTTP请求的时候，客户端都会发送相应的Cookie信息到服务端。实际上大多数的应用都是用 Cookie 来实现Session跟踪的，第一次创建Session的时候，服务端会在HTTP协议中告诉客户端，需要在 Cookie 里面记录一个Session ID，以后每次请求把这个会话ID发送到服务器，我就知道你是谁了。有人问，如果客户端的浏览器禁用了 Cookie 怎么办？一般这种情况下，会使用一种叫做URL重写的技术来进行会话跟踪，即每次HTTP交互，URL后面都会被附加上一个诸如 sid=xxxxx 这样的参数，服务端据此来识别用户。 Cookie其实还可以用在一些方便用户的场景下，设想你某次登陆过一个网站，下次登录的时候不想再次输入账号了，怎么办？这个信息可以写到Cookie里面，访问网站的时候，网站页面的脚本可以读取这个信息，就自动帮你把用户名给填了，能够方便一下用户。这也是Cookie名称的由来，给用户的一点甜头。所以，总结一下：Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中；Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。  访问网站 1、在浏览器输入url 2、浏览器向DNS解析url的ip地址 3、浏览器与服务器建立tcp连接（默认端口号80；2个套接字确定一条tcp连接） 4、浏览器发出http请求（get index.html) 5、服务器通过http将index.html发送给浏览器 6、tcp连接释放，浏览器解释文件index.html，并将web页显示给用户 HTTP缓存 https://www.jianshu.com/p/227cee9c8d15\nHTTP 超文本传输协议HyperText Transfer Protocol\n基于TCP协议的应用层传输协议\n客户端和服务端\n无状态 (stateless) 协议 Cookie\nConnection: Keep-Alive实现长连接\n正在传输的类型由Content-Type加以标记\n在实际的应用中，客户端往往会发出一系列请求，接着服务器端对每个请求进行响应。对于这些请求|响应，如果每次都经过一个单独的TCP连接发送，称为非持久连接。反之，如果每次都经过相同的TCP连接进行发送，称为持久连接。\n非持久连接在每次请求|响应之后都要断开连接，下次再建立新的TCP连接，这样就造成了大量的通信开销。例如前面提到的往返时间(RTT) 就是在建立TCP连接的过程中的代价。\nHTTP请求 由请求行，消息报头，请求正文三部分构成\n1、请求行由请求Method, URL 字段和HTTP Version三部分构成\n1  GET /example.html HTTP/1.1 (CRLF)   2、消息报头由一系列的键值对组成，允许客户端向服务器端发送一些附加信息或者客户端自身的信息\n3、HTTP请求正文\n只有在发送POST请求时才会有请求正文，GET方法并没有请求正文\nHTTP响应 也由三部分组成，包括状态行，消息报头，响应正文。\n1、状态行也由三部分组成，包括HTTP协议的版本，状态码，以及对状态码的文本描述。例如\n1  HTTP/1.1 200 OK （CRLF）   GET/POST  GET提交的数据放在URL中，POST则不会。这是最显而易见的差别。这点意味着GET更不安全（POST也不安全，因为HTTP是明文传输抓包就能获取数据内容，要想安全还得加密） GET回退浏览器无害，POST会再次提交请求（GET方法回退后浏览器再缓存中拿结果，POST每次都会创建新资源） GET提交的数据大小有限制（是因为浏览器对URL的长度有限制，GET本身没有限制），POST没有 GET可以被保存为书签，POST不可以。这一点也能感受到。 GET能被缓存，POST不能 GET只允许ASCII字符，POST没有限制 GET会保存再浏览器历史记录中，POST不会。这点也能感受到。  HTTPS 内容加密建立一个信息安全通道，来保证数据传输的安全；\n身份认证确认网站的真实性\n数据完整性防止内容被第三方冒充或者篡改\nSSL (Secure Socket Layer，安全套接字层)\nTLS (Transport Layer Security，传输层安全协议)\nTLS\n协议 https://zhuanlan.zhihu.com/p/93894145\n电子邮件 SMTP（simple mail transfer protocol）推 POP3（post office protocol邮局协议）拉 MIME（multipurpose internet mail extensions多用途网络邮件补充）：非ASCII码数据 IMAP（因特网报文存取协议）：只读报文的某一部分\nNAT (Network Address Translation)网络地址转换\n私有地址（10 172 192）–公用地址\n该网络中的主机使用私用IP地址.当私有网络内部主机和外部Internet通信时,网关(gateway)路由器负责将私有IP地址转换为全球IP地址\nNAPT (Network Address and Port Translation)\nCIDR Classless Inter-Domain Routing，无类域间路由\n细分网络、子网掩码、CIDR（构成超网，查找路由表最长前缀匹配）\nARP 地址解析协议，即ARP（Address Resolution Protocol）根据IP地址获取物理地址的一个TCP/IP协议\n工作过程\n假设主机A和B在同一个网段，主机A要向主机B发送信息，具体的地址解析过程如下：\n 主机A首先查看自己的ARP缓存表，确定其中是否包含有主机B对应的ARP表项。如果找到了对应的MAC地址，则主机A直接利用ARP表中的MAC地址，对IP数据包进行帧封装，并将数据包发送给主机B。 如果主机A在ARP表中找不到对应的MAC地址，则将缓存该数据报文，然后以广播方式发送一个ARP请求报文。ARP请求报文中的发送端IP地址和发送端MAC地址为主机A的IP地址和MAC地址，目标IP地址和目标MAC地址为主机B的IP地址和全0的MAC地址。由于ARP请求报文以广播方式发送，该网段上的所有主机都可以接收到该请求，但只有被请求的主机（即主机B）会对该请求进行处理。 主机B比较自己的IP地址和ARP请求报文中的目标IP地址，当两者相同时进行如下处理：将ARP请求报文中的发送端（即主机A）的IP地址和MAC地址存入自己的ARP表中。之后以单播方式发送ARP响应报文给主机A，其中包含了自己的MAC地址。 主机A收到ARP响应报文后，将主机B的MAC地址加入到自己的ARP表中以用于后续报文的转发，同时将IP数据包进行封装后发送出去。  当主机A和主机B不在同一网段时，主机A就会先向网关发出ARP请求，ARP请求报文中的目标IP地址为网关的IP地址。当主机A从收到的响应报文中获得网关的MAC地址后，将报文封装并发给网关。如果网关没有主机B的ARP表项，网关会广播ARP请求，目标IP地址为主机B的IP地址，当网关从收到的响应报文中获得主机B的MAC地址后，就可以将报文发给主机B；如果网关已经有主机B的ARP表项，网关直接把报文发给主机B。\nDHCP DHCP（Dynamic Host Configuration Protocol，动态主机配置协议）\n是一个局域网的网络协议，使用UDP协议工作，统一使用两个IANA分配的端口：67（服务器端），68（客户端）。DHCP通常被用于局域网环境，主要作用是集中的管理、分配IP地址，使client动态的获得IP地址、Gateway地址、DNS服务器地址等信息，并能够提升地址的使用率。简单来说，DHCP就是一个不需要账号密码登录的、自动给内网机器分配IP地址等信息的协议。\nICMP ping/traceroute\nICMP是 Internet Control Message Protocol 的缩写，即互联网控制消息协议\n它用于 TCP/IP 网络中发送控制消息，提供可能发生在通信环境中的各种问题反馈，通过这些信息，使网络管理者可以对所发生的问题作出诊断，然后采取适当的措施解决问题。虽然 ICMP 是网络层协议，但是它不像 IP 协议和 ARP 协议一样直接传递给数据链路层，而是先封装成 IP 数据包然后再传递给数据链路层。所以在 IP 数据包中如果协议类型字段的值是 1 的话，就表示 IP 数据是 ICMP 报文。\nICMP协议的类型分为两大类，查询报文和差错报文。\n非对称加密RSA 公钥(E,N) 私钥（D,N）\nCDN Content Delivery Network，内容分发网络\nhttps://zhuanlan.zhihu.com/p/52362950\n诞生 随着互联网的爆炸式发展，网络拥塞越来越严重，将会成为互联网发展的最大障碍。\n原理 CDN这个技术其实说起来并不复杂，最初的核心理念，就是将内容缓存在终端用户附近。\n内容源不是远么？那么，我们就在靠近用户的地方，建一个缓存服务器，把远端的内容，复制一份，放在这里，不就OK了？\nVPN 应用：居家办公、访问校园网、访问**\nISP（Internet Service Provider）：因特网服务提供商\nVPN（Virtual Private Network）：虚拟专用网络\n站点–站点 VPN 客户端站点VPN、远程登录VPN 不需要长时间进行链接、使用浏览器通信、\n全隧道、半隧道\nVPN的职责 加密（不然你知道、完整（数据被你破坏、认证（电脑被你黑了\nVPN框架 IPsec（网络层、SSL/TLS（表示层\n",
-  "wordCount" : "4043",
+  "articleBody": "https://blog.csdn.net/weixin_43914604/article/details/104722679\n第1 章 计算机网络体系结构 1.1 计算机网络概述 1.1.1 计算机网络的概念、组成、功能和分类 1.1.2 计算机网络的性能指标（速率、带宽、吞吐量、时延、往返时延、时延带宽积、信道利用率）\n1.2 计算机网络体系结构与参考模型 1.2.1 计算机网络的分层结构、协议、服务和接口 1.2.2 OSI参考模型（应用层、表示层、会话层、传输层、网络层、数据链路层、物理层） 1.2.3 TCP/PI参考模型（应用层、传输层、网际层、网络接口层）、五层参考模型（应用层、传输层、网络层、数据链路层、物理层）、OSI与TCP/IP参考模型比较\n1.0.0 计算机网络体系结构总结\n第 2 章 物理层 首先要强调指出，物理层考虑的是怎样才能在连接各种计算机的传输媒体上传输数据比特流，而不是指具体的传输媒体。大家知道，现有的计算机网络中的硬件设备和传输媒体的种类非常繁多，而通信手段也有许多不同方式。物理层的作用正是要尽可能地屏蔽掉这些传输媒体和通信手段的差异，使物理层上面的数据链路层感觉不到这些差异，这样就可使数据链路层只需要考虑如何完成本层的协议和服务，而不必考虑网络具体的传输媒体和通信手段是什么。用于物理层的协议也常称为物理层规程(procedure)。其实物理层规程就是物理层协议。\n0101变成高低电频\n2.1 通信基础 2.1.1 物理层接口特性、数据通信模型、物理层基本概念（数据、信号、码元 、信源、信道、信宿 、速率、波特、带宽） 2.1.2 奈氏准则和香农定理 2.1.3 编码与调制\n2.2 传输介质及物理设备 2.2.1 传输介质（双绞线、同轴电缆、光纤、无线电缆、微波、激光、红外线） 2.2.2 物理层设备（中继器、集线器）\n2.0.0 物理层总结\n第 3 章 数据链路层 https://info.support.huawei.com/info-finder/encyclopedia/zh/MTU.html\n3.1 数据链路层的功能 3.1.1 数据链路层的基本概念和功能概述\n3.2 组帧 3.2.1 封装成帧、帧定界、帧同步、透明传输（字符计数法、字符串的首尾填充法、零比特填充的首尾标志法、违规编码法\n3.3 差错控制 3.3.1 数据链路层之差错控制（检错编码和纠错编码）-（奇偶校验码、CRC循环冗余码、海明码）\n3.4 流量控制与可靠传输机制 3.4.1 流量控制（停止-等待协议、滑动窗口、后退N帧协议GBN、选择重传协议SR）、滑动窗口、可靠传输机制\n3.5 介质访问控制 3.5.1 介质访问控制（静态划分信道、FDM、TDM、STDM、WDM、CDM）、（动态划分信道、ALOHA、CSMA、CSMA/CD、CSMA/CA）、令牌传递协议\n3.6 局域网 3.6.1 局域网（以太网与IEEE 802.3、IEEE 802.11、）\n3.7 广域网 3.7.1 广域网（ppp协议、HDLC协议）\n3.8 数据链路层设备 3.8.1 数据链路层设备（网桥、交换机）\n第 4 章 网络层 4.1 网络层的功能 4.1.1 网络层的功能（路由选择与分组转发、异构网络互连、拥塞控制） 4.1.2 计算机网络之（电路交换、报文交换、分组交换–数据报–虚电路）\n4.2 路由算法与路由协议概述 4.2.1 路由算法与路由协议概述（静态路由和动态路由—距离-向量路由算法—链路状态路由算法、层次路由）\n4.3 IPv4 4.3.1 IPv4（IPv4分组、IPv4地址、NAT、子网划分与子网掩码、CIDR、ARP协议、DHCP、ICMP）\n4.4 IPv6 4.4.1 IPv6(诞生原因、数据报格式、与IPv4的不同、地址表现形式、基本地址类型、IPv6与IPv4的过渡策略)\n4.5 路由协议 4.5.1 路由选择协议（自治系统AS、RIP、OSPF、BGP）\n4.6 IP组播 4.6.1 IP组播（IGMP、组播路由选择协议、组播地址）\n4.7 移动IP 4.7.1 移动IP\n4.8 路由器 4.8.1 网络层设备路由器\n第 5 章 传输层 5.1 传输层提供的服务 5.1.1 （传输层提供的服务及功能概述、端口、套接字–Socket、无连接UDP和面向连接TCP服务）\n5.2 UDP协议 5.2.1 UDP协议\n5.3 TCP协议 5.3.1 TCP协议（tcp协议特点、tcp报文段首部格式、tcp连接管理—三次握手、tcp连接释放—四次握手） 5.3.2 TCP可靠传输 5.3.3 TCP流量控制 5.3.4 TCP拥塞控制(慢开始与拥塞避免、快重传和快恢复)\n第 6 章 应用层 6.1 网络应用模型 6.1.1 应用层概述(C/S模型与p2p模型)\n6.2 域名系统DNS 6.2.1 详解DNS域名解析系统（域名、域名服务器[根、顶级、授权/权限、本地]、域名解析过程[递归与迭代]）\n6.3 FTP协议 ​ 6.3.1 FTP协议\n6.4 电子邮件系统的组成和结构 ​ 6.4.1 你真的了解电子邮件系统的组成和结构吗？（SMTP、POP3、IMAP、MIME……）\n6.5 万维网与HTTP ​ 6.5.1 万维网www与HTTP协议\n",
+  "wordCount" : "1704",
   "inLanguage": "en",
-  "datePublished": "2021-03-21T20:05:10Z",
-  "dateModified": "2021-03-21T20:05:10Z",
-  "author":{
+  "datePublished": "2022-04-25T19:46:10+08:00",
+  "dateModified": "2022-04-25T19:46:10+08:00",
+  "author":[{
     "@type": "Person",
     "name": "kevin"
-  },
+  }],
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://kevinerr.github.io/posts/tech/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"
@@ -228,7 +228,7 @@
 
 
 
-创建:&nbsp;<span title='2021-03-21 20:05:10 +0000 UTC'>2021-03-21</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-21&nbsp;|&nbsp;字数:&nbsp;4043字&nbsp;|&nbsp;时长: 9分钟&nbsp;|&nbsp;
+创建:&nbsp;<span title='2022-04-25 19:46:10 +0800 CST'>2022-04-25</span>&nbsp;|&nbsp;更新:&nbsp;2022-04-25&nbsp;|&nbsp;字数:&nbsp;1704字&nbsp;|&nbsp;时长: 4分钟&nbsp;|&nbsp;
 作者:&nbsp;kevin
 
 </div>
@@ -241,78 +241,84 @@
 
             <div class="inner"><ul>
                     <li>
-                        <a href="#%e7%bd%91%e7%bb%9c%e7%9a%84%e5%8a%9f%e8%83%bd" aria-label="网络的功能">网络的功能</a></li>
-                    <li>
-                        <a href="#cookiesession" aria-label="COOKIE/SESSION">COOKIE/SESSION</a></li>
-                    <li>
-                        <a href="#%e8%ae%bf%e9%97%ae%e7%bd%91%e7%ab%99" aria-label="访问网站">访问网站</a><ul>
+                        <a href="#%e7%ac%ac1-%e7%ab%a0-%e8%ae%a1%e7%ae%97%e6%9c%ba%e7%bd%91%e7%bb%9c%e4%bd%93%e7%b3%bb%e7%bb%93%e6%9e%84" aria-label="第1 章 计算机网络体系结构">第1 章 计算机网络体系结构</a><ul>
                             
                     <li>
-                        <a href="#1%e5%9c%a8%e6%b5%8f%e8%a7%88%e5%99%a8%e8%be%93%e5%85%a5url" aria-label="1、在浏览器输入url">1、在浏览器输入url</a></li>
+                        <a href="#11-%e8%ae%a1%e7%ae%97%e6%9c%ba%e7%bd%91%e7%bb%9c%e6%a6%82%e8%bf%b0" aria-label="1.1 计算机网络概述">1.1 计算机网络概述</a></li>
                     <li>
-                        <a href="#3%e6%b5%8f%e8%a7%88%e5%99%a8%e4%b8%8e%e6%9c%8d%e5%8a%a1%e5%99%a8%e5%bb%ba%e7%ab%8btcp%e8%bf%9e%e6%8e%a5%e9%bb%98%e8%ae%a4%e7%ab%af%e5%8f%a3%e5%8f%b7802%e4%b8%aa%e5%a5%97%e6%8e%a5%e5%ad%97%e7%a1%ae%e5%ae%9a%e4%b8%80%e6%9d%a1tcp%e8%bf%9e%e6%8e%a5" aria-label="3、浏览器与服务器建立tcp连接（默认端口号80；2个套接字确定一条tcp连接）">3、浏览器与服务器建立tcp连接（默认端口号80；2个套接字确定一条tcp连接）</a></li>
-                    <li>
-                        <a href="#4%e6%b5%8f%e8%a7%88%e5%99%a8%e5%8f%91%e5%87%bahttp%e8%af%b7%e6%b1%82get-indexhtml" aria-label="4、浏览器发出http请求（get index.html)">4、浏览器发出http请求（get index.html)</a></li>
-                    <li>
-                        <a href="#5%e6%9c%8d%e5%8a%a1%e5%99%a8%e9%80%9a%e8%bf%87http%e5%b0%86indexhtml%e5%8f%91%e9%80%81%e7%bb%99%e6%b5%8f%e8%a7%88%e5%99%a8" aria-label="5、服务器通过http将index.html发送给浏览器">5、服务器通过http将index.html发送给浏览器</a></li>
-                    <li>
-                        <a href="#6tcp%e8%bf%9e%e6%8e%a5%e9%87%8a%e6%94%be%e6%b5%8f%e8%a7%88%e5%99%a8%e8%a7%a3%e9%87%8a%e6%96%87%e4%bb%b6indexhtml%e5%b9%b6%e5%b0%86web%e9%a1%b5%e6%98%be%e7%a4%ba%e7%bb%99%e7%94%a8%e6%88%b7" aria-label="6、tcp连接释放，浏览器解释文件index.html，并将web页显示给用户">6、tcp连接释放，浏览器解释文件index.html，并将web页显示给用户</a></li></ul>
+                        <a href="#12-%e8%ae%a1%e7%ae%97%e6%9c%ba%e7%bd%91%e7%bb%9c%e4%bd%93%e7%b3%bb%e7%bb%93%e6%9e%84%e4%b8%8e%e5%8f%82%e8%80%83%e6%a8%a1%e5%9e%8b" aria-label="1.2 计算机网络体系结构与参考模型">1.2 计算机网络体系结构与参考模型</a></li></ul>
                     </li>
                     <li>
-                        <a href="#http%e7%bc%93%e5%ad%98" aria-label="HTTP缓存">HTTP缓存</a></li>
-                    <li>
-                        <a href="#http" aria-label="HTTP">HTTP</a><ul>
+                        <a href="#%e7%ac%ac-2-%e7%ab%a0-%e7%89%a9%e7%90%86%e5%b1%82" aria-label="第 2 章 物理层">第 2 章 物理层</a><ul>
                             
                     <li>
-                        <a href="#http%e8%af%b7%e6%b1%82" aria-label="HTTP请求">HTTP请求</a></li>
+                        <a href="#21-%e9%80%9a%e4%bf%a1%e5%9f%ba%e7%a1%80" aria-label="2.1 通信基础">2.1 通信基础</a></li>
                     <li>
-                        <a href="#http%e5%93%8d%e5%ba%94" aria-label="HTTP响应">HTTP响应</a></li></ul>
+                        <a href="#22-%e4%bc%a0%e8%be%93%e4%bb%8b%e8%b4%a8%e5%8f%8a%e7%89%a9%e7%90%86%e8%ae%be%e5%a4%87" aria-label="2.2 传输介质及物理设备">2.2 传输介质及物理设备</a></li></ul>
                     </li>
                     <li>
-                        <a href="#getpost" aria-label="GET/POST">GET/POST</a><ul>
+                        <a href="#%e7%ac%ac-3-%e7%ab%a0-%e6%95%b0%e6%8d%ae%e9%93%be%e8%b7%af%e5%b1%82" aria-label="第 3 章 数据链路层">第 3 章 数据链路层</a><ul>
                             
                     <li>
-                        <a href="#https" aria-label="HTTPS">HTTPS</a></li></ul>
+                        <a href="#31-%e6%95%b0%e6%8d%ae%e9%93%be%e8%b7%af%e5%b1%82%e7%9a%84%e5%8a%9f%e8%83%bd" aria-label="3.1 数据链路层的功能">3.1 数据链路层的功能</a></li>
+                    <li>
+                        <a href="#32-%e7%bb%84%e5%b8%a7" aria-label="3.2 组帧">3.2 组帧</a></li>
+                    <li>
+                        <a href="#33-%e5%b7%ae%e9%94%99%e6%8e%a7%e5%88%b6" aria-label="3.3 差错控制">3.3 差错控制</a></li>
+                    <li>
+                        <a href="#34-%e6%b5%81%e9%87%8f%e6%8e%a7%e5%88%b6%e4%b8%8e%e5%8f%af%e9%9d%a0%e4%bc%a0%e8%be%93%e6%9c%ba%e5%88%b6" aria-label="3.4 流量控制与可靠传输机制">3.4 流量控制与可靠传输机制</a></li>
+                    <li>
+                        <a href="#35-%e4%bb%8b%e8%b4%a8%e8%ae%bf%e9%97%ae%e6%8e%a7%e5%88%b6" aria-label="3.5 介质访问控制">3.5 介质访问控制</a></li>
+                    <li>
+                        <a href="#36-%e5%b1%80%e5%9f%9f%e7%bd%91" aria-label="3.6 局域网">3.6 局域网</a></li>
+                    <li>
+                        <a href="#37-%e5%b9%bf%e5%9f%9f%e7%bd%91" aria-label="3.7 广域网">3.7 广域网</a></li>
+                    <li>
+                        <a href="#38-%e6%95%b0%e6%8d%ae%e9%93%be%e8%b7%af%e5%b1%82%e8%ae%be%e5%a4%87" aria-label="3.8 数据链路层设备">3.8 数据链路层设备</a></li></ul>
                     </li>
                     <li>
-                        <a href="#%e5%8d%8f%e8%ae%ae" aria-label="协议">协议</a><ul>
+                        <a href="#%e7%ac%ac-4-%e7%ab%a0-%e7%bd%91%e7%bb%9c%e5%b1%82" aria-label="第 4 章 网络层">第 4 章 网络层</a><ul>
                             
                     <li>
-                        <a href="#%e7%94%b5%e5%ad%90%e9%82%ae%e4%bb%b6" aria-label="电子邮件">电子邮件</a></li>
+                        <a href="#41-%e7%bd%91%e7%bb%9c%e5%b1%82%e7%9a%84%e5%8a%9f%e8%83%bd" aria-label="4.1 网络层的功能">4.1 网络层的功能</a></li>
                     <li>
-                        <a href="#nat" aria-label="NAT">NAT</a></li>
+                        <a href="#42-%e8%b7%af%e7%94%b1%e7%ae%97%e6%b3%95%e4%b8%8e%e8%b7%af%e7%94%b1%e5%8d%8f%e8%ae%ae%e6%a6%82%e8%bf%b0" aria-label="4.2 路由算法与路由协议概述">4.2 路由算法与路由协议概述</a></li>
                     <li>
-                        <a href="#napt" aria-label="NAPT">NAPT</a></li>
+                        <a href="#43-ipv4" aria-label="4.3 IPv4">4.3 IPv4</a></li>
                     <li>
-                        <a href="#cidr" aria-label="CIDR">CIDR</a></li>
+                        <a href="#44-ipv6" aria-label="4.4 IPv6">4.4 IPv6</a></li>
                     <li>
-                        <a href="#arp" aria-label="ARP">ARP</a></li>
+                        <a href="#45-%e8%b7%af%e7%94%b1%e5%8d%8f%e8%ae%ae" aria-label="4.5 路由协议">4.5 路由协议</a></li>
                     <li>
-                        <a href="#dhcp" aria-label="DHCP">DHCP</a></li>
+                        <a href="#46-ip%e7%bb%84%e6%92%ad" aria-label="4.6 IP组播">4.6 IP组播</a></li>
                     <li>
-                        <a href="#icmp" aria-label="ICMP">ICMP</a></li></ul>
+                        <a href="#47-%e7%a7%bb%e5%8a%a8ip" aria-label="4.7 移动IP">4.7 移动IP</a></li>
+                    <li>
+                        <a href="#48-%e8%b7%af%e7%94%b1%e5%99%a8" aria-label="4.8 路由器">4.8 路由器</a></li></ul>
                     </li>
                     <li>
-                        <a href="#%e9%9d%9e%e5%af%b9%e7%a7%b0%e5%8a%a0%e5%af%86rsa" aria-label="非对称加密RSA">非对称加密RSA</a></li>
-                    <li>
-                        <a href="#cdn" aria-label="CDN">CDN</a><ul>
+                        <a href="#%e7%ac%ac-5-%e7%ab%a0-%e4%bc%a0%e8%be%93%e5%b1%82" aria-label="第 5 章 传输层">第 5 章 传输层</a><ul>
                             
                     <li>
-                        <a href="#%e8%af%9e%e7%94%9f" aria-label="诞生">诞生</a></li>
+                        <a href="#51-%e4%bc%a0%e8%be%93%e5%b1%82%e6%8f%90%e4%be%9b%e7%9a%84%e6%9c%8d%e5%8a%a1" aria-label="5.1 传输层提供的服务">5.1 传输层提供的服务</a></li>
                     <li>
-                        <a href="#%e5%8e%9f%e7%90%86" aria-label="原理"><strong>原理</strong></a></li></ul>
+                        <a href="#52-udp%e5%8d%8f%e8%ae%ae" aria-label="5.2 UDP协议">5.2 UDP协议</a></li>
+                    <li>
+                        <a href="#53-tcp%e5%8d%8f%e8%ae%ae" aria-label="5.3 TCP协议">5.3 TCP协议</a></li></ul>
                     </li>
                     <li>
-                        <a href="#vpn" aria-label="VPN">VPN</a><ul>
+                        <a href="#%e7%ac%ac-6-%e7%ab%a0-%e5%ba%94%e7%94%a8%e5%b1%82" aria-label="第 6 章 应用层">第 6 章 应用层</a><ul>
                             
                     <li>
-                        <a href="#%e7%ab%99%e7%82%b9--%e7%ab%99%e7%82%b9-vpn" aria-label="站点&amp;ndash;站点 VPN">站点&ndash;站点 VPN</a></li>
+                        <a href="#61-%e7%bd%91%e7%bb%9c%e5%ba%94%e7%94%a8%e6%a8%a1%e5%9e%8b" aria-label="6.1 网络应用模型">6.1 网络应用模型</a></li>
                     <li>
-                        <a href="#%e5%ae%a2%e6%88%b7%e7%ab%af%e7%ab%99%e7%82%b9vpn%e8%bf%9c%e7%a8%8b%e7%99%bb%e5%bd%95vpn" aria-label="客户端站点VPN、远程登录VPN">客户端站点VPN、远程登录VPN</a></li>
+                        <a href="#62-%e5%9f%9f%e5%90%8d%e7%b3%bb%e7%bb%9fdns" aria-label="6.2 域名系统DNS">6.2 域名系统DNS</a></li>
                     <li>
-                        <a href="#vpn%e7%9a%84%e8%81%8c%e8%b4%a3" aria-label="VPN的职责">VPN的职责</a></li>
+                        <a href="#63-ftp%e5%8d%8f%e8%ae%ae" aria-label="6.3 FTP协议">6.3 FTP协议</a></li>
                     <li>
-                        <a href="#vpn%e6%a1%86%e6%9e%b6" aria-label="VPN框架">VPN框架</a>
+                        <a href="#64-%e7%94%b5%e5%ad%90%e9%82%ae%e4%bb%b6%e7%b3%bb%e7%bb%9f%e7%9a%84%e7%bb%84%e6%88%90%e5%92%8c%e7%bb%93%e6%9e%84" aria-label="6.4 电子邮件系统的组成和结构">6.4 电子邮件系统的组成和结构</a></li>
+                    <li>
+                        <a href="#65-%e4%b8%87%e7%bb%b4%e7%bd%91%e4%b8%8ehttp" aria-label="6.5 万维网与HTTP">6.5 万维网与HTTP</a>
                     </li>
                 </ul>
                 </li>
@@ -381,168 +387,84 @@
     }
 </script>
 
-  <div class="post-content"><h2 id="网络的功能">网络的功能<a hidden class="anchor" aria-hidden="true" href="#网络的功能">#</a></h2>
-<p>计算机网络的功能主要体现在资源共享、数据通信和分布式处理三个方面。资源共享是计算机网络用户提供的最主要的功能，资源是指在有限时间内可为用户提供各种服务的软、硬件，资源共享是指网络中的用户能够全部地使用网络中的资源，包括软件共享、硬件共享和数据共享，通常，用户本身不需要考虑自己所使用的资源在网络中的具体位置。</p>
-<p>数据通信主要完成资源子网中各个独立的计算机系统之间的信息数据的传递，分布式处理则是利用网络技术多个独立的计算机系统连接组合成一个高性能的计算机系统，计算机群集，分布式系统，网络等都是这一功能应用的典型实例。</p>
-<h2 id="cookiesession">COOKIE/SESSION<a hidden class="anchor" aria-hidden="true" href="#cookiesession">#</a></h2>
-<p><a href="https://www.jianshu.com/p/6623416161ff">https://www.jianshu.com/p/6623416161ff</a></p>
-<ol>
-<li>由于HTTP协议是无状态的协议，所以服务端需要记录用户的状态时，就需要用某种机制来识具体的用户，这个机制就是Session.典型的场景比如购物车，当你点击下单按钮时，由于HTTP协议无状态，所以并不知道是哪个用户操作的，所以服务端要为特定的用户创建了特定的Session，用用于标识这个用户，并且跟踪用户，这样才知道购物车里面有几本书。这个Session是保存在服务端的，有一个唯一标识。在服务端保存Session的方法很多，内存、数据库、文件都有。集群的时候也要考虑Session的转移，在大型的网站，一般会有专门的Session服务器集群，用来保存用户会话，这个时候 Session 信息都是放在内存的，使用一些缓存服务比如Memcached之类的来放 Session。</li>
-<li>思考一下服务端如何识别特定的客户？这个时候Cookie就登场了。每次HTTP请求的时候，客户端都会发送相应的Cookie信息到服务端。实际上大多数的应用都是用 Cookie 来实现Session跟踪的，第一次创建Session的时候，服务端会在HTTP协议中告诉客户端，需要在 Cookie 里面记录一个Session ID，以后每次请求把这个会话ID发送到服务器，我就知道你是谁了。有人问，如果客户端的浏览器禁用了 Cookie 怎么办？一般这种情况下，会使用一种叫做URL重写的技术来进行会话跟踪，即每次HTTP交互，URL后面都会被附加上一个诸如 sid=xxxxx 这样的参数，服务端据此来识别用户。</li>
-<li>Cookie其实还可以用在一些方便用户的场景下，设想你某次登陆过一个网站，下次登录的时候不想再次输入账号了，怎么办？这个信息可以写到Cookie里面，访问网站的时候，网站页面的脚本可以读取这个信息，就自动帮你把用户名给填了，能够方便一下用户。这也是Cookie名称的由来，给用户的一点甜头。所以，总结一下：Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中；Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。</li>
-</ol>
-<h2 id="访问网站">访问网站<a hidden class="anchor" aria-hidden="true" href="#访问网站">#</a></h2>
-<h3 id="1在浏览器输入url">1、在浏览器输入url<a hidden class="anchor" aria-hidden="true" href="#1在浏览器输入url">#</a></h3>
-<h3 id="image-20220212145245694image-20220212145245694png2浏览器向dns解析url的ip地址"><img loading="lazy" src="image-20220212145245694.png" alt="image-20220212145245694"  />
-2、浏览器向DNS解析url的ip地址</h3>
-<p><img loading="lazy" src="image-20220212145404075.png" alt="image-20220212145404075"  />
-</p>
-<h3 id="3浏览器与服务器建立tcp连接默认端口号802个套接字确定一条tcp连接">3、浏览器与服务器建立tcp连接（默认端口号80；2个套接字确定一条tcp连接）<a hidden class="anchor" aria-hidden="true" href="#3浏览器与服务器建立tcp连接默认端口号802个套接字确定一条tcp连接">#</a></h3>
-<p><img loading="lazy" src="image-20220212145424787.png" alt="image-20220212145424787"  />
-</p>
-<h3 id="4浏览器发出http请求get-indexhtml">4、浏览器发出http请求（get index.html)<a hidden class="anchor" aria-hidden="true" href="#4浏览器发出http请求get-indexhtml">#</a></h3>
-<p><img loading="lazy" src="image-20220212145519877.png" alt="image-20220212145519877"  />
-</p>
-<h3 id="5服务器通过http将indexhtml发送给浏览器">5、服务器通过http将index.html发送给浏览器<a hidden class="anchor" aria-hidden="true" href="#5服务器通过http将indexhtml发送给浏览器">#</a></h3>
-<p><img loading="lazy" src="image-20220212145551759.png" alt="image-20220212145551759"  />
-</p>
-<h3 id="6tcp连接释放浏览器解释文件indexhtml并将web页显示给用户">6、tcp连接释放，浏览器解释文件index.html，并将web页显示给用户<a hidden class="anchor" aria-hidden="true" href="#6tcp连接释放浏览器解释文件indexhtml并将web页显示给用户">#</a></h3>
-<p><img loading="lazy" src="image-20220212145645159.png" alt="image-20220212145645159"  />
-</p>
-<h2 id="http缓存">HTTP缓存<a hidden class="anchor" aria-hidden="true" href="#http缓存">#</a></h2>
-<p><img loading="lazy" src="image-20220212150038921.png" alt="image-20220212150038921"  />
-</p>
-<p><a href="https://www.jianshu.com/p/227cee9c8d15">https://www.jianshu.com/p/227cee9c8d15</a></p>
-<h2 id="http">HTTP<a hidden class="anchor" aria-hidden="true" href="#http">#</a></h2>
-<p>超文本传输协议HyperText Transfer Protocol</p>
-<p>基于TCP协议的应用层传输协议</p>
-<p>客户端和服务端</p>
-<p><strong>无状态</strong> (stateless) 协议  Cookie</p>
-<p><code>Connection: Keep-Alive</code>实现长连接</p>
-<p>正在传输的类型由<code>Content-Type</code>加以标记</p>
-<p>在实际的应用中，客户端往往会发出一系列请求，接着服务器端对每个请求进行响应。对于这些请求|响应，如果每次都经过一个单独的TCP连接发送，称为<strong>非持久连接</strong>。反之，如果每次都经过相同的TCP连接进行发送，称为<strong>持久连接</strong>。</p>
-<p>非持久连接在每次请求|响应之后都要断开连接，下次再建立新的TCP连接，这样就造成了大量的通信开销。例如前面提到的往返时间<code>(RTT)</code> 就是在建立TCP连接的过程中的代价。</p>
-<img src="https://pic4.zhimg.com/80/v2-1fdf96c5bd825e2d54b932eebb880de7_720w.jpg" alt="img" style="zoom: 80%;" />
-<h3 id="http请求">HTTP请求<a hidden class="anchor" aria-hidden="true" href="#http请求">#</a></h3>
-<p>由请求行，消息报头，请求正文三部分构成</p>
-<p>1、请求行由请求<code>Method</code>, <code>URL</code> 字段和<code>HTTP Version</code>三部分构成</p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>GET /example.html HTTP/1.1 (CRLF)
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>2、消息报头由一系列的键值对组成，允许客户端向服务器端发送一些附加信息或者客户端自身的信息</p>
-<img src="https://pic2.zhimg.com/80/v2-8b50f49b69a70379a52b47060dcdf1f9_720w.jpg" alt="img" style="zoom:33%;" />
-<p>3、HTTP请求正文</p>
-<p>只有在发送<code>POST</code>请求时才会有请求正文，<code>GET</code>方法并没有请求正文</p>
-<h3 id="http响应">HTTP响应<a hidden class="anchor" aria-hidden="true" href="#http响应">#</a></h3>
-<p>也由三部分组成，包括状态行，消息报头，响应正文。</p>
-<p>1、状态行也由三部分组成，包括HTTP协议的版本，状态码，以及对状态码的文本描述。例如</p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>HTTP/1.1 200 OK （CRLF）
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="getpost">GET/POST<a hidden class="anchor" aria-hidden="true" href="#getpost">#</a></h2>
-<ol>
-<li>GET提交的数据放在URL中，POST则不会。这是最显而易见的差别。这点意味着GET更不安全（POST也不安全，因为HTTP是明文传输抓包就能获取数据内容，要想安全还得加密）</li>
-<li>GET回退浏览器无害，POST会再次提交请求（GET方法回退后浏览器再缓存中拿结果，POST每次都会创建新资源）</li>
-<li>GET提交的数据大小有限制（是因为浏览器对URL的长度有限制，GET本身没有限制），POST没有</li>
-<li>GET可以被保存为书签，POST不可以。这一点也能感受到。</li>
-<li>GET能被缓存，POST不能</li>
-<li>GET只允许ASCII字符，POST没有限制</li>
-<li>GET会保存再浏览器历史记录中，POST不会。这点也能感受到。</li>
-</ol>
-<h3 id="https">HTTPS<a hidden class="anchor" aria-hidden="true" href="#https">#</a></h3>
-<p><strong>内容加密</strong>建立一个信息安全通道，来保证数据传输的安全；</p>
-<p><strong>身份认证</strong>确认网站的真实性</p>
-<p><strong>数据完整性</strong>防止内容被第三方冒充或者篡改</p>
-<p>SSL (Secure Socket Layer，安全套接字层)</p>
-<p>TLS (Transport Layer Security，传输层安全协议)</p>
-<p>TLS</p>
-<p><img loading="lazy" src="image-20220213112218311.png" alt="image-20220213112218311"  />
-</p>
-<h2 id="协议">协议<a hidden class="anchor" aria-hidden="true" href="#协议">#</a></h2>
-<p><a href="https://zhuanlan.zhihu.com/p/93894145">https://zhuanlan.zhihu.com/p/93894145</a></p>
-<h3 id="电子邮件">电子邮件<a hidden class="anchor" aria-hidden="true" href="#电子邮件">#</a></h3>
-<p>SMTP（simple mail transfer protocol）推 POP3（post office protocol邮局协议）拉 MIME（multipurpose internet mail extensions多用途网络邮件补充）：非ASCII码数据 IMAP（因特网报文存取协议）：只读报文的某一部分</p>
-<h3 id="nat">NAT<a hidden class="anchor" aria-hidden="true" href="#nat">#</a></h3>
-<p>(Network Address Translation)网络地址转换</p>
-<p>私有地址（10 172 192）&ndash;公用地址</p>
-<p>该网络中的主机使用私用IP地址.当私有网络内部主机和外部Internet通信时,网关(gateway)路由器负责将私有IP地址转换为全球IP地址</p>
-<h3 id="napt">NAPT<a hidden class="anchor" aria-hidden="true" href="#napt">#</a></h3>
-<p>(Network Address and Port Translation)</p>
-<h3 id="cidr">CIDR<a hidden class="anchor" aria-hidden="true" href="#cidr">#</a></h3>
-<p>Classless Inter-Domain Routing，无类域间路由</p>
-<p>细分网络、子网掩码、CIDR（构成超网，查找路由表最长前缀匹配）</p>
-<h3 id="arp">ARP<a hidden class="anchor" aria-hidden="true" href="#arp">#</a></h3>
-<p>地址解析协议，即ARP（Address Resolution Protocol）根据IP地址获取物理地址的一个TCP/IP协议</p>
-<p>工作过程</p>
-<p>假设主机A和B在同一个网段，主机A要向主机B发送信息，具体的地址解析过程如下：</p>
-<ol>
-<li>主机A首先查看自己的ARP缓存表，确定其中是否包含有主机B对应的ARP表项。如果找到了对应的MAC地址，则主机A直接利用ARP表中的MAC地址，对IP数据包进行帧封装，并将数据包发送给主机B。</li>
-<li>如果主机A在ARP表中找不到对应的MAC地址，则将缓存该数据报文，然后以广播方式发送一个ARP请求报文。ARP请求报文中的发送端IP地址和发送端MAC地址为主机A的IP地址和MAC地址，目标IP地址和目标MAC地址为主机B的IP地址和全0的MAC地址。由于ARP请求报文以广播方式发送，该网段上的所有主机都可以接收到该请求，但只有被请求的主机（即主机B）会对该请求进行处理。</li>
-<li>主机B比较自己的IP地址和ARP请求报文中的目标IP地址，当两者相同时进行如下处理：将ARP请求报文中的发送端（即主机A）的IP地址和MAC地址存入自己的ARP表中。之后以单播方式发送ARP响应报文给主机A，其中包含了自己的MAC地址。</li>
-<li>主机A收到ARP响应报文后，将主机B的MAC地址加入到自己的ARP表中以用于后续报文的转发，同时将IP数据包进行封装后发送出去。</li>
-</ol>
-<p>当主机A和主机B不在同一网段时，主机A就会先向网关发出ARP请求，ARP请求报文中的目标IP地址为网关的IP地址。当主机A从收到的响应报文中获得网关的MAC地址后，将报文封装并发给网关。如果网关没有主机B的ARP表项，网关会广播ARP请求，目标IP地址为主机B的IP地址，当网关从收到的响应报文中获得主机B的MAC地址后，就可以将报文发给主机B；如果网关已经有主机B的ARP表项，网关直接把报文发给主机B。</p>
-<h3 id="dhcp">DHCP<a hidden class="anchor" aria-hidden="true" href="#dhcp">#</a></h3>
-<p>DHCP（Dynamic Host Configuration Protocol，动态主机配置协议）</p>
-<p>是一个局域网的网络协议，使用UDP协议工作，统一使用两个IANA分配的端口：67（服务器端），68（客户端）。DHCP通常被用于局域网环境，主要作用是集中的管理、分配IP地址，使client动态的获得IP地址、Gateway地址、DNS服务器地址等信息，并能够提升地址的使用率。简单来说，DHCP就是一个不需要账号密码登录的、自动给内网机器分配IP地址等信息的协议。</p>
-<h3 id="icmp">ICMP<a hidden class="anchor" aria-hidden="true" href="#icmp">#</a></h3>
-<p>ping/traceroute</p>
-<p>ICMP是 Internet Control Message Protocol 的缩写，即互联网控制消息协议</p>
-<p>它用于 TCP/IP 网络中发送控制消息，提供可能发生在通信环境中的各种问题反馈，通过这些信息，使网络管理者可以对所发生的问题作出诊断，然后采取适当的措施解决问题。虽然 ICMP 是网络层协议，但是它不像 IP 协议和 ARP 协议一样直接传递给数据链路层，而是先封装成 IP 数据包然后再传递给数据链路层。所以在 IP 数据包中如果协议类型字段的值是 1 的话，就表示 IP 数据是 ICMP 报文。</p>
-<p>ICMP协议的类型分为两大类，<strong>查询报文</strong>和<strong>差错报文</strong>。</p>
-<img src="image-20220213105234318.png" alt="image-20220213105234318" style="zoom:50%;" />
-<h2 id="非对称加密rsa">非对称加密RSA<a hidden class="anchor" aria-hidden="true" href="#非对称加密rsa">#</a></h2>
-<p>公钥(E,N)              私钥（D,N）</p>
-<p><img loading="lazy" src="image-20220212135558469.png" alt="image-20220212135558469"  />
-</p>
-<p><img loading="lazy" src="image-20220212135810923.png" alt="image-20220212135810923"  />
-</p>
-<h2 id="cdn">CDN<a hidden class="anchor" aria-hidden="true" href="#cdn">#</a></h2>
-<p><strong>Content Delivery Network，内容分发网络</strong></p>
-<p><a href="https://zhuanlan.zhihu.com/p/52362950">https://zhuanlan.zhihu.com/p/52362950</a></p>
-<h3 id="诞生">诞生<a hidden class="anchor" aria-hidden="true" href="#诞生">#</a></h3>
-<p>随着互联网的爆炸式发展，网络拥塞越来越严重，将会成为互联网发展的最大障碍。</p>
-<h3 id="原理"><strong>原理</strong><a hidden class="anchor" aria-hidden="true" href="#原理">#</a></h3>
-<p>CDN这个技术其实说起来并不复杂，最初的核心理念，就是<strong>将内容缓存在终端用户附近</strong>。</p>
-<p>内容源不是远么？那么，我们就在靠近用户的地方，建一个缓存服务器，把远端的内容，复制一份，放在这里，不就OK了？</p>
-<p><img loading="lazy" src="https://pic2.zhimg.com/80/v2-5e53690a7bfaace4a5a61d1c2bfab609_720w.jpg" alt="img"  />
-</p>
-<h2 id="vpn">VPN<a hidden class="anchor" aria-hidden="true" href="#vpn">#</a></h2>
-<p>应用：居家办公、访问校园网、访问**</p>
-<p>ISP（Internet Service Provider）：因特网服务提供商</p>
-<p>VPN（Virtual Private Network）：虚拟专用网络</p>
-<h3 id="站点--站点-vpn">站点&ndash;站点 VPN<a hidden class="anchor" aria-hidden="true" href="#站点--站点-vpn">#</a></h3>
-<p><img loading="lazy" src="image-20220212143647661.png" alt="image-20220212143647661"  />
-</p>
-<p><img loading="lazy" src="image-20220212143746451.png" alt="image-20220212143746451"  />
-</p>
-<h3 id="客户端站点vpn远程登录vpn">客户端站点VPN、远程登录VPN<a hidden class="anchor" aria-hidden="true" href="#客户端站点vpn远程登录vpn">#</a></h3>
-<p>不需要长时间进行链接、使用浏览器通信、</p>
-<p>全隧道、半隧道</p>
-<h3 id="vpn的职责">VPN的职责<a hidden class="anchor" aria-hidden="true" href="#vpn的职责">#</a></h3>
-<p>加密（不然你知道、完整（数据被你破坏、认证（电脑被你黑了</p>
-<p><img loading="lazy" src="image-20220212144023414.png" alt="image-20220212144023414"  />
-</p>
-<p><img loading="lazy" src="image-20220212144044826.png" alt="image-20220212144044826"  />
-</p>
-<p><img loading="lazy" src="image-20220212144205401.png" alt="image-20220212144205401"  />
-</p>
-<h3 id="vpn框架">VPN框架<a hidden class="anchor" aria-hidden="true" href="#vpn框架">#</a></h3>
-<p>IPsec（网络层、SSL/TLS（表示层</p>
-<p><img loading="lazy" src="image-20220212144306843.png" alt="image-20220212144306843"  />
-</p>
-<p><img loading="lazy" src="image-20220212144329076.png" alt="image-20220212144329076"  />
-</p>
+  <div class="post-content"><p><a href="https://blog.csdn.net/weixin_43914604/article/details/104722679">https://blog.csdn.net/weixin_43914604/article/details/104722679</a></p>
+<h2 id="第1-章-计算机网络体系结构">第1 章 计算机网络体系结构<a hidden class="anchor" aria-hidden="true" href="#第1-章-计算机网络体系结构">#</a></h2>
+<h3 id="11-计算机网络概述">1.1 计算机网络概述<a hidden class="anchor" aria-hidden="true" href="#11-计算机网络概述">#</a></h3>
+<p>1.1.1 计算机网络的概念、组成、功能和分类
+1.1.2 计算机网络的性能指标（速率、带宽、吞吐量、时延、往返时延、时延带宽积、信道利用率）</p>
+<h3 id="12-计算机网络体系结构与参考模型">1.2 计算机网络体系结构与参考模型<a hidden class="anchor" aria-hidden="true" href="#12-计算机网络体系结构与参考模型">#</a></h3>
+<p>1.2.1 计算机网络的分层结构、协议、服务和接口
+1.2.2 OSI参考模型（应用层、表示层、会话层、传输层、网络层、数据链路层、物理层）
+1.2.3 TCP/PI参考模型（应用层、传输层、网际层、网络接口层）、五层参考模型（应用层、传输层、网络层、数据链路层、物理层）、OSI与TCP/IP参考模型比较</p>
+<p>1.0.0 计算机网络体系结构总结</p>
+<h2 id="第-2-章-物理层">第 2 章 物理层<a hidden class="anchor" aria-hidden="true" href="#第-2-章-物理层">#</a></h2>
+<p>首先要强调指出，物理层考虑的是怎样才能在连接各种计算机的传输媒体上传输数据比特流，而不是指具体的传输媒体。大家知道，现有的计算机网络中的硬件设备和传输媒体的种类非常繁多，而通信手段也有许多不同方式。物理层的作用正是要尽可能地屏蔽掉这些传输媒体和通信手段的差异，使物理层上面的数据链路层感觉不到这些差异，这样就可使数据链路层只需要考虑如何完成本层的协议和服务，而不必考虑网络具体的传输媒体和通信手段是什么。用于物理层的协议也常称为物理层规程(procedure)。其实物理层规程就是物理层协议。</p>
+<p>0101变成高低电频</p>
+<h3 id="21-通信基础">2.1 通信基础<a hidden class="anchor" aria-hidden="true" href="#21-通信基础">#</a></h3>
+<p>2.1.1 物理层接口特性、数据通信模型、物理层基本概念（数据、信号、码元 、信源、信道、信宿 、速率、波特、带宽）
+2.1.2 奈氏准则和香农定理
+2.1.3 编码与调制</p>
+<h3 id="22-传输介质及物理设备">2.2 传输介质及物理设备<a hidden class="anchor" aria-hidden="true" href="#22-传输介质及物理设备">#</a></h3>
+<p>2.2.1 传输介质（双绞线、同轴电缆、光纤、无线电缆、微波、激光、红外线）
+2.2.2 物理层设备（中继器、集线器）</p>
+<p>2.0.0 物理层总结</p>
+<h2 id="第-3-章-数据链路层">第 3 章 数据链路层<a hidden class="anchor" aria-hidden="true" href="#第-3-章-数据链路层">#</a></h2>
+<p><a href="https://info.support.huawei.com/info-finder/encyclopedia/zh/MTU.html">https://info.support.huawei.com/info-finder/encyclopedia/zh/MTU.html</a></p>
+<h3 id="31-数据链路层的功能">3.1 数据链路层的功能<a hidden class="anchor" aria-hidden="true" href="#31-数据链路层的功能">#</a></h3>
+<p>3.1.1 数据链路层的基本概念和功能概述</p>
+<h3 id="32-组帧">3.2 组帧<a hidden class="anchor" aria-hidden="true" href="#32-组帧">#</a></h3>
+<p>3.2.1 封装成帧、帧定界、帧同步、透明传输（字符计数法、字符串的首尾填充法、零比特填充的首尾标志法、违规编码法</p>
+<h3 id="33-差错控制">3.3 差错控制<a hidden class="anchor" aria-hidden="true" href="#33-差错控制">#</a></h3>
+<p>3.3.1 数据链路层之差错控制（检错编码和纠错编码）-&gt;（奇偶校验码、CRC循环冗余码、海明码）</p>
+<h3 id="34-流量控制与可靠传输机制">3.4 流量控制与可靠传输机制<a hidden class="anchor" aria-hidden="true" href="#34-流量控制与可靠传输机制">#</a></h3>
+<p>3.4.1 流量控制（停止-等待协议、滑动窗口、后退N帧协议GBN、选择重传协议SR）、滑动窗口、可靠传输机制</p>
+<h3 id="35-介质访问控制">3.5 介质访问控制<a hidden class="anchor" aria-hidden="true" href="#35-介质访问控制">#</a></h3>
+<p>3.5.1 介质访问控制（静态划分信道、FDM、TDM、STDM、WDM、CDM）、（动态划分信道、ALOHA、CSMA、CSMA/CD、CSMA/CA）、令牌传递协议</p>
+<h3 id="36-局域网">3.6 局域网<a hidden class="anchor" aria-hidden="true" href="#36-局域网">#</a></h3>
+<p>3.6.1 局域网（以太网与IEEE 802.3、IEEE 802.11、）</p>
+<h3 id="37-广域网">3.7 广域网<a hidden class="anchor" aria-hidden="true" href="#37-广域网">#</a></h3>
+<p>3.7.1 广域网（ppp协议、HDLC协议）</p>
+<h3 id="38-数据链路层设备">3.8 数据链路层设备<a hidden class="anchor" aria-hidden="true" href="#38-数据链路层设备">#</a></h3>
+<p>3.8.1 数据链路层设备（网桥、交换机）</p>
+<h2 id="第-4-章-网络层">第 4 章 网络层<a hidden class="anchor" aria-hidden="true" href="#第-4-章-网络层">#</a></h2>
+<h3 id="41-网络层的功能">4.1 网络层的功能<a hidden class="anchor" aria-hidden="true" href="#41-网络层的功能">#</a></h3>
+<p>4.1.1 网络层的功能（路由选择与分组转发、异构网络互连、拥塞控制）
+4.1.2 计算机网络之（电路交换、报文交换、分组交换–数据报–虚电路）</p>
+<h3 id="42-路由算法与路由协议概述">4.2 路由算法与路由协议概述<a hidden class="anchor" aria-hidden="true" href="#42-路由算法与路由协议概述">#</a></h3>
+<p>4.2.1 路由算法与路由协议概述（静态路由和动态路由—距离-向量路由算法—链路状态路由算法、层次路由）</p>
+<h3 id="43-ipv4">4.3 IPv4<a hidden class="anchor" aria-hidden="true" href="#43-ipv4">#</a></h3>
+<p>4.3.1 IPv4（IPv4分组、IPv4地址、NAT、子网划分与子网掩码、CIDR、ARP协议、DHCP、ICMP）</p>
+<h3 id="44-ipv6">4.4 IPv6<a hidden class="anchor" aria-hidden="true" href="#44-ipv6">#</a></h3>
+<p>4.4.1 IPv6(诞生原因、数据报格式、与IPv4的不同、地址表现形式、基本地址类型、IPv6与IPv4的过渡策略)</p>
+<h3 id="45-路由协议">4.5 路由协议<a hidden class="anchor" aria-hidden="true" href="#45-路由协议">#</a></h3>
+<p>4.5.1 路由选择协议（自治系统AS、RIP、OSPF、BGP）</p>
+<h3 id="46-ip组播">4.6 IP组播<a hidden class="anchor" aria-hidden="true" href="#46-ip组播">#</a></h3>
+<p>4.6.1 IP组播（IGMP、组播路由选择协议、组播地址）</p>
+<h3 id="47-移动ip">4.7 移动IP<a hidden class="anchor" aria-hidden="true" href="#47-移动ip">#</a></h3>
+<p>4.7.1 移动IP</p>
+<h3 id="48-路由器">4.8 路由器<a hidden class="anchor" aria-hidden="true" href="#48-路由器">#</a></h3>
+<p>4.8.1 网络层设备路由器</p>
+<h2 id="第-5-章-传输层">第 5 章 传输层<a hidden class="anchor" aria-hidden="true" href="#第-5-章-传输层">#</a></h2>
+<h3 id="51-传输层提供的服务">5.1 传输层提供的服务<a hidden class="anchor" aria-hidden="true" href="#51-传输层提供的服务">#</a></h3>
+<p>5.1.1 （传输层提供的服务及功能概述、端口、套接字–Socket、无连接UDP和面向连接TCP服务）</p>
+<h3 id="52-udp协议">5.2 UDP协议<a hidden class="anchor" aria-hidden="true" href="#52-udp协议">#</a></h3>
+<p>5.2.1 UDP协议</p>
+<h3 id="53-tcp协议">5.3 TCP协议<a hidden class="anchor" aria-hidden="true" href="#53-tcp协议">#</a></h3>
+<p>5.3.1 TCP协议（tcp协议特点、tcp报文段首部格式、tcp连接管理—三次握手、tcp连接释放—四次握手）
+5.3.2 TCP可靠传输
+5.3.3 TCP流量控制
+5.3.4 TCP拥塞控制(慢开始与拥塞避免、快重传和快恢复)</p>
+<h2 id="第-6-章-应用层">第 6 章 应用层<a hidden class="anchor" aria-hidden="true" href="#第-6-章-应用层">#</a></h2>
+<h3 id="61-网络应用模型">6.1 网络应用模型<a hidden class="anchor" aria-hidden="true" href="#61-网络应用模型">#</a></h3>
+<p>6.1.1 应用层概述(C/S模型与p2p模型)</p>
+<h3 id="62-域名系统dns">6.2 域名系统DNS<a hidden class="anchor" aria-hidden="true" href="#62-域名系统dns">#</a></h3>
+<p>6.2.1 详解DNS域名解析系统（域名、域名服务器[根、顶级、授权/权限、本地]、域名解析过程[递归与迭代]）</p>
+<h3 id="63-ftp协议">6.3 FTP协议<a hidden class="anchor" aria-hidden="true" href="#63-ftp协议">#</a></h3>
+<p>​         6.3.1 FTP协议</p>
+<h3 id="64-电子邮件系统的组成和结构">6.4 电子邮件系统的组成和结构<a hidden class="anchor" aria-hidden="true" href="#64-电子邮件系统的组成和结构">#</a></h3>
+<p>​         6.4.1 你真的了解电子邮件系统的组成和结构吗？（SMTP、POP3、IMAP、MIME……）</p>
+<h3 id="65-万维网与http">6.5 万维网与HTTP<a hidden class="anchor" aria-hidden="true" href="#65-万维网与http">#</a></h3>
+<p>​         6.5.1 万维网www与HTTP协议</p>
 
 
   </div>
@@ -553,15 +475,15 @@
       <li><a href="https://kevinerr.github.io/tags/408/">408</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://kevinerr.github.io/posts/tech/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+  <a class="prev" href="https://kevinerr.github.io/posts/tech/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">
     <span class="title">« Prev Page</span>
     <br>
-    <span>操作系统</span>
+    <span>计算机组成原理</span>
   </a>
-  <a class="next" href="https://kevinerr.github.io/posts/tech/linux/">
+  <a class="next" href="https://kevinerr.github.io/posts/tech/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/">
     <span class="title">Next Page »</span>
     <br>
-    <span>linux</span>
+    <span>信息安全</span>
   </a>
 </nav>
 

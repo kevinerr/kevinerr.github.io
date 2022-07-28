@@ -22,7 +22,7 @@
       <pubDate>Mon, 28 Mar 2022 11:17:57 +0800</pubDate>
       
       <guid>https://kevinerr.github.io/posts/tech/%E5%9F%BA%E4%BA%8Egin%E7%9A%84%E5%A4%87%E5%BF%98%E5%BD%95%E5%BC%80%E5%8F%91/</guid>
-      <description>此项目使用Gin+Gorm ，基于RESTful API实现的一个备忘录 项目主要功能介绍 用户注册登录 ( jwt-go鉴权 ) 新增 / 删除 / 修改 / 查询 备</description>
+      <description>此项目使用Gin+Gorm ，基于RESTful API实现的一个备忘录 https://blog.csdn.net/weixin_45304503/article/details/120680957 项目主要功能介绍 用户注册登录 ( jwt-go鉴权 ) 新增 / 删除 / 修改 / 查询</description>
     </item>
     
   </channel>

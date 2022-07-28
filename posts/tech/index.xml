@@ -6,7 +6,223 @@
     <description>Recent content in 👨🏻‍💻技术 on hkh&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 28 Mar 2022 14:44:23 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/posts/tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Jul 2022 09:37:17 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/posts/tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>字节大数据</title>
+      <link>https://kevinerr.github.io/posts/tech/%E5%AD%97%E8%8A%82%E5%A4%A7%E6%95%B0%E6%8D%AE/</link>
+      <pubDate>Sun, 24 Jul 2022 09:37:17 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E5%AD%97%E8%8A%82%E5%A4%A7%E6%95%B0%E6%8D%AE/</guid>
+      <description>SQL Optimizer 解析 https://bytedance.feishu.cn/file/boxcn9uWBTLWg2a8GIUSRJ0Txqb https://live.juejin.cn/4354/yc_SQL hash join和sort merge join：https://blog.csdn.net/lp284558195/article/detail</description>
+    </item>
+    
+    <item>
+      <title>TCP</title>
+      <link>https://kevinerr.github.io/posts/tech/tcp/</link>
+      <pubDate>Mon, 18 Jul 2022 10:10:23 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/tcp/</guid>
+      <description>2、TCP/IP 历史与分层模型 目前 TCP/IP 协议可以说是名气最大、使用最广泛的计算机网络，从这篇文章来会讲解 TCP 协议的历史和分层模型。将分以下两个部分</description>
+    </item>
+    
+    <item>
+      <title>Mempool</title>
+      <link>https://kevinerr.github.io/posts/tech/mempool/</link>
+      <pubDate>Sat, 09 Jul 2022 11:43:05 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/mempool/</guid>
+      <description>DPDK Mempool 库 内存池是一个具有固定大小的对象分配器。 在DPDK中，它由名称唯一标识，并且使用mempool handler来存储空闲对象。 默认的mem</description>
+    </item>
+    
+    <item>
+      <title>Mbuf</title>
+      <link>https://kevinerr.github.io/posts/tech/mbuf/</link>
+      <pubDate>Sat, 09 Jul 2022 11:42:35 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/mbuf/</guid>
+      <description>Mbuf Library mbuf 库提供分配和释放缓冲区 (mbuf) 的能力，DPDK 应用程序可以使用这些缓冲区来存储消息缓冲区。消息缓冲区使用内存池库存储在内存池中。 rte_mbuf 结构通常承</description>
+    </item>
+    
+    <item>
+      <title>DSMM</title>
+      <link>https://kevinerr.github.io/posts/tech/dsmm/</link>
+      <pubDate>Sun, 03 Jul 2022 11:01:22 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/dsmm/</guid>
+      <description>DSMM:数据安全能力成熟度模型(Data Security Capability Maturity Model) 规定了数据采集安全、数据传输安全、数据存 储安全、数据处理安全、数据交换安全、数据销毁安全、</description>
+    </item>
+    
+    <item>
+      <title>KVM</title>
+      <link>https://kevinerr.github.io/posts/tech/kvm/</link>
+      <pubDate>Fri, 01 Jul 2022 14:52:10 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/kvm/</guid>
+      <description>kvm内核虚拟机 简介 虚拟机网络 （1）桥接模式的虚拟机，就像一个在路由器&amp;quot;民政局&amp;quot;那里&amp;quot;上过户口&amp;quot;的成</description>
+    </item>
+    
+    <item>
+      <title>Gopacket</title>
+      <link>https://kevinerr.github.io/posts/tech/gopacket/</link>
+      <pubDate>Mon, 30 May 2022 16:05:21 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/gopacket/</guid>
+      <description>1</description>
+    </item>
+    
+    <item>
+      <title>WireShark</title>
+      <link>https://kevinerr.github.io/posts/tech/wireshark/</link>
+      <pubDate>Tue, 24 May 2022 16:01:15 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/wireshark/</guid>
+      <description>ARP arp报文段格式 广播 响应 IP ip报文段格式 UDP udp报文段格式 DNS dns报文段格式 ICMP icmp报文段格式 请求 响应 TCP curl -I baidu.com tcp报文段格式 3次握手 HTTP</description>
+    </item>
+    
+    <item>
+      <title>字节青训营</title>
+      <link>https://kevinerr.github.io/posts/tech/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5/</link>
+      <pubDate>Fri, 06 May 2022 10:00:50 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5/</guid>
+      <description>day1 go语言上手-基础语言 https://bytedance.feishu.cn/file/boxcnQnHXuDOdzd8CqVid7nQLmg 随机数 rand.Intn () 函数是个伪随机函数，不管运行多少次都只会返回同样的随机数，因为它默认的资源就是单一值，所以必须调用 rand.Seed (), 并</description>
+    </item>
+    
+    <item>
+      <title>幼麟实验室</title>
+      <link>https://kevinerr.github.io/posts/tech/%E5%B9%BC%E9%BA%9F%E5%AE%9E%E9%AA%8C%E5%AE%A4/</link>
+      <pubDate>Tue, 03 May 2022 15:52:43 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E5%B9%BC%E9%BA%9F%E5%AE%9E%E9%AA%8C%E5%AE%A4/</guid>
+      <description>https://www.bilibili.com/video/BV1hv411x7we string unicode字符集，每个字符对应01串 定长编码&amp;ndash;浪费内存 UTF-8：变长编码，有类似于IP地址分类的前缀 c存储字符串：\0</description>
+    </item>
+    
+    <item>
+      <title>深入浅出dpdk</title>
+      <link>https://kevinerr.github.io/posts/tech/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAdpdk/</link>
+      <pubDate>Tue, 26 Apr 2022 16:04:48 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAdpdk/</guid>
+      <description>第2章 Cache和内存 2.1 存储系统简介 本章会讨论Cache和内存 2.21 系统架构的演进 北桥也称为主桥（Host Bridge），主要用来处理高速信号，</description>
+    </item>
+    
+    <item>
+      <title>计算机组成原理</title>
+      <link>https://kevinerr.github.io/posts/tech/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Mon, 25 Apr 2022 19:58:39 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</guid>
+      <description>https://blog.csdn.net/weixin_43914604/article/details/104096298</description>
+    </item>
+    
+    <item>
+      <title>计算机网络</title>
+      <link>https://kevinerr.github.io/posts/tech/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link>
+      <pubDate>Mon, 25 Apr 2022 19:46:10 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid>
+      <description>https://blog.csdn.net/weixin_43914604/article/details/104722679 第1 章 计算机网络体系结构 1.1 计算机网络概述 1.1.1 计算机网络的概念、组成、功能和分类 1.1.2 计算机网络的性能指标（速率、带宽、吞吐量、时延、往返时延、时</description>
+    </item>
+    
+    <item>
+      <title>信息安全</title>
+      <link>https://kevinerr.github.io/posts/tech/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/</link>
+      <pubDate>Mon, 25 Apr 2022 14:49:30 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/</guid>
+      <description>DDos https://www.zhihu.com/question/22259175 概念 Distributed Denial of Service，翻译成中文就是分布式拒绝服务 一般来说是指攻击者利用“肉鸡”对目标网站在较短的时间内发起大量请求，大规模消耗目标</description>
+    </item>
+    
+    <item>
+      <title>Django</title>
+      <link>https://kevinerr.github.io/posts/tech/django/</link>
+      <pubDate>Sat, 23 Apr 2022 10:22:07 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/django/</guid>
+      <description>什么是wsgi？ WSGI是Python在处理HTTP请求时，规定的一种处理方式。如一个HTTP Request过来了，那么就有一个相应的处理函</description>
+    </item>
+    
+    <item>
+      <title>Dpdk</title>
+      <link>https://kevinerr.github.io/posts/tech/dpdk/</link>
+      <pubDate>Fri, 22 Apr 2022 13:38:30 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/dpdk/</guid>
+      <description>前置知识 网卡(Network Interface Card，简称NIC) https://blog.csdn.net/hellozhxy/article/details/120711251 UIO （Linux Userspace I/O） 作用 作为高并发大流量网络开发框架的DPDK，能够避免内核中断爆</description>
+    </item>
+    
+    <item>
+      <title>Context</title>
+      <link>https://kevinerr.github.io/posts/tech/context/</link>
+      <pubDate>Wed, 20 Apr 2022 15:08:32 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/context/</guid>
+      <description>context 一个接口、四种具体实现、六个函数 1 2 3 4 5 6 7 8 9 10 type Context interface { Deadline() (deadline time.Time, ok bool) Done() &amp;lt;-chan struct{} Err() error Value(key interface{}) interface{} } Deadline返回绑定当前context的任务被</description>
+    </item>
+    
+    <item>
+      <title>Io复用</title>
+      <link>https://kevinerr.github.io/posts/tech/io%E5%A4%8D%E7%94%A8/</link>
+      <pubDate>Wed, 20 Apr 2022 10:19:21 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/io%E5%A4%8D%E7%94%A8/</guid>
+      <description>从 Go 源码目录结构和对应代码文件了解到 Go 在不同平台下的网络 I/O 模式的有不同实现。比如，在 Linux 系统下基于 epoll，freeBSD 系统下基于 kque</description>
+    </item>
+    
+    <item>
+      <title>高性能mysql笔记</title>
+      <link>https://kevinerr.github.io/posts/tech/%E9%AB%98%E6%80%A7%E8%83%BDmysql%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Thu, 14 Apr 2022 12:55:16 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E9%AB%98%E6%80%A7%E8%83%BDmysql%E7%AC%94%E8%AE%B0/</guid>
+      <description>第四章 Schema与数据类型优化 4.1 选择优化的数据类型 几个简单的原则 更小的通常更好 eg：能用varchar(1)就不用开varchar(10)</description>
+    </item>
+    
+    <item>
+      <title>注册中心</title>
+      <link>https://kevinerr.github.io/posts/tech/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/</link>
+      <pubDate>Tue, 12 Apr 2022 16:10:07 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/</guid>
+      <description>如何设计一个注册中心？ 如何设计一个RPC框架？</description>
+    </item>
+    
+    <item>
+      <title>RabbitMQ</title>
+      <link>https://kevinerr.github.io/posts/tech/rabbitmq/</link>
+      <pubDate>Mon, 11 Apr 2022 15:14:40 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/rabbitmq/</guid>
+      <description>什么是中间件 中间件（Middleware）是处于操作系统和应用程序之间的软件 举例： 1，RMI（Remote Method Invocations, 远程调用） 2，Load Bala</description>
+    </item>
+    
+    <item>
+      <title>数据交换格式</title>
+      <link>https://kevinerr.github.io/posts/tech/%E6%95%B0%E6%8D%AE%E4%BA%A4%E6%8D%A2%E6%A0%BC%E5%BC%8F/</link>
+      <pubDate>Sun, 10 Apr 2022 19:51:02 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E6%95%B0%E6%8D%AE%E4%BA%A4%E6%8D%A2%E6%A0%BC%E5%BC%8F/</guid>
+      <description>序列化与反序列化 将不同语言的特有数据结构搞成大家都认的二进制串 将大家都认的二进制串子搞成不同语言的特有数据结构 如果在一大坨微服务构成的庞大业</description>
+    </item>
+    
+    <item>
+      <title>HTTP</title>
+      <link>https://kevinerr.github.io/posts/tech/http/</link>
+      <pubDate>Sun, 10 Apr 2022 14:24:33 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/http/</guid>
+      <description>host字段的作用. 同一个IP可以设置多个不同站点， 如果访问不同的域名都转发到同一IP，怎么区分这些不同的站点呢 ， 就是用的Host字段 ，如果</description>
+    </item>
+    
+    <item>
+      <title>Go的封装、继承和多态</title>
+      <link>https://kevinerr.github.io/posts/tech/go%E7%9A%84%E5%B0%81%E8%A3%85%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81/</link>
+      <pubDate>Sat, 09 Apr 2022 10:59:32 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/go%E7%9A%84%E5%B0%81%E8%A3%85%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81/</guid>
+      <description>封装 封装主要是通过访问权限控制实现的。 在Java中，共有public 、protected、default、private这四种权限控制。 而相</description>
+    </item>
+    
     <item>
       <title>基于gin的聊天系统</title>
       <link>https://kevinerr.github.io/posts/tech/%E5%9F%BA%E4%BA%8Egin%E7%9A%84%E8%81%8A%E5%A4%A9%E7%B3%BB%E7%BB%9F/</link>
@@ -22,7 +238,7 @@
       <pubDate>Mon, 28 Mar 2022 11:17:57 +0800</pubDate>
       
       <guid>https://kevinerr.github.io/posts/tech/%E5%9F%BA%E4%BA%8Egin%E7%9A%84%E5%A4%87%E5%BF%98%E5%BD%95%E5%BC%80%E5%8F%91/</guid>
-      <description>此项目使用Gin+Gorm ，基于RESTful API实现的一个备忘录 项目主要功能介绍 用户注册登录 ( jwt-go鉴权 ) 新增 / 删除 / 修改 / 查询 备</description>
+      <description>此项目使用Gin+Gorm ，基于RESTful API实现的一个备忘录 https://blog.csdn.net/weixin_45304503/article/details/120680957 项目主要功能介绍 用户注册登录 ( jwt-go鉴权 ) 新增 / 删除 / 修改 / 查询</description>
     </item>
     
     <item>
@@ -31,7 +247,7 @@
       <pubDate>Thu, 17 Mar 2022 12:04:29 +0800</pubDate>
       
       <guid>https://kevinerr.github.io/posts/tech/zinx-learn/</guid>
-      <description>代码 本人代码仓库 官方代码仓库 官方教程 官方文档 MMO游戏 大型多人在线游戏</description>
+      <description>代码 本人代码仓库 官方代码仓库 官方教程 官方文档 引言 Golang目前在服务器的应用框架很多，但是应用在游戏领域或者其他长链接的领域的轻量级企业框</description>
     </item>
     
     <item>
@@ -49,7 +265,7 @@
       <pubDate>Mon, 14 Feb 2022 20:51:37 +0000</pubDate>
       
       <guid>https://kevinerr.github.io/posts/tech/go%E6%95%99%E7%A8%8B/</guid>
-      <description>y以下是我的go学习之路，仅供参考 go入门 go语法基础 go菜鸟 go底层 Golang深入理解GPM模型 Golang中GC回收机制三色标记与混合</description>
+      <description>y以下是我的go学习之路，仅供参考 https://juejin.cn/post/7038967716459315208 go入门 go语法基础 go菜鸟 https://studygolang.com/articles/35591 go底层 Golang深入理解GPM模型 Golang中GC回收机制三色标记与</description>
     </item>
     
     <item>
@@ -98,15 +314,6 @@
     </item>
     
     <item>
-      <title>中间件</title>
-      <link>https://kevinerr.github.io/posts/tech/%E4%B8%AD%E9%97%B4%E4%BB%B6/</link>
-      <pubDate>Thu, 17 Jun 2021 16:21:55 +0000</pubDate>
-      
-      <guid>https://kevinerr.github.io/posts/tech/%E4%B8%AD%E9%97%B4%E4%BB%B6/</guid>
-      <description>什么是中间件 中间件（Middleware）是处于操作系统和应用程序之间的软件，人们在使用中间件时，往往是一组中间件集成在一起，构成一个平台。</description>
-    </item>
-    
-    <item>
       <title>ElasticSearch</title>
       <link>https://kevinerr.github.io/posts/tech/elasticsearch/</link>
       <pubDate>Sat, 12 Jun 2021 13:05:23 +0000</pubDate>
@@ -130,7 +337,7 @@
       <pubDate>Mon, 22 Mar 2021 12:55:01 +0000</pubDate>
       
       <guid>https://kevinerr.github.io/posts/tech/%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
-      <description>数据库引擎 MyISAM：表锁，并发量较小，不支持事务，不支持外键（性能更优，占用的存储空间少，MYISAM拥有全文索引的功能，这可以极大地优</description>
+      <description>MySQL结构体系 https://cloud.tencent.com/developer/article/1857505 数据库引擎 MyISAM：表锁，并发量较小，不支持事务，不支持外键（性能更优，占用的存储空间少，MYISAM拥有全文索引的</description>
     </item>
     
     <item>
@@ -139,15 +346,15 @@
       <pubDate>Sun, 21 Mar 2021 23:55:27 +0000</pubDate>
       
       <guid>https://kevinerr.github.io/posts/tech/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
-      <description>概述 并发、共享、虚拟、异步 计算机系统资源的管理者；用户与计算机硬件之间的接口；扩充机器（工人） 进程/线程 1、进程是什么？ 是具有一定独立功能的</description>
+      <description>https://blog.csdn.net/weixin_43914604/article/details/104415990 第 1 章 计算机系统概述 1.1 操作系统的基本概念 1.1.1 操作系统的概念、功能和目标（系统资源的管理者、提供接口、作为扩充机器、虚拟机） https://blog.csdn.net/weixin_43914604/article/details/104408571 1.1.2 操作系统的特征</description>
     </item>
     
     <item>
-      <title>计算机网络</title>
-      <link>https://kevinerr.github.io/posts/tech/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link>
+      <title>网络应用</title>
+      <link>https://kevinerr.github.io/posts/tech/%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/</link>
       <pubDate>Sun, 21 Mar 2021 20:05:10 +0000</pubDate>
       
-      <guid>https://kevinerr.github.io/posts/tech/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid>
+      <guid>https://kevinerr.github.io/posts/tech/%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/</guid>
       <description>网络的功能 计算机网络的功能主要体现在资源共享、数据通信和分布式处理三个方面。资源共享是计算机网络用户提供的最主要的功能，资源是指在有限时间内</description>
     </item>
     

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>信息安全 on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/</link>
+    <description>Recent content in 信息安全 on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 25 Apr 2022 14:49:30 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>信息安全</title>
+      <link>https://kevinerr.github.io/posts/tech/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/</link>
+      <pubDate>Mon, 25 Apr 2022 14:49:30 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/</guid>
+      <description>DDos https://www.zhihu.com/question/22259175 概念 Distributed Denial of Service，翻译成中文就是分布式拒绝服务 一般来说是指攻击者利用“肉鸡”对目标网站在较短的时间内发起大量请求，大规模消耗目标</description>
+    </item>
+    
+  </channel>
+</rss>

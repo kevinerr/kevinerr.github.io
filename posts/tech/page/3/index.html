@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>👨🏻‍💻技术 | hkh&#39;s Blog</title>
+<meta name="keywords" content="" />
+<meta name="description" content="👨🏻‍💻技术 - hkh&#39;s Blog">
+<meta name="author" content="
+作者:&nbsp;kevin">
+<link rel="canonical" href="https://kevinerr.github.io/posts/tech/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.7724ad4800b622e9e86a37940cdc71441089d486cd46f35de38fdd833dd93d2f.css" integrity="sha256-dyStSAC2IunoajeUDNxxRBCJ1IbNRvNd44/dgz3ZPS8=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="16x16" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="https://kevinerr.github.io/img/Q.jpg">
+<link rel="apple-touch-icon" href="https://kevinerr.github.io/Q.jpg">
+<link rel="mask-icon" href="https://kevinerr.github.io/Q.jpg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.94.2" />
+<link rel="alternate" type="application/rss+xml" href="https://kevinerr.github.io/posts/tech/index.xml">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="👨🏻‍💻技术" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://kevinerr.github.io/posts/tech/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="👨🏻‍💻技术"/>
+<meta name="twitter:description" content=""/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "📚文章",
+      "item": "https://kevinerr.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "👨🏻‍💻技术",
+      "item": "https://kevinerr.github.io/posts/tech/"
+    }
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://kevinerr.github.io/" accesskey="h" title="hkh&#39;s Blog (Alt + H)">hkh&#39;s Blog</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://kevinerr.github.io/search" title="🔍搜索 (Alt &#43; /)" accesskey=/>
+                    <span>🔍搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/posts" title="📚文章">
+                    <span>📚文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/archives" title="⏱时间轴">
+                    <span>⏱时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/tags" title="🔖标签">
+                    <span>🔖标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/about" title="🙋🏻‍♂️关于">
+                    <span>🙋🏻‍♂️关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kevinerr.github.io/links" title="🤝友链">
+                    <span>🤝友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="https://kevinerr.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://kevinerr.github.io/posts/">📚文章</a></div>
+  <h1>👨🏻‍💻技术</h1>
+</header>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>springmvc
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>SpringMVC SpringMVC核心组件 SpringMVC工作流程 开发流程 视图解析器前缀后缀写反了 RequestMapping Cookie</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2022-01-30 21:12:40 +0000 UTC'>2022-01-30</span>&nbsp;|&nbsp;更新:&nbsp;2022-01-30&nbsp;|&nbsp;字数:&nbsp;45字&nbsp;|&nbsp;时长: 1分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to springmvc" href="https://kevinerr.github.io/posts/tech/springmvc/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>javaweb
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Servlet Tomcat 定义 servlet的生命周期 ServletConfig/ServletContext servlet的层次结构 JSP 定义 JSP嵌入java的三种方式 JSP9个内置对象 request常用方法 重定向和...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2022-01-20 21:01:10 +0000 UTC'>2022-01-20</span>&nbsp;|&nbsp;更新:&nbsp;2022-01-20&nbsp;|&nbsp;字数:&nbsp;159字&nbsp;|&nbsp;时长: 1分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to javaweb" href="https://kevinerr.github.io/posts/tech/javaweb/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>java笔试
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>自增变量 单例模式 类初始化和实例初始化（子类的重写 方法参数的传递机制 递归与循环迭代 成员变量/局部变量 Spring Bean的作用域 Spring支持的常用数...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2021-11-19 13:33:28 +0000 UTC'>2021-11-19</span>&nbsp;|&nbsp;更新:&nbsp;2021-11-19&nbsp;|&nbsp;字数:&nbsp;359字&nbsp;|&nbsp;时长: 1分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to java笔试" href="https://kevinerr.github.io/posts/tech/java%E7%AC%94%E8%AF%95/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>mybatis
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>MyBatis的工作原理 Mybatis 缓存</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2021-06-24 22:40:31 +0000 UTC'>2021-06-24</span>&nbsp;|&nbsp;更新:&nbsp;2021-06-24&nbsp;|&nbsp;字数:&nbsp;15字&nbsp;|&nbsp;时长: 1分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to mybatis" href="https://kevinerr.github.io/posts/tech/mybatis/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>ElasticSearch
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>ElasticSearch Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎 安装环境 1 2 3 4 ElasticSearch: https://mirrors.huaweicloud.com/elasticsearch/?C=N&amp;O=D logstash: https://mirrors.huaweicloud.com/logstash/?C=N&amp;O=D kibana: https://mirrors.huaweicloud.com/kibana/?C=N&amp;O=D ik分词器：https://github.com/med...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2021-06-12 13:05:23 +0000 UTC'>2021-06-12</span>&nbsp;|&nbsp;更新:&nbsp;2021-06-12&nbsp;|&nbsp;字数:&nbsp;1484字&nbsp;|&nbsp;时长: 3分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to ElasticSearch" href="https://kevinerr.github.io/posts/tech/elasticsearch/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>springcloud
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Eureka Spring Cloud Eureka是Spring Cloud Netflix 子项目的核心组件之一，主要用于微服务架构中的服务治理。本文将对搭建Eureka注册中心，搭建Eureka...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2021-04-09 23:41:21 +0000 UTC'>2021-04-09</span>&nbsp;|&nbsp;更新:&nbsp;2021-04-09&nbsp;|&nbsp;字数:&nbsp;2455字&nbsp;|&nbsp;时长: 5分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to springcloud" href="https://kevinerr.github.io/posts/tech/springcloud/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>数据库
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>MySQL结构体系 https://cloud.tencent.com/developer/article/1857505 数据库引擎 MyISAM：表锁，并发量较小，不支持事务，不支持外键（性能更优，占用的存储空间少，MYISAM拥有全文索引的...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2021-03-22 12:55:01 +0000 UTC'>2021-03-22</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-22&nbsp;|&nbsp;字数:&nbsp;5572字&nbsp;|&nbsp;时长: 12分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to 数据库" href="https://kevinerr.github.io/posts/tech/%E6%95%B0%E6%8D%AE%E5%BA%93/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>操作系统
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>https://blog.csdn.net/weixin_43914604/article/details/104415990 第 1 章 计算机系统概述 1.1 操作系统的基本概念 1.1.1 操作系统的概念、功能和目标（系统资源的管理者、提供接口、作为扩充机器、虚拟机） https://blog.csdn.net/weixin_43914604/article/details/104408571 1.1.2 操作系统的特征...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2021-03-21 23:55:27 +0000 UTC'>2021-03-21</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-21&nbsp;|&nbsp;字数:&nbsp;2478字&nbsp;|&nbsp;时长: 5分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to 操作系统" href="https://kevinerr.github.io/posts/tech/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>网络应用
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>网络的功能 计算机网络的功能主要体现在资源共享、数据通信和分布式处理三个方面。资源共享是计算机网络用户提供的最主要的功能，资源是指在有限时间内...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2021-03-21 20:05:10 +0000 UTC'>2021-03-21</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-21&nbsp;|&nbsp;字数:&nbsp;4044字&nbsp;|&nbsp;时长: 9分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to 网络应用" href="https://kevinerr.github.io/posts/tech/%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>linux
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Linux常用命令 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 打包并压缩文件:“tar -czvf 压缩包名.tar.gz 文件名” 解压并展开压缩包:“tar -xzvf...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2021-03-18 22:01:23 +0000 UTC'>2021-03-18</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-18&nbsp;|&nbsp;字数:&nbsp;5874字&nbsp;|&nbsp;时长: 12分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to linux" href="https://kevinerr.github.io/posts/tech/linux/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>设计模式
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>好东西 设计模式的原则 1、开闭原则（Open Close Principle） 开闭原则的意思是：对扩展开放，对修改关闭。在程序需要进行拓展的时候，不能去修...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2021-03-18 21:52:15 +0000 UTC'>2021-03-18</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-18&nbsp;|&nbsp;字数:&nbsp;1663字&nbsp;|&nbsp;时长: 4分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to 设计模式" href="https://kevinerr.github.io/posts/tech/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>并发/多线程
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>并发编程基础 线程会带来额外的开销，如cpu调度 继承thread类，重写run()方法，调用start()开启线程 run() 只有主线程一条执行路径；s...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2021-03-18 21:46:48 +0000 UTC'>2021-03-18</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-18&nbsp;|&nbsp;字数:&nbsp;6153字&nbsp;|&nbsp;时长: 13分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to 并发/多线程" href="https://kevinerr.github.io/posts/tech/%E5%B9%B6%E5%8F%91-%E5%A4%9A%E7%BA%BF%E7%A8%8B/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Java基础
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>基础语法 对象：对象是类的一个实例，有状态和行为。例如，一条狗是一个对象，它的状态有：颜色、名字、品种；行为有：摇尾巴、叫、吃等。 类：类是一个...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2021-03-18 17:00:07 +0000 UTC'>2021-03-18</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-18&nbsp;|&nbsp;字数:&nbsp;3415字&nbsp;|&nbsp;时长: 7分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to Java基础" href="https://kevinerr.github.io/posts/tech/java%E5%9F%BA%E7%A1%80/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>spring
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>SSH Struts&#43;Spring&#43;Hibernate SSM SpringMVC&#43;Spring&#43;Mybatis ORM ORM就是对象关系匹配，是为了解决面向对象与关系数据库存在的互不匹配的问题。简单来说，就是把关系数据库中的数据转换成面向对象程序中...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2021-03-17 19:22:02 +0000 UTC'>2021-03-17</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-17&nbsp;|&nbsp;字数:&nbsp;723字&nbsp;|&nbsp;时长: 2分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to spring" href="https://kevinerr.github.io/posts/tech/spring/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>redis学习笔记
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Redis常见面试题 Redis(remote dictionary server) 远程字典服务 1、 db，每次都从数据库中查 2、 用一个List存储查的全部结果，然后再在List中过滤 3、 本地缓存，同...</p>
+  </section>
+  <footer class="entry-footer">
+
+
+
+
+
+
+
+
+
+
+创建:&nbsp;<span title='2021-03-16 14:47:25 +0000 UTC'>2021-03-16</span>&nbsp;|&nbsp;更新:&nbsp;2021-03-16&nbsp;|&nbsp;字数:&nbsp;8025字&nbsp;|&nbsp;时长: 17分钟&nbsp;|&nbsp;
+作者:&nbsp;kevin</footer>
+  <a class="entry-link" aria-label="post link to redis学习笔记" href="https://kevinerr.github.io/posts/tech/redis/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="https://kevinerr.github.io/posts/tech/page/2/">« Prev Page</a>
+    <a class="next" href="https://kevinerr.github.io/posts/tech/page/4/">Next Page »</a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://kevinerr.github.io/">hkh&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

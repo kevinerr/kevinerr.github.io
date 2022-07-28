@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>DFS on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/dfs/</link>
+    <description>Recent content in DFS on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 07 Apr 2022 22:20:18 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/dfs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BFS与DFS</title>
+      <link>https://kevinerr.github.io/posts/algorithm/bfs%E4%B8%8Edfs/</link>
+      <pubDate>Thu, 07 Apr 2022 22:20:18 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/algorithm/bfs%E4%B8%8Edfs/</guid>
+      <description>树与图的存储 树是一种特殊的图，与图的存储方式相同。 对于无向图中的边ab，存储两条有向边a-&amp;gt;b, b-&amp;gt;a。 因此我们可以只考虑有向</description>
+    </item>
+    
+  </channel>
+</rss>

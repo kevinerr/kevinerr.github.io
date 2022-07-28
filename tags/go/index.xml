@@ -6,7 +6,34 @@
     <description>Recent content in go on hkh&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 28 Mar 2022 14:44:23 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 03 May 2022 15:52:43 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>幼麟实验室</title>
+      <link>https://kevinerr.github.io/posts/tech/%E5%B9%BC%E9%BA%9F%E5%AE%9E%E9%AA%8C%E5%AE%A4/</link>
+      <pubDate>Tue, 03 May 2022 15:52:43 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/%E5%B9%BC%E9%BA%9F%E5%AE%9E%E9%AA%8C%E5%AE%A4/</guid>
+      <description>https://www.bilibili.com/video/BV1hv411x7we string unicode字符集，每个字符对应01串 定长编码&amp;ndash;浪费内存 UTF-8：变长编码，有类似于IP地址分类的前缀 c存储字符串：\0</description>
+    </item>
+    
+    <item>
+      <title>Context</title>
+      <link>https://kevinerr.github.io/posts/tech/context/</link>
+      <pubDate>Wed, 20 Apr 2022 15:08:32 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/context/</guid>
+      <description>context 一个接口、四种具体实现、六个函数 1 2 3 4 5 6 7 8 9 10 type Context interface { Deadline() (deadline time.Time, ok bool) Done() &amp;lt;-chan struct{} Err() error Value(key interface{}) interface{} } Deadline返回绑定当前context的任务被</description>
+    </item>
+    
+    <item>
+      <title>Go的封装、继承和多态</title>
+      <link>https://kevinerr.github.io/posts/tech/go%E7%9A%84%E5%B0%81%E8%A3%85%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81/</link>
+      <pubDate>Sat, 09 Apr 2022 10:59:32 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/go%E7%9A%84%E5%B0%81%E8%A3%85%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81/</guid>
+      <description>封装 封装主要是通过访问权限控制实现的。 在Java中，共有public 、protected、default、private这四种权限控制。 而相</description>
+    </item>
+    
     <item>
       <title>基于gin的聊天系统</title>
       <link>https://kevinerr.github.io/posts/tech/%E5%9F%BA%E4%BA%8Egin%E7%9A%84%E8%81%8A%E5%A4%A9%E7%B3%BB%E7%BB%9F/</link>
@@ -22,7 +49,7 @@
       <pubDate>Mon, 28 Mar 2022 11:17:57 +0800</pubDate>
       
       <guid>https://kevinerr.github.io/posts/tech/%E5%9F%BA%E4%BA%8Egin%E7%9A%84%E5%A4%87%E5%BF%98%E5%BD%95%E5%BC%80%E5%8F%91/</guid>
-      <description>此项目使用Gin+Gorm ，基于RESTful API实现的一个备忘录 项目主要功能介绍 用户注册登录 ( jwt-go鉴权 ) 新增 / 删除 / 修改 / 查询 备</description>
+      <description>此项目使用Gin+Gorm ，基于RESTful API实现的一个备忘录 https://blog.csdn.net/weixin_45304503/article/details/120680957 项目主要功能介绍 用户注册登录 ( jwt-go鉴权 ) 新增 / 删除 / 修改 / 查询</description>
     </item>
     
     <item>
@@ -31,7 +58,7 @@
       <pubDate>Thu, 17 Mar 2022 12:04:29 +0800</pubDate>
       
       <guid>https://kevinerr.github.io/posts/tech/zinx-learn/</guid>
-      <description>代码 本人代码仓库 官方代码仓库 官方教程 官方文档 MMO游戏 大型多人在线游戏</description>
+      <description>代码 本人代码仓库 官方代码仓库 官方教程 官方文档 引言 Golang目前在服务器的应用框架很多，但是应用在游戏领域或者其他长链接的领域的轻量级企业框</description>
     </item>
     
     <item>
@@ -40,7 +67,7 @@
       <pubDate>Mon, 14 Feb 2022 20:51:37 +0000</pubDate>
       
       <guid>https://kevinerr.github.io/posts/tech/go%E6%95%99%E7%A8%8B/</guid>
-      <description>y以下是我的go学习之路，仅供参考 go入门 go语法基础 go菜鸟 go底层 Golang深入理解GPM模型 Golang中GC回收机制三色标记与混合</description>
+      <description>y以下是我的go学习之路，仅供参考 https://juejin.cn/post/7038967716459315208 go入门 go语法基础 go菜鸟 https://studygolang.com/articles/35591 go底层 Golang深入理解GPM模型 Golang中GC回收机制三色标记与</description>
     </item>
     
   </channel>

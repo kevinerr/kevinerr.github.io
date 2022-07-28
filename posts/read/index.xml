@@ -5,6 +5,34 @@
     <link>https://kevinerr.github.io/posts/read/</link>
     <description>Recent content in 📕阅读 on hkh&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language><atom:link href="https://kevinerr.github.io/posts/read/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 20 May 2022 09:47:39 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/posts/read/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>云设计模式</title>
+      <link>https://kevinerr.github.io/posts/read/%E4%BA%91%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Fri, 20 May 2022 09:47:39 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/read/%E4%BA%91%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>d断路器模式（接受失败是为了更好的成功） 问题与背景 处理连接到远程服务或资源时可能需要不同时间才能纠正的故障。存在故障是由于不易预料的意外事件</description>
+    </item>
+    
+    <item>
+      <title>博客阅读</title>
+      <link>https://kevinerr.github.io/posts/read/%E5%8D%9A%E5%AE%A2%E9%98%85%E8%AF%BB/</link>
+      <pubDate>Wed, 11 May 2022 10:16:17 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/read/%E5%8D%9A%E5%AE%A2%E9%98%85%E8%AF%BB/</guid>
+      <description>理想的亲密关系 第一个永远是真诚，我不希望我完全看不透这个人，或者她做了很多事我无法理解，就缺少沟通这种事我觉得是不ok的。 我希望2个人是在做</description>
+    </item>
+    
+    <item>
+      <title>编译原理</title>
+      <link>https://kevinerr.github.io/posts/read/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Thu, 28 Apr 2022 13:04:47 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/read/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/</guid>
+      <description>此项目为GXU编译原理课设，适合低要求，混及格同学，内涵完整代码(1k行+)、文件和论文(1w字+) 运行环境:eclipse 词法模块内容 （1</description>
+    </item>
+    
   </channel>
 </rss>

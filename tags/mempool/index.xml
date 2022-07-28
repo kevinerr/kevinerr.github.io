@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>mempool on hkh&#39;s Blog</title>
+    <link>https://kevinerr.github.io/tags/mempool/</link>
+    <description>Recent content in mempool on hkh&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 09 Jul 2022 11:43:05 +0800</lastBuildDate><atom:link href="https://kevinerr.github.io/tags/mempool/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mempool</title>
+      <link>https://kevinerr.github.io/posts/tech/mempool/</link>
+      <pubDate>Sat, 09 Jul 2022 11:43:05 +0800</pubDate>
+      
+      <guid>https://kevinerr.github.io/posts/tech/mempool/</guid>
+      <description>DPDK Mempool 库 内存池是一个具有固定大小的对象分配器。 在DPDK中，它由名称唯一标识，并且使用mempool handler来存储空闲对象。 默认的mem</description>
+    </item>
+    
+  </channel>
+</rss>
